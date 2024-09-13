@@ -8,7 +8,7 @@
   <!-- for deployment cycles -->
   <!-- <version>${major.version}.${minor.version}.${fix.version}</version> -->
   <!-- for development cycles -->
-  <version>${major.version}.${minor.version}.${state.version}.${fix.version}</version>
+  <version>${major.version}.${minor.version}.${state.version}.${fix.version}-${modify.version}</version>
   <packaging>war</packaging>
   <properties>
     <maven.java.release>11</maven.java.release>
@@ -17,6 +17,7 @@
     <state.version>3</state.version>
     <!-- 0 = alpha, 1 = beta, 2 = rc, 3 = deployable -->
     <fix.version>2</fix.version>
+    <modify.version>1</modify.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <liquibase.propertyFile>${project.basedir}/liquibase/liquibase.properties</liquibase.propertyFile>
     <castor.version>1.4.1</castor.version>

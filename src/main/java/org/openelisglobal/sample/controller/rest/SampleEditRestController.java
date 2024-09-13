@@ -211,7 +211,6 @@ public class SampleEditRestController extends BaseSampleEntryController {
 
         try {
             sampleEditService.editSample(form, request, updatedSample, sampleChanged, getSysUserId(request));
-
         } catch (LIMSRuntimeException e) {
             if (e.getCause() instanceof StaleObjectStateException) {
                 result.reject("errors.OptimisticLockException", "errors.OptimisticLockException");

@@ -130,10 +130,20 @@ public class AccessionNumberUtil {
         return null;
     }
 
+    public static IAccessionNumberValidator getDateNumNumberValidator() {
+        try {
+            return accessionNumberValidatorFactory.getValidator(AccessionFormat.DATENUM);
+        } catch (LIMSInvalidConfigurationException e) {
+            LogEvent.logError("AccessionNumberUtil", "getDateNumNumberValidator", e.toString());
+        }
+        return null;
+    }
+
     public static List<IAccessionNumberValidator> getAllActiveAccessionNumberValidators() {
         List<IAccessionNumberValidator> activeValidators = new ArrayList<>();
         activeValidators.add(AccessionNumberUtil.getMainAccessionNumberGenerator());
         activeValidators.add(AccessionNumberUtil.getProgramAccessionNumberValidator());
+        activeValidators.add(AccessionNumberUtil.getDateNumNumberValidator());
         if (Boolean
                 .valueOf(ConfigurationProperties.getInstance().getPropertyValue(Property.USE_ALT_ACCESSION_PREFIX))) {
 

@@ -55,6 +55,11 @@ public class SampleEditItem {
 
     // for display in the react Data table. set as the testId
     private String id;
+    
+    private boolean rejected;
+    
+    @Pattern(regexp = ValidationHelper.ID_REGEX, groups = { SampleEditForm.SampleEdit.class })
+    private String rejectReasonId;
 
     public String getAccessionNumber() {
         return accessionNumber;
@@ -199,5 +204,21 @@ public class SampleEditItem {
 
     public void setId(String id) {
         this.id = id;
+    }
+    
+    public String getRejectReasonId() {
+        return rejectReasonId;
+    }
+
+    public void setRejectReasonId(String rejectReasonId) {
+        this.rejectReasonId = rejectReasonId;
+    }
+    
+    public boolean isRejected() {
+        return rejected;
+    }
+
+    public void setRejected(boolean rejected) {
+    	this.rejected = rejected;
     }
 }

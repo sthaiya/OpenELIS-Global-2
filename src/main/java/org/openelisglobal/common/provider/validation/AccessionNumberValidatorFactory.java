@@ -16,6 +16,7 @@
 package org.openelisglobal.common.provider.validation;
 
 import org.openelisglobal.common.exception.LIMSInvalidConfigurationException;
+import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.common.util.ConfigurationListener;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;
@@ -26,7 +27,7 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
 
     public enum AccessionFormat {
         MAIN, GENERAL, SITEYEARNUM, PROGRAMNUM, YEARNUM_SIX, YEARNUM_DASH_SEVEN, YEARNUM_SEVEN, UNFORMATTED, ALT_YEAR,
-        ALPHANUM
+        ALPHANUM, DATENUM
     }
 
     private AccessionFormat mainAccessionFormat;
@@ -71,6 +72,11 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
                     mainGenerator = getYearNumValidator(7, null);
                     mainAccessionFormat = AccessionFormat.YEARNUM_SEVEN;
                 }
+            } else if (accessionFormat.equals("DATENUM")) {
+                if (!mainGeneratorSet) {
+                    mainGenerator = getDateNumValidator(3);
+                    mainAccessionFormat = AccessionFormat.DATENUM;
+                }
             }
 
             if (mainGenerator == null) {
@@ -107,6 +113,8 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
             return getYearNumValidator(7, null);
         case ALT_YEAR:
             return getAltYearValidator();
+        case DATENUM:
+            return getDateNumValidator(3);
         default:
             throw new LIMSInvalidConfigurationException(
                     "AccessionNumberValidatorFactory: Unable to find validator for " + accessionFormat);
@@ -136,6 +144,8 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
             return getYearNumValidator(7, null);
         case ALT_YEAR:
             return getAltYearValidator();
+        case DATENUM:
+            return getDateNumValidator(3);
         case GENERAL:
             throw new LIMSInvalidConfigurationException(
                     "AccessionNumberValidatorFactory: ALL_ACTIVE unable to be used as a generator ");
@@ -172,6 +182,10 @@ public class AccessionNumberValidatorFactory implements ConfigurationListener {
 
     private IAccessionNumberGenerator getProgramValidator() {
         return new ProgramAccessionValidator();
+    }
+    
+    private IAccessionNumberGenerator getDateNumValidator(int length) {
+        return new DateNumAccessionValidator(length);
     }
 
     @Override

@@ -1,7 +1,10 @@
 package org.openelisglobal.sample.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.analysis.service.AnalysisService;
@@ -104,14 +107,14 @@ public class SampleEditServiceImpl implements SampleEditService {
     @Autowired
     NoteService noteService;
 
-    @Transactional
+    @Transactional(readOnly=true)
     @Override
     public void editSample(SampleEditForm form, HttpServletRequest request, Sample updatedSample, boolean sampleChanged,
             String sysUserId) {
 
-        List<SampleEditItem> existingTests = form.getExistingTests() != null ? form.getExistingTests()
-                : new ArrayList<>();
+        List<SampleEditItem> existingTests = form.getExistingTests() != null ? form.getExistingTests() : new ArrayList<>();
         List<Analysis> cancelAnalysisList = createRemoveList(existingTests, sysUserId);
+        List<Analysis> rejectAnalysisList = createRejectList(existingTests, sysUserId);
         List<SampleItem> updateSampleItemList = createSampleItemUpdateList(existingTests, sysUserId);
         List<SampleItem> cancelSampleItemList = createCancelSampleList(existingTests, cancelAnalysisList, sysUserId);
         List<Analysis> addAnalysisList = createAddAanlysisList(
@@ -132,14 +135,12 @@ public class SampleEditServiceImpl implements SampleEditService {
             collectionDateFromRecieveDate = receivedDateForDisplay + " 00:00:00";
         }
 
-        SampleAddService sampleAddService = new SampleAddService(form.getSampleXML(), sysUserId, updatedSample,
-                collectionDateFromRecieveDate);
+        SampleAddService sampleAddService = new SampleAddService(form.getSampleXML(), sysUserId, updatedSample, collectionDateFromRecieveDate);
         List<SampleTestCollection> addedSamples = createAddSampleList(form, sampleAddService);
 
         SampleOrderService sampleOrderService = new SampleOrderService(form.getSampleOrderItems());
         sampleOrderService.setSample(updatedSample);
-        SampleOrderService.SampleOrderPersistenceArtifacts orderArtifacts = sampleOrderService
-                .getPersistenceArtifacts(updatedSample, sysUserId);
+        SampleOrderService.SampleOrderPersistenceArtifacts orderArtifacts = sampleOrderService.getPersistenceArtifacts(updatedSample, sysUserId);
 
         if (orderArtifacts.getSample() != null) {
             sampleChanged = true;
@@ -157,9 +158,14 @@ public class SampleEditServiceImpl implements SampleEditService {
             existingSampleHuman.setProviderId(orderArtifacts.getProvider().getId());
         }
         sampleHumanService.update(existingSampleHuman);
+        
 
         for (SampleItem sampleItem : updateSampleItemList) {
             sampleItemService.update(sampleItem);
+        }
+        
+        for (Analysis analysis : rejectAnalysisList) {
+            analysisService.update(analysis);
         }
 
         for (Analysis analysis : cancelAnalysisList) {
@@ -193,6 +199,23 @@ public class SampleEditServiceImpl implements SampleEditService {
          * paymentObservation.setPatientId(patient.getId());
          * observationDAO.insertOrUpdateData(paymentObservation); }
          */
+        
+        
+        // Check if to reject sample
+        Sample thisSample = sampleService.getSampleByAccessionNumber(form.getAccessionNumber());
+        
+        Set<Integer> excludedAnalysisStatus = new HashSet<>();
+        excludedAnalysisStatus.add(Integer.parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.SampleRejected)));
+        excludedAnalysisStatus.add(Integer.parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.Canceled)));
+        
+        List<Analysis> allSampleAnalyses = analysisService.getAnalysesBySampleIdExcludedByStatusId(thisSample.getId(), excludedAnalysisStatus);
+    	for (Analysis analysis : allSampleAnalyses) {
+    		SampleItem sampleItem = analysis.getSampleItem();
+    		sampleItem.setRejected(false);
+        	sampleItem.setRejectReasonId(null);
+        	sampleItem.setStatusId(SpringContext.getBean(IStatusService.class).getStatusID(SampleStatus.Entered));
+        	break;
+    	}
 
         for (SampleTestCollection sampleTestCollection : addedSamples) {
             String sampleId = sampleItemService.insert(sampleTestCollection.item);
@@ -328,15 +351,19 @@ public class SampleEditServiceImpl implements SampleEditService {
 
         for (SampleEditItem editItem : existingTests) {
             if (editItem.isSampleItemChanged()) {
-                SampleItem sampleItem = sampleItemService.get(editItem.getSampleItemId());
+            	SampleItem sampleItem = sampleItemService.get(editItem.getSampleItemId());
                 if (sampleItem != null) {
                     String collectionTime = editItem.getCollectionDate();
                     if (GenericValidator.isBlankOrNull(collectionTime)) {
                         sampleItem.setCollectionDate(null);
                     } else {
-                        collectionTime += " " + (GenericValidator.isBlankOrNull(editItem.getCollectionTime()) ? "00:00"
-                                : editItem.getCollectionTime());
+                        collectionTime += " " + (GenericValidator.isBlankOrNull(editItem.getCollectionTime()) ? "00:00" : editItem.getCollectionTime());
                         sampleItem.setCollectionDate(DateUtil.convertStringDateToTimestamp(collectionTime));
+                    }   
+                    if (editItem.isRejected()) {
+                    	sampleItem.setRejected(true);
+                    	sampleItem.setRejectReasonId(editItem.getRejectReasonId());
+                    	sampleItem.setStatusId(SpringContext.getBean(IStatusService.class).getStatusID(SampleStatus.SampleRejected));
                     }
                     sampleItem.setSysUserId(sysUserId);
                     modifyList.add(sampleItem);
@@ -475,6 +502,22 @@ public class SampleEditServiceImpl implements SampleEditService {
         }
 
         return removeAnalysisList;
+    }
+    
+
+    private List<Analysis> createRejectList(List<SampleEditItem> tests, String sysUserId) {
+        List<Analysis> rejectAnalysisList = new ArrayList<>();
+
+        for (SampleEditItem sampleEditItem : tests) {           
+            if (sampleEditItem.isRejected()) {
+            	Analysis analysis = analysisService.get(sampleEditItem.getAnalysisId());
+                analysis.setSysUserId(sysUserId);
+                analysis.setStatusId(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.SampleRejected));
+                rejectAnalysisList.add(analysis);
+            }
+        }
+
+        return rejectAnalysisList;
     }
 
     private Analysis getCancelableAnalysis(SampleEditItem sampleEditItem, String sysUserId) {
