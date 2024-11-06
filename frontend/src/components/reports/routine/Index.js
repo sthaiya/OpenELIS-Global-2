@@ -9,6 +9,7 @@ import ReferredOut from "./ReferredOut";
 import ReportByDate from "../common/ReportByDate";
 import PageBreadCrumb from "../../common/PageBreadCrumb";
 import AuditTrailReport from "../auditTrailReport/AuditTrailReport";
+import ResultDispatchReport from "../resultDispatchReport/ResultDispatchReport";
 
 export const RoutineReports = (props) => {
   const { type, report } = props;
@@ -83,6 +84,10 @@ export const RoutineReports = (props) => {
           id={"header.label.study.ciexport"}
         />
       )}
+	  
+	  {type === "patient" && report === "resultDispatch" && (
+	    <ResultDispatchReport report={"resultDispatch"} id={"reports.resultDispatch"} />
+	  )}
 
       {type === "routine" && report === "auditTrail" && (
         <AuditTrailReport report={"auditTrail"} id={"reports.auditTrail"} />

@@ -13,16 +13,23 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 import net.sf.jasperreports.engine.JRException;
 import org.openelisglobal.common.exception.LIMSRuntimeException;
 import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.common.rest.BaseRestController;
 import org.openelisglobal.common.util.validator.GenericValidator;
+import org.openelisglobal.dataexchange.order.form.ElectronicOrderViewForm;
 import org.openelisglobal.reports.action.implementation.IReportCreator;
 import org.openelisglobal.reports.action.implementation.ReportImplementationFactory;
 import org.openelisglobal.reports.form.ReportForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -117,5 +124,12 @@ public class ReportRestController extends BaseRestController {
             }
         }
         return imagesPath;
+    }
+
+    @GetMapping(value = "report/unprinted-results", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ElectronicOrderViewForm showElectronicOrders(HttpServletRequest request,
+            @ModelAttribute("form") @Valid ElectronicOrderViewForm form, BindingResult result) {
+        return form;
     }
 }

@@ -9,8 +9,7 @@ import { Loading } from "@carbon/react";
 
 const ReportIndex = () => {
   const intl = useIntl();
-  const { setNotificationVisible, addNotification, notificationVisible } =
-    useContext(NotificationContext);
+  const { setNotificationVisible, addNotification, notificationVisible } = useContext(NotificationContext);
 
   const [type, setType] = useState("");
   const [report, setReport] = useState("");

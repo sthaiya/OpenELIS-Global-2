@@ -418,10 +418,10 @@ const HomeDashBoard: React.FC<DashBoardProps> = () => {
                     : "validation?type=order&accessionNumber=" + cell.value
                 }
               >
-                <u>{convertAlphaNumLabNumForDisplay(cell.value)}</u>
+                <u>{cell.value}</u>
               </Link>
             ) : (
-              <> {convertAlphaNumLabNumForDisplay(cell.value)}</>
+              <> {cell.value}</>
             )}
           </>
         </TableCell>

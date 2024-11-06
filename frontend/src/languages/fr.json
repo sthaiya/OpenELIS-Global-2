@@ -849,6 +849,8 @@
   "input.placeholder.patientLastName": "Entrez le nom de famille du patient",
   "input.placeholder.patientFirstName": "Entrez le prénom du patient",
   "reports.export.whonet": "WHONET Report",
+  "reports.result.dispatch": "Results Dispatch",
+  "reports.resultDispatch": "Print Results",
   "menu.accession.validation": "Recherche par Ordonnance",
   "menu.accession.validation.range": "Recherche gamme par Ordonnance",
   "menu.validation.date": "Rechercher par date de test",

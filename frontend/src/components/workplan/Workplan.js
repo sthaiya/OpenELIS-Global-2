@@ -446,9 +446,7 @@ export default function Workplan(props) {
                                     }
                                   >
                                     <u>
-                                      {convertAlphaNumLabNumForDisplay(
-                                        row.accessionNumber,
-                                      )}
+                                      {row.accessionNumber}
                                     </u>
                                   </Link>
                                 )}
