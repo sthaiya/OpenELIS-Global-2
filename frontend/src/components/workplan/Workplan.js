@@ -47,7 +47,7 @@ export default function Workplan(props) {
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(100);
   const [rejectSampleReasons, setRejectSampleReasons] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const defaultSelect = { id: "", value: "Choose Rejection Reason" };
@@ -181,13 +181,13 @@ export default function Workplan(props) {
       testsList[index].notIncludedInWorkplan = false;
     }
   };
-  
+
   const fetchRejectSampleReasons = (res) => {
     if (componentMounted.current) {
       setRejectSampleReasons(res);
     }
   };
-      
+
   const handleRejectSample = async (e) => {
     e.preventDefault();
 	if (selectedRejectReason) {
@@ -202,7 +202,7 @@ export default function Workplan(props) {
 		setNotificationVisible(true);
 	}
   };
-    
+
   const loadOrderValues = async (data) => {
       if (componentMounted.current) {
         data.sampleOrderItems.referringSiteName = "";
@@ -212,14 +212,14 @@ export default function Workplan(props) {
 		data.existingTests.forEach((test, index) => {
 			if (test.accessionNumber === sampleAccessionNumber)
 				sampleItemId = test.sampleItemId;
-			
+
 			if (test.sampleItemId === sampleItemId && (test.testId === selectedOrderTestId || rejectWholeSample)){
 				data.existingTests[index]['rejected']='true';
 				data.existingTests[index]['rejectReasonId']=selectedRejectReason;
 				data.existingTests[index]['sampleItemChanged']='true';
 			}
 		})
-		
+
 		postToOpenElisServer("/rest/sample-edit", JSON.stringify(data), handlePost);
       }
     };
@@ -247,7 +247,7 @@ export default function Workplan(props) {
   let currentAccessionNumber = "";
 
   let breadcrumbs = [{ label: "home.label", link: "/" }];
-  
+
   useEffect(() => {
     componentMounted.current = true;
     getFromOpenElisServer(
@@ -330,12 +330,12 @@ export default function Workplan(props) {
 				  	  id={"reject_all"}
 				  	  label={"Reject Complete Sample"}
 				  	  onChange={(value) => {
-				  		setRejectWholeSample(value);	  		
+				  		setRejectWholeSample(value);
 				  	  }}
 				  	/>
 	            </Modal>
 			}
-					
+
             <Grid fullWidth={true}>
               <Column sm={4} md={8} lg={16}>
                 <FormattedMessage id="label.total.tests" /> = {testsList.length}
@@ -499,7 +499,7 @@ export default function Workplan(props) {
                     onChange={handlePageChange}
                     page={page}
                     pageSize={pageSize}
-                    pageSizes={[10, 20, 50, 100]}
+                    pageSizes={[10, 20, 30, 50, 100]}
                     totalItems={testsList.length}
                     forwardText={intl.formatMessage({
                       id: "pagination.forward",
