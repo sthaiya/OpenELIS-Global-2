@@ -27,7 +27,6 @@ import { Copy } from "@carbon/icons-react";
 import { useState, useEffect, useRef, useContext } from "react";
 import {
   getFromOpenElisServer,
-  convertAlphaNumLabNumForDisplay,
   hasRole,
 } from "../utils/Utils.js";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -439,10 +438,10 @@ const HomeDashBoard: React.FC<DashBoardProps> = () => {
                       : "validation?type=order&accessionNumber=" + cell.value
                   }
                 >
-                  <u>{convertAlphaNumLabNumForDisplay(cell.value)}</u>
+                  <u>{cell.value}</u>
                 </Link>
               ) : (
-                <> {convertAlphaNumLabNumForDisplay(cell.value)}</>
+                <> {cell.value}</>
               )}
             </div>
           </>

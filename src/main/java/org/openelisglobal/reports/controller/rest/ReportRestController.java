@@ -7,8 +7,17 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +25,28 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import net.sf.jasperreports.engine.JRException;
+import org.apache.commons.lang3.StringUtils;
+import org.openelisglobal.analysis.service.AnalysisService;
+import org.openelisglobal.analysis.valueholder.Analysis;
 import org.openelisglobal.common.exception.LIMSRuntimeException;
 import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.common.rest.BaseRestController;
+import org.openelisglobal.common.services.IStatusService;
+import org.openelisglobal.common.services.TableIdService;
+import org.openelisglobal.common.util.DateUtil;
+import org.openelisglobal.common.util.StringUtil;
 import org.openelisglobal.common.util.validator.GenericValidator;
-import org.openelisglobal.dataexchange.order.form.ElectronicOrderViewForm;
+import org.openelisglobal.organization.valueholder.Organization;
+import org.openelisglobal.patient.valueholder.Patient;
 import org.openelisglobal.reports.action.implementation.IReportCreator;
 import org.openelisglobal.reports.action.implementation.ReportImplementationFactory;
 import org.openelisglobal.reports.form.ReportForm;
+import org.openelisglobal.reports.form.ResultDisplayForm;
+import org.openelisglobal.reports.form.ResultRequestForm;
+import org.openelisglobal.reports.form.ResultViewBean;
+import org.openelisglobal.sample.service.SampleService;
+import org.openelisglobal.sample.valueholder.Sample;
+import org.openelisglobal.samplehuman.service.SampleHumanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -41,6 +64,18 @@ public class ReportRestController extends BaseRestController {
 
     @Autowired
     private ServletContext context;
+
+    @Autowired
+    AnalysisService analysisService;
+
+    @Autowired
+    IStatusService iStatusService;
+
+    @Autowired
+    SampleHumanService sampleHumanService;
+
+    @Autowired
+    SampleService sampleService;
 
     private static String reportPath = null;
 
@@ -128,8 +163,77 @@ public class ReportRestController extends BaseRestController {
 
     @GetMapping(value = "report/unprinted-results", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ElectronicOrderViewForm showElectronicOrders(HttpServletRequest request,
-            @ModelAttribute("form") @Valid ElectronicOrderViewForm form, BindingResult result) {
-        return form;
+    public ResultDisplayForm showUnprintedResults(HttpServletRequest request,
+        @ModelAttribute("form") @Valid ResultRequestForm form, BindingResult result) {
+
+        ResultDisplayForm respForm = new ResultDisplayForm();
+        Timestamp tsStartDate;
+        Timestamp tsEndDate;
+
+        if (form.getStartDate() == null || form.getEndDate() == null) {
+            tsStartDate = DateUtil.getTimestampAtMidnightForDaysAgo(7);
+            tsEndDate = new Timestamp(new GregorianCalendar().getTimeInMillis());
+        } else {
+            tsStartDate = DateUtil.convertStringDateToTimestampWithPatternNoLocale(form.getStartDate() + " 00:00:00", "dd/MM/yyyy HH:mm:ss");
+            tsEndDate = DateUtil.convertStringDateToTimestampWithPatternNoLocale(form.getEndDate() + " 23:59:59", "dd/MM/yyyy HH:mm:ss");
+        }
+
+        List<Analysis> analyses = analysisService.getAnalysisCompleteInRange(tsStartDate, tsEndDate);
+        respForm.setDisplayItems(convertAnalysesToReviewBean(analyses, form));
+
+        return respForm;
+    }
+
+    private List<ResultViewBean> convertAnalysesToReviewBean(List<Analysis> analyses, ResultRequestForm form) {
+        List<ResultViewBean> resultViewList = new ArrayList<>();
+        if (analyses != null) {
+            for (Analysis analysis : analyses) {
+                if (analysis != null) {
+                    ResultViewBean rvb = new ResultViewBean();
+                    rvb.setId(analysis.getId());
+                    rvb.setTestSectionId(analysis.getTestSection() != null ? analysis.getTestSection().getId() : "");
+                    System.out.println(form.getTestSection() != null);
+                    System.out.println(form.getReferringSite() != null);
+
+                    if (form.getTestSection() != null && StringUtils.isNotBlank(form.getTestSection()) && !Objects.equals(rvb.getTestSectionId(), form.getTestSection()))
+                        continue; // we only want results for a specific section
+
+                    if (!form.showPrinted() && analysisService.patientReportHasBeenDone(analysis))
+                        continue; // we only want unprinted results
+
+                    Sample sample = analysis.getSampleItem() != null ? analysis.getSampleItem().getSample() : null;
+                    if (sample != null) {
+                        if (form.getReferringSite() != null && StringUtils.isNotBlank(form.getReferringSite())) {
+                            Organization referringSite = sampleService.getOrganizationRequester(sample, TableIdService.getInstance().REFERRING_ORG_TYPE_ID);
+                            if (referringSite == null ||  !Objects.equals(referringSite.getId(), form.getReferringSite()))
+                                continue; // we only want results for a specific site
+                        }
+
+                        rvb.setAccessionNumber(sample.getAccessionNumber() != null ? sample.getAccessionNumber() : "");
+                        Patient patient = sampleHumanService.getPatientForSample(sample);
+                        rvb.setPatientId(patient.getNationalId());
+                        rvb.setPatientName(patient.getPerson().getFirstName() + " " + patient.getPerson().getLastName());
+                    }
+                    rvb.setOrderDate(analysis.getStartedDateForDisplay());
+                    rvb.setResultDate(analysis.getCompletedDate());
+                    rvb.setResultDateForDisplay(analysis.getCompletedDateForDisplay());
+                    rvb.setTestSectionName(analysis.getTestSection() != null ? analysis.getTestSection().getTestSectionName() : "");
+                    resultViewList.add(rvb);
+                }
+            }
+        }
+
+        //noinspection UnnecessaryLocalVariable
+        List<ResultViewBean> uniqueSortedList = new ArrayList<>(resultViewList.stream()
+                .sorted(Comparator.comparing(ResultViewBean::getResultDate).reversed())
+                .collect(Collectors.toMap(
+                        pojo -> new AbstractMap.SimpleEntry<>(pojo.getAccessionNumber(), pojo.getTestSectionId()),  // Composite unique by key
+                        pojo -> pojo,        // value
+                        (existing, replacement) -> existing, // keep first occurrence
+                        LinkedHashMap::new   // maintain order
+                ))
+                .values());
+
+        return uniqueSortedList;
     }
 }

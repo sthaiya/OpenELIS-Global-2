@@ -26,12 +26,13 @@ import CustomDatePicker from "../../common/CustomDatePicker";
 import {format} from "date-fns";
 import {DatePicker, DatePickerInput} from "@carbon/react";
 import AutoComplete from "../../common/AutoComplete";
+import config from "../../../config.json";
 
 const DispatchReport = ({id}) => {
     const componentMounted = useRef(false);
     const intl = useIntl();
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(50);
     const [data, setData] = useState([]);
 
     const [testSections, setTestSections] = useState([]);
@@ -49,12 +50,14 @@ const DispatchReport = ({id}) => {
         setPageSize(pageInfo.pageSize);
     };
 
-    const getTestSections = (fetchedTestSections, defaultSecId) => {
+    const getTestSections = (fetchedTestSections) => {
         if (componentMounted.current) {
-            let testSection = fetchedTestSections.find((testSection) => testSection.id === defaultSecId);
-            let testSectionLabel = testSection ? testSection.value : intl.formatMessage({ id: "input.placeholder.selectTestSection" });
-            setDefaultTestSectionId(defaultSecId);
+            let testSectionId = "";
+            let testSectionLabel = "";
+            setDefaultTestSectionId(testSectionId);
             setDefaultTestSectionLabel(testSectionLabel);
+
+            fetchedTestSections.unshift({id: testSectionId, value: testSectionLabel});
             setTestSections(fetchedTestSections);
         }
     };
@@ -96,9 +99,9 @@ const DispatchReport = ({id}) => {
         {key: "patientId", header: <FormattedMessage id="patient.id"/>},
         {key: "patientName", header: <FormattedMessage id="patient.label"/>},
         {key: "orderDate", header: <FormattedMessage id="sample.label.orderdate"/>},
-        {key: "resultDate", header: <FormattedMessage id="referral.search.column.resultDate"/>},
-        {key: "labNumber", header: <FormattedMessage id="quick.entry.accession.number"/>},
-        {key: "unit", header: <FormattedMessage id="field.testUnit"/>}
+        {key: "resultDateForDisplay", header: <FormattedMessage id="referral.search.column.resultDate"/>},
+        {key: "accessionNumber", header: <FormattedMessage id="quick.entry.accession.number"/>},
+        {key: "testSectionName", header: <FormattedMessage id="field.testUnit"/>}
     ];
 
     useEffect(() => {
@@ -113,11 +116,8 @@ const DispatchReport = ({id}) => {
         setStartDate(formattedSevenDaysAgo);
         setEndDate(formattedToday);
 
-        let testSectionId = new URLSearchParams(window.location.search).get("testSectionId");
-        testSectionId = testSectionId ? testSectionId : "";
-
         getFromOpenElisServer("/rest/site-names", getSites);
-        getFromOpenElisServer("/rest/user-test-sections/" + Roles.RESULTS, (resp) => getTestSections(resp, testSectionId));
+        getFromOpenElisServer("/rest/user-test-sections/" + Roles.RESULTS, (resp) => getTestSections(resp));
 
         searchByParams(formattedSevenDaysAgo, formattedToday);
 
@@ -132,14 +132,17 @@ const DispatchReport = ({id}) => {
             startDate: startDate ? startDate : locStartDate,
             endDate: endDate ? endDate : locEndDate,
             testSection: defaultTestSectionId,
-            showPrinted: showPrinted,
-            selectedSiteId: selectedSiteId
+            referringSite: selectedSiteId,
+            showPrinted: showPrinted
         });
-        console.log(params.toString())
-        getFromOpenElisServer(
-            "/rest/ElectronicOrders?" + params.toString(),
-            loadData,
-        );
+        getFromOpenElisServer("/rest/report/unprinted-results?" + params.toString(), loadData,);
+    }
+
+    function printSelected(accessionNumber) {
+        let barcodesPdf =
+            config.serverBaseUrl +
+            `/ReportPrint?report=patientCILNSP_vreduit&type=patient&accessionDirect=${accessionNumber}&highAccessionDirect=${accessionNumber}&dateOfBirthSearchValue=&selPatient=&referringSiteId=&referringSiteDepartmentId=&onlyResults=on&_onlyResults=on&dateType=&lowerDateRange=&upperDateRange=`;
+        window.open(barcodesPdf);
     }
 
     return (
@@ -155,19 +158,17 @@ const DispatchReport = ({id}) => {
             <Grid fullWidth={true}>
                 <Column lg={2}>
                     <Select
+                        name="test-unit-id"
                         id="test-unit-id"
                         labelText={intl.formatMessage({id: "field.testUnit"})}
-                        value={""}
                         onChange={(e) => {
                             setDefaultTestSectionId(e.target.value);
                             setDefaultTestSectionLabel(e.target.selectedOptions[0].text);
                         }}>
-                        <SelectItem text={defaultTestSectionLabel} value={defaultTestSectionId}/>
                         {testSections
-                            .filter((item) => item.id !== defaultTestSectionId)
                             .map((item, idx) => {
                                 return (
-                                    <SelectItem key={idx} text={item.value} value={item.id} />
+                                    <SelectItem key={idx} value={item.id} text={item.value}/>
                                 );
                             })}
                     </Select>
@@ -198,9 +199,13 @@ const DispatchReport = ({id}) => {
 
                 <Column lg={2}>
                     <div>
-                        <DatePicker datePickerType="single" dateFormat="d-m-Y" size="md" value={new Date()}
-                            maxDate={format(new Date().setDate(new Date().getDate() + 1), 'dd/MM/yyyy')}
-                            onChange={(date) => setEndDate(date)}>
+                        <DatePicker datePickerType="single" dateFormat="d-m-Y" size="md" value={endDate}
+                            maxDate={format(new Date().setDate(new Date().getDate()), 'dd/MM/yyyy')}
+                            onChange={(e) => {
+                                let date = new Date(e[0]);
+                                const formattedDate = format(new Date(date), "dd/MM/yyyy");
+                                setEndDate(formattedDate);
+                            }}>
                             <DatePickerInput id="date-picker-input-id-start" placeholder="dd/mm/yyyy"
                                              labelText={intl.formatMessage({id: "eorder.date.end"})}/>
                         </DatePicker>
@@ -259,7 +264,7 @@ const DispatchReport = ({id}) => {
                                                     <TableCell key={cell.id}>{cell.value}</TableCell>
                                                 ))}
                                                 <TableCell>
-                                                    <Button onClick={""} size="sm" kind="tertiary">Print</Button>
+                                                    <Button onClick={() => printSelected(row.cells[4].value)} size="sm" kind="tertiary">Print</Button>
                                                 </TableCell>
                                             </TableRow>
                                         ))}
