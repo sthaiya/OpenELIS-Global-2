@@ -1,32 +1,42 @@
 import {
-    Heading,
-    Grid,
+    Button,
+    Checkbox,
     Column,
-    Section,
     DataTable,
+    Grid,
+    Heading,
+    Pagination,
+    Section,
     Select,
     SelectItem,
     Table,
+    TableBody,
     TableHeader,
+    TableHead,
     TableRow,
     TableCell,
-    Pagination,
-    TableBody,
-    Button,
-    TableHead,
-    Checkbox,
-    Search,
+    TableSelectAll,
+    TableSelectRow,
+    TableToolbar,
+    TableToolbarContent,
+    TableToolbarAction,
+    TableContainer,
+    TableToolbarSearch,
+    TableBatchActions,
+    TableBatchAction,
 } from "@carbon/react";
 import "../../Style.css";
+import "./rrStyle.css";
 import React, {useState, useEffect, useRef} from "react";
 
 import {FormattedMessage, useIntl} from "react-intl";
 import {getFromOpenElisServer, Roles} from "../../utils/Utils";
-import CustomDatePicker from "../../common/CustomDatePicker";
 import {format} from "date-fns";
 import {DatePicker, DatePickerInput} from "@carbon/react";
 import AutoComplete from "../../common/AutoComplete";
 import config from "../../../config.json";
+import { Printer } from '@carbon/react/icons';
+
 
 const DispatchReport = ({id}) => {
     const componentMounted = useRef(false);
@@ -138,11 +148,18 @@ const DispatchReport = ({id}) => {
         getFromOpenElisServer("/rest/report/unprinted-results?" + params.toString(), loadData,);
     }
 
-    function printSelected(accessionNumber) {
+    function printSelected(rowId) {
+        const row = data.find(row => {return row.id === rowId;});
         let barcodesPdf =
             config.serverBaseUrl +
-            `/ReportPrint?report=patientCILNSP_vreduit&type=patient&accessionDirect=${accessionNumber}&highAccessionDirect=${accessionNumber}&dateOfBirthSearchValue=&selPatient=&referringSiteId=&referringSiteDepartmentId=&onlyResults=on&_onlyResults=on&dateType=&lowerDateRange=&upperDateRange=`;
+            `/ReportPrint?report=patientCILNSP_vreduit&type=patient&accessionDirect=${row.accessionNumber}&highAccessionDirect=${row.accessionNumber}&onlyResults=on&_onlyResults=on&labSections=${row.testSectionId}&_labSections=on`;
         window.open(barcodesPdf);
+    }
+
+    function batchActionClick (selectedRows) {
+        selectedRows.forEach(r => {
+            console.log(r);
+        });
     }
 
     return (
@@ -187,26 +204,30 @@ const DispatchReport = ({id}) => {
                 </Column>
 
                 <Column lg={2}>
-                    <CustomDatePicker
-                        id={"start-date-id"}
-                        labelText={intl.formatMessage({id: "eorder.date.start"})}
-                        value={new Date().setDate(new Date().getDate() - 7)}
-                        autofillDate={true}
-                        disallowFutureDate={true}
-                        onChange={(date) => setStartDate(date)}
-                    />
+                    <div>
+                        <DatePicker datePickerType="single" dateFormat="d-m-Y" size="md" value={startDate}
+                                    maxDate={format(new Date().setDate(new Date().getDate()), 'dd/MM/yyyy')}
+                                    onChange={(e) => {
+                                        let date = new Date(e[0]);
+                                        const formattedDate = format(new Date(date), "dd/MM/yyyy");
+                                        setStartDate(formattedDate);
+                                    }}>
+                            <DatePickerInput id="date-picker-input-id-start" placeholder="dd/mm/yyyy"
+                                             labelText={intl.formatMessage({id: "eorder.date.start"})}/>
+                        </DatePicker>
+                    </div>
                 </Column>
 
                 <Column lg={2}>
                     <div>
                         <DatePicker datePickerType="single" dateFormat="d-m-Y" size="md" value={endDate}
-                            maxDate={format(new Date().setDate(new Date().getDate()), 'dd/MM/yyyy')}
-                            onChange={(e) => {
-                                let date = new Date(e[0]);
-                                const formattedDate = format(new Date(date), "dd/MM/yyyy");
-                                setEndDate(formattedDate);
-                            }}>
-                            <DatePickerInput id="date-picker-input-id-start" placeholder="dd/mm/yyyy"
+                                    maxDate={format(new Date().setDate(new Date().getDate()), 'dd/MM/yyyy')}
+                                    onChange={(e) => {
+                                        let date = new Date(e[0]);
+                                        const formattedDate = format(new Date(date), "dd/MM/yyyy");
+                                        setEndDate(formattedDate);
+                                    }}>
+                            <DatePickerInput id="date-picker-input-id-end" placeholder="dd/mm/yyyy"
                                              labelText={intl.formatMessage({id: "eorder.date.end"})}/>
                         </DatePicker>
                     </div>
@@ -232,46 +253,82 @@ const DispatchReport = ({id}) => {
                     </div>
                 </Column>
 
-                <Column lg={3}>
-                    <div className="bottomAlign">
-                        <Search value={""} labelText="" placeholder="Accession No or Patient Name"/>
-                    </div>
-                </Column>
-
                 <Column lg={16}><br/></Column>
 
                 <Column lg={16}>
-                    <DataTable rows={data ?? []} headers={reportHeaders} isSortable>
-                        {({rows, headers, getHeaderProps, getTableProps}) => (
-                            <Table {...getTableProps()}>
-                                <TableHead>
-                                    <TableRow>
-                                        {headers.map((header) => (
-                                            <TableHeader key={header.key} {...getHeaderProps({header})}>
-                                                {header.header}
-                                            </TableHeader>
-                                        ))}
-                                        <TableHeader key="action">Action</TableHeader>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows
-                                        .slice((page - 1) * pageSize)
-                                        .slice(0, pageSize)
-                                        .map((row) => (
-                                            <TableRow key={row.id}>
-                                                {row.cells.map((cell) => (
-                                                    <TableCell key={cell.id}>{cell.value}</TableCell>
-                                                ))}
-                                                <TableCell>
-                                                    <Button onClick={() => printSelected(row.cells[4].value)} size="sm" kind="tertiary">Print</Button>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                </TableBody>
-                            </Table>
-                        )}
+                    <DataTable rows={data ?? []} headers={reportHeaders} isSortable useZebraStyles>
+                        {({ rows,
+                            headers,
+                            getHeaderProps,
+                            getTableProps,
+                            getSelectionProps,
+                            getTableContainerProps,
+                            getToolbarProps,
+                            getBatchActionProps,
+                            onInputChange,
+                            selectedRows,
+                            selectRow,
+                        }) => {
+                            const batchActionProps = {
+                                ...getBatchActionProps({
+                                    onSelectAll: () => {
+                                        rows.map(row => {
+                                            if (!row.isSelected) {
+                                                selectRow(row.id);
+                                            }
+                                        });
+                                    }
+                                })
+                            };
+
+                            return <TableContainer title="" description="" {...getTableContainerProps()}>
+                                <TableToolbar {...getToolbarProps()} aria-label="data table toolbar">
+                                    <TableBatchActions {...batchActionProps}>
+                                        <TableBatchAction tabIndex={batchActionProps.shouldShowBatchActions ? 0 : -1} renderIcon={Printer} onClick={() => batchActionClick(selectedRows)}>
+                                            Print Selected
+                                        </TableBatchAction>
+                                    </TableBatchActions>
+
+                                    <TableToolbarContent aria-hidden={batchActionProps.shouldShowBatchActions}>
+                                        <TableToolbarSearch onChange={onInputChange} persistent placeholder="Accession No/Patient Name..."/>
+                                    </TableToolbarContent>
+                                </TableToolbar>
+
+                                <Table {...getTableProps()} isSortable>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableSelectAll {...getSelectionProps()} />
+                                            {headers.map((header) => (
+                                                <TableHeader key={header.key} {...getHeaderProps({header})}>
+                                                    {header.header}
+                                                </TableHeader>
+                                            ))}
+                                            <TableHeader key="action">Action</TableHeader>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows
+                                            .slice((page - 1) * pageSize)
+                                            .slice(0, pageSize)
+                                            .map(row => (
+                                                <TableRow key={row.id}>
+                                                    <TableSelectRow {...getSelectionProps({row})} />
+                                                    {row.cells.map((cell) => (
+                                                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                                                    ))}
+                                                    <TableCell>
+                                                        <Button onClick={() => printSelected(row.id)} size="sm"  className={"printBtn"} kind="tertiary">Print</Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        }}
                     </DataTable>
+
+
+
                     <Pagination
                         onChange={handlePageChange}
                         page={page}

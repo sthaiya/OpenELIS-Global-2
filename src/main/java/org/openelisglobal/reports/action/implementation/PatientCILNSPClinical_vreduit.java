@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.commons.validator.GenericValidator;
@@ -127,15 +129,20 @@ public class PatientCILNSPClinical_vreduit extends PatientReport implements IRep
         Set<SampleItem> sampleSet = new HashSet<>();
 
         boolean isConfirmationSample = sampleService.isConfirmationSample(currentSample);
-        List<Analysis> analysisList = analysisService
-                .getAnalysesBySampleIdAndStatusId(sampleService.getId(currentSample), analysisStatusIds);
-        if (onlyResultsForReportBySite) {
-            analysisList = analysisService.getAnalysesBySampleIdAndStatusId(sampleService.getId(currentSample),
-                    validatedAnalysisStatusIds);
-        }
+        List<Analysis> analysisList;
+        if (onlyResultsForReportBySite)
+            analysisList = analysisService.getAnalysesBySampleIdAndStatusId(sampleService.getId(currentSample), validatedAnalysisStatusIds);
+        else
+            analysisList = analysisService.getAnalysesBySampleIdAndStatusId(sampleService.getId(currentSample), analysisStatusIds);
 
-        List<Analysis> filteredAnalysisList = userService.filterAnalysesByLabUnitRoles(systemUserId, analysisList,
-                Constants.ROLE_REPORTS);
+        List<Analysis> filteredAnalysisList = userService.filterAnalysesByLabUnitRoles(systemUserId, analysisList, Constants.ROLE_REPORTS);
+
+        System.out.println("===============================");
+        System.out.println(labUnits);
+        System.out.println("===============================");
+        if (!labUnits.isEmpty())
+            filteredAnalysisList = filterAnalysesByTestSections(filteredAnalysisList);
+
         List<ClinicalPatientData> currentSampleReportItems = new ArrayList<>(filteredAnalysisList.size());
         currentConclusion = null;
         for (Analysis analysis : filteredAnalysisList) {
@@ -429,5 +436,9 @@ public class PatientCILNSPClinical_vreduit extends PatientReport implements IRep
     @Override
     protected boolean useReportingDescription() {
         return true;
+    }
+
+    public List<Analysis> filterAnalysesByTestSections(List<Analysis> results) {
+        return results.stream().filter(result -> labUnits.contains(result.getTestSection().getId())).collect(Collectors.toList());
     }
 }

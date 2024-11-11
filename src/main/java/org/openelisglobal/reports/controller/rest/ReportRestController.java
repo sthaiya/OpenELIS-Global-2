@@ -192,8 +192,6 @@ public class ReportRestController extends BaseRestController {
                     ResultViewBean rvb = new ResultViewBean();
                     rvb.setId(analysis.getId());
                     rvb.setTestSectionId(analysis.getTestSection() != null ? analysis.getTestSection().getId() : "");
-                    System.out.println(form.getTestSection() != null);
-                    System.out.println(form.getReferringSite() != null);
 
                     if (form.getTestSection() != null && StringUtils.isNotBlank(form.getTestSection()) && !Objects.equals(rvb.getTestSectionId(), form.getTestSection()))
                         continue; // we only want results for a specific section

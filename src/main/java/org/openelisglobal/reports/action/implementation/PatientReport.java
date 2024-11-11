@@ -35,6 +35,7 @@ import org.openelisglobal.address.valueholder.AddressPart;
 import org.openelisglobal.address.valueholder.PersonAddress;
 import org.openelisglobal.analysis.service.AnalysisService;
 import org.openelisglobal.analysis.valueholder.Analysis;
+import org.openelisglobal.audittrail.action.workers.AuditTrailItem;
 import org.openelisglobal.common.exception.LIMSRuntimeException;
 import org.openelisglobal.common.formfields.FormFields;
 import org.openelisglobal.common.formfields.FormFields.Field;
@@ -45,6 +46,9 @@ import org.openelisglobal.common.provider.validation.IAccessionNumberValidator;
 import org.openelisglobal.common.services.DisplayListService;
 import org.openelisglobal.common.services.IStatusService;
 import org.openelisglobal.common.services.StatusService.AnalysisStatus;
+import org.openelisglobal.common.services.historyservices.AbstractHistoryService;
+import org.openelisglobal.common.services.historyservices.AnalysisHistoryService;
+import org.openelisglobal.common.services.historyservices.ResultHistoryService;
 import org.openelisglobal.common.services.TableIdService;
 import org.openelisglobal.common.services.TestIdentityService;
 import org.openelisglobal.common.util.ConfigurationProperties;
@@ -57,6 +61,7 @@ import org.openelisglobal.note.service.NoteService;
 import org.openelisglobal.note.service.NoteServiceImpl.NoteType;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryServiceImpl.ObservationType;
+import org.openelisglobal.observationhistorytype.valueholder.ObservationHistoryType;
 import org.openelisglobal.organization.service.OrganizationService;
 import org.openelisglobal.organization.valueholder.Organization;
 import org.openelisglobal.patient.action.bean.PatientSearch;
@@ -120,7 +125,8 @@ public abstract class PatientReport extends Report {
     protected OrganizationService organizationService = SpringContext.getBean(OrganizationService.class);
     protected SampleOrganizationService sampleOrganizationService = SpringContext
             .getBean(SampleOrganizationService.class);
-    protected UserService userService = SpringContext.getBean(UserService.class);;
+    protected UserService userService = SpringContext.getBean(UserService.class);
+    protected ResultService resultService = SpringContext.getBean(ResultService.class);
     private List<String> handledOrders;
     private List<Analysis> updatedAnalysis = new ArrayList<>();
 
@@ -144,7 +150,9 @@ public abstract class PatientReport extends Report {
     protected String completionDate;
     protected Sample currentSample;
     protected Patient currentPatient;
+    private String auditor = "";
     protected Boolean onlyResultsForReportBySite = false;
+    protected List<String> labUnits = new ArrayList<>();
 
     protected static final NoteType[] FILTER = { NoteType.EXTERNAL, NoteType.REJECTION_REASON,
             NoteType.NON_CONFORMITY };
@@ -215,6 +223,7 @@ public abstract class PatientReport extends Report {
 
         lowerNumber = form.getAccessionDirectNoSuffix();
         upperNumber = form.getHighAccessionDirectNoSuffix();
+        labUnits = form.getLabSections();
 
         handledOrders = new ArrayList<>();
 
@@ -222,27 +231,24 @@ public abstract class PatientReport extends Report {
 
         boolean valid;
         List<Sample> reportSampleList = new ArrayList<>();
+        onlyResultsForReportBySite = form.isOnlyResults();
 
-        if (form.getAnalysisIds() != null && form.getAnalysisIds().size() > 0) {
-            reportSampleList = findReportSamples(form.getAnalysisIds());
+        if (form.getAnalysisIds() != null && !form.getAnalysisIds().isEmpty()) {
+            reportSampleList = findReportSamples(form.getAnalysisIds(), form.isOnlyResults());
         } else if (!GenericValidator.isBlankOrNull(lowerNumber) || !GenericValidator.isBlankOrNull(upperNumber)) {
             valid = validateAccessionNumbers();
-            if (valid) {
-                reportSampleList = findReportSamples(lowerNumber, upperNumber);
-            }
+            if (valid)
+                reportSampleList = findReportSamples(lowerNumber, upperNumber, form.isOnlyResults());
         } else if (!GenericValidator.isBlankOrNull(form.getSelPatient())) {
             List<Patient> patientList = new ArrayList<>();
             valid = findPatientById(form.getSelPatient(), patientList);
-            if (valid) {
-                reportSampleList = findReportSamplesForReportPatient(patientList);
-            }
+            if (valid)
+                reportSampleList = findReportSamplesForReportPatient(patientList, form.isOnlyResults());
         } else if (!GenericValidator.isBlankOrNull(form.getPatientNumberDirect())) {
             List<Patient> patientList = new ArrayList<>();
             valid = findPatientByPatientNumber(form.getPatientNumberDirect(), patientList);
-
-            if (valid) {
-                reportSampleList = findReportSamplesForReportPatient(patientList);
-            }
+            if (valid)
+                reportSampleList = findReportSamplesForReportPatient(patientList, form.isOnlyResults());
         } else if (!GenericValidator.isBlankOrNull(form.getReferringSiteId())) {
             if (GenericValidator.isBlankOrNull(form.getUpperDateRange())
                     && !GenericValidator.isBlankOrNull(form.getLowerDateRange())) {
@@ -250,7 +256,6 @@ public abstract class PatientReport extends Report {
             }
             if (!GenericValidator.isBlankOrNull(form.getUpperDateRange())
                     && !GenericValidator.isBlankOrNull(form.getLowerDateRange())) {
-                onlyResultsForReportBySite = form.isOnlyResults();
                 reportSampleList = findReportSamplesForSite(form.getReferringSiteId(),
                         form.getReferringSiteDepartmentId(), form.isOnlyResults(), form.getDateType(),
                         form.getLowerDateRange(), form.getUpperDateRange());
@@ -275,7 +280,7 @@ public abstract class PatientReport extends Report {
                 findPatientInfo();
                 createReportItems();
             }
-            if (reportItems.size() == 0) {
+            if (reportItems.isEmpty()) {
                 add1LineErrorMessage("report.error.message.noPrintableItems");
             } else {
                 postSampleBuild();
@@ -313,16 +318,7 @@ public abstract class PatientReport extends Report {
                     .getSamplesByAnalysisIds(analysises.stream().map(e -> e.getId()).collect(Collectors.toList()));
         }
 
-        if (onlyResults) {
-            Set<Integer> analysisStatusIds = new HashSet<>();
-            analysisStatusIds.add(Integer
-                    .parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.Finalized)));
-            sampleList = sampleList.stream().filter(
-                    e -> (analysisService.getAnalysesBySampleIdAndStatusId(e.getId(), analysisStatusIds).size() > 0))
-                    .collect(Collectors.toList());
-        }
-
-        return sampleList;
+        return sampleList.isEmpty() ? sampleList : getOnlyResults(sampleList, onlyResults);
     }
 
     private boolean findPatientById(String patientId, List<Patient> patientList) {
@@ -415,17 +411,15 @@ public abstract class PatientReport extends Report {
         return !patientList.isEmpty();
     }
 
-    private List<Sample> findReportSamplesForReportPatient(List<Patient> patientList) {
+    private List<Sample> findReportSamplesForReportPatient(List<Patient> patientList, boolean onlyResults) {
         List<Sample> sampleList = new ArrayList<>();
-        for (Patient searchPatient : patientList) {
+        for (Patient searchPatient : patientList)
             sampleList.addAll(sampleHumanService.getSamplesForPatient(searchPatient.getId()));
-        }
 
-        return sampleList;
+        return sampleList.isEmpty() ? sampleList : getOnlyResults(sampleList, onlyResults);
     }
 
     private boolean validateAccessionNumbers() {
-
         if (GenericValidator.isBlankOrNull(lowerNumber) && GenericValidator.isBlankOrNull(upperNumber)) {
             add1LineErrorMessage("report.error.message.noParameters");
             return false;
@@ -455,14 +449,25 @@ public abstract class PatientReport extends Report {
         return true;
     }
 
-    private List<Sample> findReportSamples(String lowerNumber, String upperNumber) {
+    private List<Sample> findReportSamples(String lowerNumber, String upperNumber, boolean onlyResults) {
         List<Sample> sampleList = sampleService.getSamplesByAccessionRange(lowerNumber, upperNumber);
-        return sampleList == null ? new ArrayList<>() : sampleList;
+        return sampleList == null ? new ArrayList<>() : getOnlyResults(sampleList, onlyResults);
     }
 
-    private List<Sample> findReportSamples(List<String> analysisIds) {
+    private List<Sample> findReportSamples(List<String> analysisIds, boolean onlyResults) {
         List<Sample> sampleList = sampleService.getSamplesByAnalysisIds(analysisIds);
-        return sampleList == null ? new ArrayList<>() : sampleList;
+        return sampleList == null ? new ArrayList<>() : getOnlyResults(sampleList, onlyResults);
+    }
+
+    private List<Sample> getOnlyResults(List<Sample> sampleList, boolean onlyResults) {
+        if (onlyResults) {
+            Set<Integer> analysisStatusIds = new HashSet<>();
+            analysisStatusIds.add(Integer.parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.Finalized)));
+            sampleList = sampleList.stream().filter(
+                e -> (!analysisService.getAnalysesBySampleIdAndStatusId(e.getId(), analysisStatusIds).isEmpty()))
+                .collect(Collectors.toList());
+        }
+        return sampleList;
     }
 
     protected void findPatientFromSample() {
@@ -983,6 +988,11 @@ public abstract class PatientReport extends Report {
                     .getValueForSample(ObservationType.TB_FOLLOWUP_PERIOD_LINE2, sampleService.getId(currentSample)));
         }
 
+        getAuditTrailEntry("Accepted by technician");
+        data.setSampleTester(auditor == null || auditor.trim().length() < 1 ? MessageUtil.getMessage("label.not.available") : auditor);
+        getAuditTrailEntry("Results final");
+        data.setResultValidator(auditor == null || auditor.trim().length() < 1 ? MessageUtil.getMessage("label.not.available") : auditor);
+
         return data;
     }
 
@@ -1082,5 +1092,15 @@ public abstract class PatientReport extends Report {
     @Override
     public List<String> getReportedOrders() {
         return handledOrders;
+    }
+
+
+    private void getAuditTrailEntry(String filterKey) {
+        AbstractHistoryService historyService = new AnalysisHistoryService(currentAnalysis);
+        List<AuditTrailItem> resultItems = historyService.getAuditTrailItems();
+        for (AuditTrailItem itt : resultItems) {
+            if (itt.getNewValue().equalsIgnoreCase(filterKey))
+                auditor = itt.getUser();
+        }
     }
 }

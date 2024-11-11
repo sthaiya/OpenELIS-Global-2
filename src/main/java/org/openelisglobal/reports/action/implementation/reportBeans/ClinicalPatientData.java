@@ -83,6 +83,8 @@ public final class ClinicalPatientData {
     private String tbSampleAspect;
     private String tbFollowupPeriodLine1;
     private String tbFollowupPeriodLine2;
+    private String sampleTester;
+    private String resultValidator;
 
     public ClinicalPatientData() {
     }
@@ -143,6 +145,8 @@ public final class ClinicalPatientData {
         sampleId = data.getSampleId();
         sampleSortOrder = data.getSampleSortOrder();
         analysisStatus = data.getAnalysisStatus();
+        sampleTester = data.getSampleTester();
+        resultValidator = data.getResultValidator();
     }
 
     public String getReferralRefRange() {
@@ -668,5 +672,22 @@ public final class ClinicalPatientData {
 
     public void setPrescriber(String prescriber) {
         this.prescriber = prescriber;
+    }
+
+
+    public String getSampleTester() {
+        return sampleTester;
+    }
+
+    public void setSampleTester(String sampleTester) {
+        this.sampleTester = sampleTester;
+    }
+
+    public String getResultValidator() {
+        return resultValidator;
+    }
+
+    public void setResultValidator(String resultValidator) {
+        this.resultValidator = resultValidator;
     }
 }
