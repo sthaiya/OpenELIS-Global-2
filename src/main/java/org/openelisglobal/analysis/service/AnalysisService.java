@@ -107,6 +107,8 @@ public interface AnalysisService extends BaseObjectService<Analysis, String> {
 
     List<Analysis> getAnalysisCompleteInRange(Timestamp lowDate, Timestamp highDate);
 
+    List<Analysis> getAnalysisValidatedInRange(Timestamp lowDate, Timestamp highDate);
+
     List<Analysis> getAnalysesForStatusId(String statusId);
 
     int getCountOfAnalysesForStatusIds(List<Integer> statusIdList);

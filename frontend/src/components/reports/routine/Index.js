@@ -84,10 +84,13 @@ export const RoutineReports = (props) => {
           id={"header.label.study.ciexport"}
         />
       )}
-	  
-	  {type === "patient" && report === "resultDispatch" && (
-	    <ResultDispatchReport report={"resultDispatch"} id={"reports.resultDispatch"} />
-	  )}
+
+      {type === "patient" && report === "resultDispatch" && (
+        <ResultDispatchReport
+          report={"resultDispatch"}
+          id={"reports.resultDispatch"}
+        />
+      )}
 
       {type === "routine" && report === "auditTrail" && (
         <AuditTrailReport report={"auditTrail"} id={"reports.auditTrail"} />

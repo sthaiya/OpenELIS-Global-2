@@ -190,57 +190,67 @@ export default function Workplan(props) {
 
   const handleRejectSample = async (e) => {
     e.preventDefault();
-	if (selectedRejectReason) {
-		getFromOpenElisServer("/rest/sample-edit?accessionNumber=" + selectedOrder, loadOrderValues);
-		setIsOpen(false);
-	} else {
-		addNotification({
-		  kind: NotificationKinds.error,
-		  title: intl.formatMessage({ id: "notification.title" }),
-		  message: "Reject Reason is Required",
-		});
-		setNotificationVisible(true);
-	}
+    if (selectedRejectReason) {
+      getFromOpenElisServer(
+        "/rest/sample-edit?accessionNumber=" + selectedOrder,
+        loadOrderValues,
+      );
+      setIsOpen(false);
+    } else {
+      addNotification({
+        kind: NotificationKinds.error,
+        title: intl.formatMessage({ id: "notification.title" }),
+        message: "Reject Reason is Required",
+      });
+      setNotificationVisible(true);
+    }
   };
 
   const loadOrderValues = async (data) => {
-      if (componentMounted.current) {
-        data.sampleOrderItems.referringSiteName = "";
-		data.sampleOrderItems.modified = true;
-		let sampleAccessionNumber = selectedOrder + "-" + selectedSampleGroupId;
-		let sampleItemId=undefined;
-		data.existingTests.forEach((test, index) => {
-			if (test.accessionNumber === sampleAccessionNumber)
-				sampleItemId = test.sampleItemId;
+    if (componentMounted.current) {
+      data.sampleOrderItems.referringSiteName = "";
+      data.sampleOrderItems.modified = true;
+      let sampleAccessionNumber = selectedOrder + "-" + selectedSampleGroupId;
+      let sampleItemId = undefined;
+      data.existingTests.forEach((test, index) => {
+        if (test.accessionNumber === sampleAccessionNumber)
+          sampleItemId = test.sampleItemId;
 
-			if (test.sampleItemId === sampleItemId && (test.testId === selectedOrderTestId || rejectWholeSample)){
-				data.existingTests[index]['rejected']='true';
-				data.existingTests[index]['rejectReasonId']=selectedRejectReason;
-				data.existingTests[index]['sampleItemChanged']='true';
-			}
-		})
+        if (
+          test.sampleItemId === sampleItemId &&
+          (test.testId === selectedOrderTestId || rejectWholeSample)
+        ) {
+          data.existingTests[index]["rejected"] = "true";
+          data.existingTests[index]["rejectReasonId"] = selectedRejectReason;
+          data.existingTests[index]["sampleItemChanged"] = "true";
+        }
+      });
 
-		postToOpenElisServer("/rest/sample-edit", JSON.stringify(data), handlePost);
-      }
-    };
+      postToOpenElisServer(
+        "/rest/sample-edit",
+        JSON.stringify(data),
+        handlePost,
+      );
+    }
+  };
 
-	const handlePost = (status) => {
-	  if (status === 200) {
-		addNotification({
-		  kind: NotificationKinds.success,
-		  title: intl.formatMessage({ id: "notification.title" }),
-		  message: "Sample Rejected Successfully",
-		});
-	  } else {
-		addNotification({
-		  kind: NotificationKinds.error,
-		  title: intl.formatMessage({ id: "notification.title" }),
-		  message: "Error Rejecting Sample",
-		});
-	  }
-	  setNotificationVisible(true);
-	  setRejectWholeSample(false);
-	};
+  const handlePost = (status) => {
+    if (status === 200) {
+      addNotification({
+        kind: NotificationKinds.success,
+        title: intl.formatMessage({ id: "notification.title" }),
+        message: "Sample Rejected Successfully",
+      });
+    } else {
+      addNotification({
+        kind: NotificationKinds.error,
+        title: intl.formatMessage({ id: "notification.title" }),
+        message: "Error Rejecting Sample",
+      });
+    }
+    setNotificationVisible(true);
+    setRejectWholeSample(false);
+  };
 
   let rowColorIndex = 2;
   let showAccessionNumber = false;
@@ -304,37 +314,39 @@ export default function Workplan(props) {
               </Column>
             </Grid>
             <br />
-			{ isOpen &&
-				<Modal
-	              open={isOpen}
-	              size="sm"
-				  danger
-	              onRequestClose={() => setIsOpen(false)}
-	              modalHeading={<FormattedMessage id="sample.reject.label" />}
-	              primaryButtonText={<FormattedMessage id="column.name.reject" />}
-	              secondaryButtonText="Cancel"
-	              onRequestSubmit={handleRejectSample}
-	            >
-				  <CustomSelect
-				    id={"rejectedReasonId_"}
-					labelText={intl.formatMessage({ id: "workplan.priority.list" })}
-				    options={rejectSampleReasons}
-					defaultSelect={defaultSelect}
-					required
-					onChange={(selectedItem) => {
-		              setSelectedRejectReason(selectedItem);
-		            }}
-				  />
-				  <br />
-				  <CustomCheckBox
-				  	  id={"reject_all"}
-				  	  label={"Reject Complete Sample"}
-				  	  onChange={(value) => {
-				  		setRejectWholeSample(value);
-				  	  }}
-				  	/>
-	            </Modal>
-			}
+            {isOpen && (
+              <Modal
+                open={isOpen}
+                size="sm"
+                danger
+                onRequestClose={() => setIsOpen(false)}
+                modalHeading={<FormattedMessage id="sample.reject.label" />}
+                primaryButtonText={<FormattedMessage id="column.name.reject" />}
+                secondaryButtonText="Cancel"
+                onRequestSubmit={handleRejectSample}
+              >
+                <CustomSelect
+                  id={"rejectedReasonId_"}
+                  labelText={intl.formatMessage({
+                    id: "workplan.priority.list",
+                  })}
+                  options={rejectSampleReasons}
+                  defaultSelect={defaultSelect}
+                  required
+                  onChange={(selectedItem) => {
+                    setSelectedRejectReason(selectedItem);
+                  }}
+                />
+                <br />
+                <CustomCheckBox
+                  id={"reject_all"}
+                  label={"Reject Complete Sample"}
+                  onChange={(value) => {
+                    setRejectWholeSample(value);
+                  }}
+                />
+              </Modal>
+            )}
 
             <Grid fullWidth={true}>
               <Column sm={4} md={8} lg={16}>
@@ -387,7 +399,7 @@ export default function Workplan(props) {
                         <TableHeader>
                           <FormattedMessage id="sample.receivedDate" />
                         </TableHeader>
-						<TableHeader>
+                        <TableHeader>
                           <FormattedMessage id="sample.reject.label" />
                         </TableHeader>
                       </TableRow>
@@ -445,9 +457,7 @@ export default function Workplan(props) {
                                       row.accessionNumber
                                     }
                                   >
-                                    <u>
-                                      {row.accessionNumber}
-                                    </u>
+                                    <u>{row.accessionNumber}</u>
                                   </Link>
                                 )}
                               </TableCell>
@@ -476,20 +486,22 @@ export default function Workplan(props) {
                                 <TableCell>{row.testName}</TableCell>
                               )}
                               <TableCell>{row.receivedDate}</TableCell>
-							  <TableCell>
-								<CustomCheckBox
-								  id={"reject_" + index}
-								  label={""}
-								  onChange={(value) => {
-									if (value) {
-										setSelectedOrder(row.accessionNumber);
-										setSelectedOrderTestId(row.testId);
-										setSelectedSampleGroupId(row.sampleGroupingNumber);
-										setIsOpen(true);
-									}
-								  }}
-								/>
-							  </TableCell>
+                              <TableCell>
+                                <CustomCheckBox
+                                  id={"reject_" + index}
+                                  label={""}
+                                  onChange={(value) => {
+                                    if (value) {
+                                      setSelectedOrder(row.accessionNumber);
+                                      setSelectedOrderTestId(row.testId);
+                                      setSelectedSampleGroupId(
+                                        row.sampleGroupingNumber,
+                                      );
+                                      setIsOpen(true);
+                                    }
+                                  }}
+                                />
+                              </TableCell>
                             </TableRow>
                           );
                         })}

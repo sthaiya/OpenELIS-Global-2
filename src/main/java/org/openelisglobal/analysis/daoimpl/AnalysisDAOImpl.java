@@ -1347,6 +1347,27 @@ public class AnalysisDAOImpl extends BaseDAOImpl<Analysis, String> implements An
 
     @Override
     @Transactional(readOnly = true)
+    public List<Analysis> getAnalysisValidatedInRange(Timestamp lowDate, Timestamp highDate)
+            throws LIMSRuntimeException {
+        String sql = "From Analysis a where a.releasedDate >= :lowDate AND a.releasedDate < :highDate";
+
+        try {
+            Query<Analysis> query = entityManager.unwrap(Session.class).createQuery(sql, Analysis.class);
+            query.setParameter("lowDate", lowDate);
+            query.setParameter("highDate", highDate);
+
+            List<Analysis> analysisList = query.list();
+            return analysisList;
+
+        } catch (HibernateException e) {
+            handleException(e, "getAnalysisCompletedInRange");
+        }
+
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Analysis> getAnalysisEnteredAfterDate(Timestamp date) throws LIMSRuntimeException {
         String sql = "From Analysis a where a.enteredDate > :date";
 

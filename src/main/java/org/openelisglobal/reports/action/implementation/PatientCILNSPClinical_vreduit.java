@@ -15,6 +15,7 @@ package org.openelisglobal.reports.action.implementation;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import org.openelisglobal.common.services.IStatusService;
 import org.openelisglobal.common.services.StatusService.AnalysisStatus;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;
+import org.openelisglobal.common.util.DateUtil;
 import org.openelisglobal.image.service.ImageService;
 import org.openelisglobal.image.valueholder.Image;
 import org.openelisglobal.internationalization.MessageUtil;
@@ -137,10 +139,7 @@ public class PatientCILNSPClinical_vreduit extends PatientReport implements IRep
 
         List<Analysis> filteredAnalysisList = userService.filterAnalysesByLabUnitRoles(systemUserId, analysisList, Constants.ROLE_REPORTS);
 
-        System.out.println("===============================");
-        System.out.println(labUnits);
-        System.out.println("===============================");
-        if (!labUnits.isEmpty())
+        if (labUnits != null && !labUnits.isEmpty())
             filteredAnalysisList = filterAnalysesByTestSections(filteredAnalysisList);
 
         List<ClinicalPatientData> currentSampleReportItems = new ArrayList<>(filteredAnalysisList.size());
@@ -177,6 +176,12 @@ public class PatientCILNSPClinical_vreduit extends PatientReport implements IRep
                         currentSampleReportItems.add(resultsData);
                     }
                 }
+            }
+
+            if (analysis.getPrintedDate() == null) {
+                analysis.setSysUserId(systemUserId);
+                analysis.setPrintedDate(DateUtil.convertDateTimeToSqlDate(Calendar.getInstance().getTime()));
+                analysisService.update(analysis);
             }
         }
         setCollectionTime(sampleSet, currentSampleReportItems, true);

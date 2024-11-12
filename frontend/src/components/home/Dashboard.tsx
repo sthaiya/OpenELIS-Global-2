@@ -25,10 +25,7 @@ import "./Dashboard.css";
 import { Minimize, Maximize, ArrowLeft, ArrowRight } from "@carbon/react/icons";
 import { Copy } from "@carbon/icons-react";
 import { useState, useEffect, useRef, useContext } from "react";
-import {
-  getFromOpenElisServer,
-  hasRole,
-} from "../utils/Utils.js";
+import { getFromOpenElisServer, hasRole } from "../utils/Utils.js";
 import { FormattedMessage, useIntl } from "react-intl";
 import UserSessionDetailsContext from "../../UserSessionDetailsContext";
 import { NotificationContext } from "../layout/Layout";

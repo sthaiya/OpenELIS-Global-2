@@ -165,6 +165,8 @@ public interface AnalysisDAO extends BaseDAO<Analysis, String> {
 
     List<Analysis> getAnalysisCompleteInRange(Timestamp lowDate, Timestamp highDate) throws LIMSRuntimeException;
 
+    List<Analysis> getAnalysisValidatedInRange(Timestamp lowDate, Timestamp highDate) throws LIMSRuntimeException;
+
     List<Analysis> getAnalysisEnteredAfterDate(Timestamp latestCollectionDate) throws LIMSRuntimeException;
 
     List<Analysis> getAnalysisByAccessionAndTestId(String accessionNumber, String testId) throws LIMSRuntimeException;

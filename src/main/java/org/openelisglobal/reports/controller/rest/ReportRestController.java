@@ -34,7 +34,6 @@ import org.openelisglobal.common.rest.BaseRestController;
 import org.openelisglobal.common.services.IStatusService;
 import org.openelisglobal.common.services.TableIdService;
 import org.openelisglobal.common.util.DateUtil;
-import org.openelisglobal.common.util.StringUtil;
 import org.openelisglobal.common.util.validator.GenericValidator;
 import org.openelisglobal.organization.valueholder.Organization;
 import org.openelisglobal.patient.valueholder.Patient;
@@ -178,7 +177,7 @@ public class ReportRestController extends BaseRestController {
             tsEndDate = DateUtil.convertStringDateToTimestampWithPatternNoLocale(form.getEndDate() + " 23:59:59", "dd/MM/yyyy HH:mm:ss");
         }
 
-        List<Analysis> analyses = analysisService.getAnalysisCompleteInRange(tsStartDate, tsEndDate);
+        List<Analysis> analyses = analysisService.getAnalysisValidatedInRange(tsStartDate, tsEndDate);
         respForm.setDisplayItems(convertAnalysesToReviewBean(analyses, form));
 
         return respForm;
@@ -196,7 +195,7 @@ public class ReportRestController extends BaseRestController {
                     if (form.getTestSection() != null && StringUtils.isNotBlank(form.getTestSection()) && !Objects.equals(rvb.getTestSectionId(), form.getTestSection()))
                         continue; // we only want results for a specific section
 
-                    if (!form.showPrinted() && analysisService.patientReportHasBeenDone(analysis))
+                    if (!form.showPrinted() && analysis.getPrintedDate() != null)
                         continue; // we only want unprinted results
 
                     Sample sample = analysis.getSampleItem() != null ? analysis.getSampleItem().getSample() : null;

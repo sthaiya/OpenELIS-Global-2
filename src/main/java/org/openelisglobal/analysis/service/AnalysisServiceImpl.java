@@ -654,6 +654,12 @@ public class AnalysisServiceImpl extends AuditableBaseObjectServiceImpl<Analysis
 
     @Override
     @Transactional(readOnly = true)
+    public List<Analysis> getAnalysisValidatedInRange(Timestamp lowDate, Timestamp highDate) {
+        return getBaseObjectDAO().getAnalysisValidatedInRange(lowDate, highDate);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Analysis> getAllMaxRevisionAnalysesPerTest(Test test) {
         return getBaseObjectDAO().getAllMaxRevisionAnalysesPerTest(test);
     }
