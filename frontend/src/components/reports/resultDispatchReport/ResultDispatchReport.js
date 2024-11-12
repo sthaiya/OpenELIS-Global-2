@@ -89,25 +89,6 @@ const DispatchReport = ({ id }) => {
     } else {
       setData([]);
     }
-
-    // Sets next and previous page numbers based on the total pages and current page number.
-    if (res && res.paging) {
-      const { totalPages, currentPage } = res.paging;
-      if (totalPages > 1) {
-        setPagination(true);
-        if (parseInt(currentPage) < parseInt(totalPages)) {
-          setNextPage(parseInt(currentPage) + 1);
-        } else {
-          setNextPage(null);
-        }
-
-        if (parseInt(currentPage) > 1) {
-          setPreviousPage(parseInt(currentPage) - 1);
-        } else {
-          setPreviousPage(null);
-        }
-      }
-    }
   };
 
   const reportHeaders = [
