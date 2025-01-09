@@ -1,13 +1,15 @@
 package org.openelisglobal.note;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
+import org.openelisglobal.note.dao.NoteDAO;
 import org.openelisglobal.note.service.NoteService;
 import org.openelisglobal.note.valueholder.Note;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +19,11 @@ public class NoteServiceTest extends BaseWebContextSensitiveTest {
     @Autowired
     NoteService noteService;
 
+    @Autowired
+    NoteDAO noteDAO;
+
     @Before
     public void init() throws Exception {
-        assertNotNull(noteService);
         noteService.deleteAll(noteService.getAll());
     }
 
@@ -73,4 +77,32 @@ public class NoteServiceTest extends BaseWebContextSensitiveTest {
         noteService.deleteAll(noteService.getAll());
         assertEquals(0, noteService.getAll().size());
     }
+
+    @Test
+    public void getNotesOrderedByTypeAndLastUpdated_shouldReturnNotesInCorrectOrder() {
+        Note note1 = new Note();
+        note1.setReferenceId("1");
+        note1.setReferenceTableId("1");
+        note1.setNoteType(Note.INTERNAL);
+        note1.setSubject("First Note");
+        note1.setText("This is the first test note.");
+        note1.setSysUserId("testUser123");
+        noteService.insert(note1);
+
+        Note note2 = new Note();
+        note2.setReferenceId("1");
+        note2.setReferenceTableId("1");
+        note2.setNoteType(Note.INTERNAL);
+        note2.setSubject("Second Note");
+        note2.setText("This is the second test note.");
+        note2.setSysUserId("testUser456");
+        noteService.insert(note2);
+
+        List<Note> notes = noteService.getAllNotesByRefIdRefTable(note1);
+        assertFalse("Notes list should not be empty", notes.isEmpty());
+
+        assertEquals("Second note should be internal", Note.INTERNAL, notes.get(0).getNoteType());
+        assertEquals("First note should be external", Note.INTERNAL, notes.get(1).getNoteType());
+    }
+
 }

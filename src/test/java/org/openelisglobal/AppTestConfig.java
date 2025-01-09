@@ -22,11 +22,16 @@ import org.openelisglobal.externalconnections.service.ExternalConnectionService;
 import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.localization.dao.LocalizationDAO;
 import org.openelisglobal.localization.service.LocalizationServiceImpl;
+import org.openelisglobal.note.dao.NoteDAO;
 import org.openelisglobal.note.service.NoteService;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
 import org.openelisglobal.observationhistorytype.service.ObservationHistoryTypeService;
+import org.openelisglobal.organization.dao.OrganizationTypeDAO;
+import org.openelisglobal.organization.daoimpl.OrganizationTypeDAOImpl;
+import org.openelisglobal.organization.service.OrganizationService;
+import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.panel.service.PanelService;
 import org.openelisglobal.panelitem.service.PanelItemService;
 import org.openelisglobal.program.service.ImmunohistochemistrySampleService;
@@ -211,6 +216,12 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public RequesterTypeService requesterTypeService() {
         return mock(RequesterTypeService.class);
+    }
+
+    @Bean()
+    @Profile("test")
+    public OrganizationService organizationService() {
+        return mock(OrganizationService.class);
     }
 
     @Bean()
@@ -402,6 +413,24 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public StatusOfSampleService statusOfSampleService() {
         return mock(StatusOfSampleService.class);
+    }
+
+    @Bean
+    @Profile("test")
+    public OrganizationTypeService OrganizationTypeService() {
+        return mock(OrganizationTypeService.class);
+    }
+
+    @Bean
+    @Profile("test")
+    public NoteDAO NoteDAO() {
+        return mock(NoteDAO.class);
+    }
+
+    @Bean
+    @Profile("test")
+    public OrganizationTypeDAO organizationTypeDAO() {
+        return new OrganizationTypeDAOImpl();
     }
 
     @Override
