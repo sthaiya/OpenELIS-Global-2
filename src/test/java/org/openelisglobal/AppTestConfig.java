@@ -6,6 +6,7 @@ import ca.uhn.fhir.context.FhirContext;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
 import lombok.NonNull;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.openelisglobal.audittrail.dao.AuditTrailService;
@@ -28,8 +29,6 @@ import org.openelisglobal.notification.service.AnalysisNotificationConfigService
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
 import org.openelisglobal.observationhistorytype.service.ObservationHistoryTypeService;
-import org.openelisglobal.organization.dao.OrganizationTypeDAO;
-import org.openelisglobal.organization.daoimpl.OrganizationTypeDAOImpl;
 import org.openelisglobal.organization.service.OrganizationService;
 import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.panel.service.PanelService;
@@ -46,6 +45,7 @@ import org.openelisglobal.sampleorganization.service.SampleOrganizationService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
 import org.openelisglobal.statusofsample.service.StatusOfSampleService;
+import org.openelisglobal.systemuser.service.SystemUserService;
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 import org.openelisglobal.test.dao.TestDAO;
 import org.openelisglobal.test.service.TestSectionService;
@@ -428,9 +428,13 @@ public class AppTestConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    @Profile("test")
-    public OrganizationTypeDAO organizationTypeDAO() {
-        return new OrganizationTypeDAOImpl();
+    public SystemUserService systemUserService() {
+        return mock(SystemUserService.class);
+    }
+
+    @Bean
+    public EntityManager entityManager() {
+        return mock(EntityManager.class);
     }
 
     @Override

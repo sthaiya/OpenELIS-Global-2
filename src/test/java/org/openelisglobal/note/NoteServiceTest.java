@@ -1,5 +1,6 @@
 package org.openelisglobal.note;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -12,6 +13,10 @@ import org.openelisglobal.BaseWebContextSensitiveTest;
 import org.openelisglobal.note.dao.NoteDAO;
 import org.openelisglobal.note.service.NoteService;
 import org.openelisglobal.note.valueholder.Note;
+import org.openelisglobal.referencetables.service.ReferenceTablesService;
+import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
+import org.openelisglobal.systemuser.service.SystemUserService;
+import org.openelisglobal.systemuser.valueholder.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class NoteServiceTest extends BaseWebContextSensitiveTest {
@@ -22,8 +27,26 @@ public class NoteServiceTest extends BaseWebContextSensitiveTest {
     @Autowired
     NoteDAO noteDAO;
 
+    @Autowired
+    private ReferenceTablesService referenceTablesService;
+
+    @Autowired
+    private SampleQaEventService sampleQaEventService;
+
+    @Autowired
+    private SystemUserService systemUserService;
+
+    private static final String TEST_USER_1 = "testUser123";
+    private static final String TEST_USER_2 = "testUser456";
+    private static final String REF_ID = "1";
+    private static final String REF_TABLE_ID = "1";
+
     @Before
     public void init() throws Exception {
+
+        createSystemUser(TEST_USER_1);
+        createSystemUser(TEST_USER_2);
+
         noteService.deleteAll(noteService.getAll());
     }
 
@@ -31,6 +54,25 @@ public class NoteServiceTest extends BaseWebContextSensitiveTest {
     public void tearDown() {
         noteService.deleteAll(noteService.getAll());
 
+        deleteSystemUser(TEST_USER_1);
+        deleteSystemUser(TEST_USER_2);
+    }
+
+    private void createSystemUser(String userId) {
+        SystemUser user = systemUserService.get(userId);
+        if (user == null) {
+            user = new SystemUser();
+            user.setId(userId);
+            user.setLoginName(userId); // Set required fields
+            systemUserService.insert(user);
+        }
+    }
+
+    private void deleteSystemUser(String userId) {
+        SystemUser user = systemUserService.get(userId);
+        if (user != null) {
+            systemUserService.delete(user);
+        }
     }
 
     @Test
