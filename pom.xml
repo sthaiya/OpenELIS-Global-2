@@ -360,6 +360,11 @@
       <version>${springframework.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>2.3.1.RELEASE</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.retry</groupId>
       <artifactId>spring-retry</artifactId>
       <version>1.2.5.RELEASE</version>
@@ -568,26 +573,26 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
+      <version>1.18.36</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
   <repositories>
     <repository>
-        <id>jaspersoft-third-party</id>
-        <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+      <id>jaspersoft-third-party</id>
+      <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
     </repository>
     <repository>
-        <id>shibboleth</id>
-        <!-- openSaml-->
-        <url>https://build.shibboleth.net/maven/releases/</url>
+      <id>shibboleth</id>
+      <!-- openSaml-->
+      <url>https://build.shibboleth.net/maven/releases/</url>
     </repository>
     <repository>
-        <id>uwdigi-repo-central</id>
-        <name>DIGI Public Repository</name>
-        <url>https://packages.uwdigi.org/artifactory/public</url>
+      <id>uwdigi-repo-central</id>
+      <name>DIGI Public Repository</name>
+      <url>https://packages.uwdigi.org/artifactory/public</url>
     </repository>
-</repositories>
+  </repositories>
   <build>
     <finalName>OpenELIS-Global</finalName>
     <resources>
@@ -740,31 +745,31 @@
         </configuration>
       </plugin>
       <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.12</version>
-          <configuration>
-             <excludes>
-                    <exclude>**/*.jar</exclude>
-                    <exclude>naughty-dependency/**/*.class</exclude>
-                </excludes>
-          </configuration>
-          <executions>
-              <execution>
-                  <goals>
-                      <goal>prepare-agent</goal>
-                  </goals>
-              </execution>
-              <execution>
-                  <id>report</id>
-                  <phase>test</phase>
-                  <goals>
-                      <goal>report</goal>
-                  </goals>
-              </execution>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <configuration>
+          <excludes>
+            <exclude>**/*.jar</exclude>
+            <exclude>naughty-dependency/**/*.class</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
 
-               <!-- Make sure we have at least 70% coverage -->
-              <!-- <execution>
+          <!-- Make sure we have at least 70% coverage -->
+          <!-- <execution>
                 <id>verify-test-coverage</id>
                 <goals>
                   <goal>check</goal>
@@ -788,9 +793,8 @@
                 </configuration>
               </execution> -->
 
-          </executions>
-        </plugin>
-
+        </executions>
+      </plugin>
 
 
     </plugins>
