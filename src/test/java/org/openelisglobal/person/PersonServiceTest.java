@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
