@@ -26,7 +26,7 @@
     <hibernate-search.version>6.1.8.Final</hibernate-search.version>
     <postgresql.version>42.7.0</postgresql.version>
     <log4j.version>2.17.1</log4j.version>
-    <springframework.version>6.0.23</springframework.version>
+    <springframework.version>6.2.2</springframework.version>
     <springsecurity.version>6.0.4</springsecurity.version>
     <testContainersVersion>1.15.3</testContainersVersion>
   </properties>
@@ -368,7 +368,7 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>3.0.12</version>
+      <version>3.4.2</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.security</groupId>
@@ -597,6 +597,7 @@
         <configuration>
           <!-- move to release when we compile in java versions >= 9 -->
           <release>${maven.java.release}</release>
+          <parameters>true</parameters>
           <!-- legacy for java versions < 9 -->
           <!-- <source>${maven.compiler.source}</source> -->
           <!-- <target>${maven.compiler.target}</target> -->
