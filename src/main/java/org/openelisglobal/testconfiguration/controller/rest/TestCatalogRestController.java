@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.openelisglobal.common.controller.BaseController;
 import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.dictionary.service.DictionaryService;

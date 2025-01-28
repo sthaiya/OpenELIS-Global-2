@@ -9,18 +9,16 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.openelisglobal.common.log.LogEvent;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter implements Filter {
 
-    private final Logger log = LoggerFactory.getLogger(CORSFilter.class);
-
     public CORSFilter() {
-        log.info("CORSFilter init");
+        LogEvent.logInfo(this.getClass().getSimpleName(), "CORSFilter", "CORSFilter init");
     }
 
     @Override

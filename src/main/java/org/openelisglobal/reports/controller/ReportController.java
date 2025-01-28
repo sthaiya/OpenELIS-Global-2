@@ -1,6 +1,6 @@
 package org.openelisglobal.reports.controller;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

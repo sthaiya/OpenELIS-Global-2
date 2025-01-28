@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import jakarta.annotation.PostConstruct;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.GenericValidator;
 import org.json.simple.JSONObject;
 import org.openelisglobal.analysis.valueholder.Analysis;
@@ -240,7 +240,7 @@ public class ResultServiceImpl extends AuditableBaseObjectServiceImpl<Result, St
                 }
             }
 
-            return StringEscapeUtils.escapeHtml(reportResult);
+            return StringEscapeUtils.escapeHtml4(reportResult);
         } else if (TypeOfTestResultServiceImpl.ResultType.isMultiSelectVariant(getTestType(result))) {
             StringBuilder buffer = new StringBuilder();
             boolean firstPass = true;
@@ -339,7 +339,7 @@ public class ResultServiceImpl extends AuditableBaseObjectServiceImpl<Result, St
                 }
             }
 
-            return StringEscapeUtils.escapeHtml(reportResult);
+            return StringEscapeUtils.escapeHtml4(reportResult);
         } else if (TypeOfTestResultServiceImpl.ResultType.isMultiSelectVariant(getTestType(result))) {
             StringBuilder buffer = new StringBuilder();
             boolean firstPass = true;

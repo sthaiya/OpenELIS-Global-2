@@ -8,7 +8,7 @@ import java.util.Map;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openelisglobal.address.service.AddressPartService;
 import org.openelisglobal.address.service.OrganizationAddressService;
 import org.openelisglobal.address.valueholder.AddressPart;

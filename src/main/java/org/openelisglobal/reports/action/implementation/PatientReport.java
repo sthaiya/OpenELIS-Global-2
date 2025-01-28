@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import jakarta.annotation.PostConstruct;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.address.service.AddressPartService;
@@ -890,7 +890,7 @@ public abstract class PatientReport extends Report {
             testName = getTestName(hasParent);
             // Not sure if it is a bug in escapeHtml but the wrong markup is
             // generated
-            testName = StringEscapeUtils.escapeHtml(testName).replace("&mu", "&micro");
+            testName = StringEscapeUtils.escapeHtml4(testName).replace("&mu", "&micro");
         }
 
         if (FormFields.getInstance().useField(Field.SampleEntryUseReceptionHour)) {
