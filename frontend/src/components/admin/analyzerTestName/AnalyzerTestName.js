@@ -369,6 +369,17 @@ function AnalyzerTestName() {
               setSelectedAnalyzerId(selectedItem ? selectedItem.id : null);
             }}
           />
+           <Dropdown
+            id="test-dropdown"
+            titleText={intl.formatMessage({ id: "label.actualTestName" })}
+            items={testList}
+            itemToString={(item) => (item ? item.value : "")}
+            selectedItem={selectedTest}
+            onChange={({ selectedItem }) => {
+              setSelectedTest(selectedItem);
+              setSelectedTestId(selectedItem ? selectedItem.id : null);
+            }}
+          />
           <br />
           <TextInput
             id="testName"
@@ -381,17 +392,7 @@ function AnalyzerTestName() {
           />
           <br />
 
-          <Dropdown
-            id="test-dropdown"
-            titleText={intl.formatMessage({ id: "label.actualTestName" })}
-            items={testList}
-            itemToString={(item) => (item ? item.value : "")}
-            selectedItem={selectedTest}
-            onChange={({ selectedItem }) => {
-              setSelectedTest(selectedItem);
-              setSelectedTestId(selectedItem ? selectedItem.id : null);
-            }}
-          />
+         
         </Modal>
 
         <Modal
