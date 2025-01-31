@@ -204,12 +204,6 @@ function ConfigMenuDisplay(props) {
                       <Button disabled={modifyButton} type="submit">
                         <FormattedMessage id="admin.page.configuration.formEntryConfigMenu.button.modify" />
                       </Button>{" "}
-                      <Button kind="tertiary" disabled={true} type="submit">
-                        <FormattedMessage id="admin.page.configuration.formEntryConfigMenu.button.deactivate" />
-                      </Button>{" "}
-                      <Button kind="tertiary" disabled={true} type="submit">
-                        <FormattedMessage id="admin.page.configuration.formEntryConfigMenu.button.add" />
-                      </Button>
                     </Column>
                   </Form>
                 </Section>
@@ -269,9 +263,7 @@ function ConfigMenuDisplay(props) {
                           <TableBody>
                             <>
                               {rows.map((row) => (
-                                <TableRow
-                                  key={row.id}
-                                >
+                                <TableRow key={row.id}>
                                   {row.cells.map((cell) =>
                                     renderCell(cell, row),
                                   )}
