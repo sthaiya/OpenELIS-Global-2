@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang.math.NumberUtils;
@@ -25,6 +27,8 @@ import org.openelisglobal.testconfiguration.form.TestOrderabilityForm;
 import org.openelisglobal.testconfiguration.validator.TestOrderabilityFormValidator;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -139,14 +143,17 @@ public class TestOrderabilityRestController extends BaseController {
     }
 
     @PostMapping(value = "/TestOrderability")
-    public TestOrderabilityForm postTestOrderability(HttpServletRequest request,
+    public ResponseEntity<?> postTestOrderability(HttpServletRequest request,
             @RequestBody @Valid TestOrderabilityForm form, BindingResult result) throws ParseException {
         formValidator.validate(form, result);
         if (result.hasErrors()) {
-            // saveErrors(result);
+            saveErrors(result);
             setupDisplayItems(form);
             // return findForward(FWD_FAIL_INSERT, form);
-            return form;
+            // return form;
+            return ResponseEntity
+                    .badRequest()
+                    .body(Collections.singletonMap("error", "Validation errors occurred, Form Data is not valid"));
         }
 
         String changeList = form.getJsonChangeList();
@@ -173,7 +180,7 @@ public class TestOrderabilityRestController extends BaseController {
         form.setOrderableTestList(orderableTestList);
 
         // return findForward(FWD_SUCCESS_INSERT, form);
-        return form;
+        return ResponseEntity.ok(form);
     }
 
     private List<Test> getTests(List<String> testIds, boolean orderable) {

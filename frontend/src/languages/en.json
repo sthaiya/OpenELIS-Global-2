@@ -1368,5 +1368,6 @@
   "searchindexmanagement.reindex": "Start Reindexing",
   "label.total.tests": "Total Tests",
   "header.label.selectLab": "Select Lab",
-  "patient.nationalid": "National ID"
+  "patient.nationalid": "National ID",
+  "instructions.test.order": "Test with checks are orderable, those without checks are not orderable.  Change checks to change status.  For a test to be able to be ordered on intake it must be both active and orderable.  Tests which are active but not orderable may be requested as part of a test reflex."
 }

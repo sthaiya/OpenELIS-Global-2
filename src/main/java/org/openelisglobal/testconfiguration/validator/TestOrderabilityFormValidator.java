@@ -11,8 +11,10 @@ import org.openelisglobal.testconfiguration.form.TestOrderabilityForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Component
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class TestOrderabilityFormValidator implements Validator {
 
     @Override
