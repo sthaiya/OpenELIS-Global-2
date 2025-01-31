@@ -291,7 +291,7 @@ public class SecurityConfig {
         authenticationProvider.setAssertionValidator(validator);
         http.securityMatcher(new SamlRequestedMatcher()).authorizeHttpRequests(auth -> auth
             .anyRequest().authenticated())
-                .saml2Logout(Customizer.withDefaults())
+                .saml2Logout(saml2 -> saml2.logoutUrl("/Logout"))
                 .saml2Login(saml2 -> saml2
                 .failureHandler(customSamlAuthenticationFailureHandler())
                 .successHandler(customSamlAuthenticationSuccessHandler())
