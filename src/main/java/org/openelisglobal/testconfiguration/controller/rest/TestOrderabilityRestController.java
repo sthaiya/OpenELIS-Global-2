@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.apache.commons.lang.math.NumberUtils;
@@ -27,7 +25,7 @@ import org.openelisglobal.testconfiguration.form.TestOrderabilityForm;
 import org.openelisglobal.testconfiguration.validator.TestOrderabilityFormValidator;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -151,8 +149,7 @@ public class TestOrderabilityRestController extends BaseController {
             setupDisplayItems(form);
             // return findForward(FWD_FAIL_INSERT, form);
             // return form;
-            return ResponseEntity
-                    .badRequest()
+            return ResponseEntity.badRequest()
                     .body(Collections.singletonMap("error", "Validation errors occurred, Form Data is not valid"));
         }
 
@@ -180,7 +177,7 @@ public class TestOrderabilityRestController extends BaseController {
         form.setOrderableTestList(orderableTestList);
 
         // return findForward(FWD_SUCCESS_INSERT, form);
-        return ResponseEntity.ok(form);
+        return ResponseEntity.ok(Collections.singletonMap("status", "success"));
     }
 
     private List<Test> getTests(List<String> testIds, boolean orderable) {

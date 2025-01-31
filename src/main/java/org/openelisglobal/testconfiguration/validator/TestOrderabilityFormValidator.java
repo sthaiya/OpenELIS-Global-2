@@ -1,5 +1,6 @@
 package org.openelisglobal.testconfiguration.validator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -11,7 +12,6 @@ import org.openelisglobal.testconfiguration.form.TestOrderabilityForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)

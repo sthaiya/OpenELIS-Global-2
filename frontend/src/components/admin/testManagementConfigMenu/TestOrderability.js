@@ -23,6 +23,7 @@ import {
   SelectItem,
   Stack,
   Checkbox,
+  Modal,
 } from "@carbon/react";
 import {
   getFromOpenElisServer,
@@ -40,7 +41,6 @@ import { FormattedMessage, injectIntl, useIntl } from "react-intl";
 import PageBreadCrumb from "../../common/PageBreadCrumb.js";
 import CustomCheckBox from "../../common/CustomCheckBox.js";
 import ActionPaginationButtonType from "../../common/ActionPaginationButtonType.js";
-import { use } from "react";
 
 let breadcrumbs = [
   { label: "home.label", link: "/" },
@@ -63,6 +63,7 @@ function TestOrderability() {
 
   const componentMounted = useRef(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [testOrderabilityData, setTestOrderabilityData] = useState({});
   const [jsonChangeList, setJsonChangeList] = useState({
     activateTest: [],
@@ -75,25 +76,24 @@ function TestOrderability() {
 
       orderableTestList = orderableTestList.map((sample) => {
         if (sample.sampleType.id === sampleTypeId) {
-          // Check if sampleType.id matches
           let activeTests = [...sample.activeTests];
           let inactiveTests = [...sample.inactiveTests];
 
           if (isChecked === true) {
             inactiveTests = inactiveTests.filter((item) => item.id !== test.id);
             if (!activeTests.some((item) => item.id === test.id)) {
-              activeTests.push(test); // Add full test object
+              activeTests.push(test);
             }
           } else {
             activeTests = activeTests.filter((item) => item.id !== test.id);
             if (!inactiveTests.some((item) => item.id === test.id)) {
-              inactiveTests.push(test); // Add full test object
+              inactiveTests.push(test);
             }
           }
 
           return { ...sample, activeTests, inactiveTests };
         }
-        return sample; // Return sample as is if sampleType.id does not match
+        return sample;
       });
 
       return { ...prev, orderableTestList };
@@ -108,13 +108,13 @@ function TestOrderability() {
           !activateTest.some((item) => item.id === test.id) &&
           !deactivateTest.some((item) => item.id === test.id)
         ) {
-          activateTest.push({ id: test.id }); // Only push the test id to jsonChangeList
+          activateTest.push({ id: test.id });
         }
         deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
       } else {
         activateTest = activateTest.filter((item) => item.id !== test.id);
         if (!deactivateTest.some((item) => item.id === test.id)) {
-          deactivateTest.push({ id: test.id }); // Only push the test id to jsonChangeList
+          deactivateTest.push({ id: test.id });
         }
       }
 
@@ -128,19 +128,18 @@ function TestOrderability() {
 
       orderableTestList = orderableTestList.map((sample) => {
         if (sample.sampleType.id === sampleTypeId) {
-          // Check if sampleType.id matches
           let activeTests = [...sample.activeTests];
           let inactiveTests = [...sample.inactiveTests];
 
           if (isChecked === false) {
             activeTests = activeTests.filter((item) => item.id !== test.id);
             if (!inactiveTests.some((item) => item.id === test.id)) {
-              inactiveTests.push(test); // Add full test object
+              inactiveTests.push(test);
             }
           } else {
             inactiveTests = inactiveTests.filter((item) => item.id !== test.id);
             if (!activeTests.some((item) => item.id === test.id)) {
-              activeTests.push(test); // Add full test object
+              activeTests.push(test);
             }
           }
 
@@ -288,7 +287,7 @@ function TestOrderability() {
                   jsonChangeList.deactivateTest.length === 0
                 }
                 onClick={() => {
-                  testOrderabilityPostCall();
+                  setIsConfirmModalOpen(true);
                 }}
                 type="button"
               >
@@ -368,7 +367,7 @@ function TestOrderability() {
                   jsonChangeList.deactivateTest.length === 0
                 }
                 onClick={() => {
-                  testOrderabilityPostCall();
+                  setIsConfirmModalOpen(true);
                 }}
                 type="button"
               >
@@ -403,6 +402,136 @@ function TestOrderability() {
           jsonChangeList
         </button>
       </div>
+
+      <Modal
+        open={isConfirmModalOpen}
+        size="md"
+        modalHeading={<FormattedMessage id="label.test.order.confirm" />}
+        primaryButtonText={<FormattedMessage id="column.name.accept" />}
+        secondaryButtonText={<FormattedMessage id="back.action.button" />}
+        onRequestSubmit={() => {
+          setIsConfirmModalOpen(false);
+          testOrderabilityPostCall();
+        }}
+        onRequestClose={() => {
+          setIsConfirmModalOpen(false);
+        }}
+      >
+        <Grid fullWidth={true}>
+          <Column lg={16} md={8} sm={4}>
+            <FormattedMessage id="instructions.test.activation.confirm" />
+            <Section>
+              <Section>
+                <Section>
+                  <Section>
+                    <Heading>
+                      <FormattedMessage id="label.test.orderable" />
+                    </Heading>
+                  </Section>
+                </Section>
+              </Section>
+            </Section>
+            <br />
+            <Section>
+              {(() => {
+                const groupedTests = {};
+
+                jsonChangeList.activateTest.forEach((test) => {
+                  testOrderabilityData?.orderableTestList.forEach((sample) => {
+                    const foundTest = sample.activeTests.find(
+                      (t) => t.id === test.id,
+                    );
+                    if (foundTest) {
+                      if (!groupedTests[sample.sampleType.value]) {
+                        groupedTests[sample.sampleType.value] = [];
+                      }
+                      groupedTests[sample.sampleType.value].push(
+                        foundTest.value,
+                      );
+                    }
+                  });
+                });
+
+                return Object.entries(groupedTests).map(
+                  ([sampleType, tests]) => (
+                    <Grid key={sampleType}>
+                      <Column lg={16} md={8} sm={4}>
+                        <Section>
+                          <Section>
+                            <Section>
+                              <Heading>{sampleType}</Heading>
+                            </Section>
+                          </Section>
+                        </Section>
+                      </Column>
+                      {tests.map((testName, index) => (
+                        <Column lg={4} md={4} sm={4} key={index}>
+                          <span key={index}>{testName}</span>
+                        </Column>
+                      ))}
+                    </Grid>
+                  ),
+                );
+              })()}
+            </Section>
+            <br />
+            <Section>
+              <Section>
+                <Section>
+                  <Section>
+                    <Heading>
+                      <FormattedMessage id="label.test.unorderable" />
+                    </Heading>
+                  </Section>
+                </Section>
+              </Section>
+            </Section>
+            <br />
+            <Section>
+              {(() => {
+                const groupedInactiveTests = {};
+
+                jsonChangeList.deactivateTest.forEach((test) => {
+                  testOrderabilityData?.orderableTestList.forEach((sample) => {
+                    const foundTest = sample.inactiveTests.find(
+                      (t) => t.id === test.id,
+                    );
+                    if (foundTest) {
+                      if (!groupedInactiveTests[sample.sampleType.value]) {
+                        groupedInactiveTests[sample.sampleType.value] = [];
+                      }
+                      groupedInactiveTests[sample.sampleType.value].push(
+                        foundTest.value,
+                      );
+                    }
+                  });
+                });
+
+                return Object.entries(groupedInactiveTests).map(
+                  ([sampleType, tests]) => (
+                    <Grid key={sampleType}>
+                      <Column lg={16} md={8} sm={4}>
+                        <Section>
+                          <Section>
+                            <Section>
+                              <Heading>{sampleType}</Heading>
+                            </Section>
+                          </Section>
+                        </Section>
+                      </Column>
+                      {tests.map((testName, index) => (
+                        <Column lg={4} md={4} sm={4} key={index}>
+                          <span key={index}>{testName}</span>
+                        </Column>
+                      ))}
+                    </Grid>
+                  ),
+                );
+              })()}
+            </Section>
+          </Column>
+        </Grid>
+      </Modal>
     </>
   );
 }
