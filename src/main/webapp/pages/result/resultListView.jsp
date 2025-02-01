@@ -24,7 +24,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
-<%@ taglib prefix="ajax" uri="/tags/ajaxtags"%>
+
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <c:set var="tests" value="${form.testResult}" />

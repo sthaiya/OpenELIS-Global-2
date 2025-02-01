@@ -141,7 +141,7 @@ public class SecurityConfig {
         
         // for all requests going to open pages, use this security configuration
         http.securityMatcher(OPEN_PAGES).authorizeHttpRequests(auth -> auth
-        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR).permitAll()
         .anyRequest().permitAll())
         // disable csrf as it is not needed for open pages
         .csrf(csrf -> csrf.disable()).headers(headers -> headers.frameOptions().sameOrigin()
@@ -412,7 +412,7 @@ public class SecurityConfig {
             http.addFilterBefore(multipartFilter, CsrfFilter.class);
             http.authorizeHttpRequests(auth -> auth
                     // allow all users to access these pages no matter authentication status
-                    .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                    .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR).permitAll()
                     .requestMatchers(LOGIN_PAGES).permitAll()
                     .requestMatchers(RESOURCE_PAGES).permitAll()
                     // ensure all other requests are authenticated

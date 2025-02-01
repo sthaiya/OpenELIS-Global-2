@@ -7,7 +7,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
-<%@ taglib prefix="ajax" uri="/tags/ajaxtags"%>
+
 <style>
 .tab-label {
 	overflow: hidden;

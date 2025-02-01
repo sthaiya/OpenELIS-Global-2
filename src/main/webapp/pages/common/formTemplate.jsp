@@ -225,7 +225,7 @@ if (document.layers) {
 		</tr>
 		<tr>
 			<td>
-				<jsp:include page="${bodyFragment}"/>
+				<jsp:include page="${bodyFragment}"/> 
 			</td>
 		</tr>
 		<tr>

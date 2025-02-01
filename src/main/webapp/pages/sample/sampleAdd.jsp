@@ -13,7 +13,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
-<%@ taglib prefix="ajax" uri="/tags/ajaxtags"%>
+
 
 <c:set var="formName" value="${form.formName}" />
 <c:set var="entryDate" value="${form.currentDate}" />
