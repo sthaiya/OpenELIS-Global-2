@@ -19,8 +19,12 @@ import CustomLabNumberInput from "../common/CustomLabNumberInput";
 import { NotificationContext } from "../layout/Layout";
 import { AlertDialog, NotificationKinds } from "../common/CustomNotification";
 import { getFromOpenElisServer } from "../utils/Utils";
+import { BarcodeContext } from './BarcodeContext';
 
 const ExistingOrder = () => {
+  const { format } = useContext(BarcodeContext);
+  // console.log(format);
+
   const intl = useIntl();
   const componentMounted = useRef(false);
   const [accessionNumber, setAccessionNumber] = useState("");
@@ -75,21 +79,21 @@ const ExistingOrder = () => {
 
   const printLabelSets = () => {
     setSource(
-      `/LabelMakerServlet?labNo=${accessionNumber}&type=default&quantity=`,
+      `/LabelMakerServlet?labNo=${accessionNumber}&type=default&quantity=&format=${format}`,
     );
     setRenderBarcode(true);
   };
 
   const printOrderLabels = () => {
     setSource(
-      `/LabelMakerServlet?labNo=${accessionNumber}&type=order&quantity=${orderLabels}`,
+      `/LabelMakerServlet?labNo=${accessionNumber}&type=order&quantity=${orderLabels}&format=${format}`,
     );
     setRenderBarcode(true);
   };
 
   const printSpecimenLabels = (specimenAccessionNumber) => {
     setSource(
-      `/LabelMakerServlet?labNo=${specimenAccessionNumber}&type=specimen&quantity=1`,
+      `/LabelMakerServlet?labNo=${specimenAccessionNumber}&type=specimen&quantity=1&format=${format}`,
     );
     setRenderBarcode(true);
   };
@@ -279,3 +283,4 @@ const ExistingOrder = () => {
   );
 };
 export default injectIntl(ExistingOrder);
+
