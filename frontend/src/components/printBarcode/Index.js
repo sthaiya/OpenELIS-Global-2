@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { Column, Grid, Heading, Section, Select, SelectItem } from "@carbon/react";
+import {
+  Column,
+  Grid,
+  Heading,
+  Section,
+  Select,
+  SelectItem,
+} from "@carbon/react";
 import ExistingOrder from "./ExistingOrder";
 import PrePrint from "./PrePrint";
 import PageBreadCrumb from "../common/PageBreadCrumb.js";
-import { BarcodeContext } from './BarcodeContext';
+import { BarcodeContext } from "./BarcodeContext";
 
 let breadcrumbs = [{ label: "home.label", link: "/" }];
 
 const PrintBarcode = () => {
-  const [barcodeFormat, setBarcodeFormat] = useState('barcode');
+  const [barcodeFormat, setBarcodeFormat] = useState("barcode");
 
   return (
-    <BarcodeContext.Provider value={{ format: barcodeFormat, setFormat: setBarcodeFormat }}>
+    <BarcodeContext.Provider
+      value={{ format: barcodeFormat, setFormat: setBarcodeFormat }}
+    >
       <div>
         <PageBreadCrumb breadcrumbs={breadcrumbs} />
         <Grid fullWidth={true}>

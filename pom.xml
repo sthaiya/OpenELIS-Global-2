@@ -32,28 +32,6 @@
   </properties>
   <dependencies>
 
-    <!-- iText 7 Core -->
-    <dependency>
-        <groupId>com.itextpdf</groupId>
-        <artifactId>itext7-core</artifactId>
-        <version>7.2.5</version>
-        <type>pom</type>
-    </dependency>
-
-    <!-- Specific iText Modules -->
-    <dependency>
-        <groupId>com.itextpdf</groupId>
-        <artifactId>layout</artifactId>
-        <version>7.2.5</version>
-    </dependency>
-
-    <!-- If you need barcodes specifically -->
-    <dependency>
-        <groupId>com.itextpdf</groupId>
-        <artifactId>barcodes</artifactId>
-        <version>7.2.5</version>
-    </dependency>
-    
     <!-- ZXing QR Code Generation -->
     <dependency>
         <groupId>com.google.zxing</groupId>
@@ -607,19 +585,12 @@
     </dependency>
   </dependencies>
   <repositories>
-    
+
     <!-- Maven Central Repository -->
     <repository>
         <id>central</id>
         <name>Central Repository</name>
         <url>https://repo.maven.apache.org/maven2</url>
-    </repository>
-    
-    <!-- iText Repository -->
-    <repository>
-        <id>itext</id>
-        <name>iText Repository - releases</name>
-        <url>https://repo.itextsupport.com/releases</url>
     </repository>
     <repository>
         <id>jaspersoft-third-party</id>
@@ -630,11 +601,11 @@
         <!-- openSaml-->
         <url>https://build.shibboleth.net/maven/releases/</url>
     </repository>
-    <!-- <repository>
+    <repository>
         <id>uwdigi-repo-central</id>
         <name>DIGI Public Repository</name>
         <url>https://packages.uwdigi.org/artifactory/public</url>
-    </repository> -->
+    </repository>
 </repositories>
   <build>
     <finalName>OpenELIS-Global</finalName>

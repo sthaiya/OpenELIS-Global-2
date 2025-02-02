@@ -29,7 +29,6 @@ import org.openelisglobal.test.service.TestService;
 import org.openelisglobal.test.valueholder.Test;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
-import org.springframework.http.HttpHeaders;
 
 /**
  * Servlet for pages to send bar code label requests. Returns as pdf unless...
@@ -110,7 +109,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
 
         // create requested labels as pdf stream
         String format = request.getParameter("format");
-        
 
         // create requested labels as pdf stream
         BarcodeLabelMaker labelMaker = new BarcodeLabelMaker();
@@ -229,10 +227,11 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
     private Errors validate(String labNo, String programCode, String type, String quantity, String override) {
         Errors errors = new BaseErrors();
         // String format = request.getParameter("format");
-        // if (!StringUtil.isNullorNill(format) && 
-        //     !format.equalsIgnoreCase("barcode") && 
-        //     !format.equalsIgnoreCase("qr")) {
-        //     errors.reject("barcode.label.error.format.invalid", "barcode.label.error.format.invalid");
+        // if (!StringUtil.isNullorNill(format) &&
+        // !format.equalsIgnoreCase("barcode") &&
+        // !format.equalsIgnoreCase("qr")) {
+        // errors.reject("barcode.label.error.format.invalid",
+        // "barcode.label.error.format.invalid");
         // }
         // Validate quantity
         if (!org.apache.commons.validator.GenericValidator.isInt(quantity)) {

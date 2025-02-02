@@ -19,7 +19,7 @@ import CustomLabNumberInput from "../common/CustomLabNumberInput";
 import { NotificationContext } from "../layout/Layout";
 import { AlertDialog, NotificationKinds } from "../common/CustomNotification";
 import { getFromOpenElisServer } from "../utils/Utils";
-import { BarcodeContext } from './BarcodeContext';
+import { BarcodeContext } from "./BarcodeContext";
 
 const ExistingOrder = () => {
   const { format } = useContext(BarcodeContext);
@@ -283,4 +283,3 @@ const ExistingOrder = () => {
   );
 };
 export default injectIntl(ExistingOrder);
-

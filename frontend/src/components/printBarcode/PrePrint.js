@@ -14,7 +14,7 @@ import { getFromOpenElisServer } from "../utils/Utils";
 import { sampleTypeTestsStructure } from "../data/SampleEntryTestsForTypeProvider";
 import AutoComplete from "../common/AutoComplete";
 import "../Style.css";
-import { BarcodeContext } from './BarcodeContext';
+import { BarcodeContext } from "./BarcodeContext";
 
 const PrePrint = () => {
   const { format } = useContext(BarcodeContext);
@@ -176,7 +176,7 @@ const PrePrint = () => {
     const selectedTestIds = selectedTests
       .map((selectedTest) => selectedTest.id)
       .join(",");
-    
+
     const params = new URLSearchParams({
       prePrinting: "true",
       numSetsOfLabels: labelSets,
@@ -188,31 +188,31 @@ const PrePrint = () => {
     });
 
     const url = `LabelMakerServlet?${params.toString()}`;
-    console.log('Fetching labels from:', url);
-    
+    console.log("Fetching labels from:", url);
+
     try {
       const response = await fetch(url, {
-          // Add these options to ensure we can see the custom headers
-          credentials: 'include',
-          headers: {
-              'Accept': '*/*',
-          }
+        // Add these options to ensure we can see the custom headers
+        credentials: "include",
+        headers: {
+          Accept: "*/*",
+        },
       });
-      
+
       // Log the entire headers for debugging
-      console.log('All response headers:');
+      console.log("All response headers:");
       for (const [key, value] of response.headers.entries()) {
-          console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
       }
-      
+
       // Log the specific debug header
-      const debugLog = response.headers.get('X-Debug-Log');
-      console.log('Debug Log:', debugLog);
-      
+      const debugLog = response.headers.get("X-Debug-Log");
+      console.log("Debug Log:", debugLog);
+
       setSource(url);
       setRenderBarcode(true);
     } catch (error) {
-        console.error('Error fetching labels:', error);
+      console.error("Error fetching labels:", error);
     }
   };
 
@@ -437,4 +437,3 @@ const PrePrint = () => {
   );
 };
 export default injectIntl(PrePrint);
-

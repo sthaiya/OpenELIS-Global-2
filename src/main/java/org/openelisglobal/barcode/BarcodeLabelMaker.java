@@ -1,11 +1,8 @@
 package org.openelisglobal.barcode;
 
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.Writer;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.encoder.QRCode;
-
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -21,18 +18,15 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.LineSeparator;
-
-import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.imageio.ImageIO;
-
 import org.openelisglobal.barcode.labeltype.BlankLabel;
 import org.openelisglobal.barcode.labeltype.BlockLabel;
 import org.openelisglobal.barcode.labeltype.Label;
@@ -300,7 +294,7 @@ public class BarcodeLabelMaker {
             mainTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
             mainTable.setTotalWidth(label.pdfWidth - (2 * label.getMargin()));
             mainTable.setLockedWidth(true);
-            float[] columnWidths = {0.4f, 0.6f}; // 40% for QR, 60% for fields
+            float[] columnWidths = { 0.4f, 0.6f }; // 40% for QR, 60% for fields
             mainTable.setWidths(columnWidths);
 
             // Left column - QR Code
@@ -318,7 +312,7 @@ public class BarcodeLabelMaker {
             com.lowagie.text.Font boldFont = new com.lowagie.text.Font(label.getValueFont());
             boldFont.setSize(15); // Larger font size
             boldFont.setStyle(com.lowagie.text.Font.BOLD);
-            
+
             Paragraph codeText = new Paragraph(label.getCode(), boldFont);
             codeText.setAlignment(Paragraph.ALIGN_CENTER);
             PdfPCell codeCell = new PdfPCell(codeText);
@@ -376,19 +370,13 @@ public class BarcodeLabelMaker {
         return cell;
     }
 
-    private PdfPCell createQRCode(Label label, PdfWriter writer, int colspan) 
-            throws DocumentException, IOException {
+    private PdfPCell createQRCode(Label label, PdfWriter writer, int colspan) throws DocumentException, IOException {
         try {
             // Increased base size for QR code
             int qrSize = 1000; // Further increased for higher quality
-            
+
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode(
-                label.getCode(), 
-                BarcodeFormat.QR_CODE, 
-                qrSize,
-                qrSize
-            );
+            BitMatrix bitMatrix = qrCodeWriter.encode(label.getCode(), BarcodeFormat.QR_CODE, qrSize, qrSize);
 
             BufferedImage qrImage = new BufferedImage(qrSize, qrSize, BufferedImage.TYPE_INT_RGB);
             Graphics2D graphics = qrImage.createGraphics();
@@ -407,11 +395,11 @@ public class BarcodeLabelMaker {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(qrImage, "png", baos);
             Image qrCodeImage = Image.getInstance(baos.toByteArray());
-            
+
             // Adjust cell to take up more space with minimal margins
             float availableWidth = (label.pdfWidth * 0.4f) - 4; // Reduced margin from 20 to 4
             float availableHeight = label.pdfHeight - 4; // Reduced margin from 20 to 4
-            
+
             // Scale QR code to fill more space
             qrCodeImage.scaleToFit(availableWidth, availableHeight);
 

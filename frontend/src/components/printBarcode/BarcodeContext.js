@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
 export const BarcodeContext = React.createContext({
-  format: 'barcode',
+  format: "barcode",
   setFormat: () => {},
 });
