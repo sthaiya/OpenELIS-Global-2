@@ -42,7 +42,7 @@ ARG DEFAULT_PW="adminADMIN!"
 ADD ./install/createDefaultPassword.sh /build/install/createDefaultPassword.sh
 RUN ./install/createDefaultPassword.sh -c -p ${DEFAULT_PW}
 
-##a53414f9f76aaeba34b61c9b551f9aa13ee18
+##
 # Build the Project
 #    
 WORKDIR /build
