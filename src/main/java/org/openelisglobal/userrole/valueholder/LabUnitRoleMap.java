@@ -1,6 +1,5 @@
 package org.openelisglobal.userrole.valueholder;
 
-import java.util.Set;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -10,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import java.util.Set;
 
 /**
  * LabUnitRoleMap represents a Map of Map<String , List<String>> ie <labUnit ,

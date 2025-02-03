@@ -1,7 +1,7 @@
 package org.openelisglobal.notification.form;
 
-import java.util.List;
 import jakarta.validation.constraints.Pattern;
+import java.util.List;
 import org.openelisglobal.common.form.AdminOptionMenuForm;
 import org.openelisglobal.common.validator.ValidationHelper;
 import org.openelisglobal.notification.valueholder.TestNotificationConfig;

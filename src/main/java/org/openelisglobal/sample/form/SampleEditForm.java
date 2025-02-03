@@ -1,9 +1,9 @@
 package org.openelisglobal.sample.form;
 
-import java.util.List;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import java.util.List;
 import org.openelisglobal.common.form.BaseForm;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;

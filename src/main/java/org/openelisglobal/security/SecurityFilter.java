@@ -1,8 +1,5 @@
 package org.openelisglobal.security;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -11,6 +8,9 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.common.util.StringUtil;
 

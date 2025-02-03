@@ -1,10 +1,10 @@
 package org.openelisglobal.externalconnections.valueholder;
 
-import java.util.Base64;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import java.util.Base64;
 import org.openelisglobal.externalconnections.valueholder.ExternalConnection.AuthType;
 import org.openelisglobal.security.converter.EncryptionConverter;
 

@@ -15,9 +15,9 @@
  */
 package org.openelisglobal.organization.daoimpl;
 
-import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.openelisglobal.common.exception.LIMSRuntimeException;

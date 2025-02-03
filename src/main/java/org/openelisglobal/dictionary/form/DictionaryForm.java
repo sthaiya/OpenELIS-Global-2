@@ -1,8 +1,8 @@
 package org.openelisglobal.dictionary.form;
 
-import java.util.Collection;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import java.util.Collection;
 import org.hibernate.validator.constraints.Length;
 import org.openelisglobal.common.form.BaseForm;
 import org.openelisglobal.common.validator.ValidationHelper;

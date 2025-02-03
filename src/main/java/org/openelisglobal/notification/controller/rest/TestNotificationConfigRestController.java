@@ -1,7 +1,7 @@
 package org.openelisglobal.notification.controller.rest;
 
-import java.util.List;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.common.controller.BaseController;
 import org.openelisglobal.notification.form.TestNotificationConfigForm;

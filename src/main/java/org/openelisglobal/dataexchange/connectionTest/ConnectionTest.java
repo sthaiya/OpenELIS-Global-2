@@ -13,8 +13,8 @@
  */
 package org.openelisglobal.dataexchange.connectionTest;
 
-import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import org.openelisglobal.dataexchange.common.ITransmissionResponseHandler;
 import org.openelisglobal.dataexchange.common.ReportTransmission;
 import org.openelisglobal.dataexchange.common.ReportTransmission.HTTP_TYPE;

@@ -1,7 +1,7 @@
 package org.openelisglobal.config;
 
-import java.util.concurrent.Executor;
 import jakarta.annotation.Nullable;
+import java.util.concurrent.Executor;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;

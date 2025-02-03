@@ -1,7 +1,7 @@
 package org.openelisglobal.testconfiguration.form;
 
-import java.util.List;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 import org.openelisglobal.common.form.BaseForm;
 
 public class SampleTypeOrderForm extends BaseForm {

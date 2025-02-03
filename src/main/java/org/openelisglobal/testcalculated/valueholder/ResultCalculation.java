@@ -1,7 +1,5 @@
 package org.openelisglobal.testcalculated.valueholder;
 
-import java.util.Map;
-import java.util.Set;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -15,6 +13,8 @@ import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.Map;
+import java.util.Set;
 import org.openelisglobal.common.valueholder.BaseObject;
 import org.openelisglobal.patient.valueholder.Patient;
 import org.openelisglobal.result.valueholder.Result;

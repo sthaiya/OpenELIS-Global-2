@@ -1,6 +1,5 @@
 package org.openelisglobal.program.valueholder.cytology;
 
-import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -11,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.List;
 import org.openelisglobal.common.hibernateConverter.StringListConverter;
 import org.openelisglobal.common.valueholder.BaseObject;
 import org.openelisglobal.program.valueholder.cytology.CytologyDiagnosis.CytologyDiagnosisResultType;

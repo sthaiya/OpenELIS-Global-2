@@ -1,9 +1,9 @@
 package org.openelisglobal.common.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import java.sql.Connection;
+import java.sql.SQLException;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Service;

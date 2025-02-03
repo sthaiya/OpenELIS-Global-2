@@ -14,16 +14,16 @@
 package org.openelisglobal.common.valueholder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
-import jakarta.persistence.Version;
 import org.openelisglobal.internationalization.MessageUtil;
 
 @MappedSuperclass

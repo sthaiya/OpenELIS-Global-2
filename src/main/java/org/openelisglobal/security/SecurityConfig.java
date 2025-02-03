@@ -1,5 +1,8 @@
 package org.openelisglobal.security;
 
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,10 +17,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import jakarta.servlet.DispatcherType;
-import jakarta.servlet.ServletContext; 
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.jasypt.util.text.AES256TextEncryptor;
 import org.jasypt.util.text.TextEncryptor;
@@ -132,134 +131,133 @@ public class SecurityConfig {
     @Order(1)
     public SecurityFilterChain openSecurityFilterChain(HttpSecurity http) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
-            filter.setEncoding("UTF-8");
-            filter.setForceEncoding(true);
-            http.addFilterBefore(filter, CsrfFilter.class);
-            MultipartFilter multipartFilter = new MultipartFilter();
-            multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
-            http.addFilterBefore(multipartFilter, CsrfFilter.class);
-        
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
+        MultipartFilter multipartFilter = new MultipartFilter();
+        multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
+        http.addFilterBefore(multipartFilter, CsrfFilter.class);
+
         // for all requests going to open pages, use this security configuration
-        http.securityMatcher(OPEN_PAGES).authorizeHttpRequests(auth -> auth
-        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR).permitAll()
-        .anyRequest().permitAll())
-        // disable csrf as it is not needed for open pages
-        .csrf(csrf -> csrf.disable()).headers(headers -> headers.frameOptions().sameOrigin()
-        .contentSecurityPolicy(CONTENT_SECURITY_POLICY));
+        http.securityMatcher(OPEN_PAGES)
+                .authorizeHttpRequests(auth -> auth
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR)
+                        .permitAll().anyRequest().permitAll())
+                // disable csrf as it is not needed for open pages
+                .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
         return http.build();
     }
-       
 
     @Bean
     @Order(2)
     @ConditionalOnProperty(property = "org.itech.login.basic", havingValue = "true", matchIfMissing = true)
     public SecurityFilterChain httpBasicServletFilterChain(HttpSecurity http) throws Exception {
-            CharacterEncodingFilter filter = new CharacterEncodingFilter();
-            filter.setEncoding("UTF-8");
-            filter.setForceEncoding(true);
-            http.addFilterBefore(filter, CsrfFilter.class);
-            MultipartFilter multipartFilter = new MultipartFilter();
-            multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
-            http.addFilterBefore(multipartFilter, CsrfFilter.class);
-            // for all requests going to a http basic page, use this security configuration
-            http.securityMatcher(new BasicAuthRequestedMatcher()).authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                    // ensure they are authenticated
-                    // ensure they authenticate with http basic
-                    .httpBasic(Customizer.withDefaults())
-                    // disable csrf as it is not needed for httpBasic
-                    .csrf(csrf -> csrf.disable()) //
-                    
-                    .addFilterAt(SpringContext.getBean(BasicAuthFilter.class), BasicAuthenticationFilter.class)
-                    // add security headers
-                    .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
-                    return http.build();
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
+        MultipartFilter multipartFilter = new MultipartFilter();
+        multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
+        http.addFilterBefore(multipartFilter, CsrfFilter.class);
+        // for all requests going to a http basic page, use this security configuration
+        http.securityMatcher(new BasicAuthRequestedMatcher())
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                // ensure they are authenticated
+                // ensure they authenticate with http basic
+                .httpBasic(Customizer.withDefaults())
+                // disable csrf as it is not needed for httpBasic
+                .csrf(csrf -> csrf.disable()) //
+
+                .addFilterAt(SpringContext.getBean(BasicAuthFilter.class), BasicAuthenticationFilter.class)
+                // add security headers
+                .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
+        return http.build();
+    }
+
+    @Value("${org.itech.login.saml.registrationId:keycloak}")
+    private String registrationId;
+
+    @Value("${org.itech.login.saml.entityId:OpenELIS-Global_saml}")
+    private String entityId;
+
+    @Value("${server.ssl.key-store}")
+    private Resource keyStore;
+
+    @Value("${server.ssl.key-store-password}")
+    private String keyStorePassword;
+
+    @Value("${org.itech.login.saml.metadatalocation:}")
+    private String metadata;
+
+    @Value("${org.itech.login.saml.idpEntityId:}")
+    private String idpEntityId;
+
+    @Value("${org.itech.login.saml.webSSOEndpoint:}")
+    private String webSSOEndpoint;
+
+    @Value("${org.itech.login.saml.idpVerificationCertificateLocation:/run/secrets/samlIDP.crt}")
+    private String idpVerificationCertificateLocation;
+
+    @Bean("samlRelyingPartyRegistrationRepository")
+    @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
+    public RelyingPartyRegistrationRepository relyingPartyRegistrationRepository() {
+        RelyingPartyRegistration relyingPartyRegistration;
+        final String acsUrlTemplate = "{baseUrl}/login/saml2/sso/{registrationId}";
+
+        KeyCertPair keyCert;
+        try {
+            KeyStore keystore = KeystoreUtil.readKeyStoreFile(keyStore, keyStorePassword.toCharArray());
+            keyCert = KeystoreUtil.getKeyCertFromKeystore(keystore, keyStorePassword.toCharArray());
+        } catch (UnrecoverableKeyException | CertificateException | NoSuchAlgorithmException | KeyStoreException
+                | IOException e) {
+            throw new LIMSRuntimeException(e);
         }
-
-        @Value("${org.itech.login.saml.registrationId:keycloak}")
-        private String registrationId;
-
-        @Value("${org.itech.login.saml.entityId:OpenELIS-Global_saml}")
-        private String entityId;
-
-        @Value("${server.ssl.key-store}")
-        private Resource keyStore;
-
-        @Value("${server.ssl.key-store-password}")
-        private String keyStorePassword;
-
-        @Value("${org.itech.login.saml.metadatalocation:}")
-        private String metadata;
-
-        @Value("${org.itech.login.saml.idpEntityId:}")
-        private String idpEntityId;
-
-        @Value("${org.itech.login.saml.webSSOEndpoint:}")
-        private String webSSOEndpoint;
-
-        @Value("${org.itech.login.saml.idpVerificationCertificateLocation:/run/secrets/samlIDP.crt}")
-        private String idpVerificationCertificateLocation;
-
-        @Bean("samlRelyingPartyRegistrationRepository")
-        @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
-        public RelyingPartyRegistrationRepository relyingPartyRegistrationRepository()  {
-            RelyingPartyRegistration relyingPartyRegistration;
-            final String acsUrlTemplate = "{baseUrl}/login/saml2/sso/{registrationId}";
-
-            KeyCertPair keyCert;
-            try { 
-                KeyStore keystore = KeystoreUtil.readKeyStoreFile(keyStore, keyStorePassword.toCharArray());
-                keyCert = KeystoreUtil.getKeyCertFromKeystore(keystore, keyStorePassword.toCharArray());
-            } catch (UnrecoverableKeyException | CertificateException | NoSuchAlgorithmException | KeyStoreException
-                    | IOException e) {
-                throw new LIMSRuntimeException(e);
+        Saml2X509Credential credential = Saml2X509Credential.signing(keyCert.getKey(),
+                (X509Certificate) keyCert.getCert());
+        if (GenericValidator.isBlankOrNull(metadata)) {
+            Saml2X509Credential idpVerificationCertificate;
+            try (InputStream pub = new FileInputStream(new File(idpVerificationCertificateLocation))) {
+                X509Certificate c = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(pub);
+                idpVerificationCertificate = new Saml2X509Credential(c, Saml2X509CredentialType.VERIFICATION);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-            Saml2X509Credential credential = Saml2X509Credential.signing(keyCert.getKey(),
-                    (X509Certificate) keyCert.getCert());
-            if (GenericValidator.isBlankOrNull(metadata)) {
-                Saml2X509Credential idpVerificationCertificate;
-                try (InputStream pub = new FileInputStream(new File(idpVerificationCertificateLocation))) {
-                    X509Certificate c = (X509Certificate) CertificateFactory.getInstance("X.509")
-                            .generateCertificate(pub);
-                    idpVerificationCertificate = new Saml2X509Credential(c, Saml2X509CredentialType.VERIFICATION);
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-                relyingPartyRegistration = RelyingPartyRegistration.withRegistrationId(registrationId) //
-                        .assertionConsumerServiceLocation(acsUrlTemplate) //
-                        .signingX509Credentials(e -> e.add(credential)) //
-                        .assertingPartyDetails(config -> config.entityId(idpEntityId) //
-                                .singleSignOnServiceLocation(webSSOEndpoint) //
-                                .singleLogoutServiceLocation(webSSOEndpoint) //
-                                .wantAuthnRequestsSigned(true) //
-                                .verificationX509Credentials(c -> c.add(idpVerificationCertificate))) //
-                        .entityId(entityId) //
-                        .build();
-            } else {
-                relyingPartyRegistration = RelyingPartyRegistrations.fromMetadataLocation(metadata) //
-                        .registrationId(registrationId) //
-                        .assertionConsumerServiceLocation(acsUrlTemplate) //
-                        .signingX509Credentials(e -> e.add(credential)) //
-                        .entityId(entityId) //
-                        .build();
-            }
-
-            // SAML configuration
-            // Mapping this application to one or more Identity Providers
-            return new InMemoryRelyingPartyRegistrationRepository(relyingPartyRegistration);
+            relyingPartyRegistration = RelyingPartyRegistration.withRegistrationId(registrationId) //
+                    .assertionConsumerServiceLocation(acsUrlTemplate) //
+                    .signingX509Credentials(e -> e.add(credential)) //
+                    .assertingPartyDetails(config -> config.entityId(idpEntityId) //
+                            .singleSignOnServiceLocation(webSSOEndpoint) //
+                            .singleLogoutServiceLocation(webSSOEndpoint) //
+                            .wantAuthnRequestsSigned(true) //
+                            .verificationX509Credentials(c -> c.add(idpVerificationCertificate))) //
+                    .entityId(entityId) //
+                    .build();
+        } else {
+            relyingPartyRegistration = RelyingPartyRegistrations.fromMetadataLocation(metadata) //
+                    .registrationId(registrationId) //
+                    .assertionConsumerServiceLocation(acsUrlTemplate) //
+                    .signingX509Credentials(e -> e.add(credential)) //
+                    .entityId(entityId) //
+                    .build();
         }
 
-        @Bean("samlAuthenticationSuccessHandler")
-        @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
-        public AuthenticationSuccessHandler customSamlAuthenticationSuccessHandler() {
-            return new CustomSSOAuthenticationSuccessHandler();
-        }
+        // SAML configuration
+        // Mapping this application to one or more Identity Providers
+        return new InMemoryRelyingPartyRegistrationRepository(relyingPartyRegistration);
+    }
 
-        @Bean("samlAuthenticationFailureHandler")
-        @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
-        public AuthenticationFailureHandler customSamlAuthenticationFailureHandler() {
-            return new CustomAuthenticationFailureHandler();
-        }
-    
+    @Bean("samlAuthenticationSuccessHandler")
+    @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
+    public AuthenticationSuccessHandler customSamlAuthenticationSuccessHandler() {
+        return new CustomSSOAuthenticationSuccessHandler();
+    }
+
+    @Bean("samlAuthenticationFailureHandler")
+    @ConditionalOnProperty(property = "org.itech.login.saml", havingValue = "true")
+    public AuthenticationFailureHandler customSamlAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
 
     @Bean
     @Order(3)
@@ -275,8 +273,7 @@ public class SecurityConfig {
         OpenSaml4AuthenticationProvider authenticationProvider = new OpenSaml4AuthenticationProvider();
         Converter<ResponseToken, Saml2Authentication> delegate = OpenSaml4AuthenticationProvider
                 .createDefaultResponseAuthenticationConverter();
-        authenticationProvider
-                .setAssertionValidator(OpenSaml4AuthenticationProvider.createDefaultAssertionValidator());
+        authenticationProvider.setAssertionValidator(OpenSaml4AuthenticationProvider.createDefaultAssertionValidator());
         authenticationProvider.setResponseAuthenticationConverter(responseToken -> {
 
             Saml2Authentication authentication = delegate.convert(responseToken);
@@ -289,21 +286,17 @@ public class SecurityConfig {
         Converter<AssertionToken, Saml2ResponseValidatorResult> validator = OpenSaml4AuthenticationProvider
                 .createDefaultAssertionValidator();
         authenticationProvider.setAssertionValidator(validator);
-        http.securityMatcher(new SamlRequestedMatcher()).authorizeHttpRequests(auth -> auth
-            .anyRequest().authenticated())
+        http.securityMatcher(new SamlRequestedMatcher())
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .saml2Logout(saml2 -> saml2.logoutUrl("/Logout"))
-                .saml2Login(saml2 -> saml2
-                .failureHandler(customSamlAuthenticationFailureHandler())
-                .successHandler(customSamlAuthenticationSuccessHandler())
-                .relyingPartyRegistrationRepository(relyingPartyRegistrationRepository()))
+                .saml2Login(saml2 -> saml2.failureHandler(customSamlAuthenticationFailureHandler())
+                        .successHandler(customSamlAuthenticationSuccessHandler())
+                        .relyingPartyRegistrationRepository(relyingPartyRegistrationRepository()))
                 .authenticationManager(new ProviderManager(authenticationProvider))
-                
-                
-               ;
-                return http.build();    
+
+        ;
+        return http.build();
     }
-
-
 
     @Value("${org.itech.login.oauth.config:}")
     private String config;
@@ -316,8 +309,7 @@ public class SecurityConfig {
     private String clientSecret;
 
     private ClientRegistration clientRegistrationFromConfig(String config) {
-        return ClientRegistrations.fromOidcIssuerLocation(config).clientId(clientID).clientSecret(clientSecret)
-                .build();
+        return ClientRegistrations.fromOidcIssuerLocation(config).clientId(clientID).clientSecret(clientSecret).build();
     }
 
     @Bean("oauthClientRegistrationRepository")
@@ -344,108 +336,102 @@ public class SecurityConfig {
         http.addFilterBefore(multipartFilter, CsrfFilter.class);
         // for all requests going to a http basic page, use this security configuration
         http.securityMatcher(new OAuthRequestedMatcher())
-            .authorizeHttpRequests(auth -> auth
-                .anyRequest().authenticated()
-            )
-            .oauth2Login(oAuth -> oAuth.clientRegistrationRepository(clientRegistrationRepository()).authorizedClientService(authorizedClientService())
-                .failureHandler(customOAuthAuthenticationFailureHandler()).successHandler(customOAuthAuthenticationSuccessHandler())) //
-            .logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler()))
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .oauth2Login(oAuth -> oAuth.clientRegistrationRepository(clientRegistrationRepository())
+                        .authorizedClientService(authorizedClientService())
+                        .failureHandler(customOAuthAuthenticationFailureHandler())
+                        .successHandler(customOAuthAuthenticationSuccessHandler())) //
+                .logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler()))
                 // add security headers
-            .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
+                .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
         return http.build();
     }
 
+    private LogoutSuccessHandler oidcLogoutSuccessHandler() {
+        OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(
+                clientRegistrationRepository());
+        return oidcLogoutSuccessHandler;
+    }
 
-        private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-            OidcClientInitiatedLogoutSuccessHandler oidcLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(
-                    clientRegistrationRepository());
-            return oidcLogoutSuccessHandler;
-        }
+    @Bean
+    @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
+    public OAuth2AuthorizedClientService authorizedClientService() {
+        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
+    }
 
-        @Bean
-        @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
-        public OAuth2AuthorizedClientService authorizedClientService() {
-            return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
-        }
+    @Bean("oauthAuthenticationSuccessHandler")
+    @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
+    public AuthenticationSuccessHandler customOAuthAuthenticationSuccessHandler() {
+        return new CustomFormAuthenticationSuccessHandler();
+    }
 
-        @Bean("oauthAuthenticationSuccessHandler")
-        @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
-        public AuthenticationSuccessHandler customOAuthAuthenticationSuccessHandler() {
-            return new CustomFormAuthenticationSuccessHandler();
-        }
-
-        @Bean("oauthAuthenticationFailureHandler")
-        @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
-        public AuthenticationFailureHandler customOAuthAuthenticationFailureHandler() {
-            return new CustomAuthenticationFailureHandler();
-        }
+    @Bean("oauthAuthenticationFailureHandler")
+    @ConditionalOnProperty(property = "org.itech.login.oauth", havingValue = "true")
+    public AuthenticationFailureHandler customOAuthAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
 
     @Bean
     @Order(5)
     @ConditionalOnProperty(property = "org.itech.login.certificate", havingValue = "true")
     public SecurityFilterChain clientCertificateSecurityFilterChain(HttpSecurity http) throws Exception {
-            CharacterEncodingFilter filter = new CharacterEncodingFilter();
-            filter.setEncoding("UTF-8");
-            filter.setForceEncoding(true);
-            http.addFilterBefore(filter, CsrfFilter.class);
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
 
-            http.securityMatcher(new CertificateAuthRequestedMatcher())
-            .authorizeHttpRequests(auth -> auth
-            .anyRequest().authenticated())
-            .x509(x509 -> x509.subjectPrincipalRegex("CN=(.*?)(?:,|$)"))
-            .userDetailsService(SpringContext.getBean(UserDetailsService.class))
-            .csrf().disable();
-            return http.build();
-        }
-    
+        http.securityMatcher(new CertificateAuthRequestedMatcher())
+                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+                .x509(x509 -> x509.subjectPrincipalRegex("CN=(.*?)(?:,|$)"))
+                .userDetailsService(SpringContext.getBean(UserDetailsService.class)).csrf().disable();
+        return http.build();
+    }
 
     @Bean
     @ConditionalOnProperty(property = "org.itech.login.form", havingValue = "true", matchIfMissing = true)
     @Order(Ordered.LOWEST_PRECEDENCE)
     public SecurityFilterChain defaultSecurityConfigurationFilterChain(HttpSecurity http) throws Exception {
-            CharacterEncodingFilter filter = new CharacterEncodingFilter();
-            filter.setEncoding("UTF-8");
-            filter.setForceEncoding(true);
-            http.addFilterBefore(filter, CsrfFilter.class);
-            MultipartFilter multipartFilter = new MultipartFilter();
-            multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
-            http.addFilterBefore(multipartFilter, CsrfFilter.class);
-            http.authorizeHttpRequests(auth -> auth
-                    // allow all users to access these pages no matter authentication status
-                    .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR).permitAll()
-                    .requestMatchers(LOGIN_PAGES).permitAll()
-                    .requestMatchers(RESOURCE_PAGES).permitAll()
-                    // ensure all other requests are authenticated
-                    .anyRequest().authenticated()
-                    
-                    )
-                    // setup login redirection and logic
-                    .formLogin(formLogin -> formLogin
-                        .loginPage("/LoginPage")
-                        .loginProcessingUrl("/ValidateLogin")
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        filter.setEncoding("UTF-8");
+        filter.setForceEncoding(true);
+        http.addFilterBefore(filter, CsrfFilter.class);
+        MultipartFilter multipartFilter = new MultipartFilter();
+        multipartFilter.setServletContext(SpringContext.getBean(ServletContext.class));
+        http.addFilterBefore(multipartFilter, CsrfFilter.class);
+        http.authorizeHttpRequests(auth -> auth
+                // allow all users to access these pages no matter authentication status
+                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR)
+                .permitAll().requestMatchers(LOGIN_PAGES).permitAll().requestMatchers(RESOURCE_PAGES).permitAll()
+                // ensure all other requests are authenticated
+                .anyRequest().authenticated()
+
+        )
+                // setup login redirection and logic
+                .formLogin(formLogin -> formLogin.loginPage("/LoginPage").loginProcessingUrl("/ValidateLogin")
                         .usernameParameter("loginName").passwordParameter("password")
                         .failureHandler(customAuthenticationFailureHandler())
                         .successHandler(customAuthenticationSuccessHandler()))
-                    // setup logout
-                    .logout(logout -> logout.logoutUrl("/Logout").logoutSuccessUrl("/LoginPage").invalidateHttpSession(true))
-                    .sessionManagement(sessionManagement -> sessionManagement.invalidSessionUrl("/LoginPage").sessionFixation().migrateSession())
-                    .csrf(csrf ->csrf.ignoringRequestMatchers("/ValidateLogin"))
-                    // add security headers
-                    .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
-                    return http.build();
-        }
+                // setup logout
+                .logout(logout -> logout.logoutUrl("/Logout").logoutSuccessUrl("/LoginPage")
+                        .invalidateHttpSession(true))
+                .sessionManagement(sessionManagement -> sessionManagement.invalidSessionUrl("/LoginPage")
+                        .sessionFixation().migrateSession())
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/ValidateLogin"))
+                // add security headers
+                .headers(headers -> headers.frameOptions().sameOrigin().contentSecurityPolicy(CONTENT_SECURITY_POLICY));
+        return http.build();
+    }
 
-        @Bean
-        public AuthenticationFailureHandler customAuthenticationFailureHandler() {
-            return new CustomAuthenticationFailureHandler();
-        }
+    @Bean
+    public AuthenticationFailureHandler customAuthenticationFailureHandler() {
+        return new CustomAuthenticationFailureHandler();
+    }
 
-        @Bean
-        @Primary
-        public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
-            return new CustomFormAuthenticationSuccessHandler();
-        }
-    
+    @Bean
+    @Primary
+    public AuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomFormAuthenticationSuccessHandler();
+    }
 
     // @Bean
     // public static UserDetailsService allowAllUserDetailsService() {

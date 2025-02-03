@@ -1,7 +1,5 @@
 package org.openelisglobal.common.valueholder;
 
-import java.io.Serializable;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EmbeddedId;
@@ -10,6 +8,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Objects;
 import org.openelisglobal.common.provider.validation.AccessionNumberValidatorFactory.AccessionFormat;
 
 @Entity(name = "accession_number_info")

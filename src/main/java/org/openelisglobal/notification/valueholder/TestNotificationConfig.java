@@ -2,8 +2,6 @@ package org.openelisglobal.notification.valueholder;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.ArrayList;
-import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +16,8 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import org.openelisglobal.notification.valueholder.NotificationConfigOption.NotificationMethod;
 import org.openelisglobal.notification.valueholder.NotificationConfigOption.NotificationNature;
 import org.openelisglobal.notification.valueholder.NotificationConfigOption.NotificationPersonType;

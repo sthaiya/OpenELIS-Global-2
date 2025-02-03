@@ -1,9 +1,9 @@
 package org.openelisglobal.hibernate.converter;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import org.openelisglobal.common.log.LogEvent;
 
 @Converter

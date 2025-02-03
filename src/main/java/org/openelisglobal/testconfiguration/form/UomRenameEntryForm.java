@@ -1,8 +1,8 @@
 package org.openelisglobal.testconfiguration.form;
 
-import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import java.util.List;
 import org.openelisglobal.common.form.BaseForm;
 import org.openelisglobal.common.validator.ValidationHelper;
 import org.openelisglobal.validation.annotations.SafeHtml;

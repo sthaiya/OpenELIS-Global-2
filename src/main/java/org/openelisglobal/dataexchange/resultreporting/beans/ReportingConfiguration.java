@@ -13,8 +13,8 @@
  */
 package org.openelisglobal.dataexchange.resultreporting.beans;
 
-import java.io.Serializable;
 import jakarta.validation.constraints.Pattern;
+import java.io.Serializable;
 import org.hibernate.validator.constraints.URL;
 import org.openelisglobal.common.validator.ValidationHelper;
 import org.openelisglobal.resultreporting.form.ResultReportingConfigurationForm;

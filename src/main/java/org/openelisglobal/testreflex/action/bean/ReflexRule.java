@@ -1,6 +1,5 @@
 package org.openelisglobal.testreflex.action.bean;
 
-import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import java.util.Set;
 import org.openelisglobal.common.valueholder.BaseObject;
 
 @Entity

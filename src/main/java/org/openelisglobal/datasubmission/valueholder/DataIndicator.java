@@ -1,7 +1,7 @@
 package org.openelisglobal.datasubmission.valueholder;
 
-import java.util.List;
 import jakarta.validation.Valid;
+import java.util.List;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;
 import org.openelisglobal.common.valueholder.BaseObject;

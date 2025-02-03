@@ -1,7 +1,7 @@
 package org.openelisglobal.notifications.entity;
 
-import java.time.OffsetDateTime;
 import jakarta.persistence.*;
+import java.time.OffsetDateTime;
 import org.openelisglobal.systemuser.valueholder.SystemUser;
 
 @Entity

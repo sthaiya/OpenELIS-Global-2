@@ -13,11 +13,11 @@
  */
 package org.openelisglobal.analyzerimport.action;
 
-import java.io.IOException;
-import java.io.InputStream;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.analyzer.service.BidirectionalAnalyzer;
 import org.openelisglobal.analyzerimport.analyzerreaders.ASTMAnalyzerReader;

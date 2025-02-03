@@ -1,9 +1,9 @@
 package org.openelisglobal.security.login;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import jakarta.servlet.http.HttpServletRequest;
 import org.openelisglobal.common.action.IActionConstants;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.login.service.LoginUserService;

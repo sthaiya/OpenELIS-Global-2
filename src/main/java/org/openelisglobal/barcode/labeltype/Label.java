@@ -2,7 +2,6 @@ package org.openelisglobal.barcode.labeltype;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
-
 import java.util.ArrayList;
 import org.openelisglobal.barcode.LabelField;
 import org.openelisglobal.barcode.service.BarcodeLabelInfoService;

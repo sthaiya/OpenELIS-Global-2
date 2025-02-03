@@ -1,7 +1,6 @@
 package org.openelisglobal.notification.valueholder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -19,6 +18,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import org.openelisglobal.common.valueholder.BaseObject;
 
 @Entity

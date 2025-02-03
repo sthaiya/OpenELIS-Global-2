@@ -1,8 +1,8 @@
 package org.openelisglobal.admin.controller;
 
-import java.util.HashMap;
-import java.util.Map; 
 import jakarta.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 import org.openelisglobal.admin.form.LabNumberManagementForm;
 import org.openelisglobal.common.provider.validation.AccessionNumberValidatorFactory.AccessionFormat;
 import org.openelisglobal.common.util.ConfigurationProperties;

@@ -1,9 +1,9 @@
 package org.openelisglobal.image.service;
 
-import java.io.File;
-import java.util.Optional;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.ServletContext;
+import java.io.File;
+import java.util.Optional;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.common.log.LogEvent;
 import org.openelisglobal.common.service.AuditableBaseObjectServiceImpl;

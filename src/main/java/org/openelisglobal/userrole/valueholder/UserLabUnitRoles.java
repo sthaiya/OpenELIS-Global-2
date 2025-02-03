@@ -1,6 +1,5 @@
 package org.openelisglobal.userrole.valueholder;
 
-import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import org.openelisglobal.common.valueholder.BaseObject;
 
 @Entity

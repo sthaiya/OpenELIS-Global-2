@@ -1,10 +1,10 @@
 package org.openelisglobal.reportconfiguration.valueholder;
 
-import java.util.Objects;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import java.util.Objects;
 import org.openelisglobal.common.valueholder.BaseObject;
 
 @Entity

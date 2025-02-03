@@ -13,8 +13,8 @@
  */
 package org.openelisglobal.scheduler.independentthreads;
 
-import java.util.List;
 import jakarta.annotation.PostConstruct;
+import java.util.List;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;
 import org.openelisglobal.dataexchange.aggregatereporting.valueholder.ReportExternalExport;

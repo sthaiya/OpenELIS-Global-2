@@ -13,11 +13,11 @@
  */
 package org.openelisglobal.common.provider.autocomplete;
 
-import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import org.openelisglobal.citystatezip.service.CityStateZipService;
 import org.openelisglobal.spring.util.SpringContext;
 

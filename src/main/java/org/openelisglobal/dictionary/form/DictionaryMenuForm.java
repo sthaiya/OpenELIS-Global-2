@@ -1,7 +1,7 @@
 package org.openelisglobal.dictionary.form;
 
-import java.util.List;
 import jakarta.validation.constraints.Pattern;
+import java.util.List;
 import org.openelisglobal.common.form.AdminOptionMenuForm;
 import org.openelisglobal.common.validator.ValidationHelper;
 import org.openelisglobal.dictionary.valueholder.Dictionary;

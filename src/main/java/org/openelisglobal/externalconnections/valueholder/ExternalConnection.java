@@ -1,6 +1,5 @@
 package org.openelisglobal.externalconnections.valueholder;
 
-import java.net.URI;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -15,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import java.net.URI;
 import org.openelisglobal.common.valueholder.BaseObject;
 import org.openelisglobal.hibernate.converter.URIConverter;
 import org.openelisglobal.internationalization.MessageUtil;

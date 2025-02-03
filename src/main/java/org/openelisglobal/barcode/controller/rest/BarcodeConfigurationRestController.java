@@ -1,8 +1,8 @@
 package org.openelisglobal.barcode.controller.rest;
 
-import java.lang.reflect.InvocationTargetException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.barcode.form.BarcodeConfigurationForm;
 import org.openelisglobal.barcode.service.BarcodeInformationService;

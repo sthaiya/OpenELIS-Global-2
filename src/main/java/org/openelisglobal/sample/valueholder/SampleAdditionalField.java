@@ -1,7 +1,5 @@
 package org.openelisglobal.sample.valueholder;
 
-import java.io.Serializable;
-import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Embeddable;
@@ -13,6 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
+import java.io.Serializable;
+import java.util.Objects;
 import org.openelisglobal.common.valueholder.BaseObject;
 import org.openelisglobal.hibernate.converter.StringToIntegerConverter;
 import org.openelisglobal.sample.valueholder.SampleAdditionalField.SampleAdditionalFieldId;

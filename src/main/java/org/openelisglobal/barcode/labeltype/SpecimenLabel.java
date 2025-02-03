@@ -2,7 +2,6 @@ package org.openelisglobal.barcode.labeltype;
 
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Font.FontFamily;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;

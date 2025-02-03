@@ -13,6 +13,7 @@
  */
 package org.openelisglobal.reports.action.implementation;
 
+import jakarta.annotation.PostConstruct;
 import java.sql.Date;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,9 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import jakarta.annotation.PostConstruct;
-import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.address.service.AddressPartService;
 import org.openelisglobal.address.service.PersonAddressService;

@@ -13,10 +13,10 @@
  */
 package org.openelisglobal.common.paging;
 
-import java.io.Serializable;
-import java.util.List;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.groups.Default;
+import java.io.Serializable;
+import java.util.List;
 import org.openelisglobal.common.util.IdValuePair;
 
 public class PagingBean implements Serializable {

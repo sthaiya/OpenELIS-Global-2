@@ -13,6 +13,7 @@
  */
 package org.openelisglobal.common.services;
 
+import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -21,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import jakarta.annotation.PostConstruct;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.common.util.ConfigurationProperties.Property;

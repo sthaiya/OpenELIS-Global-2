@@ -1,8 +1,5 @@
 package org.openelisglobal.testcalculated.valueholder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 import org.openelisglobal.common.util.IdValuePair;
 
 @Entity

@@ -3,13 +3,13 @@ package org.openelisglobal.common.rest.provider;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import ca.uhn.fhir.rest.gclient.IQuery;
 import ca.uhn.fhir.rest.param.StringOrListParam;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
-import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.hl7.fhir.instance.model.api.IBaseBundle;
 import org.hl7.fhir.r4.model.*;
@@ -206,7 +206,8 @@ public class PatientSearchRestController extends BaseRestController {
             if (transformedPatientSearchResult.getNationalId() == null
                     || transformedPatientSearchResult.getNationalId().isEmpty()) {
                 String nationalId = generateDynamicID(transformedPatientSearchResult);
-                LogEvent.logInfo(this.getClass().getSimpleName(), "searchPatientInClientRegistry", "dynamic national id: " + nationalId);
+                LogEvent.logInfo(this.getClass().getSimpleName(), "searchPatientInClientRegistry",
+                        "dynamic national id: " + nationalId);
                 transformedPatientSearchResult.setNationalId(nationalId);
             }
 

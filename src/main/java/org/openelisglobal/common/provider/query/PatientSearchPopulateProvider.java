@@ -13,11 +13,11 @@
  */
 package org.openelisglobal.common.provider.query;
 
-import java.io.IOException;
-import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.address.service.AddressPartService;
 import org.openelisglobal.address.service.PersonAddressService;
