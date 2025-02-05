@@ -419,7 +419,6 @@ function ProviderMenu() {
             value={fax}
             onChange={(e) => setFax(e.target.value)}
           />
-          
         </Modal>
 
         <Modal

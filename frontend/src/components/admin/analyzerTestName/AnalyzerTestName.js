@@ -369,7 +369,7 @@ function AnalyzerTestName() {
               setSelectedAnalyzerId(selectedItem ? selectedItem.id : null);
             }}
           />
-           <Dropdown
+          <Dropdown
             id="test-dropdown"
             titleText={intl.formatMessage({ id: "label.actualTestName" })}
             items={testList}
@@ -391,8 +391,6 @@ function AnalyzerTestName() {
             required
           />
           <br />
-
-         
         </Modal>
 
         <Modal
