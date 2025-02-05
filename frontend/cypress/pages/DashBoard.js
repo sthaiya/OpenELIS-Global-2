@@ -1,24 +1,20 @@
 class DashBoardPage {
   addOrder(Program) {
     cy.fixture("Order").then((order) => {
-      cy.get(
-        ":nth-child(2) > .cds--radio-button__label > .cds--radio-button__appearance",
-      ).click();
+      cy.get("#search-radio-1")
+        .click();
       cy.get("#local_search").click();
-      cy.get(
-        "tbody > :nth-child(1) > :nth-child(1) > .cds--radio-button-wrapper > .cds--radio-button__label > .cds--radio-button__appearance",
-      ).click();
+      cy.get('label.cds--radio-button__label')
+        .first()
+        .find('span.cds--radio-button__appearance')
+        .click();
       cy.get(".forwardButton").click();
       cy.get("#additionalQuestionsSelect").select(Program);
       cy.get(".forwardButton").click();
       cy.get("#sampleId_0").select("Serum");
-      cy.get(
-        ".testPanels > .cds--col > :nth-child(5) > .cds--checkbox-label",
-      ).click();
+      cy.get("#panel_0_1").click();
       cy.get(".forwardButton").click();
-      cy.get(
-        ":nth-child(2) > :nth-child(1) > :nth-child(2) > .cds--link",
-      ).click();
+      cy.contains('a.cds--link', 'Generate').click();
       cy.wait(1000);
 
       cy.get("#labNo")
@@ -33,9 +29,13 @@ class DashBoardPage {
         });
 
       cy.get("#siteName").type(order.siteName);
-      cy.get("#requesterFirstName").type(order.requester.firstName);
-      cy.get("#requesterLastName").type(order.requester.firstName);
-      cy.get(".forwardButton").should("be.visible").click();
+      cy.contains('.suggestions', order.siteName).click();
+      cy.get("#requesterId").type(order.requester.firstName);
+      cy.contains('.suggestions', order.requester.firstName).click();
+      cy.wait(200);
+      //cy.get("#requesterFirstName").type(order.requester.firstName);
+      //cy.get("#requesterLastName").type(order.requester.firstName);
+      cy.contains('button.forwardButton', 'Submit').should("be.visible").click();
     });
   }
 
