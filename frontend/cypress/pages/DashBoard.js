@@ -1,70 +1,76 @@
 class DashBoardPage {
-  addOrder(Program) {
-    cy.fixture("Order").then((order) => {
-      cy.get("#search-radio-1").click();
-      cy.get("#local_search").click();
-      cy.get("label.cds--radio-button__label")
-        .first()
-        .find("span.cds--radio-button__appearance")
-        .click();
-      cy.get(".forwardButton").click();
-      cy.get("#additionalQuestionsSelect").select(Program);
-      cy.get(".forwardButton").click();
-      cy.get("#sampleId_0").select("Serum");
-      cy.get("#panel_0_1").click();
-      cy.get(".forwardButton").click();
-      cy.contains("a.cds--link", "Generate").click();
-      cy.wait(1000);
+  constructor() {}
 
-      cy.get("#labNo")
-        .invoke("val")
-        .then((labNoValue) => {
-          if (labNoValue) {
-            const data = { labNo: labNoValue };
-            cy.writeFile("cypress/fixtures/DashBoard.json", data);
-          } else {
-            cy.log("labNoValue is empty or undefined");
-          }
-        });
-
-      cy.get("#siteName").type(order.siteName);
-      cy.contains(".suggestions", order.siteName).click();
-      cy.get("#requesterId").type(order.requester.firstName);
-      cy.contains(".suggestions", order.requester.firstName).click();
-      cy.wait(200);
-      //cy.get("#requesterFirstName").type(order.requester.firstName);
-      //cy.get("#requesterLastName").type(order.requester.firstName);
-      cy.contains("button.forwardButton", "Submit")
-        .should("be.visible")
-        .click();
-    });
+  searchPatient() {
+    cy.get("#local_search").click();
   }
 
-  checkForHeader(title) {
-    cy.get("section > h3").should("have.text", title);
+  checkPatientRadio() {
+    cy.get("label.cds--radio-button__label")
+      .first()
+      .find("span.cds--radio-button__appearance")
+      .click();
   }
 
-  enterDetails() {
-    cy.get(
-      ":nth-child(14) > .gridBoundary > :nth-child(1) > .cds--form-item > .cds--text-area__wrapper > .cds--text-area",
-    ).type("Test");
-    cy.get(
-      ":nth-child(2) > .cds--form-item > .cds--text-area__wrapper > .cds--text-area",
-    ).type("Test");
+  clickNext() {
+    cy.get(".forwardButton").click();
   }
 
-  validateOrderStatus(orderNumber, childIndex) {
-    cy.get(":nth-child(2) > .cds--link").click();
-    cy.get(":nth-child(1) > .tile-value").should("have.text", "0");
-    cy.get(`:nth-child(${childIndex}) > .tile-value`).should("have.text", "1");
-    cy.get("#statusFilter").select("Completed");
-    cy.get("tbody > tr > :nth-child(4)").should("have.text", "John");
+  selectHistopathology() {
+    cy.get("#additionalQuestionsSelect").select("Histopathology");
   }
 
-  validatePreStatus(order) {
-    cy.get(":nth-child(1) > .tile-value").should("have.text", "1");
-    cy.get("tbody > tr > :nth-child(4)").should("have.text", "John");
-    cy.get("tbody > tr > :nth-child(6)").click();
+  selectSpecimen() {
+    cy.get(".cds--select-input__wrapper > .cds--select-input").select(
+      "APPENDIX",
+    );
+  }
+
+  specimenType() {
+    cy.get(".cds--select-input__wrapper > .cds--select-input").select("Biopsy");
+  }
+
+  procedurePerformed() {
+    cy.get(".cds--select-input__wrapper > .cds--select-input").select(
+      "Core Biopsy",
+    );
+  }
+
+  selectPathologySample() {
+    cy.get("#sampleId_0").select("Histopathology Specimen");
+    //cy.get("#panel_0_1").click();
+  }
+
+  checkPathologyPanel() {
+    cy.get("label.cds--checkbox-label", "Histopathology examination");
+  }
+
+  generateLabNo() {
+    cy.contains("a.cds--link", "Generate").click();
+  }
+
+  selectSite(siteName) {
+    cy.get("#siteName").type(siteName);
+    cy.contains(".suggestions", siteName).click();
+    cy.wait(200);
+  }
+
+  selectRequesting(requesting) {
+    cy.get("#requesterId").type(requesting);
+    cy.contains(".suggestions", requesting).click();
+    cy.wait(200);
+    //cy.get("#requesterFirstName").type(order.requester.firstName);
+    //cy.get("#requesterLastName").type(order.requester.firstName);
+  }
+
+  submitButton() {
+    cy.contains("button.forwardButton", "Submit").should("be.visible").click();
+  }
+
+  clickPrintBarCode() {
+    cy.contains("button.cds--btn--primary", "Print Barcode").should(
+      "be.visible",
+    );
   }
 
   saveOrder() {

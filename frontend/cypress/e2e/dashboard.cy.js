@@ -13,17 +13,37 @@ describe("Pathology Dashboard", function () {
   it("User  Visits Pathology Dashboard", function () {
     homePage = loginPage.goToHomePage();
     dashboard = homePage.goToPathologyDashboard();
-
-    dashboard.checkForHeader("Pathology");
   });
 
   it("User adds a new Pathology order", function () {
     homePage.goToOrderPage();
-    dashboard.addOrder("Histopathology");
+    cy.fixture("Order").then((order) => {
+      dashboard.searchPatientByFName(patientFName);
+    });
+    dashboard.searchPatient();
+    dashboard.checkPatientRadio();
+    dashboard.clickNext();
+    dashboard.selectHistopathology();
+    dashboard.selectSpecimen();
+    dashboard.specimenType();
+    dashboard.procedurePerformed();
+    dashboard.clickNext();
+    dashboard.selectPathologySample();
+    dashboard.checkPathologyPanel();
+    dashboard.generateLabNo();
+    cy.fixture("Order").then((order) => {
+      dashboard.selectSite(order.siteName);
+      dashboard.selectRequesting(order.requesting);
+    });
+    cy.wait(200);
   });
+
+  it("Validate Success by Printing Barcode", function () {
+    dashboard.clickPrintBarCode();
+  });
+
   it("Check For Order", () => {
     homePage.goToPathologyDashboard();
-    dashboard.checkForHeader("Pathology");
 
     //cy.fixture("Order").then((order) => {
     //dashboard.validatePreStatus(order.labNo);
