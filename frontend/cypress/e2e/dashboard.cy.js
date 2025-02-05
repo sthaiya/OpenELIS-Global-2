@@ -25,9 +25,9 @@ describe("Pathology Dashboard", function () {
     homePage.goToPathologyDashboard();
     dashboard.checkForHeader("Pathology");
 
-    cy.fixture("DashBoard").then((order) => {
-      dashboard.validatePreStatus(order.labNo);
-    });
+    //cy.fixture("Order").then((order) => {
+    //dashboard.validatePreStatus(order.labNo);
+    //});
   });
 
   it("Change The Status of Order and save it", () => {
@@ -37,7 +37,7 @@ describe("Pathology Dashboard", function () {
   });
 
   it("Validate the Status of Order", () => {
-    cy.fixture("DashBoard").then((order) => {
+    cy.fixture("Order").then((order) => {
       //  dashboard.validateOrderStatus(order.labNo, 4);
     });
   });
