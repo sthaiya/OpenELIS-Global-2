@@ -36,7 +36,7 @@ describe("Pathology Dashboard", function () {
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(2000);
+    cy.wait(3000);
   });
 
   it("Validate Success by Confirming Print Barcode button", function () {
@@ -96,7 +96,7 @@ describe("ImmunoChemistry Dashboard", function () {
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(2000);
+    cy.wait(3000);
   });
 
   it("Validate Success by Confirming Print Barcode button", function () {
@@ -156,7 +156,7 @@ describe("Cytology Dashboard", function () {
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(2000);
+    cy.wait(3000);
   });
 
   it("Validate Success by Confirming Print Barcode button", function () {
