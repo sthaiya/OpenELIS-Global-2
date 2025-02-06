@@ -1,11 +1,15 @@
 class DashBoardPage {
   constructor() {}
 
+  searchPatientByFName() {
+    cy.get("#firstName").type("John");
+  }
   searchPatient() {
     cy.get("#local_search").click();
   }
 
   checkPatientRadio() {
+    cy.get('[data-cy="patient_radio"]');
     cy.get("label.cds--radio-button__label")
       .first()
       .find("span.cds--radio-button__appearance")
@@ -20,6 +24,9 @@ class DashBoardPage {
     cy.get("#additionalQuestionsSelect").select("Histopathology");
   }
 
+  selectImmunoChem() {
+    cy.get("#additionalQuestionsSelect").select("Immunohistochemistry");
+  }
   selectSpecimen() {
     cy.get(".cds--select-input__wrapper > .cds--select-input").select(
       "APPENDIX",
@@ -37,34 +44,49 @@ class DashBoardPage {
   }
 
   selectPathologySample() {
-    cy.get("#sampleId_0").select("Histopathology Specimen");
+    cy.get("#sampleId_0")
+      .should("be.visible")
+      .select("Histopathology specimen");
     //cy.get("#panel_0_1").click();
   }
 
+  selectImmunoChemSample() {
+    cy.get("#sampleId_0")
+      .should("be.visible")
+      .select("Immunohistochemistry Specimen");
+  }
+
+  checkImmunoChemTest() {
+    cy.get("#test_0_339").check();
+  }
   checkPathologyPanel() {
-    cy.get("label.cds--checkbox-label", "Histopathology examination");
+    cy.contains(
+      "label.cds--checkbox-label",
+      "Histopathology examination",
+    ).click();
   }
 
   generateLabNo() {
     cy.contains("a.cds--link", "Generate").click();
   }
 
-  selectSite(siteName) {
-    cy.get("#siteName").type(siteName);
-    cy.contains(".suggestions", siteName).click();
+  selectSite() {
+    cy.get("#siteName").type("279 - CAMES");
+    cy.wait(100);
+    cy.contains(".suggestion-active", "279 - CAMES").click();
     cy.wait(200);
   }
 
-  selectRequesting(requesting) {
-    cy.get("#requesterId").type(requesting);
-    cy.contains(".suggestions", requesting).click();
+  selectRequesting() {
+    cy.get("#requesterId").type("Optimus");
+    cy.contains(".suggestion-active", "Optimus").click();
     cy.wait(200);
     //cy.get("#requesterFirstName").type(order.requester.firstName);
     //cy.get("#requesterLastName").type(order.requester.firstName);
   }
 
   submitButton() {
-    cy.contains("button.forwardButton", "Submit").should("be.visible").click();
+    cy.contains(".forwardButton", "Submit").should("be.visible").click();
   }
 
   clickPrintBarCode() {
@@ -73,16 +95,48 @@ class DashBoardPage {
     );
   }
 
+  selectFirstOrder() {
+    cy.get('tbody[aria-live="polite"] > tr').first().click();
+  }
+
   saveOrder() {
     cy.get("#pathology_save2").click();
   }
 
-  changeStatus(status) {
-    cy.get("#status").select(status);
+  changePathologyStatus() {
+    cy.get("#status").select("Processing");
   }
 
-  selectPathologist(pathologist) {
-    cy.get("#assignedPathologist").select(pathologist);
+  changeImmunoChemStatus() {
+    cy.get("#status").select("Ready for Pathologist");
+  }
+  selectPathologist() {
+    cy.get("#assignedPathologist").select("ELIS,Open");
+  }
+
+  selectTechnician() {
+    cy.get("assignedTechnician").select("External,Service");
+  }
+
+  checkImmunoChem() {
+    cy.get("#referToImmunoHistoChemistry").check();
+    cy.get("#ihctest-input").select("Anti-CD 5(Immunohistochemistry specimen)");
+  }
+
+  addImmunoChemReport() {
+    cy.get("#report").select("Immunohistochemistry Report");
+  }
+
+  toggleReportParam() {
+    cy.contains(".cds--toggle-text", "off").click();
+  }
+
+  checkReadyForRelease() {
+    cy.get("#release").check();
+  }
+
+  statusFilter() {
+    cy.get("#statusFilter").select("Completed");
   }
 }
 

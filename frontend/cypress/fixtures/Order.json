@@ -10,7 +10,5 @@
     "lastName": "Prime"
   },
   "labNo": "",
-  "invalidLabNo": "DEV0124000000000000",
-  "patienFName": "John",
-  "requesting": "Optimus"
+  "invalidLabNo": "DEV0124000000000000"
 }
