@@ -158,7 +158,7 @@ function Login(props) {
           <Column lg={0} md={0} sm={4}>
             {loginMessage()}
           </Column>
-          <Column lg={4} md={4} sm={4}>
+          <Column lg={6} md={4} sm={4}>
             <Section>
               <Formik
                 initialValues={{
@@ -218,6 +218,7 @@ function Login(props) {
                               id: "login.msg.password",
                             })}
                           />
+                          <Stack orientation="horizontal">
                           <Button type="submit" disabled={!isValid}>
                             <FormattedMessage id="label.button.login" />
                             <Loading
@@ -226,6 +227,11 @@ function Login(props) {
                               className={submitting ? "show" : "hidden"}
                             />
                           </Button>
+                          {/* Button to nevigate to the change password page */}
+                          <Button type="button">
+                            <FormattedMessage id="label.button.changepassword" />
+                          </Button>
+                          </Stack>
                         </>
                       )}
                       {configurationProperties?.useSaml == "true" && (
@@ -261,7 +267,7 @@ function Login(props) {
               </Formik>
             </Section>
           </Column>
-          <Column lg={8} md={4} sm={0}>
+          <Column lg={10} md={4} sm={0}>
             {loginMessage()}
           </Column>
         </Grid>
