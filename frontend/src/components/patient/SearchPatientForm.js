@@ -553,14 +553,13 @@ function SearchPatientForm(props) {
                         <TableCell>
                           {dataSourceName === "OpenElis" ? (
                             <RadioButton
-                              data-cy="patient_radio"
                               name="radio-group"
                               onClick={patientSelected}
                               labelText=""
                               id={row.id}
                             />
                           ) : (
-                            <span id="radio_button"></span>
+                            <span></span>
                           )}
                         </TableCell>
 

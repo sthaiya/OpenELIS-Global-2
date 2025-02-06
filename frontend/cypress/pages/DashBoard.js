@@ -9,11 +9,7 @@ class DashBoardPage {
   }
 
   checkPatientRadio() {
-    cy.get('[data-cy="patient_radio"]');
-    cy.get("label.cds--radio-button__label")
-      .first()
-      .find("span.cds--radio-button__appearance")
-      .click();
+    cy.get("table tbody tr").first().find("td label span").click();
   }
 
   clickNext() {
@@ -27,6 +23,24 @@ class DashBoardPage {
   selectImmunoChem() {
     cy.get("#additionalQuestionsSelect").select("Immunohistochemistry");
   }
+
+  selectCytology(){
+    cy.get("#additionalQuestionsSelect").select("Cytology");
+  }
+
+  selectFluidSample(){ 
+    cy.get("#sampleId_0")
+      .should("be.visible")
+      .select("Fluid");    
+  }
+
+  checkCovidPanel(){
+    cy.contains(
+      "label.cds--checkbox-label",
+      "COVID-19 PCR",
+    ).click();
+  }
+
   selectSpecimen() {
     cy.get(".cds--select-input__wrapper > .cds--select-input").select(
       "APPENDIX",
@@ -107,8 +121,8 @@ class DashBoardPage {
     cy.get("#status").select("Processing");
   }
 
-  changeImmunoChemStatus() {
-    cy.get("#status").select("Ready for Pathologist");
+  selectStatus() {
+    cy.get("#status").select("Completed");
   }
   selectPathologist() {
     cy.get("#assignedPathologist").select("ELIS,Open");
