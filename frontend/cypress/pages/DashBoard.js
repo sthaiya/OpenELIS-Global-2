@@ -24,54 +24,32 @@ class DashBoardPage {
     cy.get("#additionalQuestionsSelect").select("Immunohistochemistry");
   }
 
-  selectCytology(){
+  selectCytology() {
     cy.get("#additionalQuestionsSelect").select("Cytology");
   }
 
-  selectFluidSample(){ 
-    cy.get("#sampleId_0")
-      .should("be.visible")
-      .select("Fluid");    
+  selectFluidSample() {
+    cy.get("#sampleId_0").should("be.visible").select("Fluid");
   }
 
-  checkCovidPanel(){
-    cy.contains(
-      "label.cds--checkbox-label",
-      "COVID-19 PCR",
-    ).click();
-  }
-
-  selectSpecimen() {
-    cy.get(".cds--select-input__wrapper > .cds--select-input").select(
-      "APPENDIX",
-    );
-  }
-
-  specimenType() {
-    cy.get(".cds--select-input__wrapper > .cds--select-input").select("Biopsy");
-  }
-
-  procedurePerformed() {
-    cy.get(".cds--select-input__wrapper > .cds--select-input").select(
-      "Core Biopsy",
-    );
+  checkCovidPanel() {
+    cy.contains("label.cds--checkbox-label", "COVID-19 PCR").click();
   }
 
   selectPathologySample() {
     cy.get("#sampleId_0")
       .should("be.visible")
       .select("Histopathology specimen");
-    //cy.get("#panel_0_1").click();
   }
 
   selectImmunoChemSample() {
     cy.get("#sampleId_0")
       .should("be.visible")
-      .select("Immunohistochemistry Specimen");
+      .select("Immunohistochemistry specimen");
   }
 
   checkImmunoChemTest() {
-    cy.get("#test_0_339").check();
+    cy.contains(".cds--checkbox-label-text", "Anti-CD7").click();
   }
   checkPathologyPanel() {
     cy.contains(
@@ -85,9 +63,8 @@ class DashBoardPage {
   }
 
   selectSite() {
-    cy.get("#siteName").type("279 - CAMES");
-    cy.wait(100);
-    cy.contains(".suggestion-active", "279 - CAMES").click();
+    cy.get("#siteName").type("279 - CAMES ");
+    cy.contains(".suggestion-active", "279 - CAMES ").click();
     cy.wait(200);
   }
 
@@ -95,8 +72,6 @@ class DashBoardPage {
     cy.get("#requesterId").type("Optimus");
     cy.contains(".suggestion-active", "Optimus").click();
     cy.wait(200);
-    //cy.get("#requesterFirstName").type(order.requester.firstName);
-    //cy.get("#requesterLastName").type(order.requester.firstName);
   }
 
   submitButton() {
@@ -104,9 +79,7 @@ class DashBoardPage {
   }
 
   clickPrintBarCode() {
-    cy.contains("button.cds--btn--primary", "Print Barcode").should(
-      "be.visible",
-    );
+    cy.contains(".cds--btn--primary", "Print Barcode").should("be.visible");
   }
 
   selectFirstOrder() {
@@ -117,23 +90,29 @@ class DashBoardPage {
     cy.get("#pathology_save2").click();
   }
 
-  changePathologyStatus() {
+  selectPathologyStatus() {
     cy.get("#status").select("Processing");
   }
 
+  pathologyStatusFilter() {
+    cy.get("#statusFilter").should("be.visible").select("Processing");
+  }
   selectStatus() {
-    cy.get("#status").select("Completed");
+    cy.get("#status").should("be.visible").select("Completed");
   }
   selectPathologist() {
     cy.get("#assignedPathologist").select("ELIS,Open");
   }
 
   selectTechnician() {
-    cy.get("assignedTechnician").select("External,Service");
+    cy.get("#assignedTechnician").select("External,Service");
   }
 
   checkImmunoChem() {
     cy.get("#referToImmunoHistoChemistry").check();
+  }
+
+  chckImmunoChemOption() {
     cy.get("#ihctest-input").select("Anti-CD 5(Immunohistochemistry specimen)");
   }
 
@@ -141,12 +120,8 @@ class DashBoardPage {
     cy.get("#report").select("Immunohistochemistry Report");
   }
 
-  toggleReportParam() {
-    cy.contains(".cds--toggle-text", "off").click();
-  }
-
   checkReadyForRelease() {
-    cy.get("#release").check();
+    cy.get("#release").should("be.visible").check({ force: true });
   }
 
   statusFilter() {

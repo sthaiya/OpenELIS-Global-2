@@ -192,7 +192,7 @@ class HomePage {
     return new DashBoardPage();
   }
 
-  goToCytologyDashboard(){
+  goToCytologyDashboard() {
     this.openNavigationMenu();
     cy.get("#menu_cytology").click();
     return new DashBoardPage();

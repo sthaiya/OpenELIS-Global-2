@@ -13,6 +13,7 @@ describe("Pathology Dashboard", function () {
   it("User  Visits Pathology Dashboard", function () {
     homePage = loginPage.goToHomePage();
     dashboard = homePage.goToPathologyDashboard();
+    cy.wait(500);
   });
 
   it("User adds a new Pathology order", function () {
@@ -24,9 +25,6 @@ describe("Pathology Dashboard", function () {
     dashboard.clickNext();
     cy.wait(200);
     dashboard.selectHistopathology();
-    //dashboard.selectSpecimen();
-    //dashboard.specimenType();
-    //dashboard.procedurePerformed();
     dashboard.clickNext();
     cy.wait(200);
     dashboard.selectPathologySample();
@@ -38,10 +36,10 @@ describe("Pathology Dashboard", function () {
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(300);
+    cy.wait(2000);
   });
 
-  it("Validate Success by Printing Barcode", function () {
+  it("Validate Success by Confirming Print Barcode button", function () {
     dashboard.clickPrintBarCode();
   });
 
@@ -51,20 +49,20 @@ describe("Pathology Dashboard", function () {
 
   it("Change The Status of Order and saves it", function () {
     dashboard.selectFirstOrder();
-    cy.wait(200);
-    dashboard.selectStatus();
+    cy.wait(500);
+    dashboard.selectPathologyStatus();
     dashboard.selectTechnician();
     dashboard.selectPathologist();
-    //dashboard.checkImmunoChem(); making saving impossible
     dashboard.checkReadyForRelease();
     dashboard.saveOrder();
+    cy.wait(500);
   });
 
   it("Validate the Status of Order", () => {
     dashboard = homePage.goToPathologyDashboard();
 
-    //selects complete orders
-    dashboard.statusFilter();
+    //selects processing orders
+    dashboard.pathologyStatusFilter();
   });
 });
 
@@ -72,6 +70,7 @@ describe("ImmunoChemistry Dashboard", function () {
   it("User  Visits ImmunoChemistry Dashboard", function () {
     homePage = loginPage.goToHomePage();
     dashboard = homePage.goToImmunoChemistryDashboard();
+    cy.wait(500);
   });
 
   it("User adds a new ImmunioChemistry order", function () {
@@ -90,16 +89,19 @@ describe("ImmunoChemistry Dashboard", function () {
     cy.wait(200);
     dashboard.selectImmunoChemSample();
     dashboard.checkImmunoChemTest();
+    dashboard.clickNext();
+    cy.wait(200);
     dashboard.generateLabNo();
     dashboard.selectSite();
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(300);
+    cy.wait(2000);
   });
 
-  it("Validate Success by Printing Barcode", function () {
+  it("Validate Success by Confirming Print Barcode button", function () {
     dashboard.clickPrintBarCode();
+    cy.wait(200);
   });
 
   it("User navigates back to ImmunoChem to confirm added order", () => {
@@ -108,14 +110,14 @@ describe("ImmunoChemistry Dashboard", function () {
 
   it("Change The Status of Order and saves it", function () {
     dashboard.selectFirstOrder();
-    cy.wait(200);
+    cy.wait(500);
     dashboard.selectTechnician();
     dashboard.selectPathologist();
     dashboard.selectStatus();
     dashboard.addImmunoChemReport();
-    dashboard.toggleReportParam();
     dashboard.checkReadyForRelease();
     dashboard.saveOrder();
+    cy.wait(200);
   });
 
   it("Validate the Status of Order", () => {
@@ -130,6 +132,7 @@ describe("Cytology Dashboard", function () {
   it("User  Visits Cytology Dashboard", function () {
     homePage = loginPage.goToHomePage();
     dashboard = homePage.goToCytologyDashboard();
+    cy.wait(500);
   });
 
   it("User adds a new Cytology order", function () {
@@ -142,10 +145,6 @@ describe("Cytology Dashboard", function () {
     dashboard.clickNext();
     cy.wait(200);
     dashboard.selectCytology();
-    cy.wait(200);
-    //dashboard.selectSpecimen();
-    //dashboard.specimenType();
-    //dashboard.procedurePerformed();
     dashboard.clickNext();
     cy.wait(200);
     dashboard.selectFluidSample();
@@ -157,25 +156,27 @@ describe("Cytology Dashboard", function () {
     dashboard.selectRequesting();
     cy.wait(200);
     dashboard.submitButton();
-    cy.wait(500);
+    cy.wait(2000);
   });
 
-  it("Validate Success by Printing Barcode", function () {
+  it("Validate Success by Confirming Print Barcode button", function () {
     dashboard.clickPrintBarCode();
+    cy.wait(200);
   });
 
   it("User navigates back to cytology to confirm added order", () => {
-    dashboard=homePage.goToCytologyDashboard();
+    dashboard = homePage.goToCytologyDashboard();
   });
 
   it("Change The Status of Order and saves it", function () {
     dashboard.selectFirstOrder();
-    cy.wait(2000);
+    cy.wait(500);
     dashboard.selectStatus();
     dashboard.selectTechnician();
     dashboard.selectPathologist();
     dashboard.checkReadyForRelease();
     dashboard.saveOrder();
+    cy.wait(500);
   });
 
   it("Validate the Status of Order", () => {
