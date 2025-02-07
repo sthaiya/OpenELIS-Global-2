@@ -1105,6 +1105,8 @@
   "login.login.name": "Nom d'utilisateur",
   "login.login.password": "Mot de passe",
   "login.login.repeat.password": "Répéter le mot de passe",
+  "login.login.current.password": "Mot de passe actuel",
+  "login.login.new.password": "Nouveau mot de passe",
   "login.login.first": "Prénom",
   "login.login.last": "Nom",
   "login.login.": "Répéter le mot de passe",

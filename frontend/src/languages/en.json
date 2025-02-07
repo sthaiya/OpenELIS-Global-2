@@ -1204,6 +1204,8 @@
   "login.login.name": "Login Name",
   "login.login.password": "Password",
   "login.login.repeat.password": "Repeat Password",
+  "login.login.current.password": "Current Password",
+  "login.login.new.password": "New Password",
   "login.login.first": "First Name",
   "login.login.last": "Last Name",
   "login.login.": "Repeat Password",
