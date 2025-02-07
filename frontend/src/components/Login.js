@@ -219,18 +219,23 @@ function Login(props) {
                             })}
                           />
                           <Stack orientation="horizontal">
-                          <Button type="submit" disabled={!isValid}>
-                            <FormattedMessage id="label.button.login" />
-                            <Loading
-                              small={true}
-                              withOverlay={false}
-                              className={submitting ? "show" : "hidden"}
-                            />
-                          </Button>
-                          {/* Button to nevigate to the change password page */}
-                          <Button type="button">
-                            <FormattedMessage id="label.button.changepassword" />
-                          </Button>
+                            <Button type="submit" disabled={!isValid}>
+                              <FormattedMessage id="label.button.login" />
+                              <Loading
+                                small={true}
+                                withOverlay={false}
+                                className={submitting ? "show" : "hidden"}
+                              />
+                            </Button>
+                            {/* Button to nevigate to the change password page */}
+                            <Button 
+                              type="button"
+                              onClick={() => {
+                                window.location.href = "/ChangePasswordLogin";
+                              }}
+                            >
+                              <FormattedMessage id="label.button.changepassword" />
+                            </Button>
                           </Stack>
                         </>
                       )}
