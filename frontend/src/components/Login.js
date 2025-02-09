@@ -228,7 +228,7 @@ function Login(props) {
                               />
                             </Button>
                             {/* Button to nevigate to the change password page */}
-                            <Button 
+                            <Button
                               type="button"
                               onClick={() => {
                                 window.location.href = "/ChangePasswordLogin";
