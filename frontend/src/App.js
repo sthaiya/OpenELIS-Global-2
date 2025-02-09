@@ -242,7 +242,11 @@ export default function App() {
             <Layout onChangeLanguage={onChangeLanguage}>
               <Switch>
                 <Route path="/login" exact component={() => <Login />} />
-                <Route path="/ChangePasswordLogin" exact component={() => <ChangePassword/>} />
+                <Route
+                  path="/ChangePasswordLogin"
+                  exact
+                  component={() => <ChangePassword />}
+                />
                 <Route
                   path="/landing"
                   exact
