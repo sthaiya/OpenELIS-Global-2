@@ -15,7 +15,6 @@ import {
   Stack,
   TextInput,
   UnorderedList,
-  
 } from '@carbon/react';
 import { FormattedMessage, injectIntl, useIntl } from 'react-intl';
 import { Formik } from 'formik';
@@ -45,7 +44,7 @@ function ChangePassword() {
           addNotification({
             kind: NotificationKinds.success,
             title: intl.formatMessage({id: "notification.title"}),
-            message: "Password changed successfully",
+            message: intl.formatMessage({id: "notification.password.change.success"}),
           });
           setNotificationVisible(true);
           setTimeout(() => {
@@ -55,7 +54,7 @@ function ChangePassword() {
           addNotification({
             kind: NotificationKinds.error,
             title: intl.formatMessage({id: "notification.title"}),
-            message: "Password change failed",
+            message: intl.formatMessage({id: "notification.password.change.fail"}),
           });
           setNotificationVisible(true);
         }
@@ -77,7 +76,7 @@ function ChangePassword() {
     return(
       <>
         <h5>
-          <FormattedMessage id="login.complexity.message" />
+          <FormattedMessage id="login.complexity.new.message" />
         </h5>
         <br/>
         <h6>
@@ -95,7 +94,7 @@ function ChangePassword() {
               <FormattedMessage id="login.complexity.message.4" />
             </ListItem>
             <ListItem>
-              Must not be same as current password
+            <FormattedMessage id="login.complexity.new.message.1" />
             </ListItem>
           </UnorderedList>
         </h6>
