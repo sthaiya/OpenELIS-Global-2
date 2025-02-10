@@ -4,146 +4,158 @@ let homePage = null;
 let loginPage = null;
 let dashboard = null;
 
-before("Login to the Application", () => {
+// Helper function to log in and navigate to the homepage
+const loginAndNavigateToHome = () => {
   loginPage = new LoginPage();
   loginPage.visit();
-});
+  homePage = loginPage.goToHomePage();
+};
 
-/**
- * Reusable function to place an order on any dashboard
- */
-function placeOrder(dashboardName, testSelectionFn) {
-  it(`User places a new order on ${dashboardName} Dashboard`, function () {
-    homePage.goToOrderPage();
-    dashboard.searchPatientByFName();
-    dashboard.searchPatient();
-    cy.wait(200);
-    dashboard.checkPatientRadio();
-    dashboard.clickNext();
-    cy.wait(200);
+// Helper function to add a new order
+const addNewOrder = (dashboardType, testType, sampleType, panelType) => {
+  homePage.goToOrderPage();
+  dashboard.searchPatientByFName();
+  dashboard.searchPatient();
+  cy.wait(200);
+  dashboard.checkPatientRadio();
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard[`select${testType}`](); // Dynamically call the appropriate select function
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard[`select${sampleType}`](); // Dynamically call the appropriate sample function
+  dashboard[`check${panelType}`](); // Dynamically call the appropriate panel function
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard.generateLabNo();
+  dashboard.selectSite();
+  dashboard.selectRequesting();
+  cy.wait(200);
+  dashboard.submitButton();
+  cy.wait(3000);
+};
 
-    // Select test type (specific for each dashboard)
-    testSelectionFn();
+// Helper function to validate success and print barcode
+const validateSuccessAndPrintBarcode = () => {
+  dashboard.clickPrintBarCode();
+  cy.wait(200);
+};
 
-    dashboard.clickNext();
-    cy.wait(200);
-    dashboard.selectSampleType();
-    dashboard.checkTestPanel();
-    dashboard.clickNext();
-    cy.wait(200);
-    dashboard.generateLabNo();
-    dashboard.selectSite();
-    dashboard.selectRequesting();
-    cy.wait(200);
-    dashboard.submitButton();
-    cy.wait(3000);
-  });
-}
+// Helper function to change order status and save
+const changeOrderStatusAndSave = (dashboardType) => {
+  dashboard.selectFirstOrder();
+  cy.wait(500);
+  dashboard.selectStatus();
+  dashboard.selectTechnician();
+  dashboard.selectPathologist();
+  dashboard.checkReadyForRelease();
+  dashboard.saveOrder();
+  cy.wait(200);
+};
 
-/**
- * Reusable function to validate an order
- */
-function validateOrder(dashboardName) {
-  it(`Validate Success by Confirming Print Barcode button on ${dashboardName} Dashboard`, function () {
-    dashboard.clickPrintBarCode();
-    cy.wait(200);
-  });
-}
+// Helper function to validate order status
+const validateOrderStatus = (dashboardType) => {
+  dashboard = homePage[`goTo${dashboardType}Dashboard`]();
+  dashboard.statusFilter();
+};
 
-/**
- * Reusable function to change order status
- */
-function changeOrderStatus(dashboardName, additionalActions = () => {}) {
-  it(`Change The Status of Order on ${dashboardName} Dashboard`, function () {
-    dashboard.selectFirstOrder();
-    cy.wait(500);
-    dashboard.selectStatus();
-    dashboard.selectTechnician();
-    dashboard.selectPathologist();
-    additionalActions(); // Any extra actions (e.g., adding reports)
-    dashboard.checkReadyForRelease();
-    dashboard.saveOrder();
-    cy.wait(500);
-  });
-}
-
-/**
- * Reusable function to filter orders
- */
-function filterOrders(dashboardName) {
-  it(`Validate the Status of Order on ${dashboardName} Dashboard`, () => {
-    dashboard = homePage[`goTo${dashboardName}Dashboard`]();
-    dashboard.statusFilter();
-  });
-}
-
-/**
- * Test Suite: Pathology Dashboard
- */
-describe("Pathology Dashboard", function () {
-  it("User Visits Pathology Dashboard", function () {
-    homePage = loginPage.goToHomePage();
-    dashboard = homePage.goToPathologyDashboard();
-    cy.wait(500);
+// Main test suite
+describe("Dashboard Tests", function () {
+  before("Login and navigate to homepage", () => {
+    loginAndNavigateToHome();
   });
 
-  placeOrder("Pathology", () => dashboard.selectHistopathology());
+  // Pathology Dashboard Tests
+  describe("Pathology Dashboard", function () {
+    before("Navigate to Pathology Dashboard", function () {
+      dashboard = homePage.goToPathologyDashboard();
+      cy.wait(500);
+    });
 
-  validateOrder("Pathology");
+    it("User adds a new Pathology order", function () {
+      addNewOrder(
+        "Pathology",
+        "Histopathology",
+        "PathologySample",
+        "PathologyPanel",
+      );
+    });
 
-  it("User navigates back to pathology to confirm added order", () => {
-    homePage.goToPathologyDashboard();
+    it("Validate Success by Confirming Print Barcode button", function () {
+      validateSuccessAndPrintBarcode();
+    });
+
+    it("User navigates back to Pathology Dashboard to confirm added order", function () {
+      homePage.goToPathologyDashboard();
+    });
+
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("Pathology");
+    });
+
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("Pathology");
+    });
   });
 
-  changeOrderStatus("Pathology");
+  // ImmunoChemistry Dashboard Tests
+  describe("ImmunoChemistry Dashboard", function () {
+    before("Navigate to ImmunoChemistry Dashboard", function () {
+      dashboard = homePage.goToImmunoChemistryDashboard();
+      cy.wait(500);
+    });
 
-  filterOrders("Pathology");
-});
+    it("User adds a new ImmunoChemistry order", function () {
+      addNewOrder(
+        "ImmunoChemistry",
+        "ImmunoChem",
+        "ImmunoChemSample",
+        "ImmunoChemTest",
+      );
+    });
 
-/**
- * Test Suite: ImmunoChemistry Dashboard
- */
-describe("ImmunoChemistry Dashboard", function () {
-  it("User Visits ImmunoChemistry Dashboard", function () {
-    homePage = loginPage.goToHomePage();
-    dashboard = homePage.goToImmunoChemistryDashboard();
-    cy.wait(500);
+    it("Validate Success by Confirming Print Barcode button", function () {
+      validateSuccessAndPrintBarcode();
+    });
+
+    it("User navigates back to ImmunoChemistry Dashboard to confirm added order", function () {
+      homePage.goToImmunoChemistryDashboard();
+    });
+
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("ImmunoChemistry");
+    });
+
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("ImmunoChemistry");
+    });
   });
 
-  placeOrder("ImmunoChemistry", () => dashboard.selectImmunoChem());
+  // Cytology Dashboard Tests
+  describe("Cytology Dashboard", function () {
+    before("Navigate to Cytology Dashboard", function () {
+      dashboard = homePage.goToCytologyDashboard();
+      cy.wait(500);
+    });
 
-  validateOrder("ImmunoChemistry");
+    it("User adds a new Cytology order", function () {
+      addNewOrder("Cytology", "Cytology", "FluidSample", "CovidPanel");
+    });
 
-  it("User navigates back to ImmunoChem to confirm added order", () => {
-    homePage.goToImmunoChemistryDashboard();
+    it("Validate Success by Confirming Print Barcode button", function () {
+      validateSuccessAndPrintBarcode();
+    });
+
+    it("User navigates back to Cytology Dashboard to confirm added order", function () {
+      homePage.goToCytologyDashboard();
+    });
+
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("Cytology");
+    });
+
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("Cytology");
+    });
   });
-
-  changeOrderStatus("ImmunoChemistry", () => {
-    dashboard.addImmunoChemReport();
-  });
-
-  filterOrders("ImmunoChemistry");
-});
-
-/**
- * Test Suite: Cytology Dashboard
- */
-describe("Cytology Dashboard", function () {
-  it("User Visits Cytology Dashboard", function () {
-    homePage = loginPage.goToHomePage();
-    dashboard = homePage.goToCytologyDashboard();
-    cy.wait(500);
-  });
-
-  placeOrder("Cytology", () => dashboard.selectCytology());
-
-  validateOrder("Cytology");
-
-  it("User navigates back to Cytology to confirm added order", () => {
-    dashboard = homePage.goToCytologyDashboard();
-  });
-
-  changeOrderStatus("Cytology");
-
-  filterOrders("Cytology");
 });
