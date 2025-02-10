@@ -314,13 +314,11 @@ export const ViewNonConformingEvent = () => {
               </Column>
 
               <Column lg={16} md={8} sm={4}>
-
                 <Button
                   type="button"
                   data-testid="nce-search-button"
                   onClick={handleSubmit}
                 >
-
                   <FormattedMessage id="label.button.search" />
                 </Button>
               </Column>
