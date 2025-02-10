@@ -8,7 +8,7 @@ before("login", () => {
   loginPage = new LoginPage();
   loginPage.visit();
 });
-
+//refactored code 
 const navigateToDashboard = (dashboardName) => {
   homePage = loginPage.goToHomePage();
   switch (dashboardName) {
