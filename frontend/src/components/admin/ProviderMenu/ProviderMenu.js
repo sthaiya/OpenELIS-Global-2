@@ -449,12 +449,6 @@ function ProviderMenu() {
             value={telephone}
             onChange={(e) => setTelephone(e.target.value)}
           />
-          <TextInput
-            id="fax"
-            labelText={intl.formatMessage({ id: "provider.fax" })}
-            value={fax}
-            onChange={(e) => setFax(e.target.value)}
-          />
           <Dropdown
             id="isActive"
             titleText="Active"
@@ -463,6 +457,12 @@ function ProviderMenu() {
             itemToString={(item) => (item ? item.value : "")}
             selectedItem={isActive}
             onChange={({ selectedItem }) => setIsActive(selectedItem)}
+          />
+          <TextInput
+            id="fax"
+            labelText={intl.formatMessage({ id: "provider.fax" })}
+            value={fax}
+            onChange={(e) => setFax(e.target.value)}
           />
         </Modal>
 
