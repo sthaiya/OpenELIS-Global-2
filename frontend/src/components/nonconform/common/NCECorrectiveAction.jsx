@@ -284,7 +284,6 @@ export const NCECorrectiveAction = () => {
               <Column lg={16} md={8} sm={4}>
                 <br />
               </Column>
-
               <Column lg={16} md={8} sm={4}>
 
                 <Button
@@ -367,7 +366,7 @@ export const NCECorrectiveAction = () => {
 
           {data && (
             <Grid fullWidth={true}>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <b>
@@ -382,7 +381,7 @@ export const NCECorrectiveAction = () => {
                   {data.nceNumber}
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.field.date" />
@@ -391,7 +390,7 @@ export const NCECorrectiveAction = () => {
                 <div style={{ marginBottom: "10px" }}>{data.dateOfEvent}</div>
               </Column>
 
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.view.nce.severity" />
@@ -406,7 +405,7 @@ export const NCECorrectiveAction = () => {
                 </div>
               </Column>
 
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.label.reportingunit" />
@@ -420,7 +419,7 @@ export const NCECorrectiveAction = () => {
                   }
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.view.specimen" />
@@ -430,8 +429,7 @@ export const NCECorrectiveAction = () => {
                   {data.specimens[0].typeOfSample.description}
                 </div>
               </Column>
-              <Column lg={1}></Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="sample.label.labnumber" />
@@ -444,7 +442,7 @@ export const NCECorrectiveAction = () => {
                   {data.labOrderNumber}
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.field.reporting.data" />
@@ -452,7 +450,7 @@ export const NCECorrectiveAction = () => {
                 </div>
                 <div style={{ marginBottom: "10px" }}>{data.reportDate}</div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.label.prescibernamesite" />
@@ -462,7 +460,7 @@ export const NCECorrectiveAction = () => {
                   style={{ marginBottom: "10px" }}
                 >{`${data.prescriberName}-${data.site}`}</div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.view.event.description" />
@@ -472,7 +470,7 @@ export const NCECorrectiveAction = () => {
                   {data.description ?? ""}
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.label.suspected.cause.nce" />
@@ -482,8 +480,8 @@ export const NCECorrectiveAction = () => {
                   {data.suspectedCauses ?? ""}
                 </div>
               </Column>
-              <Column lg={1}></Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.label.proposed.action" />
@@ -494,7 +492,7 @@ export const NCECorrectiveAction = () => {
                 </div>
               </Column>
 
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.lab.componenet.nce" />
@@ -507,7 +505,7 @@ export const NCECorrectiveAction = () => {
                 </div>
               </Column>
 
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.view.nce.category" />
@@ -519,7 +517,7 @@ export const NCECorrectiveAction = () => {
                 </div>
               </Column>
 
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.view.nce.type" />
@@ -530,8 +528,8 @@ export const NCECorrectiveAction = () => {
                     ""}
                 </div>
               </Column>
-              <Column lg={16}></Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={16} md={8} sm={4}></Column>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.corrective.action" />
@@ -541,7 +539,7 @@ export const NCECorrectiveAction = () => {
                   {data.correctiveAction ?? ""}
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.corrective.control" />
@@ -551,7 +549,7 @@ export const NCECorrectiveAction = () => {
                   {data.controlAction ?? ""}
                 </div>
               </Column>
-              <Column lg={3} style={{ marginBottom: "20px" }}>
+              <Column lg={3} md={3} sm={3} style={{ marginBottom: "20px" }}>
                 <div style={{ marginBottom: "10px" }}>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.corrective.comment" />
@@ -564,6 +562,8 @@ export const NCECorrectiveAction = () => {
 
               <Column
                 lg={16}
+                md={8}
+                sm={4}
                 style={{
                   marginTop: "20px",
                   display: "flex",
@@ -611,44 +611,44 @@ export const NCECorrectiveAction = () => {
                 </button>
               </Column>
 
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 {" "}
                 <br></br>
               </Column>
-              <Column lg={4}>
+              <Column lg={4} md={3} sm={3}>
                 {" "}
                 <h5>
                   <FormattedMessage id="banner.menu.nonconformity.correctiveActions" />
                 </h5>
               </Column>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 <h5>
                   <FormattedMessage id="nonconform.person.responsible" />{" "}
                 </h5>{" "}
               </Column>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 {" "}
                 <h5>
                   <FormattedMessage id="nonconform.date.completed" />{" "}
                 </h5>
               </Column>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 {" "}
                 <h5>
                   <FormattedMessage id="nonconform.corrective.actionType" />{" "}
                 </h5>
               </Column>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 {" "}
                 <h5>
                   <FormattedMessage id="nonconform.nce.turnaround.time" />{" "}
                 </h5>
               </Column>
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 {" "}
                 <br></br>
               </Column>
-              <Column lg={4}>
+              <Column lg={4} md={3} sm={3}>
                 <TextArea
                   labelText=""
                   value={formData.actionLog[`correctiveAction`] ?? ""}
@@ -658,7 +658,7 @@ export const NCECorrectiveAction = () => {
                 />
               </Column>
 
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 <TextArea
                   labelText=""
                   value={formData.actionLog[`personResponsible`] ?? ""}
@@ -668,7 +668,7 @@ export const NCECorrectiveAction = () => {
                 />
               </Column>
 
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 <CustomDatePicker
                   key="dateCompleted"
                   id={"dateCompleted"}
@@ -685,7 +685,7 @@ export const NCECorrectiveAction = () => {
                 />
               </Column>
 
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 <Checkbox
                   checked={formData.actionLog.actionType
                     ?.split(",")
@@ -720,7 +720,7 @@ export const NCECorrectiveAction = () => {
                   id="concurrent Control Action"
                 />
               </Column>
-              <Column lg={3}>
+              <Column lg={3} md={3} sm={3}>
                 {formData[`dateCompleted`] && (
                   <div>
                     <div>
@@ -734,11 +734,11 @@ export const NCECorrectiveAction = () => {
               </Column>
               {data.actionLog?.map((log, index) => (
                 <>
-                  <Column lg={16}>
+                  <Column lg={16} md={8} sm={4}>
                     {" "}
                     <br></br>
                   </Column>
-                  <Column lg={4}>
+                  <Column lg={4} md={4} sm={2}>
                     <TextArea
                       labelText=""
                       value={log[`correctiveAction`] ?? ""}
@@ -748,7 +748,7 @@ export const NCECorrectiveAction = () => {
                     />
                   </Column>
 
-                  <Column lg={3}>
+                  <Column lg={3} md={3} sm={3}>
                     <TextArea
                       labelText=""
                       value={log[`personResponsible`] ?? ""}
@@ -758,7 +758,7 @@ export const NCECorrectiveAction = () => {
                     />
                   </Column>
 
-                  <Column lg={3}>
+                  <Column lg={3} md={3} sm={3}>
                     <CustomDatePicker
                       key="dateCompleted"
                       id={"dateCompleted"}
@@ -771,7 +771,7 @@ export const NCECorrectiveAction = () => {
                     />
                   </Column>
 
-                  <Column lg={3}>
+                  <Column lg={3} md={3} sm={3}>
                     <Checkbox
                       checked={log.actionType?.split(",").includes("1")}
                       labelText={
@@ -799,14 +799,14 @@ export const NCECorrectiveAction = () => {
                       id="concurrent Control Action"
                     />
                   </Column>
-                  <Column lg={3}>
+                  <Column lg={3} md={3} sm={3}>
                     <div>
                       <div>{log[`turnAroundTime`] ?? ""}</div>
                     </div>
                   </Column>
                 </>
               ))}
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 <br></br>
                 <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                   <h4>
@@ -817,7 +817,7 @@ export const NCECorrectiveAction = () => {
                 <br></br>
               </Column>
 
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 <div>
                   <span style={{ color: "#3366B3", fontWeight: "bold" }}>
                     <FormattedMessage id="nonconform.nce.resolution.description" />
@@ -847,7 +847,7 @@ export const NCECorrectiveAction = () => {
                   </div>
                 </div>
               </Column>
-              <Column lg={8}>
+              <Column lg={8} md={4} sm={4}>
                 <CustomDatePicker
                   key="dateCompleted-0"
                   id="dateCompleted-0"
@@ -865,12 +865,12 @@ export const NCECorrectiveAction = () => {
                   style={{ marginBottom: "5px" }}
                 />
               </Column>
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 {" "}
                 <br></br>
               </Column>
 
-              <Column lg={16}>
+              <Column lg={16} md={8} sm={4}>
                 {!!reportFormValues.error && (
                   <div style={{ color: "#c62828", margin: 4 }}>
                     {reportFormValues.error}
