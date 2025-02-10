@@ -24,7 +24,7 @@ function placeOrder(dashboardName, testSelectionFn) {
 
     // Select test type (specific for each dashboard)
     testSelectionFn();
-    
+
     dashboard.clickNext();
     cy.wait(200);
     dashboard.selectSampleType();
