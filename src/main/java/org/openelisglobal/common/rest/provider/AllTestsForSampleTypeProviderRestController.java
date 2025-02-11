@@ -17,6 +17,7 @@
 package org.openelisglobal.common.rest.provider;
 
 import java.util.List;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.openelisglobal.common.log.LogEvent;
@@ -24,6 +25,7 @@ import org.openelisglobal.common.rest.BaseRestController;
 import org.openelisglobal.spring.util.SpringContext;
 import org.openelisglobal.test.valueholder.Test;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +37,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest")
 public class AllTestsForSampleTypeProviderRestController extends BaseRestController {
 
-    private TypeOfSampleService typeOfSampleService = SpringContext.getBean(TypeOfSampleService.class);
+    private TypeOfSampleService typeOfSampleService;
+
+    @Autowired
+    public AllTestsForSampleTypeProviderRestController(TypeOfSampleService typeOfSampleService) {
+        this.typeOfSampleService = typeOfSampleService;
+    }
 
     @GetMapping("/AllTestsForSampleTypeProvider")
     public ResponseEntity<Object> processRequest(@RequestParam String sampleTypeId) {
