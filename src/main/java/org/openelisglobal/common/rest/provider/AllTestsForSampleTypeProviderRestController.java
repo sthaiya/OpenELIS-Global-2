@@ -35,12 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest")
 public class AllTestsForSampleTypeProviderRestController extends BaseRestController {
 
+    @Autowired
     private TypeOfSampleService typeOfSampleService;
 
-    @Autowired
-    public AllTestsForSampleTypeProviderRestController(TypeOfSampleService typeOfSampleService) {
-        this.typeOfSampleService = typeOfSampleService;
-    }
 
     @GetMapping("/AllTestsForSampleTypeProvider")
     public ResponseEntity<Object> processRequest(@RequestParam String sampleTypeId) {
