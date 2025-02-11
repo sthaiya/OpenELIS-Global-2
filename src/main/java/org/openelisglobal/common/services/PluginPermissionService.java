@@ -34,7 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-@DependsOn({"springContext"})
+@DependsOn({ "springContext" })
 public class PluginPermissionService implements IPluginPermissionService {
 
     private SystemModuleService moduleService;
@@ -44,7 +44,7 @@ public class PluginPermissionService implements IPluginPermissionService {
 
     @Autowired
     public PluginPermissionService(SystemModuleService moduleService, SystemModuleUrlService moduleUrlService,
-                                   RoleService roleService, RoleModuleService roleModuleService) {
+            RoleService roleService, RoleModuleService roleModuleService) {
         this.moduleService = moduleService;
         this.moduleUrlService = moduleUrlService;
         this.roleService = roleService;

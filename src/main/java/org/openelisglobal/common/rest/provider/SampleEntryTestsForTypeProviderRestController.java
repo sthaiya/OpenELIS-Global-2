@@ -22,7 +22,6 @@ import org.openelisglobal.panel.valueholder.Panel;
 import org.openelisglobal.panelitem.service.PanelItemService;
 import org.openelisglobal.panelitem.valueholder.PanelItem;
 import org.openelisglobal.role.service.RoleService;
-import org.openelisglobal.spring.util.SpringContext;
 import org.openelisglobal.systemuser.service.UserService;
 import org.openelisglobal.test.service.TestSectionService;
 import org.openelisglobal.test.service.TestServiceImpl;
@@ -69,9 +68,10 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
     }
 
     @Autowired
-    public SampleEntryTestsForTypeProviderRestController(PanelService panelService, TestSectionService testSectionService,
-            TypeOfSamplePanelService samplePanelService, PanelItemService panelItemService,
-            TypeOfSampleService typeOfSampleService, UserService userService, RoleService roleService) {
+    public SampleEntryTestsForTypeProviderRestController(PanelService panelService,
+            TestSectionService testSectionService, TypeOfSamplePanelService samplePanelService,
+            PanelItemService panelItemService, TypeOfSampleService typeOfSampleService, UserService userService,
+            RoleService roleService) {
         this.panelService = panelService;
         this.testSectionService = testSectionService;
         this.samplePanelService = samplePanelService;
