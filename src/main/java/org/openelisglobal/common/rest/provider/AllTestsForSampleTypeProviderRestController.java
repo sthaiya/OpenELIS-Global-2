@@ -38,7 +38,6 @@ public class AllTestsForSampleTypeProviderRestController extends BaseRestControl
     @Autowired
     private TypeOfSampleService typeOfSampleService;
 
-
     @GetMapping("/AllTestsForSampleTypeProvider")
     public ResponseEntity<Object> processRequest(@RequestParam String sampleTypeId) {
         if (sampleTypeId == null || sampleTypeId.isEmpty()) {

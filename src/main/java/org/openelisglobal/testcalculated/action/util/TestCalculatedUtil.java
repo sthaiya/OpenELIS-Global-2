@@ -61,7 +61,6 @@ public class TestCalculatedUtil {
 
     private String CALCULATION_SUBJECT = "Calculated Result Note";
 
-
     public List<Analysis> addNewTestsToDBForCalculatedTests(List<ResultSet> resultSetList, String sysUserId)
             throws IllegalStateException {
         List<Analysis> analyses = new ArrayList<>();

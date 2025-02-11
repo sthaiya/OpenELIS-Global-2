@@ -46,7 +46,6 @@ public class PluginPermissionService implements IPluginPermissionService {
     @Autowired
     private RoleModuleService roleModuleService;
 
-
     public static IPluginPermissionService getInstance() {
         return SpringContext.getBean(IPluginPermissionService.class);
     }

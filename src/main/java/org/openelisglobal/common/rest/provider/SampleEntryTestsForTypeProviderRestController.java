@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.common.action.IActionConstants;
 import org.openelisglobal.common.constants.Constants;
@@ -213,7 +212,7 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
 
     @SuppressWarnings("unchecked")
     private String getTestIndexesForPanels(String panelId, Map<String, Integer> testIdOrderMap,
-                                           PanelItemService panelItemService) {
+            PanelItemService panelItemService) {
         StringBuilder indexes = new StringBuilder();
         List<PanelItem> items = panelItemService.getPanelItemsForPanel(panelId);
 
