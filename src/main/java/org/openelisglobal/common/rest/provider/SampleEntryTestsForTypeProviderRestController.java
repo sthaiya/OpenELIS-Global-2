@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.common.action.IActionConstants;
 import org.openelisglobal.common.constants.Constants;
@@ -41,19 +42,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SampleEntryTestsForTypeProviderRestController extends BaseRestController {
 
     private static String USER_TEST_SECTION_ID;
-
+    @Autowired
     private PanelService panelService;
-
+    @Autowired
     private TestSectionService testSectionService;
-
+    @Autowired
     private TypeOfSamplePanelService samplePanelService;
-
+    @Autowired
     private PanelItemService panelItemService;
-
+    @Autowired
     private TypeOfSampleService typeOfSampleService;
-
+    @Autowired
     private UserService userService;
-
+    @Autowired
     private RoleService roleService;
 
     ArrayList<PanelTestMap> panelsMapList = new ArrayList<>();
@@ -67,18 +68,7 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
         sampleEntryTests = new SampleEntryTests();
     }
 
-    @Autowired
-    public SampleEntryTestsForTypeProviderRestController(PanelService panelService,
-            TestSectionService testSectionService, TypeOfSamplePanelService samplePanelService,
-            PanelItemService panelItemService, TypeOfSampleService typeOfSampleService, UserService userService,
-            RoleService roleService) {
-        this.panelService = panelService;
-        this.testSectionService = testSectionService;
-        this.samplePanelService = samplePanelService;
-        this.panelItemService = panelItemService;
-        this.typeOfSampleService = typeOfSampleService;
-        this.userService = userService;
-        this.roleService = roleService;
+    public SampleEntryTestsForTypeProviderRestController() {
         initializeGlobalVariables();
     }
 
@@ -223,7 +213,7 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
 
     @SuppressWarnings("unchecked")
     private String getTestIndexesForPanels(String panelId, Map<String, Integer> testIdOrderMap,
-            PanelItemService panelItemService) {
+                                           PanelItemService panelItemService) {
         StringBuilder indexes = new StringBuilder();
         List<PanelItem> items = panelItemService.getPanelItemsForPanel(panelId);
 
