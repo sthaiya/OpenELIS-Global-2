@@ -28,8 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/rest")
 public class NonConformingEventsCorrectionActionRestController extends BaseRestController {
 
-    private NCEventService ncEventService = SpringContext.getBean(NCEventService.class);
+    private NCEventService ncEventService;
 
+    @Autowired
+    public NonConformingEventsCorrectionActionRestController(NCEventService ncEventService) {
+        this.ncEventService = ncEventService;
+    }
     @Autowired
     private NonConformingEventWorker nonConformingEventWorker;
 
