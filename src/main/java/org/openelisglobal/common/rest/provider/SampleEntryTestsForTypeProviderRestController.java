@@ -30,6 +30,7 @@ import org.openelisglobal.test.valueholder.Test;
 import org.openelisglobal.typeofsample.service.TypeOfSamplePanelService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.openelisglobal.typeofsample.valueholder.TypeOfSamplePanel;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,19 +43,19 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
 
     private static String USER_TEST_SECTION_ID;
 
-    private PanelService panelService = SpringContext.getBean(PanelService.class);
+    private PanelService panelService;
 
-    private TestSectionService testSectionService = SpringContext.getBean(TestSectionService.class);
+    private TestSectionService testSectionService;
 
-    private TypeOfSamplePanelService samplePanelService = SpringContext.getBean(TypeOfSamplePanelService.class);
+    private TypeOfSamplePanelService samplePanelService;
 
-    private PanelItemService panelItemService = SpringContext.getBean(PanelItemService.class);
+    private PanelItemService panelItemService;
 
-    private TypeOfSampleService typeOfSampleService = SpringContext.getBean(TypeOfSampleService.class);
+    private TypeOfSampleService typeOfSampleService;
 
-    private UserService userService = SpringContext.getBean(UserService.class);
+    private UserService userService;
 
-    private RoleService roleService = SpringContext.getBean(RoleService.class);
+    private RoleService roleService;
 
     ArrayList<PanelTestMap> panelsMapList = new ArrayList<>();
 
@@ -67,7 +68,17 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
         sampleEntryTests = new SampleEntryTests();
     }
 
-    public SampleEntryTestsForTypeProviderRestController() {
+    @Autowired
+    public SampleEntryTestsForTypeProviderRestController(PanelService panelService, TestSectionService testSectionService,
+            TypeOfSamplePanelService samplePanelService, PanelItemService panelItemService,
+            TypeOfSampleService typeOfSampleService, UserService userService, RoleService roleService) {
+        this.panelService = panelService;
+        this.testSectionService = testSectionService;
+        this.samplePanelService = samplePanelService;
+        this.panelItemService = panelItemService;
+        this.typeOfSampleService = typeOfSampleService;
+        this.userService = userService;
+        this.roleService = roleService;
         initializeGlobalVariables();
     }
 
