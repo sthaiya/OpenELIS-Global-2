@@ -37,19 +37,15 @@ import org.springframework.transaction.annotation.Transactional;
 @DependsOn({ "springContext" })
 public class PluginPermissionService implements IPluginPermissionService {
 
+    @Autowired
     private SystemModuleService moduleService;
+    @Autowired
     private SystemModuleUrlService moduleUrlService;
+    @Autowired
     private RoleService roleService;
+    @Autowired
     private RoleModuleService roleModuleService;
 
-    @Autowired
-    public PluginPermissionService(SystemModuleService moduleService, SystemModuleUrlService moduleUrlService,
-            RoleService roleService, RoleModuleService roleModuleService) {
-        this.moduleService = moduleService;
-        this.moduleUrlService = moduleUrlService;
-        this.roleService = roleService;
-        this.roleModuleService = roleModuleService;
-    }
 
     public static IPluginPermissionService getInstance() {
         return SpringContext.getBean(IPluginPermissionService.class);
