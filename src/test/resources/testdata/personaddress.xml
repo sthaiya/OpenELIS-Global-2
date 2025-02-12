@@ -8,7 +8,6 @@
     * the License. * * The Original Code is OpenELIS code. * * Copyright (C)
     ITECH, University of Washington, Seattle WA. All Rights Reserved. -->
 <dataset>
-
     <address_part id="3" part_name="Village" display_order="1"
         display_key="village_key" />
     <address_part id="5" part_name="Postal" display_order="2"
@@ -27,6 +26,11 @@
         cell_phone="0000000" primary_phone="10000001" fax="0001"
         email="james@gmail.com" lastUpdated="2023-11-01 12:00:00" />
     <person id="3" last_name="Kukki" first_name="Faith"
+        middle_name="Siannah" city="Dallas" state="Texas" zip_code="001"
+        country="USA" work_phone="10000002" home_phone="8000003"
+        cell_phone="0000001" primary_phone="10000002" fax="0002"
+        email="siannah@gmail.com" lastUpdated="2023-11-01 12:00:00" />
+    <person id="4" last_name="Kukkib" first_name="Faithb"
         middle_name="Siannah" city="Dallas" state="Texas" zip_code="001"
         country="USA" work_phone="10000002" home_phone="8000003"
         cell_phone="0000001" primary_phone="10000002" fax="0002"
