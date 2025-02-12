@@ -99,6 +99,6 @@
     </filter>
     <filter-mapping>
         <filter-name>ajaxFilter</filter-name>
-        <url-pattern>/ajaxQueryXML</url-pattern>  
+        <url-pattern>/ajaxQueryXML</url-pattern>
     </filter-mapping>
 </web-app>
