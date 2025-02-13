@@ -358,6 +358,7 @@ function OEHeader(props) {
         </button>
         {menuItem.childMenus.length > 0 && (
           <button
+            data-cy={`sidenav-button-${menuItem.menu.elementId}`}
             id={menuItem.menu.displayKey + "_dropdown"}
             className="custom-sidenav-button"
             onClick={(e) => {

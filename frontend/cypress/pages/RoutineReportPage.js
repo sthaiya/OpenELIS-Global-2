@@ -25,7 +25,7 @@ class RoutineReportPage {
   }
 
   visitRoutineReports() {
-    cy.get(":nth-child(2) > .cds--link").click();
+    cy.get("[data-cy='sidenav-button-menu_reports_routine']").click();
   }
 
   toggleAccordion(accordionNumber) {
@@ -53,9 +53,7 @@ class RoutineReportPage {
   }
 
   validateAllCheckBox(check) {
-    cy.get(
-      ":nth-child(1) > .cds--sm\\:col-span-4 > :nth-child(2) > :nth-child(1) > .cds--checkbox-label",
-    ).should(check);
+    cy.get("#select-all-lab-units").should(check);
   }
 
   uncheckCheckbox(checkboxNumber, containerSelector) {
