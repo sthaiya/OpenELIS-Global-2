@@ -25,7 +25,7 @@ class RoutineReportPage {
   }
 
   visitRoutineReports() {
-    cy.get("[data-cy='sidenav-button-menu_reports_routine']").click();
+    cy.get("[data-cy='sidenav-button-menu_reports_routine']").click({force:true});
   }
 
   toggleAccordion(accordionNumber) {
