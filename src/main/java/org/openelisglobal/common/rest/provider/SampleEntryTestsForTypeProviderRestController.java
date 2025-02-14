@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,13 +63,13 @@ public class SampleEntryTestsForTypeProviderRestController extends BaseRestContr
 
     SampleEntryTests sampleEntryTests;
 
+    @PostConstruct
     private void initializeGlobalVariables() {
         USER_TEST_SECTION_ID = testSectionService.getTestSectionByName("user").getId();
         sampleEntryTests = new SampleEntryTests();
     }
 
     public SampleEntryTestsForTypeProviderRestController() {
-        initializeGlobalVariables();
     }
 
     @GetMapping(value = "sample-type-tests", produces = MediaType.APPLICATION_JSON_VALUE)
