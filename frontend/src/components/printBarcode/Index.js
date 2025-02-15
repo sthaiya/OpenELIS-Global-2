@@ -39,7 +39,7 @@ const PrintBarcode = () => {
           <Column lg={8} md={4} sm={4}>
             <Select
               id="barcodeFormat"
-              labelText="Barcode Format:"
+              labelText={<FormattedMessage id="barcode.format" />}
               value={barcodeFormat}
               onChange={(e) => setBarcodeFormat(e.target.value)}
             >
