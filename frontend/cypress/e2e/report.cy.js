@@ -15,7 +15,9 @@ describe("Routine Reports", function () {
     reportPage = homePage.goToRoutineReports();
   });
   it("User Visits Patient Status Report and checks for Respective Forms", () => {
-    reportPage.navigateToSection(1, 1);
+    //reportPage.navigateToSection(1, 1);
+    reportPage.visitRoutineReports();
+    reportPage.selectPatientStatusReport();
     reportPage.validatePageHeader("Patient Status Report");
 
     reportPage.toggleAccordionPatient(2);
@@ -39,8 +41,11 @@ describe("Routine Reports", function () {
   });
 
   it("Should Visit Statistics Reports", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(2, 1);
+    //reportPage.navigateToSection(2, 1);
+    reportPage.aggregateReports();
+    reportPage.selectStatistics();
     reportPage.validatePageHeader("Statistics Report");
 
     reportPage.checkAllCheckboxes(
@@ -83,8 +88,10 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Summary of all tests", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(2, 2);
+    reportPage.aggregateReports();
+    reportPage.allReportsSummary();
     reportPage.validatePageHeader("Test Report Summary");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -95,8 +102,10 @@ describe("Routine Reports", function () {
   });
 
   it("Visits HIV Test Summary and validates", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(2, 3);
+    reportPage.aggregateReports();
+    reportPage.summaryTestHIV();
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
       ".cds--date-picker-input__wrapper > #startDate",
@@ -106,8 +115,10 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Rejection Report and validates", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(3, 1);
+    reportPage.navigateToManagementReports();
+    reportPage.selectRejectionReport();
     reportPage.validatePageHeader("Rejection Report");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -118,8 +129,11 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Activity Report By Test Type", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(4, 1);
+    reportPage.navigateToManagementReports();
+    reportPage.navigateToReportsActivity();
+    reportPage.selectByTestType();
     reportPage.validatePageHeader("Activity report By test");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -131,8 +145,11 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Activity Report By Panel Type", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(4, 2);
+    reportPage.navigateToManagementReports();
+    reportPage.navigateToReportsActivity();
+    reportPage.selectByPanel();
     reportPage.validatePageHeader("Activity report By Panel");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -144,8 +161,11 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Activity Report By Unit", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(4, 3);
+    reportPage.navigateToManagementReports();
+    reportPage.navigateToReportsActivity();
+    reportPage.selectByUnit();
     reportPage.validatePageHeader("Activity report By Test Section");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -157,8 +177,10 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Referred Out Test Report", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(5, 1);
+    reportPage.navigateToManagementReports();
+    reportPage.selectReferredOutTestReport();
     reportPage.validatePageHeader("External Referrals Report");
     reportPage.typeInDatePicker(
       ".cds--date-picker-input__wrapper > #startDate",

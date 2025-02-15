@@ -8,12 +8,52 @@ class RoutineReportPage {
     ).click();
   }
 
+  aggregateReports(){
+    cy.get("#menu_reports_aggregate").click();
+  }
+
+  selectStatistics(){
+    cy.get("#menu_reports_aggregate_statistics").click();
+  }
+
+  allReportsSummary(){
+    cy.get("#menu_reports_aggregate_all_nav").click();
+  }
+
+  summaryTestHIV(){
+    cy.get("#menu_reports_aggregate_hiv_nav").click();
+  }
+
+  navigateToManagementReports(){
+    cy.get("#menu_reports_management").click();
+  }
+  selectRejectionReport(){
+    cy.get("#menu_reports_management_rejection_nav").click();
+  }
+
+  navigateToReportsActivity(){
+    cy.get("#menu_reports_activity").click();
+  }
+  selectByTestType(){
+    cy.get("#menu_activity_report_test").click();
+  }
   validatePageHeader(expectedText) {
     cy.get("section > h3, h1").should("have.text", expectedText);
   }
 
+  selectByPanel(){
+    cy.get("#menu_activity_report_panel").click();
+  }
+
   validateFieldVisibility(selector) {
     cy.get(selector).should("be.visible");
+  }
+
+  selectByUnit(){
+    cy.get("#menu_activity_report_bench").click();
+  }
+  selectReferredOutTestReport(){
+    cy.get("#menu_reports_referred").click();
   }
 
   validateButtonDisabled(selector) {
@@ -25,9 +65,11 @@ class RoutineReportPage {
   }
 
   visitRoutineReports() {
-    cy.get("[data-cy='sidenav-button-menu_reports_routine']").click({
-      force: true,
-    });
+    cy.get("[data-cy='sidenav-button-menu_reports_routine']").click();
+  }
+
+  selectPatientStatusReport(){
+    cy.get("#menu_reports_status_patient_nav").click();
   }
 
   toggleAccordion(accordionNumber) {
@@ -55,7 +97,9 @@ class RoutineReportPage {
   }
 
   validateAllCheckBox(check) {
-    cy.get("#select-all-lab-units").should(check);
+    cy.get(
+      ":nth-child(1)> .cds--sm\\:col-span-4 > :nth-child(2) > :nth-child(1) > .cds--checkbox-label",
+    ).should(check);
   }
 
   uncheckCheckbox(checkboxNumber, containerSelector) {

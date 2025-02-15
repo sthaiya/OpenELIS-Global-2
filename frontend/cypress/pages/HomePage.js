@@ -170,7 +170,7 @@ class HomePage {
   goToRoutineReports() {
     this.openNavigationMenu();
     cy.get("#menu_reports").click();
-    cy.get("#menu_reports_routine_nav").click();
+    //cy.get("#menu_reports_routine_nav").click();
     return new RoutineReportPage();
   }
   goToStudyReports() {
