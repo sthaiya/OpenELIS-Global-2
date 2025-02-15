@@ -8,40 +8,40 @@ class RoutineReportPage {
     ).click();
   }
 
-  aggregateReports(){
+  aggregateReports() {
     cy.get("#menu_reports_aggregate").click();
   }
 
-  selectStatistics(){
+  selectStatistics() {
     cy.get("#menu_reports_aggregate_statistics").click();
   }
 
-  allReportsSummary(){
+  allReportsSummary() {
     cy.get("#menu_reports_aggregate_all_nav").click();
   }
 
-  summaryTestHIV(){
+  summaryTestHIV() {
     cy.get("#menu_reports_aggregate_hiv_nav").click();
   }
 
-  navigateToManagementReports(){
+  navigateToManagementReports() {
     cy.get("#menu_reports_management").click();
   }
-  selectRejectionReport(){
+  selectRejectionReport() {
     cy.get("#menu_reports_management_rejection_nav").click();
   }
 
-  navigateToReportsActivity(){
+  navigateToReportsActivity() {
     cy.get("#menu_reports_activity").click();
   }
-  selectByTestType(){
+  selectByTestType() {
     cy.get("#menu_activity_report_test").click();
   }
   validatePageHeader(expectedText) {
     cy.get("section > h3, h1").should("have.text", expectedText);
   }
 
-  selectByPanel(){
+  selectByPanel() {
     cy.get("#menu_activity_report_panel").click();
   }
 
@@ -49,10 +49,10 @@ class RoutineReportPage {
     cy.get(selector).should("be.visible");
   }
 
-  selectByUnit(){
+  selectByUnit() {
     cy.get("#menu_activity_report_bench").click();
   }
-  selectReferredOutTestReport(){
+  selectReferredOutTestReport() {
     cy.get("#menu_reports_referred").click();
   }
 
@@ -68,7 +68,7 @@ class RoutineReportPage {
     cy.get("[data-cy='sidenav-button-menu_reports_routine']").click();
   }
 
-  selectPatientStatusReport(){
+  selectPatientStatusReport() {
     cy.get("#menu_reports_status_patient_nav").click();
   }
 
