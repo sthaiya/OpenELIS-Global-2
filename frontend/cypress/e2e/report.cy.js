@@ -195,8 +195,11 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Non Conformity Report By Date", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(6, 1);
+    reportPage.navigateToManagementReports();
+    reportPage.navigateToNCReports();
+    reportPage.selectNCReportByDate();
     reportPage.validatePageHeader("Non ConformityReport by Date");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -206,9 +209,12 @@ describe("Routine Reports", function () {
     reportPage.validateButtonVisible(".cds--form > :nth-child(3) > .cds--btn");
   });
 
-  it("Visits Non Conformity Report By Unit", () => {
+  it("Visits Non Conformity Report By Unit and Reason", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(6, 2);
+    reportPage.navigateToManagementReports();
+    reportPage.navigateToNCReports();
+    reportPage.selectNCReportByUnit();
     reportPage.validatePageHeader("Non Conformity Report by Unit and Reason");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -219,8 +225,9 @@ describe("Routine Reports", function () {
   });
 
   it("Visits Export Routine CSV", () => {
+    reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navigateToSection(9, 1);
+    reportPage.navgateToRoutineCSVReport();
     reportPage.validatePageHeader("Export Routine CSV file");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -238,38 +245,47 @@ describe("Study Reports", function () {
   });
 
   it("should visit ARV Initial Version 1 and verify the button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVInitialVersion1();
   });
 
   it("should visit ARV Initial Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVInitialVersion2();
   });
 
   it("should visit ARV Follow-Up Version 1 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion1();
   });
 
   it("should visit ARV Follow-Up Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion2();
   });
 
   it("should visit ARV Follow-Up Version 3 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion3();
   });
 
   it("should visit EID Version 1 and verify the accordion items and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion1();
   });
 
   it("should visit EID Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion2();
   });
 
   it("should visit VL Version and verify the accordion items and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitVLVersion();
   });
 
   it("should visit Intermediate Version 1 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitIntermediateVersion1();
   });
 

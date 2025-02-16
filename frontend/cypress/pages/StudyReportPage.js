@@ -61,11 +61,29 @@ class StudyReportPage {
   }
 
   visitStudyReports() {
-    cy.get(":nth-child(2) > .cds--link").click({ force: true });
+    cy.get("[data-cy='sidenav-button-menu_reports_study']").click();
   }
 
+  selectPatientStatusReport() {
+    cy.get("#menu_reports_patients").click();
+  }
+
+  selectARV() {
+    cy.get("#menu_reports_arv").click();
+  }
+
+  selectVersion1() {
+    cy.get("#menu_reports_arv_initial1").click();
+  }
+
+  selectVersion2() {
+    cy.get("#menu_reports_arv_initial2").click();
+  }
   visitARVInitialVersion1() {
-    this.clickSideNavMenuItem(1, 1);
+    this.visitStudyReports();
+    this.selectPatientStatusReport();
+    this.selectARV();
+    this.selectVersion1();
     this.verifyButtonDisabled();
     this.typeInField("from", "DEV0124000000000000");
     this.verifyButtonVisible();
@@ -73,7 +91,9 @@ class StudyReportPage {
 
   visitARVInitialVersion2() {
     this.visitStudyReports();
-    this.clickSideNavMenuItem(1, 2);
+    this.selectPatientStatusReport();
+    this.selectARV();
+    this.selectVersion2();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "ARV-initial",
@@ -83,10 +103,15 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectFollowUpVersion1() {
+    cy.get("#menu_reports_arv_followup1").click();
+  }
+
   visitARVFollowUpVersion1() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(1, 3);
+    this.selectPatientStatusReport();
+    this.selectARV();
+    this.selectFollowUpVersion1();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "ARV-Follow-up",
@@ -96,10 +121,14 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectFollowUpVersion2() {
+    cy.get("#menu_reports_arv_followup2");
+  }
   visitARVFollowUpVersion2() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(1, 4);
+    this.selectPatientStatusReport();
+    this.selectARV();
+    this.selectFollowUpVersion2();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "ARV-Follow-up",
@@ -109,10 +138,14 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectVersion3() {
+    cy.get("#menu_reports_arv_all").click();
+  }
   visitARVFollowUpVersion3() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(1, 5);
+    this.selectPatientStatusReport();
+    this.selectARV();
+    this.selectVersion3();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "ARV -->Initial-FollowUp-VL",
@@ -139,10 +172,18 @@ class StudyReportPage {
     );
   }
 
+  selectEID() {
+    cy.get("#menu_reports_eid").click();
+  }
+
+  selectEIDVersion1() {
+    cy.get("#menu_reports_eid_version1").click();
+  }
   visitEIDVersion1() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(2, 1);
+    this.selectPatientStatusReport();
+    this.selectEID();
+    this.selectEIDVersion1();
     this.verifyHeaderText(
       ":nth-child(1) > .cds--sm\\:col-span-4 > :nth-child(1) > section > h3",
       "Diagnostic for children with DBS-PCR",
@@ -161,10 +202,14 @@ class StudyReportPage {
     cy.get(":nth-child(7) > :nth-child(2) > .cds--btn").should("be.visible");
   }
 
+  selectEIDVersion2() {
+    cy.get("#menu_reports_eid_version2").click();
+  }
   visitEIDVersion2() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(2, 2);
+    this.selectPatientStatusReport();
+    this.selectEID();
+    this.selectEIDVersion2();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "Diagnostic for children with DBS-PCR",
@@ -174,10 +219,18 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectVL(){
+    cy.get("#menu_reports_vl").click();
+  }
+
+  selectVLVersion(){
+    cy.get("#menu_reports_vl_version1").click();
+  }
   visitVLVersion() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(3, 1);
+    this.selectPatientStatusReport();
+    this.selectVL();
+    this.selectVLVersion();
     this.verifyHeaderText(
       ":nth-child(1) > .cds--sm\\:col-span-4 > :nth-child(1) > section > h3",
       "Viral Load",

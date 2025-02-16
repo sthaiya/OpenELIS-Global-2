@@ -56,6 +56,21 @@ class RoutineReportPage {
     cy.get("#menu_reports_referred").click();
   }
 
+  navigateToNCReports() {
+    cy.get("#menu_reports_nonconformity").click();
+  }
+
+  selectNCReportByUnit() {
+    cy.get("#menu_reports_nonconformity_section").click();
+  }
+
+  selectNCReportByDate() {
+    cy.get("#menu_reports_nonconformity_date").click();
+  }
+
+  navigateToRoutineCSVReport() {
+    cy.get("#menu_reports_export_routine").click();
+  }
   validateButtonDisabled(selector) {
     cy.get(selector).should("be.disabled");
   }
