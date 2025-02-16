@@ -12,14 +12,14 @@ const chalk = require("chalk");
 // Define patterns for unstable selectors
 const UNSTABLE_PATTERNS = [
   /\[(?!data-cy|data-testid)[a-zA-Z0-9_-]+=[^\]]+\]/, // Attribute selectors, excluding data-cy & data-testid
-/:nth-child\(\d+\)/, // nth-child selectors
-/:contains\(.*\)/, // Contains selectors
-/\.\w+\d+/, // Classes with numbers (e.g., .class123)
-/#\w+\d+/, // IDs with numbers (e.g., #id123)
-/#[a-zA-Z0-9_-]*-\d+/g, // IDs with trailing numbers
-/\[class\*=.+\]/g, // Partial class matches
-/\[style=.+\]/g, // Inline styles
-/\.cds--.+/g // Example: library-specific dynamic classes
+  /:nth-child\(\d+\)/, // nth-child selectors
+  /:contains\(.*\)/, // Contains selectors
+  /\.\w+\d+/, // Classes with numbers (e.g., .class123)
+  /#\w+\d+/, // IDs with numbers (e.g., #id123)
+  /#[a-zA-Z0-9_-]*-\d+/g, // IDs with trailing numbers
+  /\[class\*=.+\]/g, // Partial class matches
+  /\[style=.+\]/g, // Inline styles
+  /\.cds--.+/g, // Example: library-specific dynamic classes
 ];
 
 // Check if a selector matches unstable patterns
