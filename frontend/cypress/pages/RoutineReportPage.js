@@ -1,13 +1,4 @@
 class RoutineReportPage {
-  navigateToSection(sectionNumber, subsectionNumber) {
-    cy.get(
-      `.cds--white > :nth-child(1) > .cds--side-nav__navigation > .cds--side-nav__items > :nth-child(${sectionNumber}) > .cds--side-nav__item > .cds--side-nav__submenu`,
-    ).click();
-    cy.get(
-      `:nth-child(${sectionNumber}) > .cds--side-nav__item > .cds--side-nav__menu > :nth-child(${subsectionNumber}) > .cds--side-nav__menu-item > .cds--side-nav__link`,
-    ).click();
-  }
-
   aggregateReports() {
     cy.get("#menu_reports_aggregate").click();
   }

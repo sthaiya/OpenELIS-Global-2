@@ -3,25 +3,8 @@ class StudyReportPage {
     homePage = loginPage.goToHomePage();
   }
 
-  visitStudyReports() {
-    report = homePage.goToStudyReports();
-  }
-
-  navigateToStudyReports() {
-    this.visitHomePage();
-    this.visitStudyReports();
-  }
-  clickSideNavMenuItem(nthChild, submenuChild) {
-    cy.get(
-      `.cds--side-nav__items > :nth-child(${nthChild}) > .cds--side-nav__item > .cds--side-nav__submenu`,
-    ).click();
-    cy.get(
-      `:nth-child(${nthChild}) > .cds--side-nav__item > .cds--side-nav__menu > :nth-child(${submenuChild}) > .cds--side-nav__menu-item > .cds--side-nav__link`,
-    ).click();
-  }
-
   verifyButtonDisabled() {
-    cy.get("section > .cds--btn").should("be.disabled");
+    cy.contains("button", "Generate Printable Version").should("be.disabled");
   }
 
   typeInField(fieldId, value) {
@@ -31,10 +14,6 @@ class StudyReportPage {
   verifyButtonVisible() {
     cy.get("section > .cds--btn").should("be.visible");
   }
-
-  // verifyHeaderText(expectedText) {
-  //   cy.get('.cds--sm\\:col-span-4 > section > h3').should('have.text', expectedText);
-  // }
 
   verifyHeaderText(selector, expectedText) {
     cy.get(selector).should("have.text", expectedText);
@@ -126,7 +105,7 @@ class StudyReportPage {
   }
 
   selectFollowUpVersion2() {
-    cy.get("#menu_reports_arv_followup2");
+    cy.get("#menu_reports_arv_followup2").click();
   }
   visitARVFollowUpVersion2() {
     this.visitStudyReports();
@@ -161,7 +140,7 @@ class StudyReportPage {
 
   visitAuditTrailReport() {
     this.visitStudyReports();
-    cy.get("#menu_reports_auditTrial.study").click();
+    cy.get("[data-cy='menu_reports_auditTrail_study']").click();
   }
 
   validateAudit() {
@@ -290,7 +269,7 @@ class StudyReportPage {
   }
 
   selectIndetermenateByService() {
-    cy.get("#menu_reports_intermenate_location");
+    cy.get("#menu_reports_indeterminate_location").click();
   }
   visitIntermediateByService() {
     this.visitStudyReports();
@@ -355,11 +334,11 @@ class StudyReportPage {
   }
 
   selectNCReports() {
-    cy.get("#menu_reports_nonconformity.study").click();
+    cy.get("[data-cy='menu_reports_nonconformity_study']").click();
   }
 
   selectNCReportsByDate() {
-    cy.get("#menu_reports_nonconformity_date.study").click();
+    cy.get("[data-cy='menu_reports_nonconformity_date_study']").click();
   }
   visitNonConformityReportByDate() {
     this.visitStudyReports();
@@ -372,7 +351,7 @@ class StudyReportPage {
   }
 
   selectNCReportsByUnitAndReason() {
-    cy.get("#menu_reports_nonconformity_section.study").click();
+    cy.get("[data-cy='menu_reports_nonconformity_section_study']").click();
   }
   visitNonConformityReportByUnitAndReason() {
     this.visitStudyReports();
@@ -385,7 +364,7 @@ class StudyReportPage {
   }
 
   selectNCReportsByLabNo() {
-    cy.get("#menu_reports_nonconformity.Labno").click();
+    cy.get("[data-cy='menu_reports_nonconformity_Labno']").click();
   }
   visitNonConformityReportByLabNo() {
     this.visitStudyReports();
@@ -401,7 +380,7 @@ class StudyReportPage {
   }
 
   selectNCReportsByNotification() {
-    cy.get("#menu_reports_nonconformity_notification.study").click();
+    cy.get("[data-cy='menu_reports_nonconformity_notification_study']").click();
   }
   visitNonConformityReportByNotification() {
     this.visitStudyReports();
@@ -415,7 +394,9 @@ class StudyReportPage {
   }
 
   selectNCFollowUp() {
-    cy.get("#menu_reports_followupRequired_ByLocation.study");
+    cy.get(
+      "[data-cy='menu_reports_followupRequired_ByLocation_study']",
+    ).click();
   }
   visitNonConformityReportFollowUpRequired() {
     this.visitStudyReports();

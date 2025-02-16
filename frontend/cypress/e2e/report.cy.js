@@ -227,7 +227,7 @@ describe("Routine Reports", function () {
   it("Visits Export Routine CSV", () => {
     reportPage = homePage.goToRoutineReports();
     reportPage.visitRoutineReports();
-    reportPage.navgateToRoutineCSVReport();
+    reportPage.navigateToRoutineCSVReport();
     reportPage.validatePageHeader("Export Routine CSV file");
     reportPage.validateButtonDisabled(".cds--form > :nth-child(3) > .cds--btn");
     reportPage.typeInDatePicker(
@@ -240,7 +240,8 @@ describe("Routine Reports", function () {
 
 describe("Study Reports", function () {
   it("User Visits Study Reports", function () {
-    reportPage.navigateToStudyReports();
+    homePage = loginPage.goToHomePage();
+    reportPage = homePage.goToStudyReports();
   });
 
   it("should visit ARV Initial Version 1 and verify the button state", () => {
@@ -248,82 +249,102 @@ describe("Study Reports", function () {
   });
 
   it("should visit ARV Initial Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVInitialVersion2();
   });
 
   it("should visit ARV Follow-Up Version 1 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion1();
   });
 
   it("should visit ARV Follow-Up Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion2();
   });
 
   it("should visit ARV Follow-Up Version 3 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion3();
   });
 
   it("should visit EID Version 1 and verify the accordion items and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion1();
   });
 
   it("should visit EID Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion2();
   });
 
   it("should visit VL Version and verify the accordion items and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitVLVersion();
   });
 
   it("should visit Intermediate Version 1 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitIntermediateVersion1();
   });
 
   it("should visit Intermediate Version 2 and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitIntermediateVersion2();
   });
 
   it("should visit Intermediate By Service and verify the input fields and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitIntermediateByService();
   });
 
   it("should visit Special Request and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitSpecialRequest();
   });
 
   it("should visit Collected ARV Patient Report and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitCollectedARVPatientReport();
   });
 
   it("should visit Associated Patient Report and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitAssociatedPatientReport();
   });
 
   it("should visit Non-Conformity Report By Date and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitNonConformityReportByDate();
   });
 
   it("should visit Non-Conformity Report By Unit and Reason and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitNonConformityReportByUnitAndReason();
   });
 
   it("should visit Non-Conformity Report By Lab No and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitNonConformityReportByLabNo();
   });
 
   it("should visit Non-Conformity Report By Notification and verify the button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitNonConformityReportByNotification();
   });
 
   it("should visit Non-Conformity Report Follow-Up Required and verify the header and button state", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitNonConformityReportFollowUpRequired();
   });
 
   it("should visit General Report In Export By Date and select options", () => {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitGeneralReportInExportByDate();
   });
 
   it("User Visits Audit Trail Report And Validates", function () {
+    reportPage = homePage.goToStudyReports();
     reportPage.visitAuditTrailReport();
     reportPage.verifyHeaderText("section > h3", "Audit Trail");
     cy.fixture("EnteredOrder").then((order) => {
