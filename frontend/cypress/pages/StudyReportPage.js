@@ -7,6 +7,10 @@ class StudyReportPage {
     report = homePage.goToStudyReports();
   }
 
+  navigateToStudyReports() {
+    this.visitHomePage();
+    this.visitStudyReports();
+  }
   clickSideNavMenuItem(nthChild, submenuChild) {
     cy.get(
       `.cds--side-nav__items > :nth-child(${nthChild}) > .cds--side-nav__item > .cds--side-nav__submenu`,
@@ -156,12 +160,8 @@ class StudyReportPage {
   }
 
   visitAuditTrailReport() {
-    cy.get(
-      ":nth-child(11) > .cds--side-nav__item > .cds--side-nav__submenu",
-    ).click();
-    cy.get(
-      ":nth-child(11) > .cds--side-nav__item > .cds--side-nav__menu > div > .cds--side-nav__menu-item > .cds--side-nav__link",
-    ).click();
+    this.visitStudyReports();
+    cy.get("#menu_reports_auditTrial.study").click();
   }
 
   validateAudit() {
@@ -219,11 +219,11 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
-  selectVL(){
+  selectVL() {
     cy.get("#menu_reports_vl").click();
   }
 
-  selectVLVersion(){
+  selectVLVersion() {
     cy.get("#menu_reports_vl_version1").click();
   }
   visitVLVersion() {
@@ -249,10 +249,19 @@ class StudyReportPage {
     cy.get(":nth-child(7) > :nth-child(2) > .cds--btn").should("be.visible");
   }
 
+  selectIndetermenate() {
+    cy.get("#menu_reports_indeterminate").click();
+  }
+
+  selectIndeterminateV1() {
+    cy.get("#menu_reports_indeterminate_version1").click();
+  }
+
   visitIntermediateVersion1() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(4, 1);
+    this.selectPatientStatusReport();
+    this.selectIndetermenate();
+    this.selectIndeterminateV1();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "Indeterminate",
@@ -260,12 +269,17 @@ class StudyReportPage {
     this.verifyButtonDisabled();
     this.typeInField("from", "DEV0124000000000000");
     this.verifyButtonVisible();
+  }
+
+  selectIndeterminateV2() {
+    cy.get("#menu_reports_indeterminate_version2").click();
   }
 
   visitIntermediateVersion2() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(4, 2);
+    this.selectPatientStatusReport();
+    this.selectIndetermenate();
+    this.selectIndeterminateV2();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "Indeterminate",
@@ -275,10 +289,14 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectIndetermenateByService() {
+    cy.get("#menu_reports_intermenate_location");
+  }
   visitIntermediateByService() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(4, 3);
+    this.selectPatientStatusReport();
+    this.selectIndetermenate();
+    this.selectIndetermenateByService();
     this.verifyHeaderText(
       ".cds--lg\\:col-span-16 > section > h3",
       "Indeterminate",
@@ -288,10 +306,13 @@ class StudyReportPage {
     this.verifyElementVisible("#siteName");
   }
 
+  selectSpecialRequest() {
+    cy.get("#menu_reports_special").click();
+  }
   visitSpecialRequest() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(5, 1);
+    this.selectPatientStatusReport();
+    this.selectSpecialRequest();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "Special Request",
@@ -301,10 +322,13 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectCollectedARVPatientReport() {
+    cy.get("#menu_reports_patient_collection").click();
+  }
   visitCollectedARVPatientReport() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(6, 1);
+    this.selectPatientStatusReport();
+    this.selectCollectedARVPatientReport();
     this.verifyHeaderText(
       ":nth-child(1) > .cds--sm\\:col-span-4 > :nth-child(1) > section > h3",
       "Collected ARV Patient Report",
@@ -314,10 +338,13 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectAssociatedPatientReport() {
+    cy.get("#menu_reports_patient_associated").click();
+  }
   visitAssociatedPatientReport() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(7, 1);
+    this.selectPatientStatusReport();
+    this.selectAssociatedPatientReport();
     this.verifyHeaderText(
       ":nth-child(1) > .cds--sm\\:col-span-4 > :nth-child(1) > section > h3",
       "Associated Patient Report",
@@ -327,30 +354,43 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectNCReports() {
+    cy.get("#menu_reports_nonconformity.study").click();
+  }
+
+  selectNCReportsByDate() {
+    cy.get("#menu_reports_nonconformity_date.study").click();
+  }
   visitNonConformityReportByDate() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(9, 1);
+    this.selectNCReports();
+    this.selectNCReportsByDate();
     this.verifyHeaderText("h1", "Non-conformity Report By Date");
     this.verifyButtonDisabled();
     this.typeInDate("startDate", "01/02/2023");
     this.verifyButtonVisible();
   }
 
+  selectNCReportsByUnitAndReason() {
+    cy.get("#menu_reports_nonconformity_section.study").click();
+  }
   visitNonConformityReportByUnitAndReason() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(9, 2);
+    this.selectNCReports();
+    this.selectNCReportsByUnitAndReason();
     this.verifyHeaderText("h1", "Non Conformity Report by Unit and Reason");
     this.verifyButtonDisabled();
     this.typeInDate("startDate", "01/02/2023");
     this.verifyButtonVisible();
   }
 
+  selectNCReportsByLabNo() {
+    cy.get("#menu_reports_nonconformity.Labno").click();
+  }
   visitNonConformityReportByLabNo() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(9, 3);
+    this.selectNCReports();
+    this.selectNCReportsByLabNo();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "ARV -->Initial-FollowUp-VL",
@@ -360,10 +400,13 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectNCReportsByNotification() {
+    cy.get("#menu_reports_nonconformity_notification.study").click();
+  }
   visitNonConformityReportByNotification() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(9, 4);
+    this.selectNCReports();
+    this.selectNCReportsByNotification();
     this.verifyHeaderText(
       ".cds--sm\\:col-span-4 > section > h3",
       "Non-conformity notification",
@@ -371,20 +414,30 @@ class StudyReportPage {
     this.verifyButtonVisible();
   }
 
+  selectNCFollowUp() {
+    cy.get("#menu_reports_followupRequired_ByLocation.study");
+  }
   visitNonConformityReportFollowUpRequired() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(9, 5);
+    this.selectNCReports();
+    this.selectNCFollowUp();
     this.verifyHeaderText("h1", "Follow-up Required");
     this.verifyButtonDisabled();
     this.typeInDate("startDate", "01/02/2023");
     this.verifyButtonVisible();
   }
 
+  selectGeneralReport() {
+    cy.get("#menu_reports_export_general").click();
+  }
+
+  selectExportByDate() {
+    cy.get("#menu_reports_export").click();
+  }
   visitGeneralReportInExportByDate() {
     this.visitStudyReports();
-
-    this.clickSideNavMenuItem(10, 1);
+    this.selectExportByDate();
+    this.selectGeneralReport();
     this.verifyHeaderText("h1", "Export a CSV File by Date");
     this.selectDropdown("studyType", "Testing");
     this.selectDropdown("dateType", "Order Date");

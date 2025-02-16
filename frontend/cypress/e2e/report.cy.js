@@ -240,52 +240,42 @@ describe("Routine Reports", function () {
 
 describe("Study Reports", function () {
   it("User Visits Study Reports", function () {
-    homePage = loginPage.goToHomePage();
-    reportPage = homePage.goToStudyReports();
+    reportPage.navigateToStudyReports();
   });
 
   it("should visit ARV Initial Version 1 and verify the button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitARVInitialVersion1();
   });
 
   it("should visit ARV Initial Version 2 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitARVInitialVersion2();
   });
 
   it("should visit ARV Follow-Up Version 1 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion1();
   });
 
   it("should visit ARV Follow-Up Version 2 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion2();
   });
 
   it("should visit ARV Follow-Up Version 3 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitARVFollowUpVersion3();
   });
 
   it("should visit EID Version 1 and verify the accordion items and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion1();
   });
 
   it("should visit EID Version 2 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitEIDVersion2();
   });
 
   it("should visit VL Version and verify the accordion items and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitVLVersion();
   });
 
   it("should visit Intermediate Version 1 and verify the header and button state", () => {
-    reportPage = homePage.goToStudyReports();
     reportPage.visitIntermediateVersion1();
   });
 
@@ -334,7 +324,6 @@ describe("Study Reports", function () {
   });
 
   it("User Visits Audit Trail Report And Validates", function () {
-    reportPage.visitStudyReports();
     reportPage.visitAuditTrailReport();
     reportPage.verifyHeaderText("section > h3", "Audit Trail");
     cy.fixture("EnteredOrder").then((order) => {
