@@ -427,6 +427,7 @@ function OEHeader(props) {
                 <Header id="mainHeader" className="mainHeader" aria-label="">
                   {userSessionDetails.authenticated && (
                     <HeaderMenuButton
+                      data-cy="menuButton"
                       aria-label={
                         isSideNavExpanded ? "Close menu" : "Open menu"
                       }
@@ -450,6 +451,7 @@ function OEHeader(props) {
                       <>
                         {searchBar && <SearchBar />}
                         <HeaderGlobalAction
+                          id="search-Icon"
                           aria-label="Search"
                           onClick={handleSearch}
                         >
@@ -460,6 +462,7 @@ function OEHeader(props) {
                           )}
                         </HeaderGlobalAction>
                         <HeaderGlobalAction
+                          id="notification-Icon"
                           aria-label="Notifications"
                           onClick={toggleSlideOver}
                         >
@@ -499,6 +502,7 @@ function OEHeader(props) {
                       </>
                     )}
                     <HeaderGlobalAction
+                      id="user-Icon"
                       aria-label={panelSwitchLabel()}
                       onClick={clickPanelSwitch}
                       ref={userSwitchRef}
