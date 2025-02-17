@@ -19,6 +19,7 @@ You can find more information on how to set up OpenELIS at our
 [![End to End QA Tests Status](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/build-installer.yml/badge.svg)](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/build-installer.yml)
 
 ## code of conduct
+
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 ### For Offline Installation Using the OpenELIS Global2 Installer
