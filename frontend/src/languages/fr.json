@@ -66,6 +66,8 @@
   "banner.menu.billing": "Facturation",
   "banner.menu.help": "Aide",
   "banner.menu.help.usermanual": "Manuel de l'utilisateur",
+  "banner.menu.help.about": "Tutoriels vidéo",
+  "banner.menu.help.contact": "Notes de version",
   "banner.menu.help.documents": "Documentation des processus",
   "banner.menu.help.formVL": "Formulaire VL",
   "banner.menu.help.formDBS": "Formulaire DBS",

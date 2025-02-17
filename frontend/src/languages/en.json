@@ -218,6 +218,8 @@
   "select.end.date.referredTests": "End Date (dd/mm/yyyy)",
   "select.referral.centre": "Referral Center or Laboratory",
   "banner.menu.help.usermanual": "User Manual",
+  "banner.menu.help.about": "Video Tutorials",
+  "banner.menu.help.contact": "Release Notes",
   "banner.menu.help.documents": "Process Documentation",
   "banner.menu.help.formVL": "VL Form",
   "banner.menu.help.formDBS": "DBS Form",
