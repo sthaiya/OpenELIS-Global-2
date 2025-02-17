@@ -16,7 +16,7 @@
         <minor.version>2</minor.version>
         <state.version>0</state.version>
         <!-- 0 = alpha, 1 = beta, 2 = rc, 3 = deployable -->
-        <fix.version>3</fix.version>
+        <fix.version>0</fix.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <liquibase.propertyFile>${project.basedir}/liquibase/liquibase.properties</liquibase.propertyFile>
         <castor.version>1.4.1</castor.version>
@@ -133,8 +133,6 @@
             <artifactId>itextpdf</artifactId>
             <version>5.5.13.4</version>
         </dependency>
-
-
         <!-- APACHE COMMONS DEPENDENCIES -->
         <dependency>
             <groupId>org.apache.commons</groupId>
