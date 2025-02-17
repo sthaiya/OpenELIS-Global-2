@@ -241,7 +241,11 @@ function OEHeader(props) {
         );
       } else {
         return (
-          <span id={menuItem.menu.elementId} key={path}>
+          <span
+            data-cy={`${menuItem.menu.elementId.replace(/[^\w\s]/gi, "_")}`}
+            id={menuItem.menu.elementId}
+            key={path}
+          >
             <SideNavMenuItem
               className="reduced-padding-nav-menu-item"
               href={menuItem.menu.actionURL}
@@ -302,6 +306,7 @@ function OEHeader(props) {
     const marginValue = (level - 1) * 0.5 + "rem";
     return (
       <button
+        data-cy="single-sidenav-button"
         className={"custom-sidenav-button"}
         style={{ width: "100%", marginLeft: marginValue }}
         id={menuItem.menu.elementId + "_nav"}
@@ -322,6 +327,7 @@ function OEHeader(props) {
     const marginValue = (level - 1) * 0.5 + "rem";
     return (
       <button
+        data-cy="sidenav-button"
         id={menuItem.menu.displayKey + "_dropdown"}
         className={"custom-sidenav-button"}
         style={{ marginLeft: marginValue }}
@@ -359,6 +365,7 @@ function OEHeader(props) {
         </button>
         {menuItem.childMenus.length > 0 && (
           <button
+            data-cy={`sidenav-button-${menuItem.menu.elementId}`}
             id={menuItem.menu.displayKey + "_dropdown"}
             className="custom-sidenav-button"
             onClick={(e) => {
