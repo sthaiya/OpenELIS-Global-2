@@ -2,12 +2,35 @@ import React, { useState, useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
 import { HeaderGlobalAction, HeaderPanel } from "@carbon/react";
 import { Help } from "@carbon/icons-react";
+import { getFromOpenElisServer } from "../utils/Utils";
 
 const HelpMenu = () => {
   const intl = useIntl();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [helpUrls, setHelpUrls] = useState({
+    manual: "",
+    tutorials: "",
+    "release-notes": "",
+  });
+  const [error, setError] = useState(null);
   const panelRef = useRef(null);
   const buttonRef = useRef(null);
+
+  useEffect(() => {
+    getFromOpenElisServer("/rest/properties", (properties, err) => {
+      if (err) {
+        setError(err);
+        console.error("Failed to fetch help URLs:", err);
+      } else {
+        setHelpUrls({
+          manual: properties["org.openelisglobal.help.manual.url"] || "",
+          tutorials: properties["org.openelisglobal.help.tutorials.url"] || "",
+          "release-notes":
+            properties["org.openelisglobal.help.release-notes.url"] || "",
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -31,22 +54,11 @@ const HelpMenu = () => {
   const togglePanel = () => setIsExpanded(!isExpanded);
 
   const openHelp = (type) => {
-    let url;
-    switch (type) {
-      case "manual":
-        url = "https://uwdigi.atlassian.net/wiki/spaces/OG/folder/261455874";
-        break;
-      case "tutorials":
-        url = "https://video.openelis-global.org";
-        break;
-      case "release-notes":
-        url = "https://roadmap.openelis-global.org";
-        break;
-      default:
-        return;
+    const url = helpUrls[type];
+    if (url) {
+      window.open(url, "_blank");
+      setIsExpanded(false);
     }
-    window.open(url, "_blank");
-    setIsExpanded(false);
   };
 
   return (
