@@ -158,7 +158,7 @@ function Login(props) {
           <Column lg={0} md={0} sm={4}>
             {loginMessage()}
           </Column>
-          <Column lg={6} md={4} sm={4}>
+          <Column lg={4} md={4} sm={4}>
             <Section>
               <Formik
                 initialValues={{
@@ -219,7 +219,11 @@ function Login(props) {
                             })}
                           />
                           <Stack orientation="horizontal">
-                            <Button type="submit" disabled={!isValid} data-cy="loginButton">
+                            <Button
+                              type="submit"
+                              disabled={!isValid}
+                              data-cy="loginButton"
+                            >
                               <FormattedMessage id="label.button.login" />
                               <Loading
                                 small={true}
@@ -227,7 +231,7 @@ function Login(props) {
                                 className={submitting ? "show" : "hidden"}
                               />
                             </Button>
-                            
+
                             <Button
                               type="button"
                               onClick={() => {
@@ -272,7 +276,7 @@ function Login(props) {
               </Formik>
             </Section>
           </Column>
-          <Column lg={10} md={4} sm={0}>
+          <Column lg={8} md={4} sm={0}>
             {loginMessage()}
           </Column>
         </Grid>
