@@ -219,7 +219,7 @@ function Login(props) {
                             })}
                           />
                           <Stack orientation="horizontal">
-                            <Button type="submit" disabled={!isValid}>
+                            <Button type="submit" disabled={!isValid} data-cy="loginButton">
                               <FormattedMessage id="label.button.login" />
                               <Loading
                                 small={true}
@@ -227,7 +227,7 @@ function Login(props) {
                                 className={submitting ? "show" : "hidden"}
                               />
                             </Button>
-                            {/* Button to nevigate to the change password page */}
+                            
                             <Button
                               type="button"
                               onClick={() => {
