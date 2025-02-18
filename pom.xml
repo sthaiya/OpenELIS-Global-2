@@ -319,8 +319,7 @@
             <version>3.2.0</version>
         </dependency>
 
-        <!--
-        https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
+        <!-- https://mvnrepository.com/artifact/jakarta.servlet.jsp.jstl/jakarta.servlet.jsp.jstl-api -->
         <dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
@@ -663,14 +662,11 @@
         </repository>
         <repository>
             <id>shibboleth</id>
-            <!-- openSaml-->
+            <!-- openSaml -->
             <url>https://build.shibboleth.net/maven/releases/</url>
         </repository>
-        <!-- <repository>
-                <id>uwdigi-repo-central</id>
-                <name>DIGI Public Repository</name>
-                <url>https://packages.uwdigi.org/artifactory/public</url>
-        </repository> -->
+        <!-- <repository> <id>uwdigi-repo-central</id> <name>DIGI Public Repository</name>
+            <url>https://packages.uwdigi.org/artifactory/public</url> </repository> -->
     </repositories>
     <build>
         <finalName>OpenELIS-Global</finalName>
@@ -764,6 +760,38 @@
                     <formats>
                         <!-- you can define as many formats as you want, each is independent -->
                         <format>
+                            <toggleOffOn />
+                            <includes>
+                                <include>src/main/resources/hibernate/**/*.xml</include>
+                                <!-- <include>src/main/resources/liquibase/**/*.xml</include> -->
+                                <include>src/test/resources/**/*.xml</include>
+                                <include>pom.xml</include>
+                            </includes>
+                            <excludes>
+                                <exclude>.idea/**</exclude>
+                                <exclude>frontend/**</exclude>
+                                <exclude>.settings/**</exclude>
+                                <exclude>**/target/**</exclude>
+                                <exclude>bin/**</exclude>
+                                <exclude>tmp/**</exclude>
+                                <exclude>tools/**</exclude>
+                                <exclude>dataexport/**</exclude>
+                                <exclude>plugins/**</exclude>
+                                <exclude>volume/**</exclude>
+                                <exclude>install/**</exclude>
+                                <exclude>docs/**</exclude>
+                                <exclude>dev/**</exclude>
+                            </excludes>
+                            <eclipseWtp>
+                                <type>XML</type>
+                            </eclipseWtp>
+                            <trimTrailingWhitespace />
+                            <endWithNewline />
+                            <indent>
+                                <spaces>true</spaces>
+                            </indent>
+                        </format>
+                        <format>
                             <!-- define the files to apply to -->
                             <includes>
                                 <include>**/*.sh</include>
@@ -800,10 +828,8 @@
                                 <exclude>frontend/**</exclude>
                             </excludes>
                             <prettier>
-                                <!-- Formatter that Spotless supports and can format Markdown:
-                                             https://github.com/diffplug/spotless/tree/main/plugin-maven#prettier
-                                         Only Spotless-supported formatter that can be configured to
-                                         force line wrap -->
+                                <!-- Formatter that Spotless supports and can format Markdown: https://github.com/diffplug/spotless/tree/main/plugin-maven#prettier
+                                    Only Spotless-supported formatter that can be configured to force line wrap -->
                                 <config>
                                     <proseWrap>always</proseWrap>
                                 </config>
@@ -849,29 +875,11 @@
                     </execution>
 
                     <!-- Make sure we have at least 70% coverage -->
-                    <!-- <execution>
-                                <id>verify-test-coverage</id>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                                <configuration>
-                                    <rules>
-                                        <rule>
-                                            <element>BUNDLE</element>
-                                            <excludes>
-                                                <exclude>*Mojo</exclude>
-                                            </excludes>
-                                            <limits>
-                                                <limit>
-                                                    <counter>INSTRUCTION</counter>
-                                                    <value>COVEREDRATIO</value>
-                                                    <minimum>10%</minimum>
-                                                </limit>
-                                            </limits>
-                                        </rule>
-                                    </rules>
-                                </configuration>
-                            </execution> -->
+                    <!-- <execution> <id>verify-test-coverage</id> <goals> <goal>check</goal>
+                        </goals> <configuration> <rules> <rule> <element>BUNDLE</element> <excludes>
+                        <exclude>*Mojo</exclude> </excludes> <limits> <limit> <counter>INSTRUCTION</counter>
+                        <value>COVEREDRATIO</value> <minimum>10%</minimum> </limit> </limits> </rule>
+                        </rules> </configuration> </execution> -->
 
                 </executions>
             </plugin>
