@@ -132,4 +132,14 @@ public class ProviderServiceTest extends BaseWebContextSensitiveTest {
                 provider2.getPerson().getFirstName());
     }
 
+    @Test
+    public void getData_shouldReturnDataForProvider() {
+        Provider provider1 = providerService.getProviderByFhirId(FH_UUID1);
+        providerService.getData(provider1);
+        assertEquals("Person last name should be Doe", "Doe", provider1.getPerson().getLastName());
+        assertEquals("Person last name should be Doe", "Joddy", provider1.getPerson().getMiddleName());
+        assertEquals("Person last name should be Doe", "John", provider1.getPerson().getFirstName());
+
+    }
+
 }
