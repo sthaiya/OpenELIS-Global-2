@@ -30,11 +30,6 @@ public class ProviderServiceTest extends BaseWebContextSensitiveTest {
     private static final String PERSON1_FIRSTNAME = "Henry";
     private static final String PERSON1_MIDDLENAME = "Mutton";
     private static final String PERSON1_LASTNAME = "Stanley";
-    private static final String PERSON1_WORKPHONE = "0552836954";
-    private static final String PERSON1_FAX = "555666999";
-    private static final String PERSON1_CELLPHONE = "0552871654";
-    private static final String PERSON1_EMAIL = "henrymutton@gmail.com";
-    private static final String PERSON1_PRIMARYPHONE = "05589654713";
 
     @Before
     public void setUp() throws Exception {
@@ -111,16 +106,7 @@ public class ProviderServiceTest extends BaseWebContextSensitiveTest {
     @Test
     public void insertOrUpdateProviderByFhirUuid_shouldUpdateProviderGivenTheFhirUUID() {
         Provider provider1 = new Provider();
-        Person person1 = new Person();
-
-        person1.setFirstName(PERSON1_FIRSTNAME);
-        person1.setLastName(PERSON1_LASTNAME);
-        person1.setMiddleName(PERSON1_MIDDLENAME);
-        person1.setPrimaryPhone(PERSON1_PRIMARYPHONE);
-        person1.setCellPhone(PERSON1_CELLPHONE);
-        person1.setFax(PERSON1_FAX);
-        person1.setWorkPhone(PERSON1_WORKPHONE);
-        person1.setEmail(PERSON1_EMAIL);
+        Person person1 = personServive.get("3");
 
         provider1.setPerson(person1);
 
@@ -130,6 +116,9 @@ public class ProviderServiceTest extends BaseWebContextSensitiveTest {
         assertNotNull("provider person should not be null", provider2.getPerson());
         assertEquals("provider person first name should match", PERSON1_FIRSTNAME,
                 provider2.getPerson().getFirstName());
+        assertEquals("provider person middle name should match", PERSON1_MIDDLENAME,
+                provider2.getPerson().getMiddleName());
+        assertEquals("provider person first name should match", PERSON1_LASTNAME, provider2.getPerson().getLastName());
     }
 
     @Test
@@ -139,6 +128,36 @@ public class ProviderServiceTest extends BaseWebContextSensitiveTest {
         assertEquals("Person last name should be Doe", "Doe", provider1.getPerson().getLastName());
         assertEquals("Person last name should be Doe", "Joddy", provider1.getPerson().getMiddleName());
         assertEquals("Person last name should be Doe", "John", provider1.getPerson().getFirstName());
+
+    }
+
+    @Test
+    public void getAllActiveProviders_shouldReturnActiveproviders() {
+        List<Provider> providers = providerService.getAllActiveProviders();
+        providers.forEach(provider -> assertTrue("should all returned have active true", provider.getActive()));
+    }
+
+    @Test
+    public void getProviderIdByFhirId_shouldReturnProviderIdGiveFhirId() {
+        String provider1ID = providerService.getProviderIdByFhirId(FH_UUID1);
+        String provider2ID = providerService.getProviderIdByFhirId(FH_UUID2);
+        assertEquals("Provider1 id should be 1", "1", provider1ID);
+        assertEquals("Provider2 id should be 2", "2", provider2ID);
+    }
+
+    @Test
+    public void deactivateAllProviders_shouldImplicitlyDeactivateAllProviders() {
+        providerService.deactivateAllProviders();
+        List<Provider> providers = providerService.getAll();
+        providers.forEach(provider -> assertFalse("should all active be false", provider.getActive()));
+    }
+
+    @Test
+    public void getTotalSearchedProviderCount_shouldGetCountForSearchedProviders() {
+        Provider provider1 = providerService.get("1");
+        String providerType = provider1.getProviderType();
+        int totalCount = providerService.getTotalSearchedProviderCount(providerType);
+        assertTrue("should be a value greater than or equal to zero", totalCount >= 0);
 
     }
 
