@@ -232,7 +232,7 @@ class HomePage {
   }
   clickHelpIcon() {
     cy.get("#user-Help").click();
-    cy.wait(200);
+    cy.wait(800);
     cy.get("#user-Help").click();
   }
 
