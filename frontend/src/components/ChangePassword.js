@@ -249,6 +249,7 @@ function ChangePassword() {
                           />
                         </Button>
                         <Button
+                          data-cy="exitPasswordReset"
                           kind="secondary"
                           onClick={() => {
                             window.location.href = "/";

@@ -36,6 +36,16 @@ describe("Login Test Cases", function () {
     cy.contains("Username or Password are incorrect").should("be.visible");
   });
 
+  it("User changes from default credentials", function () {
+    login.changingPassword();
+    login.enterUsername(usersData[3].username);
+    login.enterCurrentPassword(usersData[3].password);
+    login.enterNewPassword(usersData[4].password);
+    login.repeatNewPassword(usersData[4].password);
+    login.submitNewPassword();
+    cy.contains("Password changed successfully").should("be.visible");
+  });
+
   it("Logs in with correct credentials", function () {
     let user = usersData[4];
     login.enterUsername(user.username);
@@ -43,7 +53,7 @@ describe("Login Test Cases", function () {
     login.signIn();
   });
 
-  it("Logs out and changes password", function () {
+  it("Resets the default credentials", function () {
     login.changingPassword();
     login.enterUsername(usersData[4].username);
     login.enterCurrentPassword(usersData[4].password);
@@ -52,6 +62,15 @@ describe("Login Test Cases", function () {
     login.submitNewPassword();
     //cy.get("div[role='status']").should("be.visible");
     cy.contains("Password changed successfully").should("be.visible");
+  });
+
+  it("User exits password reset", function () {
+    login.changingPassword();
+    login.enterUsername(usersData[3].username);
+    login.enterCurrentPassword(usersData[3].password);
+    login.enterNewPassword(usersData[4].password);
+    login.repeatNewPassword(usersData[4].password);
+    login.clickExitPasswordReset();
   });
 
   it("Validates user authentication", function () {

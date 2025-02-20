@@ -66,6 +66,11 @@ class LoginPage {
     cy.wait(800);
   }
 
+  clickExitPasswordReset() {
+    cy.get("[data-cy='exitPasswordReset']").should("be.visible");
+    cy.get("[data-cy=''exitPasswordReset]").click();
+    cy.wait(800);
+  }
   clearInputs() {
     this.getUsernameElement().clear();
     this.getPasswordElement().clear();
