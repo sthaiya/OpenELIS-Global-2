@@ -55,7 +55,7 @@ describe("Login Test Cases", function () {
 
   it("Validates user authentication", function () {
     usersData.forEach((user) => {
-      // Ensure the input fields are cleared before entering new credentials
+      // Reloads the page 
       cy.reload();
 
       login.enterUsername(user.username);
