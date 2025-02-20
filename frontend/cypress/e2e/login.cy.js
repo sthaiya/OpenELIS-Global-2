@@ -37,7 +37,7 @@ describe("Login Test Cases", function () {
   });
 
   it("Logs in with correct credentials", function () {
-    let user = usersData[4];
+    let user = usersData[3];
     login.enterUsername(user.username);
     login.enterPassword(user.password);
     login.signIn();
@@ -45,10 +45,10 @@ describe("Login Test Cases", function () {
 
   it("Logs out and changes password", function () {
     login.changingPassword();
-    login.enterUsername(usersData[4].username);
-    login.enterCurrentPassword(usersData[4].password);
-    login.enterNewPassword(usersData[3].password);
-    login.repeatNewPassword(usersData[3].password);
+    login.enterUsername(usersData[3].username);
+    login.enterCurrentPassword(usersData[3].password);
+    login.enterNewPassword(usersData[4].password);
+    login.repeatNewPassword(usersData[4].password);
     login.submitNewPassword();
     cy.contains("Password changed successfully").should("be.visible");
   });
