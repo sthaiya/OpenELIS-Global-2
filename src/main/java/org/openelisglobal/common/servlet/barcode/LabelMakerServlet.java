@@ -107,9 +107,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
         }
 
         // create requested labels as pdf stream
-        String format = request.getParameter("format");
-
-        // create requested labels as pdf stream
         BarcodeLabelMaker labelMaker = new BarcodeLabelMaker();
         UserSessionData usd = (UserSessionData) request.getSession().getAttribute(USER_SESSION_DATA);
         labelMaker.setSysUserId(String.valueOf(usd.getSystemUserId()));
