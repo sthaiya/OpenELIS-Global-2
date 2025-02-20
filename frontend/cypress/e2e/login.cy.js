@@ -55,7 +55,7 @@ describe("Login Test Cases", function () {
 
   it("Validates user authentication", function () {
     usersData.forEach((user) => {
-      // Reloads the page 
+      // Reloads the page
       cy.reload();
 
       login.enterUsername(user.username);
