@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef, useContext } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { FormattedMessage, useIntl, injectIntl } from "react-intl";
 import {
   Checkbox,
@@ -14,12 +14,8 @@ import { getFromOpenElisServer } from "../utils/Utils";
 import { sampleTypeTestsStructure } from "../data/SampleEntryTestsForTypeProvider";
 import AutoComplete from "../common/AutoComplete";
 import "../Style.css";
-import { BarcodeContext } from "./BarcodeContext";
 
 const PrePrint = () => {
-  const { format } = useContext(BarcodeContext);
-  // console.log(format);
-
   const intl = useIntl();
   const componentMounted = useRef(false);
   const [sampleTypes, setSampleTypes] = useState([]);
@@ -153,30 +149,11 @@ const PrePrint = () => {
     setSelectedPanels([]);
   };
 
-  // const prePrintLabels = () => {
-  //   console.log(selectedPanels);
-  //   const selectedTestIds = selectedTests
-  //     .map((selectedTest) => selectedTest.id)
-  //     .join(",");
-  //   const params = new URLSearchParams({
-  //     prePrinting: "true",
-  //     numSetsOfLabels: labelSets,
-  //     numOrderLabelsPerSet: orderLabelsPerSet,
-  //     numSpecimenLabelsPerSet: specimenLabelsPerSet,
-  //     facilityName: facilityId,
-  //     testIds: selectedTestIds,
-  //     format: format,
-  //   });
-  //   setSource(`LabelMakerServlet?${params.toString()}`);
-  //   setRenderBarcode(true);
-  // };
-
-  const prePrintLabels = async () => {
+  const prePrintLabels = () => {
     console.log(selectedPanels);
     const selectedTestIds = selectedTests
       .map((selectedTest) => selectedTest.id)
       .join(",");
-
     const params = new URLSearchParams({
       prePrinting: "true",
       numSetsOfLabels: labelSets,
@@ -184,36 +161,9 @@ const PrePrint = () => {
       numSpecimenLabelsPerSet: specimenLabelsPerSet,
       facilityName: facilityId,
       testIds: selectedTestIds,
-      format: format,
     });
-
-    const url = `LabelMakerServlet?${params.toString()}`;
-    console.log("Fetching labels from:", url);
-
-    try {
-      const response = await fetch(url, {
-        // Add these options to ensure we can see the custom headers
-        credentials: "include",
-        headers: {
-          Accept: "*/*",
-        },
-      });
-
-      // Log the entire headers for debugging
-      console.log("All response headers:");
-      for (const [key, value] of response.headers.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-
-      // Log the specific debug header
-      const debugLog = response.headers.get("X-Debug-Log");
-      console.log("Debug Log:", debugLog);
-
-      setSource(url);
-      setRenderBarcode(true);
-    } catch (error) {
-      console.error("Error fetching labels:", error);
-    }
+    setSource(`LabelMakerServlet?${params.toString()}`);
+    setRenderBarcode(true);
   };
 
   useEffect(() => {

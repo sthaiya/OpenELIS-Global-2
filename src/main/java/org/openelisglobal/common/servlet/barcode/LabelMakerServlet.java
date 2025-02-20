@@ -81,7 +81,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
         // create requested labels as pdf stream
         // In printPathologyBarcodeLabel method:
         BarcodeLabelMaker labelMaker = new BarcodeLabelMaker();
-        labelMaker.setFormat(request.getParameter("format"));
         UserSessionData usd = (UserSessionData) request.getSession().getAttribute(USER_SESSION_DATA);
         labelMaker.setSysUserId(String.valueOf(usd.getSystemUserId()));
 
@@ -112,7 +111,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
 
         // create requested labels as pdf stream
         BarcodeLabelMaker labelMaker = new BarcodeLabelMaker();
-        labelMaker.setFormat(request.getParameter("format"));
         UserSessionData usd = (UserSessionData) request.getSession().getAttribute(USER_SESSION_DATA);
         labelMaker.setSysUserId(String.valueOf(usd.getSystemUserId()));
 
@@ -179,7 +177,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
 
         // create requested labels as pdf stream
         BarcodeLabelMaker labelMaker = new BarcodeLabelMaker();
-        labelMaker.setFormat(request.getParameter("format"));
         UserSessionData usd = (UserSessionData) request.getSession().getAttribute(USER_SESSION_DATA);
         labelMaker.setOverride(override);
         labelMaker.setSysUserId(String.valueOf(usd.getSystemUserId()));
@@ -226,13 +223,6 @@ public class LabelMakerServlet extends HttpServlet implements IActionConstants {
      */
     private Errors validate(String labNo, String programCode, String type, String quantity, String override) {
         Errors errors = new BaseErrors();
-        // String format = request.getParameter("format");
-        // if (!StringUtil.isNullorNill(format) &&
-        // !format.equalsIgnoreCase("barcode") &&
-        // !format.equalsIgnoreCase("qr")) {
-        // errors.reject("barcode.label.error.format.invalid",
-        // "barcode.label.error.format.invalid");
-        // }
         // Validate quantity
         if (!org.apache.commons.validator.GenericValidator.isInt(quantity)) {
             errors.reject("barcode.label.error.quantity.invalid", "barcode.label.error.quantity.invalid");
