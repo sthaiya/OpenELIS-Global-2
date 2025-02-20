@@ -27,16 +27,16 @@ class LoginPage {
   }
 
   signIn() {
-    cy.get("[data-cy='loginButton']")
-      .should("exist")
-      .should("be.visible")
-      .click();
+    cy.get("[data-cy='loginButton']").should("be.visible");
+    cy.get("[data-cy='loginButton']").click();
   }
 
   signOut() {
-    cy.get("#user-Icon").should("be.visible").click();
+    cy.get("#user-Icon").should("be.visible");
+    cy.get("#user-Icon").click();
     cy.wait(200);
-    cy.get("[data-cy='logOut']").should("be.visible").click();
+    cy.get("[data-cy='logOut']").should("be.visible");
+    cy.get("[data-cy='logOut']").click();
     cy.wait(1000);
   }
 
@@ -46,19 +46,23 @@ class LoginPage {
   }
 
   enterCurrentPassword(value) {
-    cy.get("#current-password").should("be.visible").type(value);
+    cy.get("#current-password").should("be.visible");
+    cy.get("#current-password").type(value);
   }
 
   enterNewPassword(value) {
-    cy.get("#new-password").should("be.visible").type(value);
+    cy.get("#new-password").should("be.visible");
+    cy.get("#new-password").type(value);
   }
 
   repeatNewPassword(value) {
-    cy.get("#repeat-new-password").should("be.visible").type(value);
+    cy.get("#repeat-new-password").should("be.visible");
+    cy.get("#repeat-new-password").type(value);
   }
 
   submitNewPassword() {
-    cy.get("[data-cy='submitNewPassword']").should("be.visible").click();
+    cy.get("[data-cy='submitNewPassword']").should("be.visible");
+    cy.get("[data-cy='submitNewPassword']").click();
     cy.wait(800);
   }
 

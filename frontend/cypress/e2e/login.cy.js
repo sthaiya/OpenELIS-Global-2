@@ -50,6 +50,7 @@ describe("Login Test Cases", function () {
     login.enterNewPassword(usersData[3].password);
     login.repeatNewPassword(usersData[3].password);
     login.submitNewPassword();
+    //cy.get("div[role='status']").should("be.visible");
     cy.contains("Password changed successfully").should("be.visible");
   });
 
