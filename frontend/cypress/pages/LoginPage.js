@@ -68,7 +68,7 @@ class LoginPage {
 
   clickExitPasswordReset() {
     cy.get("[data-cy='exitPasswordReset']").should("be.visible");
-    cy.get("[data-cy=''exitPasswordReset]").click();
+    cy.get("[data-cy='exitPasswordReset']").click();
     cy.wait(800);
   }
   clearInputs() {
