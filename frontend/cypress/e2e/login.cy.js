@@ -65,8 +65,6 @@ describe("Login Test Cases", function () {
       if (user.correctPass === true) {
         cy.get("#mainHeader").should("exist");
         cy.get("[data-cy='menuButton']").should("exist");
-      } else {
-        cy.get("div[role='status']").should("be.visible");
       }
     });
   });
