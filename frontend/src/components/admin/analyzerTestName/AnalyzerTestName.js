@@ -438,8 +438,6 @@ function AnalyzerTestName() {
             required
           />
           <br />
-
-          
         </Modal>
 
         <div className="orderLegendBody">
