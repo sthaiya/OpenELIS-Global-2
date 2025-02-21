@@ -1,0 +1,9 @@
+<dataset>
+    <!-- RequesterType data -->
+    <requester_type id="1" requester_type="LABORATORY" />
+    <requester_type id="2" requester_type="CLINIC" />
+    <requester_type id="3" requester_type="HOSPITAL" />
+
+    <!-- SampleRequester data -->
+    <sample_requester id="1" sample_id="1" requester_id="3" requester_type_id="2" />
+</dataset>

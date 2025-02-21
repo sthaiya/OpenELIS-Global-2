@@ -33,8 +33,12 @@ import org.openelisglobal.program.service.ImmunohistochemistrySampleService;
 import org.openelisglobal.referral.service.ReferralResultService;
 import org.openelisglobal.referral.service.ReferralService;
 import org.openelisglobal.referral.service.ReferralSetService;
+import org.openelisglobal.requester.dao.RequesterTypeDAO;
+import org.openelisglobal.requester.dao.SampleRequesterDAO;
 import org.openelisglobal.requester.service.RequesterTypeService;
+import org.openelisglobal.requester.service.RequesterTypeServiceImpl;
 import org.openelisglobal.requester.service.SampleRequesterService;
+import org.openelisglobal.sample.service.SampleEditService;
 import org.openelisglobal.sampleorganization.service.SampleOrganizationService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
@@ -86,7 +90,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.typeoftestresult", "org.openelisglobal.samplehuman", "org.openelisglobal.provider",
         "org.openelisglobal.role", "org.openelisglobal.organization", "org.openelisglobal.region.service",
         "org.openelisglobal.region.dao", "org.openelisglobal.program.service", "org.openelisglobal.program.dao",
-        "org.openelisglobal.systemuser.service", "org.openelisglobal.systemuser.daoimpl" }, excludeFilters = {
+        "org.openelisglobal.systemuser.service", "org.openelisglobal.systemuser.daoimpl",
+        "org.openelisglobal.requester.service","org.openelisglobal.requester.daoimpl",}, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.provider.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -202,15 +207,8 @@ public class AppTestConfig implements WebMvcConfigurer {
     }
 
     @Bean()
-    @Profile("test")
-    public SampleRequesterService sampleRequesterService() {
-        return mock(SampleRequesterService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public RequesterTypeService requesterTypeService() {
-        return mock(RequesterTypeService.class);
+    public SampleEditService sampleEditService() {
+        return mock(SampleEditService.class);
     }
 
     @Bean()
@@ -384,6 +382,12 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public IStatusService iStatusService() {
         return mock(IStatusService.class);
+    }
+
+    @Bean()
+    @Profile("Test")
+    public RequesterTypeService RequesterTypeService() {
+        return mock(RequesterTypeService.class);
     }
 
     @Bean()
