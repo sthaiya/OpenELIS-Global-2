@@ -654,6 +654,17 @@
             <version>1.18.36</version>
             <scope>provided</scope>
         </dependency>
+        <!-- ZXing QR Code Generation -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.2</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
@@ -667,6 +678,12 @@
         </repository>
         <!-- <repository> <id>uwdigi-repo-central</id> <name>DIGI Public Repository</name>
             <url>https://packages.uwdigi.org/artifactory/public</url> </repository> -->
+        <!-- Maven Central Repository -->
+        <repository>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
     </repositories>
     <build>
         <finalName>OpenELIS-Global</finalName>

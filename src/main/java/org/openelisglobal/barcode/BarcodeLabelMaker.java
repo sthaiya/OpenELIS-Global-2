@@ -1,5 +1,8 @@
 package org.openelisglobal.barcode;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -15,9 +18,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -416,7 +416,7 @@ public class BarcodeLabelMaker {
             fieldsTable.setWidthPercentage(100);
 
             // Add code text in larger font and bold
-            com.lowagie.text.Font boldFont = new com.lowagie.text.Font(label.getValueFont());
+            com.itextpdf.text.Font boldFont = new com.itextpdf.text.Font(label.getValueFont());
             boldFont.setSize(15); // Larger font size
             boldFont.setStyle(com.lowagie.text.Font.BOLD);
 
