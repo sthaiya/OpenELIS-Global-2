@@ -205,6 +205,20 @@ function CreatePatientForm(props) {
     );
   };
 
+  function handleFirstNameChange(event) {
+    const regex = /^[A-Za-z]*$/;
+    if (!regex.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^A-Za-z]/g, "");
+    }
+  }
+
+  function handleLastNameChange(event) {
+    const regex = /^[A-Za-z]*$/;
+    if (!regex.test(event.target.value)) {
+      event.target.value = event.target.value.replace(/[^A-Za-z]/g, "");
+    }
+  }
+
   function fetchHealthDistrictsCallback(res) {
     setHealthDistricts(res);
   }
@@ -376,7 +390,7 @@ function CreatePatientForm(props) {
       addNotification({
         title: intl.formatMessage({ id: "notification.title" }),
         message: intl.formatMessage({ id: "error.save.patient" }),
-        kind: NotificationKinds.error,
+        kind: NotificationKinds.error  ,
       });
     }
   };
@@ -525,6 +539,7 @@ function CreatePatientForm(props) {
                       placeholder={intl.formatMessage({
                         id: "patient.information.lastname",
                       })}
+                      onChange={(e) => handleLastNameChange(e)}
                     />
                   )}
                 </Field>
@@ -544,6 +559,7 @@ function CreatePatientForm(props) {
                       placeholder={intl.formatMessage({
                         id: "patient.information.firstname",
                       })}
+                      onChange={(e) => handleFirstNameChange(e)}
                     />
                   )}
                 </Field>
