@@ -321,7 +321,7 @@ function ProviderMenu() {
   const handleFirstNameChange = (event) => {
     const value = event.target.value;
     if (value === "" || /^[A-Za-z\s]+$/.test(value)) {
-      setLastName(value);
+      setFirstName(value);
     }
   };
 
