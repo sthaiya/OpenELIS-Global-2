@@ -711,7 +711,7 @@ function ProviderMenu() {
                   <DataTable
                     rows={providerMenuListShow.slice(
                       (page - 1) * pageSize,
-                  page * pageSize,
+                      page * pageSize,
                     )}
                     headers={[
                       {
