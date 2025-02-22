@@ -11,7 +11,6 @@ class AdminPage {
 
   //lab number management
   goToLabNumberManagementPage() {
-    // Click on the element using the provided selector
     cy.get("[data-cy='labNumberMgmnt']").should("be.visible");
     cy.get("[data-cy='labNumberMgmnt']").click();
 
@@ -23,11 +22,8 @@ class AdminPage {
 
   //global menu configuration
   goToGlobalMenuConfigPage() {
-    // Expand the dropdown by clicking the button with the expanded state
     cy.contains("span", "Menu Configuration").click();
     //cy.get("[data-cy='menuConfig']").click();
-    //cy.get("ul.cds--side-nav__menu").should("be.visible"); // Ensure the dropdown menu is visible
-    // Click the link for "Global Menu Configuration"
     cy.get("[data-cy='globalMenuMgmnt']").should("be.visible");
     cy.get("[data-cy='globalMenuMgmnt']").click();
 

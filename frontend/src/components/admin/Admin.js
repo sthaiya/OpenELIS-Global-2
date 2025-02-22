@@ -165,7 +165,7 @@ function Admin() {
             <FormattedMessage id="master.lists.page.test.management" />
           </SideNavLink>
           <SideNavMenu
-            data-cy="menuConfig"
+            data-testid="menuConfig"
             title={intl.formatMessage({ id: "sidenav.label.admin.menu" })}
             renderIcon={TableOfContents}
           >
