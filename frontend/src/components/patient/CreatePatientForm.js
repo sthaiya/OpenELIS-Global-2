@@ -390,7 +390,7 @@ function CreatePatientForm(props) {
       addNotification({
         title: intl.formatMessage({ id: "notification.title" }),
         message: intl.formatMessage({ id: "error.save.patient" }),
-        kind: NotificationKinds.error  ,
+        kind: NotificationKinds.error,
       });
     }
   };
