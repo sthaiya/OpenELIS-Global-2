@@ -1,31 +1,27 @@
-<!--
- * The contents of this file are subject to the Mozilla Public License
- * Version 1.1 (the "License"); you may not use this file except in
- * compliance with the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/
- *
- * Software distributed under the License is distributed on an "AS IS"
- * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
- * License for the specific language governing rights and limitations under
- * the License.
- *
- * The Original Code is OpenELIS code.
- *
- * Copyright (C) ITECH, University of Washington, Seattle WA.  All Rights Reserved.
- -->
+<!-- * The contents of this file are subject to the Mozilla Public License
+	* Version 1.1 (the "License"); you may not use this file except in * compliance
+	with the License. You may obtain a copy of the License at * http://www.mozilla.org/MPL/
+	* * Software distributed under the License is distributed on an "AS IS" *
+	basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the *
+	License for the specific language governing rights and limitations under
+	* the License. * * The Original Code is OpenELIS code. * * Copyright (C)
+	ITECH, University of Washington, Seattle WA. All Rights Reserved. -->
+<dataset>
+	<!-- System Users -->
+	<system_user id="1" login_name="testUser" last_name="Doe"
+		first_name="John" is_active="Y" is_employee="Y" />
+	<system_user id="109" login_name="anotherUser"
+		last_name="Smith" first_name="Alice" is_active="Y" is_employee="Y" />
 
-    <dataset>
-        <!-- Notes -->
-        <note id="1" referenceId="1" referenceTableId="1" noteType="INTERNAL" subject="First Note" text="This is the first test note." systemUserId="testUser123" />
-        <note id="2" referenceId="1" referenceTableId="1" noteType="EXTERNAL" subject="Second Note" text="This is the second test note." systemUserId="testUser456" />
+	<!-- Notes -->
+	<note id="1" sys_user_id="1" reference_id="1001"
+		reference_table="1" note_type="I" subject="Subject 1"
+		text="Note text here" lastupdated="2024-02-22 10:00:00" />
+	<note id="2" sys_user_id="109" reference_id="1001"
+		reference_table="1" note_type="E" subject="Subject 2"
+		text="Another note text" lastupdated="2024-02-22 11:00:00" />
 
-        <!-- System Users -->
-        <systemUser id="testUser123" loginName="testUser123" firstName="Test" lastName="User123" />
-        <systemUser id="testUser456" loginName="testUser456" firstName="Test" lastName="User456" />
-
-        <!-- Reference Tables -->
-        <referenceTable id="1" name="SampleReferenceTable" description="Sample Reference Table for Testing" />
-
-        <!-- Reference IDs -->
-        <reference id="1" tableId="1" name="SampleReference" description="Sample Reference for Testing" />
+	<!-- Reference Tables -->
+	<reference_tables id="1" name="SampleReferenceTable"
+		keep_history="Y" is_hl7_encoded="N" lastupdated="2024-02-22" />
 </dataset>

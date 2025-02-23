@@ -23,8 +23,6 @@ import org.openelisglobal.externalconnections.service.ExternalConnectionService;
 import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.localization.dao.LocalizationDAO;
 import org.openelisglobal.localization.service.LocalizationServiceImpl;
-import org.openelisglobal.note.dao.NoteDAO;
-import org.openelisglobal.note.service.NoteService;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
@@ -91,8 +89,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.typeoftestresult", "org.openelisglobal.samplehuman", "org.openelisglobal.provider",
         "org.openelisglobal.role", "org.openelisglobal.organization", "org.openelisglobal.region.service",
         "org.openelisglobal.region.dao", "org.openelisglobal.program.service", "org.openelisglobal.program.dao",
-        "org.openelisglobal.systemuser.service", "org.openelisglobal.systemuser.daoimpl",
-        "org.openelisglobal.requester.service", "org.openelisglobal.requester.daoimpl", }, excludeFilters = {
+        "org.openelisglobal.systemuser.daoimpl", "org.openelisglobal.note.service",
+        "org.openelisglobal.requester.service", "org.openelisglobal.requester.daoimpl",
+        "org.openelisglobal.organization.dao", "org.openelisglobal.note.daoimpl" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.provider.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -193,12 +192,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public BasicAuthenticationDataService basicAuthDataService() {
         return mock(BasicAuthenticationDataService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public NoteService noteServiceoteService() {
-        return mock(NoteService.class);
     }
 
     @Bean()
@@ -403,24 +396,20 @@ public class AppTestConfig implements WebMvcConfigurer {
         return mock(StatusOfSampleService.class);
     }
 
-    @Bean
-    @Profile("test")
+    @Bean()
+    @Profile("Test")
     public OrganizationTypeService OrganizationTypeService() {
         return mock(OrganizationTypeService.class);
     }
 
     @Bean
     @Profile("test")
-    public NoteDAO NoteDAO() {
-        return mock(NoteDAO.class);
-    }
-
-    @Bean
     public SystemUserService systemUserService() {
         return mock(SystemUserService.class);
     }
 
     @Bean
+    @Profile("test")
     public EntityManager entityManager() {
         return mock(EntityManager.class);
     }
