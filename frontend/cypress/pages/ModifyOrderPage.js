@@ -11,15 +11,13 @@ class ModifyOrderPage {
 
   clickSubmitButton() {
     return cy
-      .getElement(
-        "div[class='cds--lg:col-span-2 cds--css-grid-column'] button[type='submit']",
-      )
+      .getElement("[data-cy='submit-button']")
       .should("be.visible")
       .click();
   }
 
   clickNextButton() {
-    return cy.get(".forwardButton").should("be.visible").click();
+    return cy.get("[data-cy='next-button']").should("be.visible").click();
   }
 
   checkProgramButton() {

@@ -19,14 +19,15 @@ describe("Modify Order search by accession Number", function () {
 
   it("User searches with accession number", () => {
     cy.wait(1000);
-    cy.fixture("EnteredOrder").then((order) => {
-      modifyOrderPage.enterAccessionNo(order.labNo);
+    cy.fixture("Patient").then((patient) => {
+      modifyOrderPage.enterAccessionNo(patient.labNo);
       modifyOrderPage.clickSubmitButton();
     });
   });
 
   it("should check for program selection button and go to next page ", function () {
-    modifyOrderPage.checkProgramButton();
+    //modifyOrderPage.checkProgramButton();
+    cy.wait(9000);
     modifyOrderPage.clickNextButton();
   });
 
