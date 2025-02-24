@@ -40,23 +40,24 @@ li.clickableUserDetails:hover {
 }
 
 .adminPageContent {
-  margin: 0 1% 0 18% ;
+  margin: 0 1% 0 18%;
 }
 
 .pageContent {
   margin: 0 5% 0 2%;
 }
 
-.inputText , .inputSearch {
+.inputText,
+.inputSearch {
   --cds-text-primary: black;
   --cds-text-secondary: black;
 }
-.inputText{
+.inputText {
   width: 100%;
 }
 
 .inputSearch {
-  width:50%;
+  width: 50%;
   --cds-icon-primary: black;
 }
 
@@ -93,8 +94,9 @@ button {
   border-color: rgb(0, 208, 255);
 }
 
-.add_button,.remove-btn{
-  border:1px solid ;
+.add_button,
+.remove-btn {
+  border: 1px solid;
 }
 
 .remove-btn {
@@ -107,7 +109,10 @@ button {
   justify-content: space-between;
 }
 
-.ruleBody,.gridBoundary,.columnBoundary,.resultBody{
+.ruleBody,
+.gridBoundary,
+.columnBoundary,
+.resultBody {
   border: 0.5px solid #295785;
   border-radius: 5px;
 }
@@ -115,7 +120,8 @@ button {
   margin: 2%;
   padding: 0.5%;
 }
-.gridBoundary,.columnBoundary.section{
+.gridBoundary,
+.columnBoundary.section {
   padding: 1%;
 }
 
@@ -161,11 +167,12 @@ button {
 .inlineChildDiv {
   margin-left: 1%;
 }
- .middleAlign,.middleAlignVertical,.bottomAlign{
+.middleAlign,
+.middleAlignVertical,
+.bottomAlign {
   height: 100%;
   display: flex;
-
- }
+}
 .middleAlign {
   align-items: center;
   justify-content: center;
@@ -177,7 +184,6 @@ button {
 }
 .middleAlignVertical {
   align-items: center;
- 
 }
 .bottomAlign {
   align-items: flex-end;
@@ -197,7 +203,8 @@ button {
   margin-left: 1%;
   margin-right: 0%;
 }
-.searchLabNumber,.sampleInfo{
+.searchLabNumber,
+.sampleInfo {
   margin-left: 0%;
   margin-right: 0%;
 }
@@ -225,18 +232,24 @@ button {
   margin-right: 5%;
   width: 100%;
 }
-.inputText ,.inputSelect ,.inputSelect2 ,.inputText2{
+.inputText,
+.inputSelect,
+.inputSelect2,
+.inputText2 {
   --cds-text-primary: black;
-  --cds-text-secondary:black;
+  --cds-text-secondary: black;
 }
-.inputText,.inputSelect {
+.inputText,
+.inputSelect {
   width: 100%;
 }
 
-.inputText2,.inputSelect2 {
+.inputText2,
+.inputSelect2 {
   width: 380px;
 }
-.inputText2,.inputSelect2{
+.inputText2,
+.inputSelect2 {
   padding-left: 1%;
 }
 
