@@ -378,7 +378,7 @@ function TestNotificationConfigEdit() {
           <br />
           <div>
             <Grid fullWidth={true}>
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={14} md={8} sm={4}>
                 <Section>
                   <Section>
                     <Section>
@@ -389,7 +389,7 @@ function TestNotificationConfigEdit() {
                   </Section>
                 </Section>
               </Column>
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={2} md={8} sm={4}>
                 <Button
                   onClick={() => {
                     setSysDefaultMsg(!sysDefaultMsg);
@@ -551,7 +551,7 @@ function TestNotificationConfigEdit() {
           <br />
           <div>
             <Grid fullWidth={true}>
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={14} md={8} sm={4}>
                 <Section>
                   <Section>
                     <Section>
@@ -565,7 +565,7 @@ function TestNotificationConfigEdit() {
             </Grid>
             <br />
             <Grid fullWidth={true}>
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={4} md={8} sm={4}>
                 <Button
                   onClick={() => {
                     setIndMsg("0");
@@ -575,7 +575,7 @@ function TestNotificationConfigEdit() {
                   <FormattedMessage id="testnotification.provider.email" />
                 </Button>
               </Column>{" "}
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={4} md={8} sm={4}>
                 <Button
                   onClick={() => {
                     setIndMsg("1");
@@ -585,7 +585,7 @@ function TestNotificationConfigEdit() {
                   <FormattedMessage id="testnotification.provider.sms" />
                 </Button>
               </Column>{" "}
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={4} md={8} sm={4}>
                 <Button
                   onClick={() => {
                     setIndMsg("2");
@@ -595,7 +595,7 @@ function TestNotificationConfigEdit() {
                   <FormattedMessage id="testnotification.patient.email" />
                 </Button>
               </Column>{" "}
-              <Column lg={16} md={8} sm={4}>
+              <Column lg={4} md={8} sm={4}>
                 <Button
                   onClick={() => {
                     setIndMsg("3");
