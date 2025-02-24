@@ -451,13 +451,9 @@ function ProviderMenu() {
             value={telephone}
             onChange={(e) => handleTelephoneChange(e)}
           />
-          <TextInput
-            id="fax"
-            labelText={intl.formatMessage({ id: "provider.fax" })}
-            value={fax}
-            onChange={(e) => handleFaxChange(e)}
-          />
+
           <Dropdown
+            className="dropdown-list"
             id="isActive"
             titleText="Active"
             label={intl.formatMessage({ id: "provider.select" })}
@@ -465,6 +461,12 @@ function ProviderMenu() {
             itemToString={(item) => (item ? item.value : "")}
             selectedItem={isActive}
             onChange={({ selectedItem }) => setIsActive(selectedItem)}
+          />
+          <TextInput
+            id="fax"
+            labelText={intl.formatMessage({ id: "provider.fax" })}
+            value={fax}
+            onChange={(e) => setFax(e.target.value)}
           />
         </Modal>
 
@@ -496,12 +498,6 @@ function ProviderMenu() {
             value={telephone}
             onChange={(e) => handleTelephoneChange(e)}
           />
-          <TextInput
-            id="fax"
-            labelText={intl.formatMessage({ id: "provider.fax" })}
-            value={fax}
-            onChange={(e) => handleFaxChange(e)}
-          />
           <Dropdown
             id="isActive"
             titleText="Active"
@@ -510,6 +506,12 @@ function ProviderMenu() {
             itemToString={(item) => (item ? item.value : "")}
             selectedItem={isActive}
             onChange={({ selectedItem }) => setIsActive(selectedItem)}
+          />
+          <TextInput
+            id="fax"
+            labelText={intl.formatMessage({ id: "provider.fax" })}
+            value={fax}
+            onChange={(e) => setFax(e.target.value)}
           />
         </Modal>
 
