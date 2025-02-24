@@ -1,6 +1,5 @@
 package org.openelisglobal.common.rest.provider;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
