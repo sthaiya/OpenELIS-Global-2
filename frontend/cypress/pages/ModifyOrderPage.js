@@ -20,6 +20,10 @@ class ModifyOrderPage {
     return cy.get("[data-cy='next-button']").should("be.visible").click();
   }
 
+  checkRemeberSiteAndRequester() {
+    cy.get("#rememberSiteAndRequester").check();
+  }
+
   checkProgramButton() {
     return cy.get("#additionalQuestionsSelect").should("be.disabled");
   }
