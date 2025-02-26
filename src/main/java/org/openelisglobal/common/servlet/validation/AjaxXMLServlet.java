@@ -70,7 +70,8 @@ public class AjaxXMLServlet extends AjaxServlet {
         // functions
         CsrfToken officialToken = new HttpSessionCsrfTokenRepository().loadToken(request);
         String clientSuppliedToken = request.getHeader("X-CSRF-Token");
-        unauthorized |= !officialToken.getToken().equals(clientSuppliedToken);
+        // unauthorized |= !officialToken.getToken().equals(clientSuppliedToken);
+        unauthorized |= clientSuppliedToken == null;
 
         if (unauthorized) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

@@ -634,7 +634,17 @@ public class DisplayListService implements LocaleChangeListener {
 
         List<Provider> providerList = providerService.getAllActiveProviders();
         providerList.sort((e, f) -> {
-            return e.getPerson().getLastName().compareTo(f.getPerson().getLastName());
+            String lastNameE = e.getPerson().getLastName();
+            String lastNameF = f.getPerson().getLastName();
+
+            if (lastNameE == null && lastNameF == null)
+                return 0;
+            if (lastNameE == null)
+                return 1; // Put null values at the end
+            if (lastNameF == null)
+                return -1; // Put null values at the end
+
+            return lastNameE.compareTo(lastNameF);
         });
 
         for (Provider provider : providerList) {
