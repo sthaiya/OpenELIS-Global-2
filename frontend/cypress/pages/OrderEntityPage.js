@@ -14,7 +14,11 @@ class OrderEntityPage {
   }
 
   clickNextButton() {
-    cy.getElement(".cds--btn.cds--btn--primary.forwardButton").click();
+    cy.contains("button", ".forwardButton").click();
+  }
+
+  selectCytology() {
+    cy.get("#additionaQuestionsSelect").select("Cytology");
   }
 
   selectSampleTypeOption(sampleType) {
@@ -57,12 +61,11 @@ class OrderEntityPage {
     cy.get("input#requesterFirstName").clear().type(requesterFirstName);
     cy.get("input#requesterLastName").clear().type(requesterLastName);
   }
-
   rememberSiteAndRequester() {
     cy.contains("span", "Remember site and requester").click();
   }
   clickSubmitOrderButton() {
-    cy.getElement("[data-cy='submit-order']").should("be.visible").click();
+    cy.contains("button", "Submit").click();
   }
 }
 

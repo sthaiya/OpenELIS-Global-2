@@ -4,6 +4,7 @@ let homePage = null;
 let loginPage = null;
 let orderEntityPage = null;
 let patientEntryPage = null;
+let modifyOrderPage = null;
 
 before("login", () => {
   loginPage = new LoginPage();
@@ -38,7 +39,8 @@ describe("Order Entity", function () {
 
   it("User should click next to go to program selection", function () {
     orderEntityPage.clickNextButton();
-    cy.wait(1000);
+    cy.wait(200);
+    orderEntityPage.selectCytology();
     orderEntityPage.clickNextButton();
   });
 
@@ -87,8 +89,23 @@ describe("Order Entity", function () {
         order.requester.lastName,
       );
     });
+    orderEntityPage.rememberSiteAndRequester();
   });
   it("should click submit order button", function () {
     orderEntityPage.clickSubmitOrderButton();
+  });
+
+  it("User prints barcode", function () {
+    cy.window().then((win) => {
+      //stubbed to prevent opening new tab
+      cy.stub(win, "open").as("windowOpen");
+    });
+
+    modifyOrderPage.clickPrintBarcodeButton();
+
+    cy.get("@windowOpen").should(
+      "be.calledWithMatch",
+      /\/api\/OpenELIS-Global\/LabelMakerServlet\?labNo=/,
+    );
   });
 });
