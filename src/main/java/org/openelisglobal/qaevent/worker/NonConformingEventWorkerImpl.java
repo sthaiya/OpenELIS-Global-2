@@ -124,7 +124,7 @@ public class NonConformingEventWorkerImpl implements NonConformingEventWorker {
      */
     private Date getDate(String value, String pattern) {
         if (value == null) {
-            return DateUtil.getNowAsSqlDate();
+            return null;
         }
         try {
             SimpleDateFormat format = new SimpleDateFormat(pattern);
