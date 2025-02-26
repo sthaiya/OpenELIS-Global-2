@@ -10,18 +10,22 @@ class ModifyOrderPage {
   }
 
   clickSubmitButton() {
-    return cy
-      .getElement("[data-cy='submit-button']")
-      .should("be.visible")
-      .click();
+    cy.getElement("[data-cy='submit-order']").should("be.visible").click();
+  }
+  clickSubmitAccessionButton() {
+    cy.get("[data-cy='submit-button']").should("be.visible").click();
   }
 
   clickNextButton() {
     return cy.get("[data-cy='next-button']").should("be.visible").click();
   }
 
+  selectSerumSample() {
+    cy.get("#sampleId_0").select("Serum");
+  }
+
   checkRemeberSiteAndRequester() {
-    cy.get("#rememberSiteAndRequester").check();
+    cy.contains("span", "Remember site and requester").click();
   }
 
   checkProgramButton() {
@@ -38,10 +42,10 @@ class ModifyOrderPage {
   }
 
   clickPrintBarcodeButton() {
-    return cy.get("[data-cy='printBarCode']").click();
+    return cy.get("[data-cy='printBarCode']").should("be.visible").click();
   }
   clickSearchPatientButton() {
-    return cy.get("[data-cy='searchPatientButton']").click({ force: true });
+    return cy.get("[data-cy='searchPatientButton']").click();
   }
 
   clickRespectivePatient() {

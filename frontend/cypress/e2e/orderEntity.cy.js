@@ -82,6 +82,7 @@ describe("Order Entity", function () {
   it("should enter requester first and last name's", function () {
     cy.fixture("Order").then((order) => {
       orderEntityPage.enterRequesterLastAndFirstName(
+        order.requester.fullName,
         order.requester.firstName,
         order.requester.lastName,
       );

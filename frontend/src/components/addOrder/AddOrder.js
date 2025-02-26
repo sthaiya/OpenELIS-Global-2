@@ -498,11 +498,12 @@ const AddOrder = (props) => {
                 />
                 <div>
                   <FormattedMessage id="label.order.scan.text" />{" "}
-                  <Link href="#" onClick={(e) => handleLabNoGeneration(e)}>
-                    <FormattedMessage
-                      data-cy="generate-labNumber"
-                      id="sample.label.labnumber.generate"
-                    />
+                  <Link
+                    data-cy="generate-labNumber"
+                    href="#"
+                    onClick={(e) => handleLabNoGeneration(e)}
+                  >
+                    <FormattedMessage id="sample.label.labnumber.generate" />
                   </Link>
                 </div>
               </div>
