@@ -65,13 +65,15 @@ function TestOrderability() {
   const [isLoading, setIsLoading] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [testOrderabilityData, setTestOrderabilityData] = useState({});
+  const [changedTestOrderabilityData, setChangedTestOrderabilityData] =
+    useState({});
   const [jsonChangeList, setJsonChangeList] = useState({
     activateTest: [],
     deactivateTest: [],
   });
 
   const handleActiveTestsCheckboxChange = (test, sampleTypeId, isChecked) => {
-    setTestOrderabilityData((prev) => {
+    setChangedTestOrderabilityData((prev) => {
       let orderableTestList = [...prev.orderableTestList];
 
       orderableTestList = orderableTestList.map((sample) => {
@@ -103,18 +105,42 @@ function TestOrderability() {
       let activateTest = [...prev.activateTest];
       let deactivateTest = [...prev.deactivateTest];
 
+      const originalState = testOrderabilityData.orderableTestList.find(
+        (sample) => sample.sampleType.id === sampleTypeId,
+      );
+
+      const isOriginallyActive = originalState.activeTests.some(
+        (t) => t.id === test.id,
+      );
+
       if (isChecked === true) {
-        if (
-          !activateTest.some((item) => item.id === test.id) &&
-          !deactivateTest.some((item) => item.id === test.id)
-        ) {
-          activateTest.push({ id: test.id });
+        if (!isOriginallyActive) {
+          if (
+            !activateTest.some((item) => item.id === test.id)
+            // && !deactivateTest.some((item) => item.id === test.id)
+          ) {
+            activateTest.push({ id: test.id });
+          }
+
+          // else {
+          //   deactivateTest = deactivateTest.filter(
+          //     (item) => item.id !== test.id,
+          //   );
+          // }
+          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+        } else {
+          activateTest = activateTest.filter((item) => item.id !== test.id);
+          deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
-        deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
       } else {
-        activateTest = activateTest.filter((item) => item.id !== test.id);
-        if (!deactivateTest.some((item) => item.id === test.id)) {
-          deactivateTest.push({ id: test.id });
+        if (isOriginallyActive) {
+          if (!deactivateTest.some((item) => item.id === test.id)) {
+            deactivateTest.push({ id: test.id });
+          }
+          // activateTest = activateTest.filter((item) => item.id !== test.id);
+        } else {
+          activateTest = activateTest.filter((item) => item.id !== test.id);
+          deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
       }
 
@@ -123,7 +149,7 @@ function TestOrderability() {
   };
 
   const handleInactiveTestsCheckboxChange = (test, sampleTypeId, isChecked) => {
-    setTestOrderabilityData((prev) => {
+    setChangedTestOrderabilityData((prev) => {
       let orderableTestList = [...prev.orderableTestList];
 
       orderableTestList = orderableTestList.map((sample) => {
@@ -155,18 +181,40 @@ function TestOrderability() {
       let activateTest = [...prev.activateTest];
       let deactivateTest = [...prev.deactivateTest];
 
+      const originalState = testOrderabilityData.orderableTestList.find(
+        (sample) => sample.sampleType.id === sampleTypeId,
+      );
+
+      const isOriginallyInactive = originalState.inactiveTests.some(
+        (t) => t.id === test.id,
+      );
+
       if (isChecked === false) {
-        if (
-          !deactivateTest.some((item) => item.id === test.id) &&
-          !activateTest.some((item) => item.id === test.id)
-        ) {
-          deactivateTest.push({ id: test.id });
+        if (!isOriginallyInactive) {
+          if (
+            !deactivateTest.some((item) => item.id === test.id)
+            // && !activateTest.some((item) => item.id === test.id)
+          ) {
+            deactivateTest.push({ id: test.id });
+          }
+
+          // else {
+          //   activateTest = activateTest.filter((item) => item.id !== test.id);
+          // }
+          // activateTest = activateTest.filter((item) => item.id !== test.id);
+        } else {
+          activateTest = activateTest.filter((item) => item.id !== test.id);
+          deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
-        activateTest = activateTest.filter((item) => item.id !== test.id);
       } else {
-        deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
-        if (!activateTest.some((item) => item.id === test.id)) {
-          activateTest.push({ id: test.id });
+        if (isOriginallyInactive) {
+          if (!activateTest.some((item) => item.id === test.id)) {
+            activateTest.push({ id: test.id });
+          }
+          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+        } else {
+          activateTest = activateTest.filter((item) => item.id !== test.id);
+          deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
       }
 
@@ -179,6 +227,7 @@ function TestOrderability() {
       setIsLoading(true);
     } else {
       setTestOrderabilityData(res);
+      setChangedTestOrderabilityData(res);
     }
   }
 
@@ -283,8 +332,8 @@ function TestOrderability() {
             <Column lg={16} md={8} sm={4}>
               <Button
                 disabled={
-                  jsonChangeList.activateTest.length === 0 &&
-                  jsonChangeList.deactivateTest.length === 0
+                  jsonChangeList?.activateTest?.length === 0 &&
+                  jsonChangeList?.deactivateTest?.length === 0
                 }
                 onClick={() => {
                   setIsConfirmModalOpen(true);
@@ -307,10 +356,10 @@ function TestOrderability() {
             </Column>
           </Grid>
           <br />
-          {testOrderabilityData?.orderableTestList &&
-          testOrderabilityData?.orderableTestList.length > 0 ? (
+          {changedTestOrderabilityData?.orderableTestList &&
+          changedTestOrderabilityData?.orderableTestList.length > 0 ? (
             <Grid fullWidth={true}>
-              {testOrderabilityData?.orderableTestList?.map((sample) => (
+              {changedTestOrderabilityData?.orderableTestList?.map((sample) => (
                 <>
                   <Column lg={16} md={8} sm={4} key={sample.sampleType.id}>
                     <Section>
@@ -363,8 +412,8 @@ function TestOrderability() {
             <Column lg={16} md={8} sm={4}>
               <Button
                 disabled={
-                  jsonChangeList.activateTest.length === 0 &&
-                  jsonChangeList.deactivateTest.length === 0
+                  jsonChangeList?.activateTest?.length === 0 &&
+                  jsonChangeList?.deactivateTest?.length === 0
                 }
                 onClick={() => {
                   setIsConfirmModalOpen(true);
@@ -393,6 +442,13 @@ function TestOrderability() {
           }}
         >
           testOrderabilityData
+        </button>
+        <button
+          onClick={() => {
+            console.log(changedTestOrderabilityData);
+          }}
+        >
+          changedTestOrderabilityData
         </button>
         <button
           onClick={() => {
@@ -437,19 +493,21 @@ function TestOrderability() {
                 const groupedTests = {};
 
                 jsonChangeList.activateTest.forEach((test) => {
-                  testOrderabilityData?.orderableTestList.forEach((sample) => {
-                    const foundTest = sample.activeTests.find(
-                      (t) => t.id === test.id,
-                    );
-                    if (foundTest) {
-                      if (!groupedTests[sample.sampleType.value]) {
-                        groupedTests[sample.sampleType.value] = [];
-                      }
-                      groupedTests[sample.sampleType.value].push(
-                        foundTest.value,
+                  changedTestOrderabilityData?.orderableTestList.forEach(
+                    (sample) => {
+                      const foundTest = sample.activeTests.find(
+                        (t) => t.id === test.id,
                       );
-                    }
-                  });
+                      if (foundTest) {
+                        if (!groupedTests[sample.sampleType.value]) {
+                          groupedTests[sample.sampleType.value] = [];
+                        }
+                        groupedTests[sample.sampleType.value].push(
+                          foundTest.value,
+                        );
+                      }
+                    },
+                  );
                 });
 
                 return Object.entries(groupedTests).map(
@@ -492,19 +550,21 @@ function TestOrderability() {
                 const groupedInactiveTests = {};
 
                 jsonChangeList.deactivateTest.forEach((test) => {
-                  testOrderabilityData?.orderableTestList.forEach((sample) => {
-                    const foundTest = sample.inactiveTests.find(
-                      (t) => t.id === test.id,
-                    );
-                    if (foundTest) {
-                      if (!groupedInactiveTests[sample.sampleType.value]) {
-                        groupedInactiveTests[sample.sampleType.value] = [];
-                      }
-                      groupedInactiveTests[sample.sampleType.value].push(
-                        foundTest.value,
+                  changedTestOrderabilityData?.orderableTestList.forEach(
+                    (sample) => {
+                      const foundTest = sample.inactiveTests.find(
+                        (t) => t.id === test.id,
                       );
-                    }
-                  });
+                      if (foundTest) {
+                        if (!groupedInactiveTests[sample.sampleType.value]) {
+                          groupedInactiveTests[sample.sampleType.value] = [];
+                        }
+                        groupedInactiveTests[sample.sampleType.value].push(
+                          foundTest.value,
+                        );
+                      }
+                    },
+                  );
                 });
 
                 return Object.entries(groupedInactiveTests).map(
