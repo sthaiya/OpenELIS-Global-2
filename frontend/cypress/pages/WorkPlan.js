@@ -6,7 +6,6 @@ class WorkPlan {
   visit() {
     cy.visit("/WorkplanByTest");
   }
-
   getWorkPlanFilterTitle() {
     return cy.get("h3");
   }
@@ -16,10 +15,10 @@ class WorkPlan {
   }
 
   getPrintWorkPlanButton() {
-    return cy.get("button#print");
+    return cy.contains("#print", "Print Workplan");
   }
   getWorkPlanResultsTable() {
-    return cy.get('[data-cy="workplanResultsTable"]');
+    return cy.contains("table", '[data-cy="workplanResultsTable"]');
   }
 }
 export default WorkPlan;

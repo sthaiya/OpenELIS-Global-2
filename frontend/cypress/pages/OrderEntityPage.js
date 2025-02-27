@@ -14,11 +14,11 @@ class OrderEntityPage {
   }
 
   clickNextButton() {
-    cy.contains("button", ".forwardButton").click();
+    cy.contains("button", "Next").click();
   }
 
   selectCytology() {
-    cy.get("#additionaQuestionsSelect").select("Cytology");
+    cy.get("#additionalQuestionsSelect").select("Cytology");
   }
 
   selectSampleTypeOption(sampleType) {
