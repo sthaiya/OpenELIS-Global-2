@@ -81,15 +81,48 @@ function TestOrderability() {
           let activeTests = [...sample.activeTests];
           let inactiveTests = [...sample.inactiveTests];
 
-          if (isChecked === true) {
-            inactiveTests = inactiveTests.filter((item) => item.id !== test.id);
-            if (!activeTests.some((item) => item.id === test.id)) {
-              activeTests.push(test);
-            }
-          } else {
-            activeTests = activeTests.filter((item) => item.id !== test.id);
-            if (!inactiveTests.some((item) => item.id === test.id)) {
-              inactiveTests.push(test);
+          const originalState = testOrderabilityData.orderableTestList.find(
+            (sample) => sample.sampleType.id === sampleTypeId,
+          );
+
+          if (
+            activeTests.some((t) => t.id === test.id) ||
+            inactiveTests.some((t) => t.id === test.id)
+          ) {
+            if (isChecked === true) {
+              inactiveTests = inactiveTests.filter(
+                (item) => item.id !== test.id,
+              );
+              if (!activeTests.some((item) => item.id === test.id)) {
+                // activeTests.push(test);
+                const originalIndex = originalState.activeTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                // activeTests = originalState.activeTests.filter(
+                //   (t) => t.id !== test.id,
+                // );
+                if (originalIndex !== -1) {
+                  activeTests.splice(originalIndex, 0, test);
+                } else {
+                  activeTests.push(test);
+                }
+              }
+            } else {
+              activeTests = activeTests.filter((item) => item.id !== test.id);
+              if (!inactiveTests.some((item) => item.id === test.id)) {
+                // inactiveTests.push(test);
+                const originalIndex = originalState.inactiveTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                // inactiveTests = originalState.inactiveTests.filter(
+                //   (t) => t.id !== test.id,
+                // );
+                if (originalIndex !== -1) {
+                  inactiveTests.splice(originalIndex, 0, test);
+                } else {
+                  inactiveTests.push(test);
+                }
+              }
             }
           }
 
@@ -115,19 +148,9 @@ function TestOrderability() {
 
       if (isChecked === true) {
         if (!isOriginallyActive) {
-          if (
-            !activateTest.some((item) => item.id === test.id)
-            // && !deactivateTest.some((item) => item.id === test.id)
-          ) {
+          if (!activateTest.some((item) => item.id === test.id)) {
             activateTest.push({ id: test.id });
           }
-
-          // else {
-          //   deactivateTest = deactivateTest.filter(
-          //     (item) => item.id !== test.id,
-          //   );
-          // }
-          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -137,7 +160,6 @@ function TestOrderability() {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
-          // activateTest = activateTest.filter((item) => item.id !== test.id);
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -146,6 +168,33 @@ function TestOrderability() {
 
       return { activateTest, deactivateTest };
     });
+
+    // setJsonChangeList((prev) => {
+    //   let activateTest = prev.activateTest.filter(
+    //     (item) => item.id !== test.id,
+    //   );
+    //   let deactivateTest = prev.deactivateTest.filter(
+    //     (item) => item.id !== test.id,
+    //   );
+
+    //   const isTestPresentInMultipleSamples =
+    //     testOrderabilityData.orderableTestList
+    //       .filter((sample) => sample.sampleType.id !== sampleTypeId)
+    //       .flatMap((sample) => [...sample.activeTests, ...sample.inactiveTests])
+    //       .some((t) => t.id === test.id);
+
+    //   if (isChecked) {
+    //     if (!isTestPresentInMultipleSamples) {
+    //       activateTest.push({ id: test.id });
+    //     }
+    //   } else {
+    //     if (!isTestPresentInMultipleSamples) {
+    //       deactivateTest.push({ id: test.id });
+    //     }
+    //   }
+
+    //   return { activateTest, deactivateTest };
+    // });
   };
 
   const handleInactiveTestsCheckboxChange = (test, sampleTypeId, isChecked) => {
@@ -157,15 +206,48 @@ function TestOrderability() {
           let activeTests = [...sample.activeTests];
           let inactiveTests = [...sample.inactiveTests];
 
-          if (isChecked === false) {
-            activeTests = activeTests.filter((item) => item.id !== test.id);
-            if (!inactiveTests.some((item) => item.id === test.id)) {
-              inactiveTests.push(test);
-            }
-          } else {
-            inactiveTests = inactiveTests.filter((item) => item.id !== test.id);
-            if (!activeTests.some((item) => item.id === test.id)) {
-              activeTests.push(test);
+          const originalState = testOrderabilityData.orderableTestList.find(
+            (sample) => sample.sampleType.id === sampleTypeId,
+          );
+
+          if (
+            activeTests.some((t) => t.id === test.id) ||
+            inactiveTests.some((t) => t.id === test.id)
+          ) {
+            if (isChecked === false) {
+              activeTests = activeTests.filter((item) => item.id !== test.id);
+              if (!inactiveTests.some((item) => item.id === test.id)) {
+                // inactiveTests.push(test);
+                const originalIndex = originalState.inactiveTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                // inactiveTests = originalState.inactiveTests.filter(
+                //   (t) => t.id !== test.id,
+                // );
+                if (originalIndex !== -1) {
+                  inactiveTests.splice(originalIndex, 0, test);
+                } else {
+                  inactiveTests.push(test);
+                }
+              }
+            } else {
+              inactiveTests = inactiveTests.filter(
+                (item) => item.id !== test.id,
+              );
+              if (!activeTests.some((item) => item.id === test.id)) {
+                // activeTests.push(test);
+                const originalIndex = originalState.activeTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                // activeTests = originalState.activeTests.filter(
+                //   (t) => t.id !== test.id,
+                // );
+                if (originalIndex !== -1) {
+                  activeTests.splice(originalIndex, 0, test);
+                } else {
+                  activeTests.push(test);
+                }
+              }
             }
           }
 
@@ -191,17 +273,9 @@ function TestOrderability() {
 
       if (isChecked === false) {
         if (!isOriginallyInactive) {
-          if (
-            !deactivateTest.some((item) => item.id === test.id)
-            // && !activateTest.some((item) => item.id === test.id)
-          ) {
+          if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
-
-          // else {
-          //   activateTest = activateTest.filter((item) => item.id !== test.id);
-          // }
-          // activateTest = activateTest.filter((item) => item.id !== test.id);
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -211,7 +285,6 @@ function TestOrderability() {
           if (!activateTest.some((item) => item.id === test.id)) {
             activateTest.push({ id: test.id });
           }
-          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -220,6 +293,33 @@ function TestOrderability() {
 
       return { activateTest, deactivateTest };
     });
+
+    // setJsonChangeList((prev) => {
+    //   let activateTest = prev.activateTest.filter(
+    //     (item) => item.id !== test.id,
+    //   );
+    //   let deactivateTest = prev.deactivateTest.filter(
+    //     (item) => item.id !== test.id,
+    //   );
+
+    //   const isTestPresentInMultipleSamples =
+    //     testOrderabilityData.orderableTestList
+    //       .filter((sample) => sample.sampleType.id !== sampleTypeId)
+    //       .flatMap((sample) => [...sample.activeTests, ...sample.inactiveTests])
+    //       .some((t) => t.id === test.id);
+
+    //   if (!isChecked) {
+    //     if (!isTestPresentInMultipleSamples) {
+    //       deactivateTest.push({ id: test.id });
+    //     }
+    //   } else {
+    //     if (!isTestPresentInMultipleSamples) {
+    //       activateTest.push({ id: test.id });
+    //     }
+    //   }
+
+    //   return { activateTest, deactivateTest };
+    // });
   };
 
   function handleTestOrderabilityData(res) {
@@ -370,38 +470,42 @@ function TestOrderability() {
                       </Section>
                     </Section>
                   </Column>
-                  {sample.activeTests?.map((test) => (
-                    <Column lg={4} md={4} sm={4} key={test.id}>
-                      <Checkbox
-                        id={test.id}
-                        labelText={test.value}
-                        checked={true}
-                        onChange={(_, { checked }) =>
-                          handleActiveTestsCheckboxChange(
-                            test,
-                            sample.sampleType.id,
-                            checked,
-                          )
-                        }
-                      />
-                    </Column>
-                  ))}
-                  {sample.inactiveTests?.map((test) => (
-                    <Column lg={4} md={4} sm={4} key={test.id}>
-                      <Checkbox
-                        id={test.id}
-                        labelText={test.value}
-                        checked={false}
-                        onChange={(_, { checked }) =>
-                          handleInactiveTestsCheckboxChange(
-                            test,
-                            sample.sampleType.id,
-                            checked,
-                          )
-                        }
-                      />
-                    </Column>
-                  ))}
+                  {[
+                    ...testOrderabilityData.orderableTestList
+                      .filter((s) => s.sampleType.id === sample.sampleType.id)
+                      .flatMap((s) => [...s.activeTests, ...s.inactiveTests]),
+                  ].map((test) => {
+                    const isActive = sample.activeTests.some(
+                      (t) => t.id === test.id,
+                    );
+                    return (
+                      <Column
+                        lg={4}
+                        md={4}
+                        sm={4}
+                        key={`${sample.sampleType.id}-${test.id}`}
+                      >
+                        <Checkbox
+                          id={`${sample.sampleType.id}-${test.id}`}
+                          labelText={test.value}
+                          checked={isActive}
+                          onChange={(_, { checked }) => {
+                            checked
+                              ? handleActiveTestsCheckboxChange(
+                                  test,
+                                  sample.sampleType.id,
+                                  checked,
+                                )
+                              : handleInactiveTestsCheckboxChange(
+                                  test,
+                                  sample.sampleType.id,
+                                  checked,
+                                );
+                          }}
+                        />
+                      </Column>
+                    );
+                  })}
                 </>
               ))}
             </Grid>
