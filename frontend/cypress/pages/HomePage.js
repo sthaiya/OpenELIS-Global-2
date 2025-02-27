@@ -88,21 +88,21 @@ class HomePage {
 
   goToReportNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_report_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_report").click();
     return new NonConform();
   }
 
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_view_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_view").click();
     return new NonConform();
   }
   goToCorrectiveActions() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_corrective_actions_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_corrective_actions").click();
     return new NonConform();
   }
 

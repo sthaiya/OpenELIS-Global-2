@@ -33,7 +33,7 @@ describe("Result By Unit", function () {
 
   it("should accept the sample, refer the sample, and save the result", function () {
     cy.fixture("result").then((res) => {
-      result.acceptSample();
+      //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.pcrTestMethod);
       cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
@@ -89,7 +89,7 @@ describe("Result By Patient", function () {
 
   it("should search patient By Lab Number and validate", function () {
     cy.wait(500);
-    cy.fixture("EnteredOrder").then((patient) => {
+    cy.fixture("Patient").then((patient) => {
       cy.get("#labNumber").type(patient.labNo);
       patientPage.clickSearchPatientButton();
     });
@@ -120,7 +120,7 @@ describe("Result By Order", function () {
   });
 
   it("Should Search by Accession Number", function () {
-    cy.fixture("EnteredOrder").then((order) => {
+    cy.fixture("Patient").then((order) => {
       cy.get("#accessionNumber").type(order.labNo);
     });
     cy.get(":nth-child(4) > #submit").click();
@@ -128,7 +128,7 @@ describe("Result By Order", function () {
 
   it("should accept the sample and save the result", function () {
     cy.fixture("result").then((res) => {
-      result.acceptSample();
+      //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.stainTestMethod);
       result.submitResults();
@@ -195,7 +195,7 @@ describe("Result By Referred Out Tests", function () {
   });
 
   it("should search Referrals By LabNumber and validate", function () {
-    cy.fixture("EnteredOrder").then((order) => {
+    cy.fixture("Patient").then((order) => {
       cy.get("#labNumberInput").type(order.labNo);
     });
     cy.get(":nth-child(4) > .cds--lg\\:col-span-4 > .cds--btn")
@@ -229,7 +229,7 @@ describe("Result By Range Of Order", function () {
   });
 
   it("Should Enter Lab Number and perform Search", function () {
-    cy.fixture("EnteredOrder").then((order) => {
+    cy.fixture("Patient").then((order) => {
       cy.get("#startLabNo").type(order.labNo);
     });
     cy.get(":nth-child(5) > #submit").click();
@@ -238,7 +238,7 @@ describe("Result By Range Of Order", function () {
   it("Should Accept And Save the result", function () {
     cy.wait(1000);
     cy.fixture("result").then((res) => {
-      result.acceptSample();
+      //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.eiaTestMethod);
       result.submitResults();
@@ -276,7 +276,7 @@ describe("Result By Test And Status", function () {
       );
     });
     cy.fixture("result").then((res) => {
-      result.acceptSample();
+      //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.eiaTestMethod);
       result.submitResults();

@@ -1045,6 +1045,7 @@ export function SearchResults(props) {
             <Field name="forceTechApproval">
               {() => (
                 <Checkbox
+                  data-cy="checkTestResult"
                   id={"testResult" + row.id + ".forceTechApproval"}
                   name={"testResult[" + row.id + "].forceTechApproval"}
                   labelText=""

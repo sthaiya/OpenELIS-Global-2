@@ -8,9 +8,8 @@ class Result {
   }
 
   acceptSample(index = 0) {
-    cy.get(`.cds--checkbox-label`).eq(index).click();
+    cy.get("[data-cy='checkTestResult']").eq(index).check();
   }
-
   acceptResult() {
     cy.get("#cell-accept-0 > .cds--form-item > .cds--checkbox-label").click();
   }
@@ -24,9 +23,7 @@ class Result {
   }
 
   selectPatient() {
-    cy.get(
-      "tbody > :nth-child(1) > :nth-child(1) > .cds--radio-button-wrapper > .cds--radio-button__label > .cds--radio-button__appearance",
-    ).click();
+    cy.get(".cds--radio-button__appearance").first().click();
   }
 
   search() {

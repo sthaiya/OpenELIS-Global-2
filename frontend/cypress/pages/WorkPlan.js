@@ -7,18 +7,18 @@ class WorkPlan {
     cy.visit("/WorkplanByTest");
   }
   getWorkPlanFilterTitle() {
-    return cy.get("h3");
+    cy.get("h3");
   }
 
   getTestTypeOrPanelSelector() {
-    return cy.get("select#select-1");
+    cy.get("select#select-1");
   }
 
   getPrintWorkPlanButton() {
-    return cy.contains("#print", "Print Workplan");
+    cy.contains("Print Workplan");
   }
   getWorkPlanResultsTable() {
-    return cy.contains("table", '[data-cy="workplanResultsTable"]');
+    cy.get('[data-cy="workplanResultsTable"]');
   }
 }
 export default WorkPlan;
