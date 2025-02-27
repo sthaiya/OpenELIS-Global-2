@@ -65,11 +65,11 @@ function Login(props) {
           </picture>
         </Column>
         <Column lg={6} md={0} sm={0} />
-        <Column lg={1} md={0} sm={0} />
-        <Column lg={14} md={8} sm={4}>
+        <Column lg={6} md={0} sm={0} />
+        <Column lg={4} md={8} sm={4}>
           <FormattedMessage id="login.notice.message" />
         </Column>
-        <Column lg={1} md={0} sm={0} />
+        <Column lg={6} md={0} sm={0} />
       </>
     );
   };
