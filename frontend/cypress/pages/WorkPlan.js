@@ -7,7 +7,7 @@ class WorkPlan {
     cy.visit("/WorkplanByTest");
   }
   getWorkPlanFilterTitle(tiles) {
-    cy.get("h3").should("be.visible").conatains(tiles);
+    cy.contains("h3", tiles).should("be.visible");
   }
 
   selectDropdownOption(option) {

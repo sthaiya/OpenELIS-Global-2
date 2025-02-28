@@ -1,15 +1,35 @@
 import LoginPage from "../pages/LoginPage";
-import ModifyOrderPage from "../pages/ModifyOrderPage";
+import ProviderManagementPage from "../pages/ProviderManagementPage";
+import AdminPage from "../pages/AdminPage";
 
 let homePage = null;
 let loginPage = null;
+let adminPage = new AdminPage();
 let orderEntityPage = null;
 let patientEntryPage = null;
-let modifyOrderPage = new ModifyOrderPage();
+let providerManagementPage = new ProviderManagementPage();
 
 before("login", () => {
   loginPage = new LoginPage();
   loginPage.visit();
+});
+
+describe("Add requester details first", function () {
+  it("Navidates to admin", function () {
+    homePage = loginPage.goToHomePage();
+    orderEntityPage = homePage.goToAdminPage();
+    orderEntityPage = adminPage.goToProviderManagementPage();
+  });
+
+  it("Adds and saves requester", function () {
+    providerManagementPage.clickAddProviderButton();
+    cy.fixture("Order").then((order) => {
+      providerManagementPage.enterProviderLastName(order.lastName);
+      providerManagementPage.enterProviderFirstName(order.firstName);
+    });
+    providerManagementPage.clickActiveDropdown();
+    providerManagementPage.addProvider();
+  });
 });
 
 describe("Order Entity", function () {
