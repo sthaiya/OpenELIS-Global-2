@@ -62,7 +62,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterSearchField(patient.labNo);
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
-      nonConform.clickCheckbox({ force: true });
+      nonConform.clickCheckbox();
       nonConform.clickGoToNceFormButton();
     });
 

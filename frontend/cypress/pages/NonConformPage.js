@@ -43,7 +43,8 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("[data-testid='nce-sample-checkbox']")
+    cy.get("div")
+      .find("[data-testid='nce-sample-checkbox']")
       .first()
       .check({ force: true });
   }

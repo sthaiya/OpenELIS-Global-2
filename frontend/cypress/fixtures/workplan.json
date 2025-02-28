@@ -2,5 +2,9 @@
   "testName": "Amylase(Serum)",
   "panelType": "Serologie VIH",
   "unitType": "Serology-Immunology",
-  "Priority": "Routine"
+  "Priority": "Routine",
+  "panelTile": "Workplan By Panel",
+  "testTile": "Workplan By Test",
+  "unitTile": "Workplan By Unit",
+  "priorityTile": "Workplan By Priority"
 }
