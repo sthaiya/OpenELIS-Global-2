@@ -41,9 +41,9 @@ public class ProviderRestController {
         return ResponseEntity.ok(person);
     }
 
-    @PostMapping(value = "/Provider/FhirUuid", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/Provider/FhirUuid", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> insertOrUpdateProviderByFhirUuid(@RequestParam(required = false) UUID fhirUuid,
+    public ResponseEntity<?> insertOrUpdateProviderByFhirUuid(@RequestParam(required = false) UUID fhirUuid,
             @RequestBody Provider provider) {
         try {
             if (fhirUuid == null) {
