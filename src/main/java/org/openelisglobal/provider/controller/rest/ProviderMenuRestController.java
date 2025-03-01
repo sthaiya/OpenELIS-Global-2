@@ -158,7 +158,7 @@ public class ProviderMenuRestController extends BaseMenuController<Provider> {
     }
 
     // gnr: Deactivate not Delete
-    @PostMapping(value = "/DeleteProvider", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/DeleteProvider", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> showDeleteProvider(HttpServletRequest request,
             @RequestParam(value = ID, required = false) @Pattern(regexp = "[a-zA-Z0-9 -]*") String id,
             @Valid @ModelAttribute("form") ProviderMenuForm form, BindingResult result)
