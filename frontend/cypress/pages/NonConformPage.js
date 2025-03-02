@@ -46,7 +46,7 @@ class NonConform {
     cy.get("input[data-testid='nce-sample-checkbox']")
       .should("exist")
       .first()
-      .check();
+      .check({ force: true });
   }
 
   clickGoToNceFormButton() {
@@ -55,7 +55,7 @@ class NonConform {
 
   // Form fields (preserve original IDs)
   enterStartDate(date) {
-    cy.get("#startDate").type(date);
+    cy.get("input#startDate").type(date);
   }
 
   enterReportingUnit(unit) {

@@ -157,7 +157,7 @@ describe("Modify Order search by accession Number", function () {
       );
     });
     orderEntityPage.rememberSiteAndRequester();
-    orderEntityPage.clickSubmitOrderButton();
+    modifyOrderPage.clickSubmitButton();
   });
 
   it("should be able to print barcode", function () {

@@ -36,7 +36,8 @@ describe("Result By Unit", function () {
       //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.pcrTestMethod);
-      cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
+      //cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
+      result.referTests();
       result.referSample(0, res.testNotPerformed, res.cedres);
       result.setResultValue(0, res.positiveResult);
       result.submitResults();
@@ -95,7 +96,7 @@ describe("Result By Patient", function () {
     });
   });
 
-  it("Should be able to search by respective patient and accept the result", function () {
+  it("Search by respective patient and accept the result", function () {
     cy.wait(1000);
     cy.fixture("Patient").then((patient) => {
       patientPage.searchPatientByFirstAndLastName(
@@ -106,7 +107,7 @@ describe("Result By Patient", function () {
     patientPage.getMaleGenderRadioButton();
     patientPage.clickSearchPatientButton();
     cy.wait(100);
-    patientPage.selectPatientFromSearchResults();
+    result.selectPatientFromSearchResults();
     cy.wait(800);
     cy.fixture("result").then((res) => {
       //result.acceptResult();
@@ -134,6 +135,7 @@ describe("Result By Order", function () {
       cy.get("#accessionNumber").type(order.labNo);
     });
     result.searchResults();
+    cy.wait(1000);
   });
 
   it("should accept the sample and save the result", function () {
@@ -262,6 +264,7 @@ describe("Result By Test And Status", function () {
       cy.contains("#row-0", order.testName).should("be.visible");
     });
     cy.fixture("result").then((res) => {
+      cy.wait(1000);
       //result.acceptSample();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.eiaTestMethod);

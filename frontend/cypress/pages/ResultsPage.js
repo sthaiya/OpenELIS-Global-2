@@ -44,6 +44,17 @@ class Result {
     cy.get(`#institute${index}`).select(institute);
   }
 
+  referTests() {
+    cy.contains("span", "Refer test to a reference lab")
+      .should("be.visible")
+      .click();
+  }
+  selectPatientFromSearchResults() {
+    cy.get(".cds--data-table-container tbody tr")
+      .first()
+      .find("label span.cds--radio-button__appearance")
+      .click();
+  }
   selectRefferedTest() {
     cy.get(
       "tbody > tr > .cds--table-column-checkbox > .cds--checkbox--inline > .cds--checkbox-label",
