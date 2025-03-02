@@ -99,7 +99,7 @@ describe("Result By Patient", function () {
     cy.wait(1000);
     result.selectPatient();
     cy.fixture("result").then((res) => {
-      result.acceptResult();
+      //result.acceptResult();
       result.expandSampleDetails();
       result.selectTestMethod(0, res.stainTestMethod);
       result.submitResults();

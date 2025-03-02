@@ -14,7 +14,7 @@ class NonConform {
   }
 
   enterSearchField(value) {
-    cy.get("#field\\.name").type(value);
+    cy.get("[data-cy='fieldName']").type(value);
   }
 
   clickSearchButton() {
@@ -43,10 +43,10 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("div")
-      .find("[data-testid='nce-sample-checkbox']")
+    cy.get("input[data-testid='nce-sample-checkbox']")
+      .should("exist")
       .first()
-      .check({ force: true });
+      .check();
   }
 
   clickGoToNceFormButton() {

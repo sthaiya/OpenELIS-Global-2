@@ -15,10 +15,11 @@ class WorkPlan {
   }
 
   getPrintWorkPlanButton() {
-    cy.contains("Print Workplan").should("be.visible");
+    cy.contains("button", "Print Workplan").should("be.visible");
   }
+
   getWorkPlanResultsTable() {
-    cy.get('[data-cy="workplanResultsTable"]');
+    return cy.get('[data-cy="workplanResultsTable"]');
   }
 }
 export default WorkPlan;
