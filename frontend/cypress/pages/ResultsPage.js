@@ -17,7 +17,7 @@ class Result {
   expandSampleDetails(index = 0) {
     cy.get(`button[data-testid="expander-button-${index}"]`)
       .should("be.visible")
-      .click();
+      .click({ force: true });
   }
 
   selectTestMethod(index = 0, method) {
@@ -50,10 +50,7 @@ class Result {
       .click();
   }
   selectPatientFromSearchResults() {
-    cy.get(".cds--data-table-container tbody tr")
-      .first()
-      .find("label span.cds--radio-button__appearance")
-      .click();
+    cy.get('input[data-cy="radioButton"][id="2"]').click();
   }
   selectRefferedTest() {
     cy.get(
