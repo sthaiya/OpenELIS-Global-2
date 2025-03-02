@@ -27,7 +27,7 @@ describe("Result By Unit", function () {
 
   it("Should Search by Unit", function () {
     cy.fixture("workplan").then((order) => {
-      result.selectUnitType(order.unitType);
+      result.selectUnitType(order.unitBioType);
     });
   });
 

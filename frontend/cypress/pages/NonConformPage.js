@@ -43,7 +43,7 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("[data-testid='nce-result']");
+    cy.get("[data-testid='nce-search-result']");
     cy.get("input[data-testid='nce-sample-checkbox']")
       .should("exist")
       .first()
@@ -59,7 +59,7 @@ class NonConform {
     cy.get("input#startDate").type(date);
   }
 
-  enterReportingUnit(unit) {
+  selectReportingUnit(unit) {
     cy.get("#reportingUnits").select(unit);
   }
 
@@ -125,8 +125,8 @@ class NonConform {
     cy.get("[data-testid='nce-action-checkbox']").click({ force: true });
   }
 
-  selectResolution() {
-    cy.get(":nth-child(1) > .cds--radio-button__label").click();
+  checkResolution() {
+    cy.contains("span", "Yes").click();
   }
 
   clickRadioButtonNCE() {
@@ -140,9 +140,7 @@ class NonConform {
   }
 
   clickSubmitButton() {
-    cy.get("[data-testid='nce-submit-button']")
-      .should("not.be.disabled")
-      .click();
+    cy.get("[data-testid='nce-submit-button']").should("be.visible").click();
   }
   // Data management
   getAndSaveNceNumber() {

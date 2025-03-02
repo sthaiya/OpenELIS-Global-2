@@ -73,7 +73,7 @@ describe("Report Non-Conforming Event", function () {
   it("Should enter the details and Submit the NCE Reporting Form", function () {
     cy.fixture("NonConform").then((nonConformData) => {
       nonConform.enterStartDate(nonConformData.dateOfEvent);
-      nonConform.enterReportingUnit(nonConformData.reportingUnit);
+      nonConform.selectReportingUnit(nonConformData.reportingUnit);
       nonConform.enterDescription(nonConformData.description);
       nonConform.enterSuspectedCause(nonConformData.suspectedCause);
       nonConform.enterCorrectiveAction(nonConformData.proposedCorrectiveAction);
@@ -155,7 +155,7 @@ describe("Corrective Actions", function () {
     });
   });
 
-  it("Should Search by NCE Number and Validate the results", function () {
+  it("Search by NCE Number and Validate the results", function () {
     cy.fixture("NonConform").then((nce) => {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);
@@ -168,10 +168,10 @@ describe("Corrective Actions", function () {
   it("Should enter the discussion details and submit", function () {
     cy.fixture("NonConform").then((nce) => {
       nonConform.enterDiscussionDate(nce.dateOfEvent);
-      nonConform.enterProposedCorrectiveAction(nce.proposedCorrectiveAction);
-      nonConform.enterDateCompleted(nce.dateOfEvent);
       nonConform.selectActionType();
-      nonConform.selectResolution();
+      nonConform.checkResolution();
+      nonConform.enterDateCompleted(nce.dateOfEvent);
+      nonConform.enterProposedCorrectiveAction(nce.proposedCorrectiveAction);
       nonConform.enterDateCompleted0(nce.dateOfEvent);
       nonConform.clickSubmitButton();
     });

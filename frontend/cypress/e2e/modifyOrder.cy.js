@@ -158,6 +158,7 @@ describe("Modify Order search by accession Number", function () {
     });
     orderEntityPage.rememberSiteAndRequester();
     modifyOrderPage.clickSubmitButton();
+    cy.wait(90000);
   });
 
   it("should be able to print barcode", function () {
