@@ -23,10 +23,8 @@ describe("Add requester details first", function () {
 
   it("Adds and saves requester", function () {
     providerManagementPage.clickAddProviderButton();
-    cy.fixture("Order").then((order) => {
-      providerManagementPage.enterProviderLastName(order.lastName);
-      providerManagementPage.enterProviderFirstName(order.firstName);
-    });
+    providerManagementPage.enterProviderLastName();
+    providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
   });
@@ -52,15 +50,14 @@ describe("Order Entity", function () {
         patient.inValidName,
       );
       patientEntryPage.selectPatientFromSearchResults();
-      cy.wait(200);
+      cy.wait(300);
       patientEntryPage.getFirstName().should("have.value", patient.firstName);
       patientEntryPage.getLastName().should("have.value", patient.lastName);
     });
+    orderEntityPage.clickNextButton();
   });
 
-  it("User should click next to go to program selection", function () {
-    orderEntityPage.clickNextButton();
-    cy.wait(200);
+  it("User goes to program selection", function () {
     orderEntityPage.selectCytology();
     cy.wait(200);
     orderEntityPage.clickNextButton();

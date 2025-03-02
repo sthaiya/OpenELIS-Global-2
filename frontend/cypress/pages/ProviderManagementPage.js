@@ -3,20 +3,23 @@ class ProviderManagementPage {
 
   clickAddProviderButton() {
     cy.get("[data-cy='add-Button']").should("be.visible").click();
+    cy.wait(200);
   }
 
-  enterProviderLastName(lastName) {
-    cy.get("#lastName").type(lastName);
+  enterProviderLastName() {
+    cy.get("#lastName").type("Prime");
   }
-  enterProviderFirstName(firstName) {
-    cy.get("lastName").type(firstName);
+  enterProviderFirstName() {
+    cy.get("#firstName").type("Optimus");
   }
   clickActiveDropdown() {
-    cy.get("#isActive").select("Yes");
+    cy.get("#isActive").contains("Yes").click();
+    //cy.get("#downshift-1-toggle-button").select("Yes");
   }
 
   addProvider() {
-    cy.contains("Add").click();
+    cy.get("div.cds--modal").contains("button", "Add").click();
+    cy.wait(200);
   }
 }
 
