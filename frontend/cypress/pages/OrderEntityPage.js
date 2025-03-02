@@ -56,7 +56,7 @@ class OrderEntityPage {
     requesterFirstName,
     requesterLastName,
   ) {
-    cy.get("#requesterId").type(fullName);
+    cy.get("#requesterId").clear().type(fullName);
     cy.contains(".suggestion-active", fullName).click();
     cy.get("input#requesterFirstName").clear().type(requesterFirstName);
     cy.get("input#requesterLastName").clear().type(requesterLastName);

@@ -15,23 +15,17 @@ class Result {
   }
 
   expandSampleDetails(index = 0) {
-    cy.get(`[data-testid="expander-button-${index}"]`).click();
+    cy.get(`button[data-testid="expander-button-${index}"]`)
+      .should("be.visible")
+      .click();
   }
 
   selectTestMethod(index = 0, method) {
     cy.get(`#testMethod${index}`).select(method);
   }
 
-  selectPatient() {
-    cy.get(".cds--radio-button__appearance").first().click();
-  }
-
-  search() {
-    cy.get(":nth-child(1) > :nth-child(5) > .cds--btn").click();
-  }
-
-  searchByTest() {
-    cy.get(":nth-child(8) > #submit").click();
+  searchResults() {
+    cy.get("#searchResults").click();
   }
 
   validatePatientResult(patient) {
@@ -69,12 +63,22 @@ class Result {
       .click();
   }
 
+  clickReferralsByPatient() {
+    cy.get("[data-cy='referralsByPatient']").should("be.visible").click();
+  }
+  clickReferralsByTestAndName() {
+    cy.get("[data-cy='byUnitsAndTests']").should("be.visible").click();
+  }
+  clickReferralsByLabNumber() {
+    cy.get("[data-cy='byLabNumber']").should("be.visible").click();
+  }
+
   setResultValue(index = 0, value) {
     cy.get(`#resultValue${index}`).select(value);
   }
 
   submitResults() {
-    cy.get("#submit").click();
+    cy.get("#saveResults").click();
   }
 }
 
