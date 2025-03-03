@@ -50,8 +50,10 @@ class Result {
       .click();
   }
   selectPatientFromSearchResults() {
-    cy.get('input[data-cy="radioButton"]').next('.cds--radio-button__appearance').click();
-    }
+    cy.get('input[data-cy="radioButton"]')
+      .next(".cds--radio-button__appearance")
+      .click();
+  }
   selectRefferedTest() {
     cy.get(
       "tbody > tr > .cds--table-column-checkbox > .cds--checkbox--inline > .cds--checkbox-label",
