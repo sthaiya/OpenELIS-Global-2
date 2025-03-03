@@ -43,11 +43,7 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("[data-testid='nce-search-result']");
-    cy.get("input[data-testid='nce-sample-checkbox']")
-      .should("exist")
-      .first()
-      .check({ force: true });
+    cy.get(".cds--checkbox-label-text").should("exist").click();
   }
 
   clickGoToNceFormButton() {

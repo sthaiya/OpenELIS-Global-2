@@ -15,7 +15,10 @@ class Result {
   }
 
   expandSampleDetails(index = 0) {
-    cy.get(`button[data-testid="expander-button-${index}"]`)
+    cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`, {
+      timeout: 10000,
+    })
+      .should("exist")
       .should("be.visible")
       .click({ force: true });
   }
@@ -50,10 +53,9 @@ class Result {
       .click();
   }
   selectPatientFromSearchResults() {
-    cy.get('input[data-cy="radioButton"]')
-      .next(".cds--radio-button__appearance")
-      .click();
+    cy.get('label[for="2"] .cds--radio-button__appearance').click();
   }
+
   selectRefferedTest() {
     cy.get(
       "tbody > tr > .cds--table-column-checkbox > .cds--checkbox--inline > .cds--checkbox-label",
@@ -84,7 +86,7 @@ class Result {
   }
 
   setResultValue(index = 0, value) {
-    cy.get(`#resultValue${index}`).select(value);
+    cy.get(`#ResultValue${index}`).type(value);
   }
 
   submitResults() {
