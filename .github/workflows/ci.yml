@@ -47,6 +47,12 @@ jobs:
           jacoco-csv-file: target/site/jacoco/jacoco.csv
           badges-directory: target/html/badges
 
+      - name: Fix permissions
+        run: sudo chmod -R 777 target/html || sudo chown -R $(whoami) target/html     
+
+      - name: Check coverage report exists
+        run: ls -lah target/html || echo "Coverage report not found!"     
+
       - name: Publish coverage report to GitHub Pages
         if: github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@v4
