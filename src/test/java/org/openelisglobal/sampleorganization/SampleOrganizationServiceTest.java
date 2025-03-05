@@ -1,5 +1,10 @@
 package org.openelisglobal.sampleorganization;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +15,6 @@ import org.openelisglobal.sampleorganization.service.SampleOrganizationService;
 import org.openelisglobal.sampleorganization.valueholder.SampleOrganization;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 public class SampleOrganizationServiceTest extends BaseWebContextSensitiveTest {
     @Autowired
     SampleOrganizationService sampleOrganizationService;
@@ -25,6 +24,7 @@ public class SampleOrganizationServiceTest extends BaseWebContextSensitiveTest {
     private static final String SAMPLE_ENTERED_DATE = "2024-03-05";
     private static final String SAMPLE_ACCESSION_NUMBER = "2000";
     private static final String SAMPLE_RECEIVED_TIMESTAMP = "012/06/2024";
+
     @Before
     public void setUp() throws Exception {
         executeDataSetWithStateManagement("testdata/sample-organization.xml");
@@ -34,8 +34,8 @@ public class SampleOrganizationServiceTest extends BaseWebContextSensitiveTest {
     public void verifyTestData() {
         List<SampleOrganization> sampleOrganizationList = sampleOrganizationService.getAll();
         System.out.println("sample organization we have in db: " + sampleOrganizationList.size());
-        sampleOrganizationList.forEach(sampleOrganization -> System.out.println(sampleOrganization.getId() + " - "
-                + sampleOrganization.getSample().getAccessionNumber()));
+        sampleOrganizationList.forEach(sampleOrganization -> System.out
+                .println(sampleOrganization.getId() + " - " + sampleOrganization.getSample().getAccessionNumber()));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class SampleOrganizationServiceTest extends BaseWebContextSensitiveTest {
     }
 
     @Test
-    public void updateSampleOrganization_shouldUpdateSampleOrganization(){
+    public void updateSampleOrganization_shouldUpdateSampleOrganization() {
         Sample samp = sampleService.get("1");
         Assert.assertEquals("2", sampleOrganizationService.getDataBySample(samp).getId());
 
@@ -87,8 +87,8 @@ public class SampleOrganizationServiceTest extends BaseWebContextSensitiveTest {
     private SampleOrganization creatSampleOrganization() throws ParseException {
         Sample samp = new Sample();
         samp.setEnteredDate(Date.valueOf(SampleOrganizationServiceTest.SAMPLE_ENTERED_DATE));
-        samp.setReceivedTimestamp(new Timestamp(
-                new SimpleDateFormat("dd/MM/yyyy").parse(SampleOrganizationServiceTest.SAMPLE_RECEIVED_TIMESTAMP).getTime()));
+        samp.setReceivedTimestamp(new Timestamp(new SimpleDateFormat("dd/MM/yyyy")
+                .parse(SampleOrganizationServiceTest.SAMPLE_RECEIVED_TIMESTAMP).getTime()));
         samp.setAccessionNumber(SampleOrganizationServiceTest.SAMPLE_ACCESSION_NUMBER);
         String sampId = sampleService.insert(samp);
 

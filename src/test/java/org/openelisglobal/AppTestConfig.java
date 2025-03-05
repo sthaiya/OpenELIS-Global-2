@@ -35,7 +35,6 @@ import org.openelisglobal.referral.service.ReferralService;
 import org.openelisglobal.referral.service.ReferralSetService;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sample.service.SampleEditService;
-import org.openelisglobal.sampleorganization.service.SampleOrganizationService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
 import org.openelisglobal.statusofsample.service.StatusOfSampleService;
@@ -263,7 +262,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     public ObservationHistoryTypeService observationHistoryTypeService() {
         return mock(ObservationHistoryTypeService.class);
     }
-
 
     @Bean()
     @Profile("test")
