@@ -116,12 +116,8 @@ class HomePage {
   goToResultsByOrder() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results", { timeout: 20000 })
-      .should("be.visible")
-      .click({ force: true });
-    cy.get("#menu_results_accession", { timeout: 20000 }).click({
-      force: true,
-    });
+    cy.get("#menu_results").click();
+    cy.get("#menu_results_accession").click();
     return new Result();
   }
 
@@ -135,9 +131,7 @@ class HomePage {
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results", { timeout: 20000 })
-      .should("be.visible")
-      .click({ force: true });
+    cy.get("#menu_results").click();
     cy.get("#menu_results_referred ").click();
     return new Result();
   }
