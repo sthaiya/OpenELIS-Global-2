@@ -24,32 +24,10 @@
             collection_date="2024-06-05 00:00:00.0"
             lastupdated="2023-11-01 12:00:00" />
 
-    <organization id="4" lastupdated="2024-06-03 12:00:00.0"
-                  name="Global Health Org" city="New York" zip_code="10001"
-                  mls_sentinel_lab_flag="Y" short_name="GHG" multiple_unit="NYC Unit"
-                  street_address="123 Health St" state="NY"
-                  internet_address="www.globalhealth.org" clia_num="CLIA12345"
-                  pws_id="PWS123" mls_lab_flag="Y" is_active="Y" local_abbrev="1"
-                  code="GHG001" />
-    <organization id="5" lastupdated="2024-06-04 12:00:00.0"
-                  name="Health Services Ltd" city="Los Angeles" zip_code="90001"
-                  mls_sentinel_lab_flag="N" short_name="HSL" multiple_unit="LA Unit"
-                  street_address="456 Medical Rd" state="CA"
-                  internet_address="www.healthservices.com" clia_num="CLIA54321"
-                  pws_d="PWS456" mls_lab_flag="N" is_active="Y" local_abbrev="2"
-                  code="HSL002" />
-    <organization id="6" lastupdated="2024-06-05 12:00:00.0"
-                  name="Community Health Initiative" city="Chicago" zip_code="60601"
-                  mls_sentinel_lab_flag="Y" short_name="CHI" multiple_unit="CHI Unit"
-                  street_address="789 Community Blvd" state="IL"
-                  internet_address="www.communityhealth.org" clia_num="CLIA67890"
-                  pws_d="PWS789" mls_lab_flag="Y" is_active="N" local_abbrev="3"
-                  code="CHI003" />
-
-    <sample_organization id="1" org_id="4" samp_id="1" samp_org_type="a"
+    <sample_organization id="1" samp_id="1"
                 lastupdated="2023-11-01 12:00:00" />
-    <sample_organization id="2" org_id="5" samp_id="2" samp_org_type="b"
+    <sample_organization id="2" samp_id="2"
                 lastupdated="2023-11-01 12:00:00" />
-    <sample_organization id="3" org_id="6" samp_id="3" samp_org_type="a"
+    <sample_organization id="3" samp_id="3"
                 lastupdated="2023-11-01 12:00:00" />
 </dataset>
