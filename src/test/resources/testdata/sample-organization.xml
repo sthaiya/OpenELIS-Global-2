@@ -46,10 +46,10 @@
                   pws_d="PWS789" mls_lab_flag="Y" is_active="N" local_abbrev="3"
                   code="CHI003" />
 
-    <sample_org id="1" org_id="4" samp_id="1" samp_org_type="a"
+    <sample_organization id="1" org_id="4" samp_id="1" samp_org_type="a"
                 lastupdated="2023-11-01 12:00:00" />
-    <sample_org id="2" org_id="5" samp_id="2" samp_org_type="b"
+    <sample_organization id="2" org_id="5" samp_id="2" samp_org_type="b"
                 lastupdated="2023-11-01 12:00:00" />
-    <sample_org id="3" org_id="6" samp_id="3" samp_org_type="a"
+    <sample_organization id="3" org_id="6" samp_id="3" samp_org_type="a"
                 lastupdated="2023-11-01 12:00:00" />
 </dataset>
