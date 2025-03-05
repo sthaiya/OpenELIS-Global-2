@@ -374,9 +374,7 @@ function TestOrderability() {
               </Button>{" "}
               <Button
                 onClick={() =>
-                  window.location.assign(
-                    "/MasterListsPage#testManagementConfigMenu",
-                  )
+                  window.location.assign("/admin#TestOrderability")
                 }
                 kind="tertiary"
                 type="button"
@@ -458,9 +456,7 @@ function TestOrderability() {
               </Button>{" "}
               <Button
                 onClick={() =>
-                  window.location.assign(
-                    "/MasterListsPage#testManagementConfigMenu",
-                  )
+                  window.location.assign("/admin#TestOrderability")
                 }
                 kind="tertiary"
                 type="button"
