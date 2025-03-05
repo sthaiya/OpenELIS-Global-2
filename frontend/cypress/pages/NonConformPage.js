@@ -43,7 +43,7 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get(".cds--checkbox-label-text").should("exist").click();
+    cy.get("#DEV01250000000000001-1").should("exist").click({force:true});
   }
 
   clickGoToNceFormButton() {
