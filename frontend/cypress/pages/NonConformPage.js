@@ -43,7 +43,10 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("#DEV01250000000000001-1").should("exist").click({ force: true });
+    cy.contains(
+      "label.cds--checkbox-label",
+      "Immunohistochemistry specimen",
+    ).click({ force: true });
   }
 
   clickGoToNceFormButton() {
