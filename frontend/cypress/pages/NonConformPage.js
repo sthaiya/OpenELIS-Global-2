@@ -43,10 +43,7 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.contains(
-      "label.cds--checkbox-label",
-      "Immunohistochemistry specimen",
-    ).click({ force: true });
+    cy.get("#DEV01250000000000001-1").click({ force: true });
   }
 
   clickGoToNceFormButton() {
@@ -129,10 +126,14 @@ class NonConform {
   }
 
   clickRadioButtonNCE() {
-    cy.get("[data-testid='Radio-button']")
-      .eq(0) // 0 for first, 1 for second, 2 for third, etc.
+    cy.get(".cds--radio-button__appearance")
       .should("be.visible")
+      .eq(0)
       .click({ force: true });
+    //cy.get("[data-testid='Radio-button']")
+    //.first() // 0 for first, 1 for second, 2 for third, etc.
+    //.should("be.visible")
+    //.click({ force: true });
   }
   enterDateCompleted0(date) {
     cy.get(".cds--date-picker-input__wrapper > #dateCompleted-0").type(date);

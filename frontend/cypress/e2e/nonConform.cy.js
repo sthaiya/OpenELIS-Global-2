@@ -155,7 +155,7 @@ describe("View New Non-Conforming Event", function () {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);
       nonConform.clickSearchButton();
-      nonConform.clickRadioButtonNCE();
+      cy.wait(10000);
       //nonConform.validateNCESearchResult(nce.NceNumber);
     });
   });

@@ -15,9 +15,10 @@ class Result {
   }
 
   expandSampleDetails(index = 0) {
-    cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`, {
-      timeout: 10000,
-    })
+    //cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`, {
+    // timeout: 10000,
+    // })
+    cy.get("#row-0 > div.sc-hLBbgP.sc-ftTHYK.cpdasa.jNRUar > button")
       .should("exist")
       .should("be.visible")
       .click({ force: true });
@@ -90,7 +91,7 @@ class Result {
   }
 
   submitResults() {
-    cy.get("#saveResults").click();
+    cy.get("#saveResults").should("be.visible").click();
   }
 }
 
