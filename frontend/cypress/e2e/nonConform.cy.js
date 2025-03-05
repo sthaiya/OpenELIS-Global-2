@@ -103,7 +103,6 @@ describe("Report Non-Conforming Event", function () {
       nonConform.clickCheckbox();
       nonConform.clickGoToNceFormButton();
     });
-
     nonConform.getAndSaveNceNumber();
   });
 
@@ -156,11 +155,12 @@ describe("View New Non-Conforming Event", function () {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);
       nonConform.clickSearchButton();
+      nonConform.clickRadioButtonNCE();
       //nonConform.validateNCESearchResult(nce.NceNumber);
     });
   });
 
-  it("Should Enter The details and Submit it", function () {
+  it("Enter The details and Submit", function () {
     cy.fixture("NonConform").then((nce) => {
       nonConform.enterNceCategory(nce.nceCategory);
       nonConform.enterNceType(nce.nceType);
@@ -190,7 +190,19 @@ describe("Corrective Actions", function () {
       //nonConform.validateLabNoSearchResult(patient.labNo);
     });
   });
-  //missing detaila here
+
+  it("Enter Discussion details and submit", function () {
+    cy.fixture("NonConform").then((nce) => {
+      nonConform.enterDiscussionDate(nce.dateOfEvent);
+      nonConform.selectActionType();
+      nonConform.checkResolution();
+      nonConform.enterDateCompleted(nce.dateOfEvent);
+      nonConform.enterProposedCorrectiveAction(nce.proposedCorrectiveAction);
+      nonConform.enterDateCompleted0(nce.dateOfEvent);
+      nonConform.clickSubmitButton();
+    });
+  });
+
   it("Search by NCE Number and Validate the results", function () {
     homePage = loginPage.goToHomePage();
     nonConform = homePage.goToCorrectiveActions();
@@ -202,7 +214,7 @@ describe("Corrective Actions", function () {
     });
   });
 
-  it("Should enter the discussion details and submit", function () {
+  it("Enter Discussion details and submit", function () {
     cy.fixture("NonConform").then((nce) => {
       nonConform.enterDiscussionDate(nce.dateOfEvent);
       nonConform.selectActionType();
