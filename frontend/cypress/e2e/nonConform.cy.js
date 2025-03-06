@@ -96,7 +96,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterSearchField(patient.labNo);
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
-      nonConform.clickCheckbox();
+      nonConform.clickCheckboxTwo();
       nonConform.clickGoToNceFormButton();
     });
     nonConform.getAndSaveNceNumber();
@@ -150,7 +150,7 @@ describe("View New Non-Conforming Event", function () {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);
       nonConform.clickSearchButton();
-      cy.wait(10000);
+      cy.wait(5000);
       //nonConform.validateNCESearchResult(nce.NceNumber);
     });
   });

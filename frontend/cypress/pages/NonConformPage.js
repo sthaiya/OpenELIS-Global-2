@@ -48,6 +48,10 @@ class NonConform {
       .click({ force: true });
   }
 
+  clickCheckboxTwo() {
+    cy.get(".cds--checkbox-label").shoud("be.visible").click();
+  }
+
   clickGoToNceFormButton() {
     cy.get("[data-testid='nce-goto-form-button']").click();
   }
@@ -128,10 +132,14 @@ class NonConform {
   }
 
   clickRadioButtonNCE() {
-    cy.get(".cds--radio-button__appearance")
-      .should("be.visible")
-      .eq(0)
-      .click({ force: true });
+    cy.get(
+      ".cds--data-table tbody tr:first-child td:first-child label span",
+    ).click({ force: true });
+
+    //cy.get(".cds--radio-button__appearance")
+    // .should("be.visible")
+    //.eq(0)
+    //.click({ force: true });
     //cy.get("[data-testid='Radio-button']")
     //.first() // 0 for first, 1 for second, 2 for third, etc.
     //.should("be.visible")
