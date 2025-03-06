@@ -39,12 +39,10 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterCorrectiveAction(nonConformData.proposedCorrectiveAction);
       nonConform.submitForm();
     });
+    cy.reload();
   });
 
   it("Report NCE by First Name", function () {
-    homePage = loginPage.goToHomePage();
-    nonConform = homePage.goToReportNCE();
-
     cy.fixture("Patient").then((patient) => {
       nonConform.selectSearchType("First Name");
       nonConform.enterSearchField(patient.firstName);
@@ -65,11 +63,10 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterCorrectiveAction(nonConformData.proposedCorrectiveAction);
       nonConform.submitForm();
     });
+    cy.reload();
   });
 
   it("Report NCE by PatientID", function () {
-    homePage = loginPage.goToHomePage();
-    nonConform = homePage.goToReportNCE();
     cy.fixture("Patient").then((patient) => {
       nonConform.selectSearchType("Patient Identification Code");
       nonConform.enterSearchField(patient.nationalId);
@@ -90,11 +87,10 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterCorrectiveAction(nonConformData.proposedCorrectiveAction);
       nonConform.submitForm();
     });
+    cy.reload();
   });
 
   it("Report NCE by Lab Number ", function () {
-    homePage = loginPage.goToHomePage();
-    nonConform = homePage.goToReportNCE();
     cy.fixture("Patient").then((patient) => {
       nonConform.selectSearchType("Lab Number");
       nonConform.enterSearchField(patient.labNo);
@@ -146,11 +142,10 @@ describe("View New Non-Conforming Event", function () {
       nonConform.enterDescriptionAndComments(nce.test);
       nonConform.submitForm();
     });
+    cy.reload();
   });
 
   it("View New NCE by NCE Number", function () {
-    homePage = loginPage.goToHomePage();
-    nonConform = homePage.goToViewNCE();
     cy.fixture("NonConform").then((nce) => {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);
@@ -201,11 +196,10 @@ describe("Corrective Actions", function () {
       nonConform.enterDateCompleted0(nce.dateOfEvent);
       nonConform.clickSubmitButton();
     });
+    cy.reload();
   });
 
   it("Search by NCE Number and Validate the results", function () {
-    homePage = loginPage.goToHomePage();
-    nonConform = homePage.goToCorrectiveActions();
     cy.fixture("NonConform").then((nce) => {
       nonConform.selectSearchType("NCE Number");
       nonConform.enterSearchField(nce.NceNumber);

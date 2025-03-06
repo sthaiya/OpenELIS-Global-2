@@ -43,7 +43,9 @@ class NonConform {
 
   // Checkbox and navigation
   clickCheckbox() {
-    cy.get("#DEV01250000000000001-1").click({ force: true });
+    cy.get("[data-testid='nce-sample-checkbox']")
+      .first()
+      .click({ force: true });
   }
 
   clickGoToNceFormButton() {

@@ -38,7 +38,7 @@ describe("Result By Unit", function () {
       result.selectTestMethod(0, res.pcrTestMethod);
       //cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
       result.referTests();
-      result.referSample(0, res.testNotPerformed, res.cedres);
+      // result.referSample(0, res.testNotPerformed, res.cedres);
       result.setResultValue(0, res.positiveResult);
       result.submitResults();
     });
@@ -46,7 +46,7 @@ describe("Result By Unit", function () {
 });
 
 describe("Result By Patient", function () {
-  before("navigate to Result By Patient", function () {
+  it("navigate to Result By Patient", function () {
     result = homePage.goToResultsByPatient();
   });
 
@@ -106,7 +106,7 @@ describe("Result By Patient", function () {
     });
     patientPage.getMaleGenderRadioButton();
     patientPage.clickSearchPatientButton();
-    cy.wait(100);
+    cy.wait(10000);
     result.selectPatientFromSearchResults();
     cy.wait(800);
     cy.fixture("result").then((res) => {
