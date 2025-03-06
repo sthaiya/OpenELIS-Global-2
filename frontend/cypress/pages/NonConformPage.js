@@ -49,7 +49,7 @@ class NonConform {
   }
 
   clickCheckboxTwo() {
-    cy.get(".cds--checkbox-label").shoud("be.visible").click();
+    cy.get(".cds--checkbox-label").should("be.visible").click();
   }
 
   clickGoToNceFormButton() {
