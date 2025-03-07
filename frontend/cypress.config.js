@@ -10,28 +10,35 @@ module.exports = defineConfig({
   watchForFileChanges: false,
   e2e: {
     setupNodeEvents(on, config) {
-      s;
-      const e2eFolder = path.join(__dirname, "cypress/e2e");
-      const findTestFiles = (dir) => {
-        let results = [];
-        const files = fs.readdirSync(dir);
+      try {
+        const e2eFolder = path.join(__dirname, "cypress/e2e");
 
-        for (const file of files) {
-          const fullPath = path.join(dir, file);
-          const stat = fs.statSync(fullPath);
+        const findTestFiles = (dir) => {
+          let results = [];
+          const files = fs.readdirSync(dir);
 
-          if (stat.isDirectory()) {
-            results = results.concat(findTestFiles(fullPath));
-          } else if (file.endsWith(".cy.js")) {
-            results.push(fullPath.replace(__dirname + path.sep, ""));
+          for (const file of files) {
+            const fullPath = path.join(dir, file);
+            const stat = fs.statSync(fullPath);
+
+            if (stat.isDirectory()) {
+              results = results.concat(findTestFiles(fullPath));
+            } else if (file.endsWith(".cy.js")) {
+              results.push(fullPath.replace(__dirname + path.sep, ""));
+            }
           }
-        }
-        return results;
-      };
 
-      config.specPattern = findTestFiles(e2eFolder);
-      console.log("Discovered test files:", config.specPattern);
-      return config;
+          return results;
+        };
+
+        config.specPattern = findTestFiles(e2eFolder);
+        console.log("Discovered test files:", config.specPattern);
+
+        return config;
+      } catch (error) {
+        console.error("Error in setupNodeEvents:", error);
+        return config;
+      }
     },
     baseUrl: "https://localhost",
     testIsolation: false,
