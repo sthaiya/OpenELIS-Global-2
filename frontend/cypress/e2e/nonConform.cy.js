@@ -25,7 +25,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterSearchField(patient.lastName);
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
-      nonConform.clickCheckbox();
+      nonConform.clickCheckbox({ force: true });
       nonConform.clickGoToNceFormButton();
     });
   });
@@ -49,7 +49,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
       //});
-      nonConform.clickCheckbox();
+      nonConform.clickCheckbox({ force: true });
       nonConform.clickGoToNceFormButton();
     });
   });
@@ -73,7 +73,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
       //});
-      nonConform.clickCheckbox();
+      nonConform.clickCheckbox({ force: true });
       nonConform.clickGoToNceFormButton();
     });
   });
@@ -96,7 +96,7 @@ describe("Report Non-Conforming Event", function () {
       nonConform.enterSearchField(patient.labNo);
       nonConform.clickSearchButton();
       //nonConform.validateSearchResult(patient.labNo);
-      nonConform.clickCheckboxTwo();
+      nonConform.clickCheckbox({ force: true });
       nonConform.clickGoToNceFormButton();
     });
     nonConform.getAndSaveNceNumber();

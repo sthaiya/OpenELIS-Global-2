@@ -15,13 +15,10 @@ class Result {
   }
 
   expandSampleDetails(index = 0) {
-    //cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`, {
-    // timeout: 10000,
-    // })
-    cy.get("#row-0 > div.sc-hLBbgP.sc-ftTHYK.cpdasa.jNRUar > button")
-      .should("exist")
+    cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`)
+      //cy.get("#row-0 > div.sc-hLBbgP.sc-ftTHYK.cpdasa.jNRUar > button")
       .should("be.visible")
-      .click({ force: true });
+      .click({ multiple: true });
   }
 
   selectTestMethod(index = 0, method) {
@@ -54,7 +51,9 @@ class Result {
       .click();
   }
   selectPatientFromSearchResults() {
-    cy.get('label[for="2"] .cds--radio-button__appearance').click();
+    cy.get(
+      "tbody > :nth-child(1) > :nth-child(1) > .cds--radio-button-wrapper > .cds--radio-button__label > .cds--radio-button__appearance",
+    ).click();
   }
 
   selectRefferedTest() {

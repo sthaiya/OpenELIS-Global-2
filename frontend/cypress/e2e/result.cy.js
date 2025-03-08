@@ -37,8 +37,8 @@ describe("Result By Unit", function () {
       result.expandSampleDetails();
       result.selectTestMethod(0, res.pcrTestMethod);
       //cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
-      result.referTests();
-      // result.referSample(0, res.testNotPerformed, res.cedres);
+      //result.referTests();
+      //result.referSample(0, res.testNotPerformed, res.cedres);
       result.setResultValue(0, res.positiveResult);
       result.submitResults();
     });
