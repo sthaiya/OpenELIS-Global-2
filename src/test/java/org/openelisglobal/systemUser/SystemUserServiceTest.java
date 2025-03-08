@@ -124,4 +124,20 @@ public class SystemUserServiceTest extends BaseWebContextSensitiveTest {
                 .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
         assertTrue(systemUsers.size() <= expectedPages);
     }
+
+    @Test
+    public void getPagesOfSearchedUsers_shouldReturnPagesOfSearchedUsers() {
+        SystemUser systemUser = systemUserService.get("3");
+        String firstName = systemUser.getFirstName();
+        List<SystemUser> systemUsers = systemUserService.getPagesOfSearchedUsers(1, firstName);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(systemUsers.size() <= expectedPages);
+    }
+
+    @Test
+    public void getTotalSearchedUserCount_shouldReturnTotalSearchedUserCount() {
+        Integer count = systemUserService.getTotalSearchedUserCount("John");
+        assertEquals(1, count.intValue());
+    }
 }
