@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
+import org.openelisglobal.common.util.ConfigurationProperties;
 import org.openelisglobal.systemuser.service.SystemUserService;
 import org.openelisglobal.systemuser.valueholder.SystemUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,62 @@ public class SystemUserServiceTest extends BaseWebContextSensitiveTest {
         assertEquals("John", systemUser.getFirstName());
         assertEquals("Doe", systemUser.getLastName());
         assertEquals("jdoe", systemUser.getLoginName());
+    }
+
+    @Test
+    public void update_shouldUpdateSystemUser() {
+        SystemUser systemUser = systemUserService.get("3");
+        systemUser.setFirstName("James");
+        systemUser.setLastName("Grant");
+        systemUser.setLoginName("jgrant");
+        systemUserService.update(systemUser);
+        SystemUser updatedUser = systemUserService.getUserById("3");
+        assertEquals("James", updatedUser.getFirstName());
+        assertEquals("Grant", updatedUser.getLastName());
+        assertEquals("jgrant", updatedUser.getLoginName());
+    }
+
+    @Test
+    public void insert_shouldInsertSystemUser() {
+        SystemUser systemUser = new SystemUser();
+        systemUser.setFirstName("Robert");
+        systemUser.setLastName("Derick");
+        systemUser.setLoginName("Debert");
+        systemUser.setIsActive("Y");
+        systemUser.setExternalId("1234EXT");
+        systemUser.setIsEmployee("Y");
+        systemUserService.insert(systemUser);
+        List<SystemUser> systemUsers = systemUserService.getAllSystemUsers();
+        assertTrue(systemUsers.size() == 4);
+    }
+
+    @Test
+    public void getTotalSystemUserCount_shouldReturnTotalSystemUserCount() {
+        Integer count = systemUserService.getTotalSystemUserCount();
+        assertEquals(3, count.intValue());
+    }
+
+    @Test
+    public void getuserById_shouldReturnUserById() {
+        SystemUser systemUser = systemUserService.getUserById("3");
+        assertEquals("John", systemUser.getFirstName());
+        assertEquals("Doe", systemUser.getLastName());
+        assertEquals("jdoe", systemUser.getLoginName());
+    }
+
+    @Test
+    public void getDataForLoginUser_shouldReturnDataForLoginUser() {
+        SystemUser systemUser = systemUserService.getDataForLoginUser("jdoe");
+        assertEquals("John", systemUser.getFirstName());
+        assertEquals("Doe", systemUser.getLastName());
+        assertEquals("jdoe", systemUser.getLoginName());
+    }
+
+    @Test
+    public void getPageOfSystemUsers_shouldReturnPageOfSystemUsers() {
+        List<SystemUser> systemUsers = systemUserService.getPageOfSystemUsers(1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(systemUsers.size() <= expectedPages);
     }
 }
