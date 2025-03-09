@@ -18,7 +18,7 @@ class NonConform {
   }
 
   clickSearchButton() {
-    cy.get("[data-testid='nce-search-button']").click();
+    cy.get("[data-testid='nce-search-button']").should("be.visible").click();
   }
 
   // Search results validation
@@ -44,12 +44,13 @@ class NonConform {
   // Checkbox and navigation
   clickCheckbox() {
     cy.get("[data-testid='nce-sample-checkbox']")
+      .should("be.visible")
       .first()
       .click({ force: true });
   }
 
   clickGoToNceFormButton() {
-    cy.get("[data-testid='nce-goto-form-button']").click();
+    cy.get("[data-testid='nce-goto-form-button']").should("be.visible").click();
   }
 
   // Form fields (preserve original IDs)
@@ -128,10 +129,11 @@ class NonConform {
   }
 
   clickRadioButtonNCE() {
-    cy.get("[data-testid='Radio-button']")
-      .first() // 0 for first, 1 for second, 2 for third, etc.
-      .should("be.visible")
-      .click({ force: true });
+    //cy.get("[data-testid='Radio-button']")
+    //.first() // 0 for first, 1 for second, 2 for third, etc.
+    //"span.cds--radio-button__appearance"
+    //.click({ force: true });
+    cy.get("span.cds--radio-button__appearance").first().click({ force: true });
   }
 
   enterDateCompleted0(date) {

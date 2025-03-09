@@ -7,21 +7,22 @@ class Result {
     cy.get("#unitType").select(unitType);
   }
 
-  acceptSample(index = 0) {
-    cy.get("[data-cy='checkTestResult']").eq(index).check();
+  acceptSample(index = 1) {
+    return cy.get("[data-cy='checkTestResult']").eq(index).check();
   }
+
   acceptResult() {
     cy.get("#cell-accept-0 > .cds--form-item > .cds--checkbox-label").click();
   }
 
-  expandSampleDetails(index = 0) {
-    cy.get(`button[aria-label="Expand Row"]:nth-of-type(${index + 1})`)
-      //cy.get("#row-0 > div.sc-hLBbgP.sc-ftTHYK.cpdasa.jNRUar > button")
+  expandSampleDetails() {
+    return cy
+      .get("[data-testid='expander-button-1']")
       .should("be.visible")
-      .click({ multiple: true });
+      .click({ force: true });
   }
 
-  selectTestMethod(index = 0, method) {
+  selectTestMethod(index = 1, method) {
     cy.get(`#testMethod${index}`).select(method);
   }
 
@@ -90,7 +91,7 @@ class Result {
   }
 
   submitResults() {
-    cy.get("#saveResults").should("be.visible").click();
+    cy.get("#saveResults").should("be.visible").click({ force: true });
   }
 }
 

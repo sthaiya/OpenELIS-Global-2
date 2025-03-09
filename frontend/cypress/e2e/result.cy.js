@@ -1,6 +1,4 @@
 import LoginPage from "../pages/LoginPage";
-import HomePage from "../pages/HomePage";
-import Result from "../pages/ResultsPage";
 import PatientEntryPage from "../pages/PatientEntryPage";
 
 let homePage = null;
@@ -35,7 +33,7 @@ describe("Result By Unit", function () {
     cy.fixture("result").then((res) => {
       //result.acceptSample();
       result.expandSampleDetails();
-      result.selectTestMethod(0, res.pcrTestMethod);
+      result.selectTestMethod(1, res.pcrTestMethod);
       //cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
       //result.referTests();
       //result.referSample(0, res.testNotPerformed, res.cedres);
@@ -46,7 +44,7 @@ describe("Result By Unit", function () {
 });
 
 describe("Result By Patient", function () {
-  it("navigate to Result By Patient", function () {
+  it("Navigate to Result By Patient", function () {
     result = homePage.goToResultsByPatient();
   });
 
@@ -56,7 +54,7 @@ describe("Result By Patient", function () {
     });
   });
 
-  it("Should search Patient By First and LastName and validate", function () {
+  it("Search Patient By First and Last Name and validate", function () {
     cy.wait(1000);
     cy.fixture("Patient").then((patient) => {
       patientPage.searchPatientByFirstAndLastName(
@@ -106,13 +104,13 @@ describe("Result By Patient", function () {
     });
     patientPage.getMaleGenderRadioButton();
     patientPage.clickSearchPatientButton();
-    cy.wait(10000);
+    cy.wait(1000);
     result.selectPatientFromSearchResults();
     cy.wait(800);
     cy.fixture("result").then((res) => {
       //result.acceptResult();
       result.expandSampleDetails();
-      result.selectTestMethod(0, res.stainTestMethod);
+      result.selectTestMethod(1, res.stainTestMethod);
       result.submitResults();
     });
   });
@@ -142,7 +140,7 @@ describe("Result By Order", function () {
     cy.fixture("result").then((res) => {
       //result.acceptSample();
       result.expandSampleDetails();
-      result.selectTestMethod(0, res.stainTestMethod);
+      result.selectTestMethod(1, res.stainTestMethod);
       result.submitResults();
     });
   });
@@ -230,7 +228,7 @@ describe("Result By Range Of Order", function () {
     cy.fixture("result").then((res) => {
       //result.acceptSample();
       result.expandSampleDetails();
-      result.selectTestMethod(0, res.eiaTestMethod);
+      result.selectTestMethod(1, res.eiaTestMethod);
       result.submitResults();
     });
   });
@@ -267,7 +265,7 @@ describe("Result By Test And Status", function () {
       cy.wait(1000);
       //result.acceptSample();
       result.expandSampleDetails();
-      result.selectTestMethod(0, res.eiaTestMethod);
+      result.selectTestMethod(1, res.eiaTestMethod);
       result.submitResults();
     });
   });
