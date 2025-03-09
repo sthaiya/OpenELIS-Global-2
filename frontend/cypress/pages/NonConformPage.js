@@ -129,11 +129,21 @@ class NonConform {
   }
 
   clickRadioButtonNCE() {
-    //cy.get("[data-testid='Radio-button']")
-    //.first() // 0 for first, 1 for second, 2 for third, etc.
-    //"span.cds--radio-button__appearance"
-    //.click({ force: true });
-    cy.get("span.cds--radio-button__appearance").first().click({ force: true });
+    // Wait for the table to be visible first
+    cy.get("table").should("be.visible");
+
+    // Wait for at least one radio button to be present
+    cy.get('input[type="radio"][name="radio-group"]').should("exist");
+
+    // Click the first radio button with a more specific selector
+    return cy
+      .get("tbody tr")
+      .first()
+      .within(() => {
+        cy.get('input[type="radio"][name="radio-group"]')
+          .should("exist")
+          .click({ force: true });
+      });
   }
 
   enterDateCompleted0(date) {

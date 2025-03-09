@@ -31,12 +31,6 @@ describe("Result By Unit", function () {
 
   it("should accept the sample, refer the sample, and save the result", function () {
     cy.fixture("result").then((res) => {
-      //result.acceptSample();
-      result.expandSampleDetails();
-      result.selectTestMethod(1, res.pcrTestMethod);
-      //cy.get(":nth-child(3) > .cds--form-item > .cds--checkbox-label").click();
-      //result.referTests();
-      //result.referSample(0, res.testNotPerformed, res.cedres);
       result.setResultValue(0, res.positiveResult);
       result.submitResults();
     });
@@ -108,11 +102,9 @@ describe("Result By Patient", function () {
     result.selectPatientFromSearchResults();
     cy.wait(800);
     cy.fixture("result").then((res) => {
-      //result.acceptResult();
-      result.expandSampleDetails();
-      result.selectTestMethod(1, res.stainTestMethod);
-      result.submitResults();
+      result.selectResultValue(0, res.invalidResult);
     });
+    result.submitResults();
   });
 });
 
@@ -138,11 +130,9 @@ describe("Result By Order", function () {
 
   it("should accept the sample and save the result", function () {
     cy.fixture("result").then((res) => {
-      //result.acceptSample();
-      result.expandSampleDetails();
-      result.selectTestMethod(1, res.stainTestMethod);
-      result.submitResults();
+      result.setResultValue(0, res.positiveResult);
     });
+    result.submitResults();
   });
 });
 
@@ -226,9 +216,6 @@ describe("Result By Range Of Order", function () {
   it("Should Accept And Save the result", function () {
     cy.wait(1000);
     cy.fixture("result").then((res) => {
-      //result.acceptSample();
-      result.expandSampleDetails();
-      result.selectTestMethod(1, res.eiaTestMethod);
       result.submitResults();
     });
   });
@@ -252,7 +239,6 @@ describe("Result By Test And Status", function () {
     });
     cy.fixture("result").then((res) => {
       result.selectAnalysisStatus(res.analysisStatus);
-      //result.selectSampleStaus
       result.searchResults();
     });
   });
@@ -263,9 +249,7 @@ describe("Result By Test And Status", function () {
     });
     cy.fixture("result").then((res) => {
       cy.wait(1000);
-      //result.acceptSample();
-      result.expandSampleDetails();
-      result.selectTestMethod(1, res.eiaTestMethod);
+      result.setResultValue(0, res.positiveResult);
       result.submitResults();
     });
   });

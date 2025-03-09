@@ -90,6 +90,9 @@ class Result {
     cy.get(`#ResultValue${index}`).type(value);
   }
 
+  selectResultValue(index = 0, value) {
+    cy.get(`#ResultValue${index}`).select(value);
+  }
   submitResults() {
     cy.get("#saveResults").should("be.visible").click({ force: true });
   }

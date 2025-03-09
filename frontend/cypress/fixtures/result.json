@@ -3,6 +3,7 @@
   "pcrTestMethod": "PCR",
   "stainTestMethod": "STAIN",
   "positiveResult": "Positive HIV1",
+  "invalidResult": "Invalid",
   "referralPageTitle": "Referrals",
   "westernBlotHiv": "Western blot HIV",
   "analysisStatus": "Not started",
