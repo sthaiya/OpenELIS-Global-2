@@ -108,7 +108,7 @@ class HomePage {
 
   goToResultsByUnit() {
     this.openNavigationMenu();
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_logbook").click();
     return new Result();
   }
@@ -116,14 +116,14 @@ class HomePage {
   goToResultsByOrder() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_accession").click();
     return new Result();
   }
 
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_patient").click();
     return new Result();
   }
@@ -131,21 +131,21 @@ class HomePage {
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_referred ").click();
     return new Result();
   }
 
   goToResultsByRangeOrder() {
     this.openNavigationMenu();
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_range").click();
     return new Result();
   }
 
   goToResultsByTestAndStatus() {
     this.openNavigationMenu();
-    cy.get("#menu_results").click();
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_status").click();
     return new Result();
   }
