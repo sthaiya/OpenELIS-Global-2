@@ -1,6 +1,7 @@
 //This handles all pages of the admin
 import LabNumberManagementPage from "./LabNumberManagementPage";
 import GlobalMenuConfigPage from "./GlobalMenuConfigPage";
+import BarcodeConfigPage from "./BarcodeConfigPage";
 
 class AdminPage {
   constructor() {}
@@ -32,6 +33,12 @@ class AdminPage {
     cy.contains("Global Menu Management").should("be.visible");
 
     return new GlobalMenuConfigPage();
+  }
+
+  goToBarcodeConfigPage() {
+    cy.get("[data-cy='barcodeConfig']").should("be.visible").click();
+
+    return new BarcodeConfigPage();
   }
 }
 
