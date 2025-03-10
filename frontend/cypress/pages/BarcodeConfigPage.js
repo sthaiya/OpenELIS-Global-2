@@ -24,6 +24,21 @@ class BarcodeConfigPage {
     cy.contains("span", "Patient Sex").click();
     cy.get("#checkBox").check();
   }
+
+  dimensionsBarCodeLabel() {
+    cy.get("#height-order").clear().type("25.4");
+    cy.get("#height-specimen").clear().type("25.4");
+    cy.get("#width-order").clear().type("76.2");
+    cy.get("#width-specimen").clear().type("76.2");
+    cy.get("#height-block").clear().type("25.4");
+    cy.get("#height-slide").clear().type("25.4");
+    cy.get("width-block").clear().type("76.4");
+    cy.get("width-slide").clear().type("76.4");
+  }
+
+  saveChanges() {
+    cy.get("#saveButton").should("be.visible").click();
+  }
 }
 
 export default BarcodeConfigPage;

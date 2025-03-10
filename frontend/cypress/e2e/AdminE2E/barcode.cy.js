@@ -32,4 +32,16 @@ describe("Barcode configuration", function () {
   it("User unchecks Optional Elements and Preprinted Bar Code Accession number", function () {
     barcodePage.checkCheckBoxes();
   });
+
+  it("User adjusts Dimensions Bar Code Label", function () {
+    barcodePage.dimensionsBarCodeLabel();
+  });
+
+  it("Check the boxes", function () {
+    barcodePage.checkCheckBoxes();
+  });
+
+  it("Save Changes", function () {
+    barcodePage.saveChanges();
+  });
 });
