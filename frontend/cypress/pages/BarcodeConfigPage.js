@@ -20,7 +20,7 @@ class BarcodeConfigPage {
   checkCheckBoxes() {
     cy.contains("span", "Collection Date and Time").click();
     cy.contains("span", "Collected By").click();
-    cy.contains("span", "Tests").click();
+    cy.contains("span", "Tests").click({ force: true });
     cy.contains("span", "Patient Sex").click();
     cy.get("#checkBox").check();
   }
@@ -32,8 +32,8 @@ class BarcodeConfigPage {
     cy.get("#width-specimen").clear().type("76.2");
     cy.get("#height-block").clear().type("25.4");
     cy.get("#height-slide").clear().type("25.4");
-    cy.get("width-block").clear().type("76.4");
-    cy.get("width-slide").clear().type("76.4");
+    cy.get("#width-block").clear().type("76.4");
+    cy.get("#width-slide").clear().type("76.4");
   }
 
   saveChanges() {
