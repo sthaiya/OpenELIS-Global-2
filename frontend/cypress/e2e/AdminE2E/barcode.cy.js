@@ -1,4 +1,4 @@
-import LoginPage from "../../../pages/LoginPage";
+import LoginPage from "../../pages/LoginPage";
 
 let loginPage = null;
 let homePage = null;
