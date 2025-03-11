@@ -116,7 +116,7 @@ class HomePage {
   goToResultsByOrder() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results_dropdown").click();
+    cy.contains("span", "Results").click();
     cy.get("#menu_results_accession").click();
     return new Result();
   }
@@ -131,7 +131,7 @@ class HomePage {
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results_dropdown").click();
+    cy.contains("span", "Results").click();
     cy.get("#menu_results_referred ").click();
     return new Result();
   }
