@@ -91,8 +91,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.requester.service", "org.openelisglobal.requester.daoimpl",
         "org.openelisglobal.organization.dao", "org.openelisglobal.note.daoimpl",
         "org.openelisglobal.sampleorganization", "org.openelisglobal.menu.controller",
-        "org.openelisglobal.analyte.daoimpl", "org.openelisglobal.analyte.service",
-        "org.openelisglobal.reports.*"}, excludeFilters = {
+        "org.openelisglobal.analyte.daoimpl", "org.openelisglobal.analyte.service", "org.openelisglobal.panel.service",
+        "org.openelisglobal.panelitem.dao", "org.openelisglobal.reports.*" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.provider.controller.*.java"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -101,7 +101,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.config.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.fhir.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.*.fhir.*"),
-                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WHONetReportServiceImpl.class)})
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = WHONetReportServiceImpl.class) })
 @EnableWebMvc
 public class AppTestConfig implements WebMvcConfigurer {
 

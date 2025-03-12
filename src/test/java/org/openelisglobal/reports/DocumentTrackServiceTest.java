@@ -2,15 +2,13 @@ package org.openelisglobal.reports;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
 import org.openelisglobal.reports.service.DocumentTrackService;
-import org.openelisglobal.reports.service.DocumentTrackServiceImpl;
 import org.openelisglobal.reports.valueholder.DocumentTrack;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 public class DocumentTrackServiceTest extends BaseWebContextSensitiveTest {
 
@@ -47,7 +45,8 @@ public class DocumentTrackServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void getByTypeRecordAndTableAndName_ShoulrReturnMatchingDocument() {
-        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1", "Test Doc 1");
+        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1",
+                "Test Doc 1");
 
         assertNotNull(documents);
         assertFalse(documents.isEmpty());
@@ -63,7 +62,8 @@ public class DocumentTrackServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void getByTypeRecordAndTableAndName_ShouldReturnEmptyList() {
-        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1", "Non Existent Document");
+        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1",
+                "Non Existent Document");
 
         assertNotNull(documents);
         assertTrue(documents.isEmpty());
@@ -71,7 +71,8 @@ public class DocumentTrackServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void update_ShouldModifyExistingDocument() {
-        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1", "Test Doc 1");
+        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1",
+                "Test Doc 1");
         assertFalse(documents.isEmpty());
 
         DocumentTrack document = documents.get(0);
@@ -92,7 +93,8 @@ public class DocumentTrackServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void delete_ShouldRemoveDocument() {
-        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1", "Test Doc 1");
+        List<DocumentTrack> documents = documentTrackService.getByTypeRecordAndTableAndName("1", "1", "1",
+                "Test Doc 1");
         assertFalse(documents.isEmpty());
 
         DocumentTrack document = documents.get(0);
