@@ -11,7 +11,6 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       try {
-
         const e2eFolder = path.join(__dirname, "cypress/e2e");
 
         const findTestFiles = (dir) => {
@@ -33,8 +32,8 @@ module.exports = defineConfig({
         };
 
         let testFiles = findTestFiles(e2eFolder);
-        testFiles.sort((a, b) => a.localeCompare(b)); 
-        config.specPattern = testFiles; 
+        testFiles.sort((a, b) => a.localeCompare(b));
+        config.specPattern = testFiles;
         console.log("Ordered test files:", config.specPattern);
 
         return config;
