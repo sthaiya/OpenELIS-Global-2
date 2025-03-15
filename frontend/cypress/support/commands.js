@@ -44,3 +44,16 @@ Cypress.Commands.add("enterText", (selector, value) => {
     return field;
   }
 });
+
+Cypress.Commands.add("loginViaApi", (username, password) => {
+  cy.request({
+    method: "POST",
+    url: "/api/login",
+    body: {
+      username: username,
+      password: password,
+    },
+  }).then((response) => {
+    window.localStorage.setItem("authToken", response.body.token);
+  });
+});

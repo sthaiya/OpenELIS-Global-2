@@ -4,9 +4,16 @@ let loginPage = null;
 let home = null;
 
 before(() => {
+  // Initialize LoginPage object
   loginPage = new LoginPage();
-  loginPage.visit();
 
+  // Log in via API instead of UI
+  cy.fixture("Users").then((users) => {
+    const user = users[3]; // Use the correct user from fixture
+    cy.loginViaApi(user.username, user.password);
+  });
+
+  // Navigate to the Home Page
   home = loginPage.goToHomePage();
 });
 

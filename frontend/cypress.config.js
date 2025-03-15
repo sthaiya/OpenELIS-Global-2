@@ -32,6 +32,7 @@ module.exports = defineConfig({
     testIsolation: false,
     env: {
       STARTUP_WAIT_MILLISECONDS: 300000,
+      USE_API_LOGIN: true, // Set the API login flag to true here
     },
   },
 });
