@@ -37,7 +37,7 @@ import org.springframework.web.context.WebApplicationContext;
 @WebAppConfiguration
 @TestPropertySource("classpath:common.properties")
 @ActiveProfiles("test")
-public abstract class BaseWebContextSensitiveTest extends AbstractTransactionalJUnit4SpringContextTests{
+public abstract class BaseWebContextSensitiveTest extends AbstractTransactionalJUnit4SpringContextTests {
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -87,7 +87,6 @@ public abstract class BaseWebContextSensitiveTest extends AbstractTransactionalJ
             config.setProperty(DatabaseConfig.FEATURE_ALLOW_EMPTY_FIELDS, true);
             config.setProperty(DatabaseConfig.FEATURE_CASE_SENSITIVE_TABLE_NAMES, true);
             config.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new PostgresqlDataTypeFactory());
-            
 
             inputStream = getClass().getClassLoader().getResourceAsStream(datasetFileName);
 
