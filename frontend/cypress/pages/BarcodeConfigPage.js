@@ -18,10 +18,10 @@ class BarcodeConfigPage {
   }
 
   checkCheckBoxes() {
-    cy.contains("span", "Collection Date and Time").click({force:true});
-    cy.contains("span", "Collected By").click({force:true});
+    cy.contains("span", "Collection Date and Time").click({ force: true });
+    cy.contains("span", "Collected By").click({ force: true });
     cy.contains("span", "Tests").click({ force: true });
-    cy.contains("span", "Patient Sex").click({force:true});
+    cy.contains("span", "Patient Sex").click({ force: true });
     cy.get("#checkBox").check();
   }
 
@@ -37,7 +37,7 @@ class BarcodeConfigPage {
   }
 
   saveChanges() {
-    cy.contains("button","Save").should("be.visible").click();
+    cy.contains("button", "Save").should("be.visible").click();
   }
 }
 
