@@ -6,16 +6,10 @@ let adminPage = null;
 let labNumMgtPage = null;
 
 before(() => {
-  // Initialize LoginPage object
+  // Initialize LoginPage object and navigate to Admin Page
   loginPage = new LoginPage();
+  loginPage.visit();
 
-  // Log in via API instead of UI
-  cy.fixture("Users").then((users) => {
-    const user = users[3]; // Use the correct user from fixture
-    cy.loginViaApi(user.username, user.password);
-  });
-
-  // Navigate to the Home Page and Admin Page
   homePage = loginPage.goToHomePage();
   adminPage = homePage.goToAdminPage();
 });
