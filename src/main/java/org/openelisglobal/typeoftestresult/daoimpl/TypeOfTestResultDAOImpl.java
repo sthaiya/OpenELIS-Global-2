@@ -58,15 +58,14 @@ public class TypeOfTestResultDAOImpl extends BaseDAOImpl<TypeOfTestResult, Strin
             if (!StringUtil.isNullorNill(typeOfTestResult.getId())) {
                 typeOfTestResultId = typeOfTestResult.getId();
             }
-            query.setParameter("param2", typeOfTestResultId);
+            query.setParameter("param2", Integer.parseInt(typeOfTestResultId));
 
             list = query.list();
             return list.size() > 0;
         } catch (RuntimeException e) {
             // bugzilla 2154
             LogEvent.logError(e);
-            e.printStackTrace();
-            throw new LIMSRuntimeException("Error Adarsh in duplicateTypeOfTestResultExists()", e);
+            throw new LIMSRuntimeException("Error in duplicateTypeOfTestResultExists()", e);
         }
     }
 
