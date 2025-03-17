@@ -65,7 +65,8 @@ public class TypeOfTestResultDAOImpl extends BaseDAOImpl<TypeOfTestResult, Strin
         } catch (RuntimeException e) {
             // bugzilla 2154
             LogEvent.logError(e);
-            throw new LIMSRuntimeException("Error in duplicateTypeOfTestResultExists()", e);
+            e.printStackTrace();
+            throw new LIMSRuntimeException("Error Adarsh in duplicateTypeOfTestResultExists()", e);
         }
     }
 
