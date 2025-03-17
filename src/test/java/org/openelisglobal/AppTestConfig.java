@@ -20,8 +20,6 @@ import org.openelisglobal.dataexchange.service.order.ElectronicOrderService;
 import org.openelisglobal.externalconnections.service.BasicAuthenticationDataService;
 import org.openelisglobal.externalconnections.service.ExternalConnectionService;
 import org.openelisglobal.internationalization.MessageUtil;
-import org.openelisglobal.localization.dao.LocalizationDAO;
-import org.openelisglobal.localization.service.LocalizationServiceImpl;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
@@ -93,7 +91,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.sampleorganization", "org.openelisglobal.menu.controller",
         "org.openelisglobal.analyte.daoimpl", "org.openelisglobal.analyte.service", "org.openelisglobal.panel.service",
         "org.openelisglobal.panelitem.dao", "org.openelisglobal.reports.*", "org.openelisglobal.userrole",
-        "org.openelisglobal.unitofmeasure" }, excludeFilters = {
+        "org.openelisglobal.unitofmeasure", "org.openelisglobal.organization", "org.openelisglobal.testtrailer",
+        "org.openelisglobal.scriptlet", "org.openelisglobal.localization.service",
+        "org.openelisglobal.localization.daoimpl" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.provider.controller.*.java"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -145,12 +145,6 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public LocalizationServiceImpl localise() {
-        return mock(LocalizationServiceImpl.class);
-    }
-
-    @Bean()
-    @Profile("test")
     public FhirTransformService fhirTransformService() {
         return mock(FhirTransformService.class);
     }
@@ -177,12 +171,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public TestAnalyteService testAnalyteService() {
         return mock(TestAnalyteService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public LocalizationDAO localiseDao() {
-        return mock(LocalizationDAO.class);
     }
 
     @Bean()
