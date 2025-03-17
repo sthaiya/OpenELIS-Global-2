@@ -15,7 +15,6 @@ import org.openelisglobal.typeoftestresult.service.TypeOfTestResultService;
 import org.openelisglobal.typeoftestresult.service.TypeOfTestResultServiceImpl.ResultType;
 import org.openelisglobal.typeoftestresult.valueholder.TypeOfTestResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
 
@@ -63,14 +62,14 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
         typeOfTestResult.setDescription("Custom Test");
         typeOfTestResult.setTestResultType("X"); // Ensure 'X' is not in the enum or existing data
         typeOfTestResult.setHl7Value("CX");
-        
+
         // Mock the DAO to prevent duplicate check if needed
         // This would require modifying the test setup
-        
+
         String id = typeOfTestResultService.insert(typeOfTestResult);
-        
+
         assertNotNull(id);
-        
+
         TypeOfTestResult savedResult = typeOfTestResultService.get(id);
         assertEquals("Custom Test", savedResult.getDescription());
         assertEquals("X", savedResult.getTestResultType());
@@ -81,15 +80,15 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
     public void update_shouldUpdateTypeOfTestResult() {
         // Get an existing test result type
         TypeOfTestResult typeOfTestResult = typeOfTestResultService.get("1");
-    
+
         String originalId = typeOfTestResult.getId();
         String originalHl7Value = typeOfTestResult.getHl7Value();
-    
+
         // Use a unique description by appending a timestamp
         typeOfTestResult.setDescription("Beta");
         typeOfTestResult.setTestResultType("B");
         typeOfTestResult.setHl7Value("BH");
-        
+
         typeOfTestResultService.update(typeOfTestResult);
 
         TypeOfTestResult updatedResult = typeOfTestResultService.get("1");
@@ -104,12 +103,12 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
         // Try to insert a test result with an existing test_result_type
         TypeOfTestResult existingType = typeOfTestResultService.getTypeOfTestResultByType("N");
         assertNotNull("Test setup issue: Could not find test result type 'N'", existingType);
-        
+
         TypeOfTestResult duplicateType = new TypeOfTestResult();
         duplicateType.setDescription("Duplicate Numeric");
         duplicateType.setTestResultType("N"); // Same as existing
         duplicateType.setHl7Value("NM");
-        
+
         try {
             typeOfTestResultService.insert(duplicateType);
             fail("Expected an exception for duplicate record");
@@ -118,7 +117,8 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
         } catch (LIMSRuntimeException e) {
             // Also accept LIMSRuntimeException as it's what's currently thrown
             // This makes the test pass with the current implementation
-            // But you should fix the service implementation to throw LIMSDuplicateRecordException
+            // But you should fix the service implementation to throw
+            // LIMSDuplicateRecordException
         }
     }
 
@@ -129,10 +129,10 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
         typeOfTestResult.setDescription("Test");
         typeOfTestResult.setTestResultType("Z");
         typeOfTestResult.setHl7Value("TZ");
-    
+
         // Save the entity
         TypeOfTestResult savedResult = typeOfTestResultService.save(typeOfTestResult);
-    
+
         // Verify the result
         assertNotNull(savedResult);
         assertNotNull(savedResult.getId());
@@ -146,13 +146,13 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
         // Try to save a test result with an existing test_result_type
         TypeOfTestResult existingType = typeOfTestResultService.getTypeOfTestResultByType("N");
         assertNotNull("Test setup issue: Could not find test result type 'N'", existingType);
-    
+
         // Create new entity with duplicate test result type
         TypeOfTestResult duplicateType = new TypeOfTestResult();
         duplicateType.setDescription("Duplicate Numeric");
         duplicateType.setTestResultType("N"); // Same as existing
         duplicateType.setHl7Value("NM");
-    
+
         // Assert the exception
         try {
             typeOfTestResultService.save(duplicateType);
@@ -164,19 +164,19 @@ public class TypeOfTestResultServiceTest extends BaseWebContextSensitiveTest {
             // This makes the test pass with the current implementation
         }
     }
-    
+
     @Test
     public void resultTypeEnumMethods_shouldWorkAsExpected() {
         assertTrue(ResultType.isDictionaryVariant("D"));
         assertTrue(ResultType.isDictionaryVariant("M"));
         assertTrue(ResultType.isDictionaryVariant("C"));
-        
+
         assertTrue(ResultType.isMultiSelectVariant("M"));
         assertTrue(ResultType.isMultiSelectVariant("C"));
-        
+
         assertTrue(ResultType.isTextOnlyVariant("A"));
         assertTrue(ResultType.isTextOnlyVariant("R"));
-        
+
         assertTrue(ResultType.isNumeric("N"));
     }
 }
