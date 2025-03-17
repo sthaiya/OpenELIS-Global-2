@@ -92,6 +92,7 @@ public class LocalizationServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void getCurrentLocale_shouldReturnCorrectLocale() {
+        Locale.setDefault(Locale.US);
         Locale currentLocale = localizationService.getCurrentLocale();
         assertNotNull("Current locale should not be null", currentLocale);
         assertEquals("Locale should be en_US", Locale.US, currentLocale);
