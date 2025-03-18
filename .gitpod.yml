@@ -24,9 +24,6 @@ tasks:
       cd ..
     command: |
       docker-compose -f dev.docker-compose.yml up -d
-
-vscode:
-  extensions: ['redhat.java' ,'vscjava.vscode-java-pack']
  
 
 
