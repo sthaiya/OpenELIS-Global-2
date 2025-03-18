@@ -13,7 +13,8 @@ tasks:
 
   Buld_And_Run:
     name: "Build the Dependencies and Run the docker containers"
-    dependsOn: ['Java_Setup']
+    dependsOn: 
+      - Java_Setup
     init: |
       cd dataexport
       mvn clean install
