@@ -5,12 +5,10 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
-  - name: "Install Java 21 and set as default"
-    init: |
+  - name: "Install Java 21 ,Build the Dependencies and Run the docker containers"
+    before: |
       sdk install java 21.0.2-tem
       sdk default java 21.0.2-tem
-
-  - name: "Build the Dependencies and Run the docker containers"
     init: |
       cd dataexport
       mvn clean install
@@ -21,7 +19,6 @@ tasks:
       cd ..
     command: |
       docker-compose -f dev.docker-compose.yml up -d
-    dependsOn: ['Install Java 21 and set as default']
  
 
 
