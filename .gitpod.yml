@@ -11,8 +11,7 @@ tasks:
       sdk default java 21.0.2-tem
 
   - name: "Build the Dependencies and Run the docker containers"
-    dependsOn:
-      - "Install Java 21 and set as default"
+    dependsOn: ["Install Java 21 and set as default"]
 #     init: |
 #       cd dataexport
 #       mvn clean install
