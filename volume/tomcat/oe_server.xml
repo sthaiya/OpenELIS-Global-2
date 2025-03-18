@@ -34,7 +34,7 @@
      <!-- Global JNDI resources
        Documentation at /docs/jndi-resources-howto.html
   -->
-     <GlobalNamingResources> 
+     <GlobalNamingResources>
           <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
     -->
