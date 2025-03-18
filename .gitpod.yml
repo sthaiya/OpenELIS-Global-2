@@ -13,7 +13,7 @@ tasks:
   - name: Build the Dependencies and Start the docker containers
     depends_on:
       - Install Java 21 and set as default
-    init:  mvn clean install && cd frontend && npm install && cd ..
+    init:  cd dataexport && mvn clean install && cd .. && mvn celan install -DskipTests && cd frontend && npm install && cd ..
     command:  docker-compose -f dev.docker-compose.yml up -d   
 
 vscode:
