@@ -5,6 +5,15 @@
 # Learn more from ready-to-use templates: https://www.gitpod.io/docs/introduction/getting-started/quickstart
 
 tasks:
+  - name: Install Java 21
+    init: sdk install java 21.0.2-tem
+
+vscode:
+  extensions:
+    - redhat.java
+    - vscjava.vscode-java-pack
+
+tasks:
   - name: Build the Dependencies and Start the docker containers
     init:  mvn clean install && cd frontend && npm install && cd ..
     command:  docker-compose -f dev.docker-compose.yml up -d    
