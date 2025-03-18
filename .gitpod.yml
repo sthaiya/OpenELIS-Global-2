@@ -21,8 +21,8 @@ tasks:
       cd ..
     command: |
       docker-compose -f dev.docker-compose.yml up -d
-    dependsOn: 
-      - "Install Java 21 and set as default"
+    # dependsOn: 
+    #   - "Install Java 21 and set as default"
  
 
 
