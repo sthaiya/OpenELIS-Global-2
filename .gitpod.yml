@@ -15,7 +15,8 @@ tasks:
       - Install Java 21 and set as default
     init: |
       cd dataexport && mvn clean install && cd .. && mvn celan install -DskipTests && cd frontend && npm install && cd ..
-    command:  docker-compose -f dev.docker-compose.yml up -d   
+    command:  |
+      docker-compose -f dev.docker-compose.yml up -d   
 
 vscode:
   extensions:
