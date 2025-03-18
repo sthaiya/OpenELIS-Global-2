@@ -9,7 +9,7 @@ tasks:
     before: |
       export SDKMAN_AUTO_ACCEPT=true
       sdk install java 21.0.2-tem
-      sdk default java 21.0.2-tem
+      yes | sdk default java 21.0.2-tem
     init: |
       cd dataexport
       mvn clean install
