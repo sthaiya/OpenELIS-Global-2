@@ -8,7 +8,7 @@ tasks:
   - name: "Install Java 21 ,Build the Dependencies and Run the docker containers"
     before: |
       sdk install java 21.0.2-tem
-      sdk default java 21.0.2-tem -y
+      sdk default java 21.0.2-tem y
     init: |
       cd dataexport
       mvn clean install
