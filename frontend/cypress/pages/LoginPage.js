@@ -2,102 +2,85 @@ import HomePage from "./HomePage";
 import TestProperties from "../common/TestProperties";
 
 class LoginPage {
-  // Centralized selectors
-  selectors = {
-    username: "#loginName",
-    password: "#password",
-    loginButton: "[data-cy='loginButton']",
-    userIcon: "#user-Icon",
-    logoutButton: "[data-cy='logOut']",
-    changePasswordButton: "[data-cy='changePassword']",
-    currentPassword: "#current-password",
-    newPassword: "#new-password",
-    repeatNewPassword: "#repeat-new-password",
-    submitNewPasswordButton: "[data-cy='submitNewPassword']",
-    exitPasswordResetButton: "[data-cy='exitPasswordReset']",
-  };
-
   testProperties = new TestProperties();
 
   visit() {
     cy.visit("/login");
   }
 
-  // Getter methods for elements
   getUsernameElement() {
-    return cy.get(this.selectors.username);
+    return cy.get("#loginName");
   }
 
   getPasswordElement() {
-    return cy.get(this.selectors.password);
+    return cy.get("#password");
   }
 
-  // Helper method to type into a field
-  typeIntoField(selector, value) {
-    cy.get(selector).should("be.visible").clear().type(value);
-  }
-
-  // Helper method to click a button
-  clickButton(selector) {
-    cy.get(selector).should("be.visible").click();
-  }
-
-  // Enter username
   enterUsername(value) {
-    this.typeIntoField(this.selectors.username, value);
+    this.getUsernameElement().should("be.visible");
+    this.getUsernameElement().type(value);
   }
 
-  // Enter password
   enterPassword(value) {
-    this.typeIntoField(this.selectors.password, value);
+    this.getPasswordElement().should("be.visible");
+    this.getPasswordElement().type(value);
   }
 
-  // Click the login button
   signIn() {
-    this.clickButton(this.selectors.loginButton);
+    cy.get("[data-cy='loginButton']").should("be.visible");
+    cy.get("[data-cy='loginButton']").click();
   }
 
-  // Sign out
   signOut() {
-    this.clickButton(this.selectors.userIcon);
-    this.clickButton(this.selectors.logoutButton);
+    cy.get("#user-Icon").should("be.visible");
+    cy.get("#user-Icon").click();
+    cy.wait(200);
+    cy.get("[data-cy='logOut']").should("be.visible");
+    cy.get("[data-cy='logOut']").click();
+    cy.wait(1000);
   }
 
-  // Change password flow
   changingPassword() {
-    this.clickButton(this.selectors.changePasswordButton);
+    cy.get("[data-cy='changePassword']").click();
+    cy.wait(500);
   }
 
   enterCurrentPassword(value) {
-    this.typeIntoField(this.selectors.currentPassword, value);
+    cy.get("#current-password").should("be.visible");
+    cy.get("#current-password").type(value);
   }
 
   enterNewPassword(value) {
-    this.typeIntoField(this.selectors.newPassword, value);
+    cy.get("#new-password").should("be.visible");
+    cy.get("#new-password").type(value);
   }
 
   repeatNewPassword(value) {
-    this.typeIntoField(this.selectors.repeatNewPassword, value);
+    cy.get("#repeat-new-password").should("be.visible");
+    cy.get("#repeat-new-password").type(value);
   }
 
   submitNewPassword() {
-    this.clickButton(this.selectors.submitNewPasswordButton);
+    cy.get("[data-cy='submitNewPassword']").should("be.visible");
+    cy.get("[data-cy='submitNewPassword']").click();
+    cy.wait(800);
   }
 
   clickExitPasswordReset() {
-    this.clickButton(this.selectors.exitPasswordResetButton);
+    cy.get("[data-cy='exitPasswordReset']").should("be.visible");
+    cy.get("[data-cy='exitPasswordReset']").click();
+    cy.wait(800);
   }
-
-  // Clear username and password inputs
   clearInputs() {
     this.getUsernameElement().clear();
     this.getPasswordElement().clear();
   }
 
-  // Navigate to the home page
   goToHomePage() {
+    cy.wait(1000);
     cy.url().then((url) => {
       if (url.includes("/login")) {
+        cy.contains("button", "Login", { timeout: 10000 }).should("be.visible");
         this.enterUsername(this.testProperties.getUsername());
         this.enterPassword(this.testProperties.getPassword());
         this.signIn();

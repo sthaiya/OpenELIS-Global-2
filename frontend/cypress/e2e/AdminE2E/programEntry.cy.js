@@ -8,8 +8,14 @@ let programEntry = null;
 // Test data: programs and their associated tests
 const programs = [
   { name: "Routine Testing", test: "Biochemistry" },
-  { name: "People living with HIV Program - Initial Visit", test: "Hematology" },
-  { name: "People living with HIV Program - Follow-up Visit", test: "Serology-Immunology" },
+  {
+    name: "People living with HIV Program - Initial Visit",
+    test: "Hematology",
+  },
+  {
+    name: "People living with HIV Program - Follow-up Visit",
+    test: "Serology-Immunology",
+  },
   { name: "Cytology", test: null }, // No test selection needed
   { name: "Immunohistochemistry", test: null }, // No test selection needed
   { name: "Histopathology", test: null }, // No test selection needed
@@ -24,13 +30,13 @@ const navigateToProgramEntry = () => {
   programEntry = adminPage.goToProgramEntry();
   programEntry.verifyPageLoads();
 };
-before(()=>{
-    navigateToProgramEntry();
+before(() => {
+  navigateToProgramEntry();
 });
 
 afterEach(() => {
-    cy.wait(5000);
-    cy.reload();
+  cy.wait(5000);
+  cy.reload();
 });
 
 describe("Selects various Programs", () => {
