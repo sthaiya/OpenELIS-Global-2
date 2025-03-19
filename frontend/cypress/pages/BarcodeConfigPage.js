@@ -1,43 +1,127 @@
 class BarcodeConfigPage {
-  constructor() {}
-
-  captureDefaultOrder() {
-    cy.get("#order").clear().type("2");
+  constructor() {
+    this.selectors = {
+      order: "#order",
+      specimen: "#specimen",
+      maxOrder: "#maxOrder",
+      maxSpecimen: "#maxSpecimen",
+      collectionDateCheck: "#collectionDateCheck",
+      collectedBy: "#collectedBy",
+      tests: "#tests",
+      patientsexfull: "#patientsexfull",
+      checkBox: "#checkBox",
+      heightOrder: "#height-order",
+      heightSpecimen: "#height-specimen",
+      widthOrder: "#width-order",
+      widthSpecimen: "#width-specimen",
+      heightBlock: "#height-block",
+      heightSlide: "#height-slide",
+      widthBlock: "#width-block",
+      widthSlide: "#width-slide",
+      saveButton: "button:contains('Save')",
+    };
   }
 
-  captureDefaultSpecimen() {
-    cy.get("#specimen").clear().type("1");
+  /**
+   * Sets the default order value.
+   * @param {string} value - The value to set for the default order (default: "2").
+   */
+  captureDefaultOrder(value = "2") {
+    cy.log(`Setting default order to ${value}`);
+    cy.get(this.selectors.order).clear().type(value);
   }
 
-  captureMaxOrder() {
-    cy.get("#maxOrder").clear().type("10");
+  /**
+   * Sets the default specimen value.
+   * @param {string} value - The value to set for the default specimen (default: "1").
+   */
+  captureDefaultSpecimen(value = "1") {
+    cy.log(`Setting default specimen to ${value}`);
+    cy.get(this.selectors.specimen).clear().type(value);
   }
 
-  captureMaxSpecimen() {
-    cy.get("#maxSpecimen").clear().type("1");
+  /**
+   * Sets the max order value.
+   * @param {string} value - The value to set for the max order (default: "10").
+   */
+  captureMaxOrder(value = "10") {
+    cy.log(`Setting max order to ${value}`);
+    cy.get(this.selectors.maxOrder).clear().type(value);
   }
 
+  /**
+   * Sets the max specimen value.
+   * @param {string} value - The value to set for the max specimen (default: "1").
+   */
+  captureMaxSpecimen(value = "1") {
+    cy.log(`Setting max specimen to ${value}`);
+    cy.get(this.selectors.maxSpecimen).clear().type(value);
+  }
+
+  /**
+   * Toggles a checkbox.
+   * @param {string} selector - The selector for the checkbox.
+   * @param {boolean} check - Whether to check (true) or uncheck (false) the checkbox.
+   */
+  toggleCheckbox(selector, check = true) {
+    const action = check ? "check" : "uncheck";
+    cy.log(
+      `${action === "check" ? "Checking" : "Unchecking"} checkbox: ${selector}`,
+    );
+    cy.get(selector)
+      [action]({ force: true })
+      .should(check ? "be.checked" : "not.be.checked");
+  }
+
+  /**
+   * Checks all checkboxes.
+   */
   checkCheckBoxes() {
-    cy.contains("span", "Collection Date and Time").click({ force: true });
-    cy.contains("span", "Collected By").click({ force: true });
-    cy.contains("span", "Tests").click({ force: true });
-    cy.contains("span", "Patient Sex").click({ force: true });
-    cy.get("#checkBox").check();
+    this.toggleCheckbox(this.selectors.collectionDateCheck, true);
+    this.toggleCheckbox(this.selectors.collectedBy, true);
+    this.toggleCheckbox(this.selectors.tests, true);
+    this.toggleCheckbox(this.selectors.patientsexfull, true);
+    this.toggleCheckbox(this.selectors.checkBox, true);
   }
 
+  /**
+   * Unchecks all checkboxes.
+   */
+  uncheckCheckBoxes() {
+    this.toggleCheckbox(this.selectors.collectionDateCheck, false);
+    this.toggleCheckbox(this.selectors.collectedBy, false);
+    this.toggleCheckbox(this.selectors.tests, false);
+    this.toggleCheckbox(this.selectors.patientsexfull, false);
+    this.toggleCheckbox(this.selectors.checkBox, false);
+  }
+
+  /**
+   * Sets dimensions for barcode labels.
+   */
   dimensionsBarCodeLabel() {
-    cy.get("#height-order").clear().type("25.4");
-    cy.get("#height-specimen").clear().type("25.4");
-    cy.get("#width-order").clear().type("76.2");
-    cy.get("#width-specimen").clear().type("76.2");
-    cy.get("#height-block").clear().type("25.4");
-    cy.get("#height-slide").clear().type("25.4");
-    cy.get("#width-block").clear().type("76.4");
-    cy.get("#width-slide").clear().type("76.4");
+    cy.get(this.selectors.heightOrder).clear().type("25.4");
+    cy.get(this.selectors.heightSpecimen).clear().type("25.4");
+    cy.get(this.selectors.widthOrder).clear().type("76.2");
+    cy.get(this.selectors.widthSpecimen).clear().type("76.2");
+    cy.get(this.selectors.heightBlock).clear().type("25.4");
+    cy.get(this.selectors.heightSlide).clear().type("25.4");
+    cy.get(this.selectors.widthBlock).clear().type("76.4");
+    cy.get(this.selectors.widthSlide).clear().type("76.4");
   }
 
+  /**
+   * Saves changes by clicking the Save button.
+   */
   saveChanges() {
-    cy.contains("button", "Save").should("be.visible").click();
+    cy.log("Saving changes");
+    cy.get(this.selectors.saveButton).should("be.visible").click();
+  }
+
+  /**
+   * Verifies that changes were saved successfully.
+   */
+  verifySaveSuccess() {
+    cy.contains("Changes saved successfully").should("be.visible");
   }
 }
 

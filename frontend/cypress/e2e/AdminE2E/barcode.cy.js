@@ -30,7 +30,7 @@ describe("Barcode configuration", function () {
   });
 
   it("User unchecks Optional Elements and Preprinted Bar Code Accession number", function () {
-    barcodePage.checkCheckBoxes();
+    barcodePage.uncheckCheckBoxes();
   });
 
   it("User adjusts Dimensions Bar Code Label", function () {
