@@ -121,7 +121,7 @@ class BarcodeConfigPage {
    * Verifies that changes were saved successfully.
    */
   verifySaveSuccess() {
-    cy.contains("Changes saved successfully").should("be.visible");
+    cy.contains("BarCode Configurations has been saved").should("be.visible");
   }
 }
 
