@@ -1,6 +1,7 @@
 //This handles all pages of the admin
 import LabNumberManagementPage from "./LabNumberManagementPage";
 import GlobalMenuConfigPage from "./GlobalMenuConfigPage";
+import ProgramEntryPage from "./ProgramEntryPage";
 
 class AdminPage {
   constructor() {}
@@ -32,6 +33,13 @@ class AdminPage {
     cy.contains("Global Menu Management").should("be.visible");
 
     return new GlobalMenuConfigPage();
+  }
+
+  goToProgramEntry() {
+    cy.get("[data-cy='programEntry']").should("be.visible");
+    cy.get("[data-cy='programEntry']").click();
+
+    return new ProgramEntryPage();
   }
 }
 
