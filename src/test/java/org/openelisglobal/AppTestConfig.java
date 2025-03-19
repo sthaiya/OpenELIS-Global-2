@@ -42,7 +42,6 @@ import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 import org.openelisglobal.test.dao.TestDAO;
 import org.openelisglobal.test.service.TestSectionService;
 import org.openelisglobal.test.service.TestServiceImpl;
-import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleTestService;
@@ -95,7 +94,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization.service",
         "org.openelisglobal.localization.daoimpl", "org.openelisglobal.typeoftestresult",
         "org.openelisglobal.systemuser", "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary",
-        "org.openelisglobal.dictionarycategory", }, excludeFilters = {
+        "org.openelisglobal.dictionarycategory", "org.openelisglobal.testanalyte" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.provider.controller.*.java"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
@@ -167,12 +166,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public SystemUserSectionService stemUserSectionService() {
         return mock(SystemUserSectionService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public TestAnalyteService testAnalyteService() {
-        return mock(TestAnalyteService.class);
     }
 
     @Bean()
