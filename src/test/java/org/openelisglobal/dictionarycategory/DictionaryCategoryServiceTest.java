@@ -47,12 +47,15 @@ public class DictionaryCategoryServiceTest extends BaseWebContextSensitiveTest {
         dictionaryCategory.setDescription("New Test Category");
         dictionaryCategory.setLocalAbbreviation("NEW");
 
+        assertEquals(3, dictionaryCategoryService.getAll().size());
+
         String inserted = dictionaryCategoryService.insert(dictionaryCategory);
         DictionaryCategory insertedCategory = dictionaryCategoryService.get(inserted);
 
         assertEquals("NEW", insertedCategory.getLocalAbbreviation());
         assertEquals("New Test Category", insertedCategory.getDescription());
         assertEquals("NEW_CATEGORY", insertedCategory.getCategoryName());
+        assertEquals(4, dictionaryCategoryService.getAll().size());
     }
 
     @Test
