@@ -23,7 +23,6 @@ import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
-import org.openelisglobal.observationhistorytype.service.ObservationHistoryTypeService;
 import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.referral.service.ReferralResultService;
 import org.openelisglobal.referral.service.ReferralService;
@@ -76,8 +75,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.panel", "org.openelisglobal.panelitem", "org.openelisglobal.reports",
         "org.openelisglobal.userrole", "org.openelisglobal.unitofmeasure", "org.openelisglobal.testtrailer",
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
-        "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary",
-        "org.openelisglobal.dictionarycategory", }, excludeFilters = {
+        "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
+        "org.openelisglobal.observationhistorytype" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -204,12 +203,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public AnalysisNotificationConfigService analysisNotificationConfigService() {
         return mock(AnalysisNotificationConfigService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public ObservationHistoryTypeService observationHistoryTypeService() {
-        return mock(ObservationHistoryTypeService.class);
     }
 
     @Bean()
