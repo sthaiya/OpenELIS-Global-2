@@ -63,67 +63,100 @@ class HomePage {
 
   // Navigate to the Order Entry page
   goToOrderPage() {
-    this.clickDropdownItem(this.selectors.sampleDropdown, "#menu_sample_add_nav");
+    this.clickDropdownItem(
+      this.selectors.sampleDropdown,
+      "#menu_sample_add_nav",
+    );
     return new OrderEntityPage();
   }
 
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
-    this.clickDropdownItem(this.selectors.sampleDropdown, "#menu_sample_batch_entry_nav");
+    this.clickDropdownItem(
+      this.selectors.sampleDropdown,
+      "#menu_sample_batch_entry_nav",
+    );
     return new BatchOrderEntry();
   }
 
   // Navigate to the Patient Entry page
   goToPatientEntry() {
-    this.clickDropdownItem(this.selectors.patientDropdown, "#menu_patient_add_or_edit_nav");
+    this.clickDropdownItem(
+      this.selectors.patientDropdown,
+      "#menu_patient_add_or_edit_nav",
+    );
     return new PatientEntryPage();
   }
 
   // Navigate to the Modify Order page
   goToModifyOrderPage() {
-    this.clickDropdownItem(this.selectors.sampleDropdown, "#menu_sample_edit_nav");
+    this.clickDropdownItem(
+      this.selectors.sampleDropdown,
+      "#menu_sample_edit_nav",
+    );
     return new ModifyOrderPage();
   }
 
   // Navigate to the Work Plan by Test page
   goToWorkPlanPlanByTest() {
-    this.clickDropdownItem(this.selectors.workplanDropdown, "#menu_workplan_test_nav");
+    this.clickDropdownItem(
+      this.selectors.workplanDropdown,
+      "#menu_workplan_test_nav",
+    );
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Panel page
   goToWorkPlanPlanByPanel() {
-    this.clickDropdownItem(this.selectors.workplanDropdown, "#menu_workplan_panel_nav");
+    this.clickDropdownItem(
+      this.selectors.workplanDropdown,
+      "#menu_workplan_panel_nav",
+    );
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Unit page
   goToWorkPlanPlanByUnit() {
-    this.clickDropdownItem(this.selectors.workplanDropdown, "#menu_workplan_bench_nav");
+    this.clickDropdownItem(
+      this.selectors.workplanDropdown,
+      "#menu_workplan_bench_nav",
+    );
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Priority page
   goToWorkPlanPlanByPriority() {
-    this.clickDropdownItem(this.selectors.workplanDropdown, "#menu_workplan_priority_nav");
+    this.clickDropdownItem(
+      this.selectors.workplanDropdown,
+      "#menu_workplan_priority_nav",
+    );
     return new WorkPlan();
   }
 
   // Navigate to the Non-Conforming Report page
   goToReportNCE() {
-    this.clickDropdownItem(this.selectors.nonconformityDropdown, "#menu_non_conforming_report_nav");
+    this.clickDropdownItem(
+      this.selectors.nonconformityDropdown,
+      "#menu_non_conforming_report_nav",
+    );
     return new NonConform();
   }
 
   // Navigate to the View Non-Conforming Events page
   goToViewNCE() {
-    this.clickDropdownItem(this.selectors.nonconformityDropdown, "#menu_non_conforming_view_nav");
+    this.clickDropdownItem(
+      this.selectors.nonconformityDropdown,
+      "#menu_non_conforming_view_nav",
+    );
     return new NonConform();
   }
 
   // Navigate to the Corrective Actions page
   goToCorrectiveActions() {
-    this.clickDropdownItem(this.selectors.nonconformityDropdown, "#menu_non_conforming_corrective_actions_nav");
+    this.clickDropdownItem(
+      this.selectors.nonconformityDropdown,
+      "#menu_non_conforming_corrective_actions_nav",
+    );
     return new NonConform();
   }
 
@@ -135,7 +168,10 @@ class HomePage {
 
   // Navigate to the Results by Order page
   goToResultsByOrder() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_accession");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      "#menu_results_accession",
+    );
     return new Result();
   }
 
@@ -147,7 +183,10 @@ class HomePage {
 
   // Navigate to the Results for Referred Out page
   goToResultsForRefferedOut() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_referred");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      "#menu_results_referred",
+    );
     return new Result();
   }
 
@@ -165,31 +204,46 @@ class HomePage {
 
   // Navigate to the Validation by Routine page
   goToValidationByRoutine() {
-    this.clickDropdownItem(this.selectors.resultValidationMenu, "#menu_resultvalidation_routine");
+    this.clickDropdownItem(
+      this.selectors.resultValidationMenu,
+      "#menu_resultvalidation_routine",
+    );
     return new Validation();
   }
 
   // Navigate to the Validation by Order page
   goToValidationByOrder() {
-    this.clickDropdownItem(this.selectors.resultValidationMenu, "#menu_accession_validation");
+    this.clickDropdownItem(
+      this.selectors.resultValidationMenu,
+      "#menu_accession_validation",
+    );
     return new Validation();
   }
 
   // Navigate to the Validation by Range Order page
   goToValidationByRangeOrder() {
-    this.clickDropdownItem(this.selectors.resultValidationMenu, "#menu_accession_validation_range");
+    this.clickDropdownItem(
+      this.selectors.resultValidationMenu,
+      "#menu_accession_validation_range",
+    );
     return new Validation();
   }
 
   // Navigate to the Routine Reports page
   goToRoutineReports() {
-    this.clickDropdownItem(this.selectors.reportsMenu, "#menu_reports_routine_nav");
+    this.clickDropdownItem(
+      this.selectors.reportsMenu,
+      "#menu_reports_routine_nav",
+    );
     return new RoutineReportPage();
   }
 
   // Navigate to the Study Reports page
   goToStudyReports() {
-    this.clickDropdownItem(this.selectors.reportsMenu, "#menu_reports_study_nav");
+    this.clickDropdownItem(
+      this.selectors.reportsMenu,
+      "#menu_reports_study_nav",
+    );
     return new StudyReportPage();
   }
 

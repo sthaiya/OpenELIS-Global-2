@@ -314,7 +314,7 @@ function ProgramManagement() {
               <br></br>
             </Column>
             <Column lg={3}>
-              <Button id="submitProgram" type="submit">
+              <Button type="submit">
                 <FormattedMessage id="label.button.submit" />
                 {isSubmitting && <Loading small={true} />}
               </Button>

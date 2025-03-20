@@ -134,11 +134,7 @@ function Admin() {
           >
             <FormattedMessage id="sidenav.label.admin.labNumber" />
           </SideNavLink>
-          <SideNavLink
-            data-cy="programEntry"
-            renderIcon={ChartBubble}
-            href="#program"
-          >
+          <SideNavLink renderIcon={ChartBubble} href="#program">
             <FormattedMessage id="sidenav.label.admin.program" />
           </SideNavLink>
           <SideNavLink renderIcon={CicsSystemGroup} href="#providerMenu">
