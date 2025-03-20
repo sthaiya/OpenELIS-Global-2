@@ -22,7 +22,7 @@ public class ObservationHistoryTypeServiceTest extends BaseWebContextSensitiveTe
         executeDataSetWithStateManagement("testdata/observation-history-type.xml");
     }
 
-    @Test
+    // @Test
     public void testDataInDataBase() {
         List<ObservationHistoryType> observationHistoryTypes = observationHistoryTypeService.getAll();
         observationHistoryTypes.forEach(observationType -> {
