@@ -141,7 +141,11 @@ function Admin() {
           >
             <FormattedMessage id="sidenav.label.admin.program" />
           </SideNavLink>
-          <SideNavLink renderIcon={CicsSystemGroup} href="#providerMenu">
+          <SideNavLink
+            data-cy="providerMgmnt"
+            renderIcon={CicsSystemGroup}
+            href="#providerMenu"
+          >
             <FormattedMessage id="provider.browse.title" />
           </SideNavLink>
           <SideNavLink renderIcon={QrCode} href="#barcodeConfiguration">
