@@ -3,13 +3,14 @@ import LabNumberManagementPage from "./LabNumberManagementPage";
 import GlobalMenuConfigPage from "./GlobalMenuConfigPage";
 import BarcodeConfigPage from "./BarcodeConfigPage";
 
+
 class AdminPage {
   constructor() {}
 
   visit() {
     cy.visit("/administration"); //need to confirm this
   }
-
+  
   //lab number management
   goToLabNumberManagementPage() {
     cy.get("[data-cy='labNumberMgmnt']").should("be.visible");

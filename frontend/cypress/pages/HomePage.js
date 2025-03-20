@@ -88,21 +88,21 @@ class HomePage {
 
   goToReportNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_report_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_report").click();
     return new NonConform();
   }
 
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_view_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_view").click();
     return new NonConform();
   }
   goToCorrectiveActions() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown").click();
-    cy.get("#menu_non_conforming_corrective_actions_nav").click();
+    cy.get("#menu_nonconformity").click();
+    cy.get("#menu_non_conforming_corrective_actions").click();
     return new NonConform();
   }
 
@@ -116,7 +116,7 @@ class HomePage {
   goToResultsByOrder() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results").click();
+    cy.get("#menu_results").click({ force: open });
     cy.get("#menu_results_accession").click();
     return new Result();
   }
@@ -124,14 +124,15 @@ class HomePage {
   goToResultsByPatient() {
     this.openNavigationMenu();
     cy.get("#menu_results_dropdown").click();
-    cy.get("#menu_results_patient").click();
+    cy.get("#menu_results_patient_nav").click({ force: true });
+
     return new Result();
   }
 
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
     cy.wait(1200);
-    cy.get("#menu_results").click({ force: true });
+    cy.get("#menu_results_dropdown").click();
     cy.get("#menu_results_referred ").click();
     return new Result();
   }
