@@ -31,7 +31,6 @@ import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
-import org.openelisglobal.statusofsample.service.StatusOfSampleService;
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 import org.openelisglobal.test.dao.TestDAO;
 import org.openelisglobal.test.service.TestSectionService;
@@ -76,7 +75,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.userrole", "org.openelisglobal.unitofmeasure", "org.openelisglobal.testtrailer",
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
-        "org.openelisglobal.observationhistorytype" }, excludeFilters = {
+        "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -316,12 +315,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("Test")
     public RequesterTypeService RequesterTypeService() {
         return mock(RequesterTypeService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public StatusOfSampleService statusOfSampleService() {
-        return mock(StatusOfSampleService.class);
     }
 
     @Bean()
