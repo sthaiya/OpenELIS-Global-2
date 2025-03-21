@@ -2,17 +2,18 @@
 <dataset>
     <!-- ObservationHistoryType data -->
     <observation_history_type id="1"
-        type_name="EDUCATION_LEVEL" description="Patient's education level"
+        type_name="initialSampleCondition"
+        description="Patient's education level"
         lastupdated="2023-11-01 12:00:00" />
     <observation_history_type id="2"
-        type_name="MARITAL_STATUS" description="Patient's marital status"
+        type_name="paymentStatus" description="Patient's marital status"
         lastupdated="2023-11-01 12:00:00" />
     <observation_history_type id="3"
-        type_name="OCCUPATION" description="Patient's occupation"
+        type_name="requestDate" description="Patient's occupation"
         lastupdated="2023-11-01 12:00:00" />
     <!-- New ObservationHistoryType entry -->
     <observation_history_type id="4"
-        type_name="SMOKING_STATUS" description="Patient's smoking habits"
+        type_name="nextVisitDate" description="Patient's smoking habits"
         lastupdated="2023-11-01 12:00:00" />
 
     <!-- Sample data -->
@@ -91,12 +92,12 @@
 
     <!-- ObservationHistory data -->
     <observation_history id="1" patient_id="1"
-        sample_id="1" observation_history_type_id="1" value_type="TEXT"
+        sample_id="1" observation_history_type_id="1" value_type="L"
         value="University" lastupdated="2023-11-01 12:00:02" />
     <observation_history id="2" patient_id="2"
-        sample_id="2" observation_history_type_id="2" value_type="TEXT"
+        sample_id="2" observation_history_type_id="2" value_type="L"
         value="Married" lastupdated="2023-11-01 12:00:02" />
     <observation_history id="3" patient_id="3"
-        sample_id="3" observation_history_type_id="3" value_type="TEXT"
+        sample_id="3" observation_history_type_id="3" value_type="L"
         value="Engineer" lastupdated="2023-11-01 12:00:02" />
 </dataset>

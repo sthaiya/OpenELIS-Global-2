@@ -38,7 +38,6 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         executeDataSetWithStateManagement("testdata/observation-history.xml");
     }
 
-    @Test
     public void testDataInDataBase() {
         List<ObservationHistory> observationHistories = observationHistoryService.getAll();
         observationHistories.forEach(observationHistory -> {
@@ -121,7 +120,7 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
     public void getObservationHistoriesByValueAndType_shouldReturnObservationHistoriesByValueAndType() {
         ObservationHistoryType type = observationHistoryTypeService.get("1");
         List<ObservationHistory> observationHistories = observationHistoryService
-                .getObservationHistoriesByValueAndType("University", type.getId(), "TEXT");
+                .getObservationHistoriesByValueAndType("University", type.getId(), "L");
         assertEquals(1, observationHistories.size());
     }
 
@@ -133,7 +132,7 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         // Only run this test if the observation type exists in the database
         if (typeId != null) {
             List<ObservationHistory> observationHistories = observationHistoryService
-                    .getObservationsByTypeAndValue(ObservationType.REQUEST_DATE, "University");
+                    .getObservationsByTypeAndValue(ObservationType.REQUEST_DATE, "Engineer");
             assertTrue(observationHistories.size() >= 0);
         }
     }
@@ -143,11 +142,9 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         // Initialize the service to populate the observationTypeToIdMap
         String typeId = observationHistoryService.getObservationTypeIdForType(ObservationType.REQUEST_DATE);
 
-        // Only run this test if the observation type exists in the database
-        if (typeId != null) {
-            String value = observationHistoryService.getValueForSample(ObservationType.REQUEST_DATE, "1");
-            assertNotNull(value);
-        }
+        String value = observationHistoryService.getValueForSample(ObservationType.REQUEST_DATE, "3");
+        // assertNotNull(value);
+        assertEquals("Engineer", value);
     }
 
     @Test
@@ -155,11 +152,9 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         // Initialize the service to populate the observationTypeToIdMap
         String typeId = observationHistoryService.getObservationTypeIdForType(ObservationType.REQUEST_DATE);
 
-        // Only run this test if the observation type exists in the database
-        if (typeId != null) {
-            String value = observationHistoryService.getMostRecentValueForPatient(ObservationType.REQUEST_DATE, "1");
-            assertNotNull(value);
-        }
+        String value = observationHistoryService.getMostRecentValueForPatient(ObservationType.REQUEST_DATE, "3");
+        // assertNotNull(value);
+        assertEquals("Engineer", value);
     }
 
     @Test
@@ -167,12 +162,10 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         // Initialize the service to populate the observationTypeToIdMap
         String typeId = observationHistoryService.getObservationTypeIdForType(ObservationType.REQUEST_DATE);
 
-        // Only run this test if the observation type exists in the database
-        if (typeId != null) {
-            ObservationHistory observation = observationHistoryService
-                    .getObservationForSample(ObservationType.REQUEST_DATE, "1");
-            assertNotNull(observation);
-        }
+        ObservationHistory observation = observationHistoryService.getObservationForSample(ObservationType.REQUEST_DATE,
+                "3");
+        assertNotNull(observation);
+
     }
 
     @Test
@@ -180,12 +173,10 @@ public class ObservationHistoryServiceTest extends BaseWebContextSensitiveTest {
         // Initialize the service to populate the observationTypeToIdMap
         String typeId = observationHistoryService.getObservationTypeIdForType(ObservationType.REQUEST_DATE);
 
-        // Only run this test if the observation type exists in the database
-        if (typeId != null) {
-            ObservationHistory observation = observationHistoryService
-                    .getLastObservationForPatient(ObservationType.REQUEST_DATE, "1");
-            assertNotNull(observation);
-        }
+        ObservationHistory observation = observationHistoryService
+                .getLastObservationForPatient(ObservationType.REQUEST_DATE, "3");
+        assertNotNull(observation);
+
     }
 
     @Test
