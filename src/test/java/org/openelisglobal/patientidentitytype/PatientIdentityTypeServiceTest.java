@@ -31,16 +31,16 @@ public class PatientIdentityTypeServiceTest extends BaseWebContextSensitiveTest 
 
     @Test
     public void get_shouldReturnPatientIdentityType() {
-        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("1");
-        assertEquals("104", patientIdentityType.getIdentityType());
-        assertEquals("National Identification Number", patientIdentityType.getDescription());
+        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("9");
+        assertEquals("NATIONAL", patientIdentityType.getIdentityType());
+        assertEquals("Patient ID Number", patientIdentityType.getDescription());
     }
 
     @Test
     public void getNamedIdentityType_shouldReturnNamedIdentityType() {
-        PatientIdentityType patientIdentityType = patientIdentityTypeService.getNamedIdentityType("104");
+        PatientIdentityType patientIdentityType = patientIdentityTypeService.getNamedIdentityType("NATIONAL");
         assertNotNull(patientIdentityType);
-        assertEquals("National Identification Number", patientIdentityType.getDescription());
+        assertEquals("Patient ID Number", patientIdentityType.getDescription());
     }
 
     @Test
@@ -52,8 +52,8 @@ public class PatientIdentityTypeServiceTest extends BaseWebContextSensitiveTest 
     @Test
     public void insert_shouldInsertPatientIdentityType() {
         PatientIdentityType patientIdentityType = new PatientIdentityType();
-        patientIdentityType.setIdentityType("106");
-        patientIdentityType.setDescription("Driver's License");
+        patientIdentityType.setIdentityType("NEWTYPE");
+        patientIdentityType.setDescription("New Descrpyion");
         patientIdentityTypeService.insert(patientIdentityType);
         List<PatientIdentityType> patientIdentityTypes = patientIdentityTypeService.getAllPatientIdenityTypes();
         assertTrue(patientIdentityTypes.size() == 4);
@@ -62,7 +62,7 @@ public class PatientIdentityTypeServiceTest extends BaseWebContextSensitiveTest 
     @Test(expected = LIMSDuplicateRecordException.class)
     public void insert_shouldThrowExceptionForDuplicatePatientIdentityType() {
         PatientIdentityType patientIdentityType = new PatientIdentityType();
-        patientIdentityType.setIdentityType("104"); // Already exists
+        patientIdentityType.setIdentityType("NATIONAL"); // Already exists
         patientIdentityType.setDescription("Duplicate National ID");
         patientIdentityTypeService.insert(patientIdentityType);
     }
@@ -70,8 +70,8 @@ public class PatientIdentityTypeServiceTest extends BaseWebContextSensitiveTest 
     @Test
     public void save_shouldSavePatientIdentityType() {
         PatientIdentityType patientIdentityType = new PatientIdentityType();
-        patientIdentityType.setIdentityType("107");
-        patientIdentityType.setDescription("Birth Certificate");
+        patientIdentityType.setIdentityType("NEWSAVETYPE");
+        patientIdentityType.setDescription("New Save Descrpyion");
         patientIdentityTypeService.save(patientIdentityType);
         List<PatientIdentityType> patientIdentityTypes = patientIdentityTypeService.getAllPatientIdenityTypes();
         assertTrue(patientIdentityTypes.size() == 4);
@@ -80,34 +80,34 @@ public class PatientIdentityTypeServiceTest extends BaseWebContextSensitiveTest 
     @Test(expected = LIMSDuplicateRecordException.class)
     public void save_shouldThrowExceptionForDuplicatePatientIdentityType() {
         PatientIdentityType patientIdentityType = new PatientIdentityType();
-        patientIdentityType.setIdentityType("105"); // Already exists
+        patientIdentityType.setIdentityType("NATIONAL"); // Already exists
         patientIdentityType.setDescription("Duplicate Passport");
         patientIdentityTypeService.save(patientIdentityType);
     }
 
     @Test
     public void update_shouldUpdatePatientIdentityType() {
-        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("2");
+        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("9");
         patientIdentityType.setDescription("Updated Passport Number");
-        patientIdentityType.setIdentityType("110");
+        patientIdentityType.setIdentityType("PASSPORT");
         assertTrue(patientIdentityTypeService.getAll().size() == 3);
         patientIdentityTypeService.update(patientIdentityType);
-        PatientIdentityType updatedType = patientIdentityTypeService.get("2");
+        PatientIdentityType updatedType = patientIdentityTypeService.get("9");
         assertEquals("Updated Passport Number", updatedType.getDescription());
-        assertEquals("110", updatedType.getIdentityType());
+        assertEquals("PASSPORT", updatedType.getIdentityType());
         assertTrue(patientIdentityTypeService.getAll().size() == 3);
     }
 
     @Test(expected = LIMSDuplicateRecordException.class)
     public void update_shouldThrowExceptionForDuplicatePatientIdentityType() {
-        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("2");
-        patientIdentityType.setIdentityType("104"); // Already exists in record with id="1"
+        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("9");
+        patientIdentityType.setIdentityType("NATIONAL"); // Already exists in record with id="1"
         patientIdentityTypeService.update(patientIdentityType);
     }
 
     @Test
     public void delete_shouldDeletePatientIdentityType() {
-        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("3");
+        PatientIdentityType patientIdentityType = patientIdentityTypeService.get("9");
         patientIdentityTypeService.delete(patientIdentityType);
         List<PatientIdentityType> patientIdentityTypes = patientIdentityTypeService.getAllPatientIdenityTypes();
         assertTrue(patientIdentityTypes.size() == 2);
