@@ -45,13 +45,12 @@ class AdminPage {
 
     return new BarcodeConfigPage();
   }
-  
+
   goToProgramEntry() {
     cy.get("[data-cy='programEntry']").should("be.visible");
     cy.get("[data-cy='programEntry']").click();
 
     return new ProgramEntryPage();
-
   }
 }
 
