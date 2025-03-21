@@ -23,7 +23,6 @@ import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
 import org.openelisglobal.observationhistory.service.ObservationHistoryService;
-import org.openelisglobal.observationhistorytype.service.ObservationHistoryTypeService;
 import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.referral.service.ReferralResultService;
 import org.openelisglobal.referral.service.ReferralService;
@@ -32,11 +31,7 @@ import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
-import org.openelisglobal.statusofsample.service.StatusOfSampleService;
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
-import org.openelisglobal.test.dao.TestDAO;
-import org.openelisglobal.test.service.TestSectionService;
-import org.openelisglobal.test.service.TestServiceImpl;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleTestService;
@@ -76,7 +71,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.userrole", "org.openelisglobal.unitofmeasure", "org.openelisglobal.testtrailer",
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
-        "org.openelisglobal.testanalyte" }, excludeFilters = {
+        "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample",
+        "org.openelisglobal.test", "org.openelisglobal.testanalyte" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -171,12 +167,6 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public TestSectionService testSectionService() {
-        return mock(TestSectionService.class);
-    }
-
-    @Bean()
-    @Profile("test")
     public TestNotificationConfigService testNotificationConfigService() {
         return mock(TestNotificationConfigService.class);
     }
@@ -197,12 +187,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public AnalysisNotificationConfigService analysisNotificationConfigService() {
         return mock(AnalysisNotificationConfigService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public ObservationHistoryTypeService observationHistoryTypeService() {
-        return mock(ObservationHistoryTypeService.class);
     }
 
     @Bean()
@@ -231,20 +215,8 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public TestServiceImpl testServiceImpl() {
-        return mock(TestServiceImpl.class);
-    }
-
-    @Bean()
-    @Profile("test")
     public AuditTrailService auditTrailService() {
         return mock(AuditTrailService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public TestDAO testDao() {
-        return mock(TestDAO.class);
     }
 
     @Bean()
@@ -316,12 +288,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("Test")
     public RequesterTypeService RequesterTypeService() {
         return mock(RequesterTypeService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public StatusOfSampleService statusOfSampleService() {
-        return mock(StatusOfSampleService.class);
     }
 
     @Bean()
