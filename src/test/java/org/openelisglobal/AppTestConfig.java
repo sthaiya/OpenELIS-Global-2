@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.NonNull;
+import org.jasypt.util.text.TextEncryptor;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.openelisglobal.audittrail.dao.AuditTrailService;
 import org.openelisglobal.citystatezip.service.CityStateZipService;
@@ -30,7 +31,6 @@ import org.openelisglobal.referral.service.ReferralSetService;
 import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
-import org.openelisglobal.siteinformation.service.SiteInformationService;
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
@@ -73,13 +73,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample",
-        "org.openelisglobal.test" }, excludeFilters = {
+        "org.openelisglobal.test", "org.openelisglobal.siteinformation", "org.openelisglobal.config" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.result.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.login.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.program.controller.*"),
+                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.siteinformation.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.config.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.fhir.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.*.fhir.*"),
@@ -88,6 +89,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class AppTestConfig implements WebMvcConfigurer {
 
     // mock Beans
+    @Bean 
+    @Profile("test") 
+    public TextEncryptor textEncryptor() {
+        return mock(TextEncryptor.class);
+    }
+
     @Bean()
     @Profile("test")
     public FhirPersistanceService fhirPesistence() {
@@ -248,12 +255,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public Versioning versioning() {
         return mock(Versioning.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public SiteInformationService siteInformationService() {
-        return mock(SiteInformationService.class);
     }
 
     @Bean
