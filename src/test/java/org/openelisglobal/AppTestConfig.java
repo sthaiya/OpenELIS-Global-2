@@ -34,6 +34,7 @@ import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 =======
 import org.openelisglobal.siteinformation.service.SiteInformationService;
@@ -41,6 +42,8 @@ import org.openelisglobal.siteinformation.service.SiteInformationService;
 =======
 import org.openelisglobal.siteinformation.service.SiteInformationService;
 >>>>>>> 82a75ca0f (resolving the merge conflict)
+=======
+>>>>>>> 2198bae6c (Add Integration Test and site_information.xml)
 import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
@@ -81,9 +84,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.userrole", "org.openelisglobal.unitofmeasure", "org.openelisglobal.testtrailer",
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
+<<<<<<< HEAD
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample",
         "org.openelisglobal.test", "org.openelisglobal.systemusersection", "org.openelisglobal.analyzerimport", 
         "org.openelisglobal.analyzer", "org.openelisglobal.siteinformation", "org.openelisglobal.config" }, excludeFilters = {
+=======
+        "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
+        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer", "org.openelisglobal.systemusersection",
+        "org.openelisglobal.siteinformation", "org.openelisglobal.config" }, excludeFilters = {
+>>>>>>> 2198bae6c (Add Integration Test and site_information.xml)
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
