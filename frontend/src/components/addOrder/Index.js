@@ -564,38 +564,46 @@ const Index = () => {
 
   const handleSubmitOrderForm = (e) => {
     e.preventDefault();
-    // Prevent multiple submissions.
-    if (isSubmitting) {
-      return;
-    }
-    setIsSubmitting(true);
-    if ("years" in orderFormValues.patientProperties) {
-      delete orderFormValues.patientProperties.years;
-    }
-    if ("months" in orderFormValues.patientProperties) {
-      delete orderFormValues.patientProperties.months;
-    }
-    if ("days" in orderFormValues.patientProperties) {
-      delete orderFormValues.patientProperties.days;
-    }
-    if ("questionnaire" in orderFormValues.sampleOrderItems) {
-      delete orderFormValues.sampleOrderItems.questionnaire;
-    }
-    //remove display Lists rom the form
-    orderFormValues.sampleOrderItems.priorityList = [];
-    orderFormValues.sampleOrderItems.programList = [];
-    orderFormValues.sampleOrderItems.referringSiteList = [];
-    orderFormValues.initialSampleConditionList = [];
-    orderFormValues.testSectionList = [];
-    orderFormValues.sampleOrderItems.providersList = [];
-    orderFormValues.sampleOrderItems.paymentOptions = [];
-    orderFormValues.sampleOrderItems.testLocationCodeList = [];
-    console.log(JSON.stringify(orderFormValues));
-    postToOpenElisServer(
-      "/rest/SamplePatientEntry",
-      JSON.stringify(orderFormValues),
-      handlePost,
-    );
+    OrderEntryValidationSchema.validate(orderFormValues, {
+      abortEarly: false,
+    })
+      .then(() => {
+        // Prevent multiple submissions.
+        if (isSubmitting) {
+          return;
+        }
+        setIsSubmitting(true);
+        if ("years" in orderFormValues.patientProperties) {
+          delete orderFormValues.patientProperties.years;
+        }
+        if ("months" in orderFormValues.patientProperties) {
+          delete orderFormValues.patientProperties.months;
+        }
+        if ("days" in orderFormValues.patientProperties) {
+          delete orderFormValues.patientProperties.days;
+        }
+        if ("questionnaire" in orderFormValues.sampleOrderItems) {
+          delete orderFormValues.sampleOrderItems.questionnaire;
+        }
+        //remove display Lists rom the form
+        orderFormValues.sampleOrderItems.priorityList = [];
+        orderFormValues.sampleOrderItems.programList = [];
+        orderFormValues.sampleOrderItems.referringSiteList = [];
+        orderFormValues.initialSampleConditionList = [];
+        orderFormValues.testSectionList = [];
+        orderFormValues.sampleOrderItems.providersList = [];
+        orderFormValues.sampleOrderItems.paymentOptions = [];
+        orderFormValues.sampleOrderItems.testLocationCodeList = [];
+        console.log(JSON.stringify(orderFormValues));
+        postToOpenElisServer(
+          "/rest/SamplePatientEntry",
+          JSON.stringify(orderFormValues),
+          handlePost,
+        );
+      })
+      .catch((validationErrors) => {
+        setErrors(validationErrors);
+      });
   };
 
   useEffect(() => {
@@ -603,18 +611,6 @@ const Index = () => {
       attacheSamplesToFormValues();
     }
   }, [page]);
-
-  useEffect(() => {
-    OrderEntryValidationSchema.validate(orderFormValues, { abortEarly: false })
-      .then((validData) => {
-        setErrors([]);
-        console.debug("Valid Data:", validData);
-      })
-      .catch((errors) => {
-        setErrors(errors);
-        console.error("Validation Errors:", errors.errors);
-      });
-  }, [orderFormValues]);
 
   useEffect(() => {
     const labNumber = new URLSearchParams(window.location.search).get(
