@@ -995,6 +995,7 @@ function UserAddModify() {
                     />
                   </Column>
                 </Grid>
+                <br />
                 <Grid fullWidth={true}>
                   <Column lg={8} md={4} sm={4}>
                     <>
@@ -1003,14 +1004,15 @@ function UserAddModify() {
                     </>
                   </Column>
                   <Column lg={8} md={4} sm={4}>
-                    <TextInput
+                    <input
                       id="password-expire-date"
                       className="defalut"
-                      type="text"
+                      type="date"
                       labelText=""
                       placeholder={intl.formatMessage({
                         id: "login.password.expired.date.placeholder",
                       })}
+                      min={new Date().toJSON().slice(0, 10)}
                       required={true}
                       // invalid={errors.order && touched.order}
                       // invalidText={errors.order}
@@ -1023,6 +1025,7 @@ function UserAddModify() {
                     />
                   </Column>
                 </Grid>
+                <br />
                 <Grid fullWidth={true}>
                   <Column lg={8} md={4} sm={4}>
                     <>
@@ -1031,15 +1034,16 @@ function UserAddModify() {
                     </>
                   </Column>
                   <Column lg={8} md={4} sm={4}>
-                    <TextInput
+                    <input
                       id="login-timeout"
                       className="defalut"
-                      type="text"
+                      type="number"
                       labelText=""
                       placeholder={intl.formatMessage({
                         id: "login.timeout.placeholder",
                       })}
                       required={true}
+                      min={0}
                       // invalid={errors.order && touched.order}
                       // invalidText={errors.order}
                       value={
