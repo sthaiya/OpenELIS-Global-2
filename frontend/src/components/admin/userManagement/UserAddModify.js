@@ -1008,7 +1008,6 @@ function UserAddModify() {
                       id="password-expire-date"
                       className="defalut"
                       type="date"
-                      labelText=""
                       placeholder={intl.formatMessage({
                         id: "login.password.expired.date.placeholder",
                       })}
@@ -1038,7 +1037,6 @@ function UserAddModify() {
                       id="login-timeout"
                       className="defalut"
                       type="number"
-                      labelText=""
                       placeholder={intl.formatMessage({
                         id: "login.timeout.placeholder",
                       })}
