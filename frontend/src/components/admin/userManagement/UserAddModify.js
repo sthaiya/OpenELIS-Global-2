@@ -1012,8 +1012,8 @@ function UserAddModify() {
                       placeholder={intl.formatMessage({
                         id: "login.password.expired.date.placeholder",
                       })}
-                      min={new Date().toJSON().slice(0, 10)}
                       required={true}
+                      min={new Date().toJSON().slice(0, 10)}
                       // invalid={errors.order && touched.order}
                       // invalidText={errors.order}
                       value={
