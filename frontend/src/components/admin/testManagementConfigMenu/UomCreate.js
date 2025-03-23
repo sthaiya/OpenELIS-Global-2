@@ -248,13 +248,6 @@ function UomCreate() {
             )}
           </Grid>
         </div>
-        <button
-          onClick={() => {
-            console.log(uomRes);
-          }}
-        >
-          uomRes
-        </button>
       </div>
 
       <Modal
