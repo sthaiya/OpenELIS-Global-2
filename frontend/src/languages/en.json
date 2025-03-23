@@ -1389,7 +1389,7 @@
   "uom.existing.inactive": "Inactive Unit of Measure. Assign tests to this Unit of Measure to activate it.",
   "uom.new": "Create a new Unit of Measure",
   "uom.new.added": "New Unit of Measure will get added",
-  "uom.create.heading.confirmation" : "Confirmation",
+  "uom.create.heading.confirmation": "Confirmation",
   "uom.notification.save": "New Unit Of Measure has been saved.",
-  "uom.notification.duplicate" : "Unit of Measure already exists"
+  "uom.notification.duplicate": "Unit of Measure already exists"
 }
