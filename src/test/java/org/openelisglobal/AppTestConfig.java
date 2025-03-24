@@ -11,6 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.openelisglobal.audittrail.dao.AuditTrailService;
 import org.openelisglobal.citystatezip.service.CityStateZipService;
 import org.openelisglobal.common.services.IStatusService;
+import org.openelisglobal.common.services.PluginAnalyzerService;
 import org.openelisglobal.common.util.Versioning;
 import org.openelisglobal.dataexchange.fhir.FhirConfig;
 import org.openelisglobal.dataexchange.fhir.FhirUtil;
@@ -72,8 +73,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.userrole", "org.openelisglobal.unitofmeasure", "org.openelisglobal.testtrailer",
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
-        "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample",
-        "org.openelisglobal.test" }, excludeFilters = {
+        "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
+        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -88,6 +89,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class AppTestConfig implements WebMvcConfigurer {
 
     // mock Beans
+    @Bean()
+    @Profile("test")
+    public PluginAnalyzerService pluginAnalyzerService() {
+        return mock(PluginAnalyzerService.class);
+    }
+
     @Bean()
     @Profile("test")
     public FhirPersistanceService fhirPesistence() {
