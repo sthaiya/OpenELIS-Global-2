@@ -36,6 +36,29 @@ class HomePage {
       userIcon: "#user-Icon",
       helpIcon: "#user-Help",
       maximizeIcon: "#maximizeIcon",
+      sampleAddNav: "#menu_sample_add_nav",
+      sampleBatchEntryNav: "#menu_sample_batch_entry_nav",
+      sampleEditNav: "#menu_sample_edit_nav",
+      patientAddOrEditNav: "#menu_patient_add_or_edit_nav",
+      workplanTestNav: "#menu_workplan_test_nav",
+      workplanPanelNav: "#menu_workplan_panel_nav",
+      workplanBenchNav: "#menu_workplan_bench_nav",
+      workplanPriorityNav: "#menu_workplan_priority_nav",
+      nonConformingReportNav: "#menu_non_conforming_report_nav",
+      nonConformingViewNav: "#menu_non_conforming_view_nav",
+      nonConformingCorrectiveActionsNav:
+        "#menu_non_conforming_corrective_actions_nav",
+      resultsLogbook: "#menu_results_logbook",
+      resultsAccession: "#menu_results_accession",
+      resultsPatient: "#menu_results_patient",
+      resultsReferred: "#menu_results_referred",
+      resultsRange: "#menu_results_range",
+      resultsStatus: "#menu_results_status",
+      resultValidationRoutine: "#menu_resultvalidation_routine",
+      accessionValidation: "#menu_accession_validation",
+      accessionValidationRange: "#menu_accession_validation_range",
+      reportsRoutineNav: "#menu_reports_routine_nav",
+      reportsStudyNav: "#menu_reports_study_nav",
     };
   }
 
@@ -65,7 +88,7 @@ class HomePage {
   goToOrderPage() {
     this.clickDropdownItem(
       this.selectors.sampleDropdown,
-      "#menu_sample_add_nav",
+      this.selectors.sampleAddNav,
     );
     return new OrderEntityPage();
   }
@@ -74,7 +97,7 @@ class HomePage {
   goToBatchOrderEntry() {
     this.clickDropdownItem(
       this.selectors.sampleDropdown,
-      "#menu_sample_batch_entry_nav",
+      this.selectors.sampleBatchEntryNav,
     );
     return new BatchOrderEntry();
   }
@@ -83,7 +106,7 @@ class HomePage {
   goToPatientEntry() {
     this.clickDropdownItem(
       this.selectors.patientDropdown,
-      "#menu_patient_add_or_edit_nav",
+      this.selectors.patientAddOrEditNav,
     );
     return new PatientEntryPage();
   }
@@ -92,7 +115,7 @@ class HomePage {
   goToModifyOrderPage() {
     this.clickDropdownItem(
       this.selectors.sampleDropdown,
-      "#menu_sample_edit_nav",
+      this.selectors.sampleEditNav,
     );
     return new ModifyOrderPage();
   }
@@ -101,7 +124,7 @@ class HomePage {
   goToWorkPlanPlanByTest() {
     this.clickDropdownItem(
       this.selectors.workplanDropdown,
-      "#menu_workplan_test_nav",
+      this.selectors.workplanTestNav,
     );
     return new WorkPlan();
   }
@@ -110,7 +133,7 @@ class HomePage {
   goToWorkPlanPlanByPanel() {
     this.clickDropdownItem(
       this.selectors.workplanDropdown,
-      "#menu_workplan_panel_nav",
+      this.selectors.workplanPanelNav,
     );
     return new WorkPlan();
   }
@@ -119,7 +142,7 @@ class HomePage {
   goToWorkPlanPlanByUnit() {
     this.clickDropdownItem(
       this.selectors.workplanDropdown,
-      "#menu_workplan_bench_nav",
+      this.selectors.workplanBenchNav,
     );
     return new WorkPlan();
   }
@@ -128,7 +151,7 @@ class HomePage {
   goToWorkPlanPlanByPriority() {
     this.clickDropdownItem(
       this.selectors.workplanDropdown,
-      "#menu_workplan_priority_nav",
+      this.selectors.workplanPriorityNav,
     );
     return new WorkPlan();
   }
@@ -137,7 +160,7 @@ class HomePage {
   goToReportNCE() {
     this.clickDropdownItem(
       this.selectors.nonconformityDropdown,
-      "#menu_non_conforming_report_nav",
+      this.selectors.nonConformingReportNav,
     );
     return new NonConform();
   }
@@ -146,7 +169,7 @@ class HomePage {
   goToViewNCE() {
     this.clickDropdownItem(
       this.selectors.nonconformityDropdown,
-      "#menu_non_conforming_view_nav",
+      this.selectors.nonConformingViewNav,
     );
     return new NonConform();
   }
@@ -155,14 +178,17 @@ class HomePage {
   goToCorrectiveActions() {
     this.clickDropdownItem(
       this.selectors.nonconformityDropdown,
-      "#menu_non_conforming_corrective_actions_nav",
+      this.selectors.nonConformingCorrectiveActionsNav,
     );
     return new NonConform();
   }
 
   // Navigate to the Results by Unit page
   goToResultsByUnit() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_logbook");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsLogbook,
+    );
     return new Result();
   }
 
@@ -170,14 +196,17 @@ class HomePage {
   goToResultsByOrder() {
     this.clickDropdownItem(
       this.selectors.resultsMenu,
-      "#menu_results_accession",
+      this.selectors.resultsAccession,
     );
     return new Result();
   }
 
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_patient");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsPatient,
+    );
     return new Result();
   }
 
@@ -185,20 +214,26 @@ class HomePage {
   goToResultsForRefferedOut() {
     this.clickDropdownItem(
       this.selectors.resultsMenu,
-      "#menu_results_referred",
+      this.selectors.resultsReferred,
     );
     return new Result();
   }
 
   // Navigate to the Results by Range Order page
   goToResultsByRangeOrder() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_range");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsRange,
+    );
     return new Result();
   }
 
   // Navigate to the Results by Test and Status page
   goToResultsByTestAndStatus() {
-    this.clickDropdownItem(this.selectors.resultsMenu, "#menu_results_status");
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsStatus,
+    );
     return new Result();
   }
 
@@ -206,7 +241,7 @@ class HomePage {
   goToValidationByRoutine() {
     this.clickDropdownItem(
       this.selectors.resultValidationMenu,
-      "#menu_resultvalidation_routine",
+      this.selectors.resultValidationRoutine,
     );
     return new Validation();
   }
@@ -215,7 +250,7 @@ class HomePage {
   goToValidationByOrder() {
     this.clickDropdownItem(
       this.selectors.resultValidationMenu,
-      "#menu_accession_validation",
+      this.selectors.accessionValidation,
     );
     return new Validation();
   }
@@ -224,7 +259,7 @@ class HomePage {
   goToValidationByRangeOrder() {
     this.clickDropdownItem(
       this.selectors.resultValidationMenu,
-      "#menu_accession_validation_range",
+      this.selectors.accessionValidationRange,
     );
     return new Validation();
   }
@@ -233,7 +268,7 @@ class HomePage {
   goToRoutineReports() {
     this.clickDropdownItem(
       this.selectors.reportsMenu,
-      "#menu_reports_routine_nav",
+      this.selectors.reportsRoutineNav,
     );
     return new RoutineReportPage();
   }
@@ -242,32 +277,36 @@ class HomePage {
   goToStudyReports() {
     this.clickDropdownItem(
       this.selectors.reportsMenu,
-      "#menu_reports_study_nav",
+      this.selectors.reportsStudyNav,
     );
     return new StudyReportPage();
   }
 
   // Navigate to the Pathology Dashboard
   goToPathologyDashboard() {
-    this.clickDropdownItem(this.selectors.pathologyMenu, "");
+    this.openNavigationMenu();
+    cy.get(this.selectors.pathologyMenu).click();
     return new DashBoardPage();
   }
 
   // Navigate to the ImmunoChemistry Dashboard
   goToImmunoChemistryDashboard() {
-    this.clickDropdownItem(this.selectors.immunochemMenu, "");
+    this.openNavigationMenu();
+    cy.get(this.selectors.immunochemMenu).click();
     return new DashBoardPage();
   }
 
   // Navigate to the Cytology Dashboard
   goToCytologyDashboard() {
-    this.clickDropdownItem(this.selectors.cytologyMenu, "");
+    this.openNavigationMenu();
+    cy.get(this.selectors.cytologyMenu).click();
     return new DashBoardPage();
   }
 
   // Navigate to the Admin page
   goToAdminPage() {
-    this.clickDropdownItem(this.selectors.administrationMenu, "");
+    this.openNavigationMenu();
+    cy.get(this.selectors.administrationMenu).click();
     return new AdminPage();
   }
 
