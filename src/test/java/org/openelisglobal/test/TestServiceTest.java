@@ -1,6 +1,7 @@
 package org.openelisglobal.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -111,6 +112,84 @@ public class TestServiceTest extends BaseWebContextSensitiveTest {
         org.openelisglobal.test.valueholder.Test test = testService.getTestById("2");
         assertEquals("Urine Test", test.getDescription());
 
+    }
+
+    @Test
+    public void getAllActiveOrderableTests() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getAllActiveOrderableTests();
+        tests.forEach(test -> {
+            assertEquals("Y", test.getIsActive());
+            assertTrue(test.getOrderable());
+        });
+
+    }
+
+    @Test
+    public void getIsReportable() {
+        org.openelisglobal.test.valueholder.Test test1 = testService.get("1");
+        boolean isReportable1 = testService.isReportable(test1);
+        assertFalse(isReportable1);
+        org.openelisglobal.test.valueholder.Test test2 = testService.get("2");
+        boolean isReportable2 = testService.isReportable(test2);
+        assertTrue(isReportable2);
+
+    }
+
+    @Test
+    public void getTestMethodName() {
+        org.openelisglobal.test.valueholder.Test test1 = testService.get("1");
+        String methodName1 = testService.getTestMethodName(test1);
+        assertEquals(methodName1, test1.getMethod().getMethodName());
+        org.openelisglobal.test.valueholder.Test test2 = testService.get("2");
+        String methodName2 = testService.getTestMethodName(test2);
+        assertEquals(methodName2, test2.getMethod().getMethodName());
+    }
+
+    @Test
+    public void getSortOrder() {
+        org.openelisglobal.test.valueholder.Test test1 = testService.get("1");
+        String sortOrder1 = testService.getSortOrder(test1);
+        assertEquals(sortOrder1, test1.getSortOrder());
+        org.openelisglobal.test.valueholder.Test test2 = testService.get("2");
+        String sortOrder2 = testService.getSortOrder(test2);
+        assertEquals(sortOrder2, test2.getSortOrder());
+    }
+
+    @Test
+    public void getActiveTestsByLoinc() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getActiveTestsByLoinc("123456");
+        tests.forEach(test -> {
+            assertEquals("Y", test.getIsActive());
+        });
+    }
+
+    @Test
+    public void getTestsByLoinicCode() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getTestsByLoincCode("123456");
+        assertTrue(tests.size() > 0);
+
+    }
+
+    @Test
+    public void getTbTests() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getTbTest();
+        assertEquals(2, tests.size());
+        assertEquals("Blood Test", tests.get(0).getDescription());
+        assertEquals("Urine Test", tests.get(1).getDescription());
+    }
+
+    @Test
+    public void getTotalTestCount() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getAll();
+        int totalCount = testService.getTotalTestCount();
+        assertEquals(tests.size(), totalCount);
+
+    }
+
+    @Test
+    public void getTestByDescription() {
+        org.openelisglobal.test.valueholder.Test test = testService.getTestByDescription("Blood Test");
+        assertEquals("Blood Test", test.getDescription());
     }
 
 }
