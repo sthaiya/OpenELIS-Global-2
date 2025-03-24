@@ -33,10 +33,14 @@ import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 =======
 import org.openelisglobal.siteinformation.service.SiteInformationService;
 >>>>>>> d50799cb3 (system user section integration test)
+=======
+import org.openelisglobal.siteinformation.service.SiteInformationService;
+>>>>>>> 82a75ca0f (resolving the merge conflict)
 import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
