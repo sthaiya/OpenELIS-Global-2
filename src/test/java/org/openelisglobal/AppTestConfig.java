@@ -31,7 +31,6 @@ import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
-import org.openelisglobal.systemusersection.service.SystemUserSectionService;
 import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
@@ -73,8 +72,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
-        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer",
-        "org.openelisglobal.observationhistory" }, excludeFilters = {
+        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer", "org.openelisglobal.observationhistory",
+        "org.openelisglobal.systemusersection" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -135,12 +134,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public FhirTransformService fhirTransformService() {
         return mock(FhirTransformService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public SystemUserSectionService stemUserSectionService() {
-        return mock(SystemUserSectionService.class);
     }
 
     @Bean()
