@@ -30,7 +30,7 @@ let breadcrumbs = [
   },
   {
     label: "configuration.uom.manage",
-    link: "/MasterListsPage#MethodManagement",
+    link: "/MasterListsPage#UomManagement",
   },
   {
     label: "configuration.uom.create",
