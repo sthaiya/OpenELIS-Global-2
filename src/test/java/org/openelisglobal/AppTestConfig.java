@@ -96,12 +96,6 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public PluginAnalyzerService pluginAnalyzerService() {
-        return mock(PluginAnalyzerService.class);
-    }
-
-    @Bean()
-    @Profile("test")
     public FhirPersistanceService fhirPesistence() {
         return mock(FhirPersistanceService.class);
     }
