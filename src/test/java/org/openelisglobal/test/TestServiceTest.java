@@ -173,9 +173,8 @@ public class TestServiceTest extends BaseWebContextSensitiveTest {
     @Test
     public void getTbTests() {
         List<org.openelisglobal.test.valueholder.Test> tests = testService.getTbTest();
-        assertEquals(2, tests.size());
+        assertEquals(1, tests.size());
         assertEquals("Blood Test", tests.get(0).getDescription());
-        assertEquals("Urine Test", tests.get(1).getDescription());
     }
 
     @Test
@@ -190,6 +189,49 @@ public class TestServiceTest extends BaseWebContextSensitiveTest {
     public void getTestByDescription() {
         org.openelisglobal.test.valueholder.Test test = testService.getTestByDescription("Blood Test");
         assertEquals("Blood Test", test.getDescription());
+    }
+
+    @Test
+    public void activateTestsAndDeactivateOthers_ShouldActivateTestsAndDeactivateOthers() {
+        testService.activateTestsAndDeactivateOthers(List.of("1", "2"));
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getAll();
+        assertEquals(2, tests.size());
+        tests.forEach(test -> {
+            assertEquals("N", test.getIsActive());
+        });
+    }
+
+    @Test
+    public void getTestsByTestSection() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getTestsByTestSection("1");
+        assertEquals(1, tests.size());
+        assertEquals("Blood Test", tests.get(0).getDescription());
+        List<org.openelisglobal.test.valueholder.Test> tests2 = testService.getTestsByTestSection("2");
+        assertEquals(1, tests2.size());
+        assertEquals("Urine Test", tests2.get(0).getDescription());
+    }
+
+    @Test
+    public void getAllOrderBy() {
+        List<org.openelisglobal.test.valueholder.Test> tests = testService.getAllOrderBy("description");
+        assertEquals(2, tests.size());
+        assertEquals("Blood Test", tests.get(0).getDescription());
+        assertEquals("Urine Test", tests.get(1).getDescription());
+
+    }
+
+    @Test
+    public void isTestFullySetup() {
+        org.openelisglobal.test.valueholder.Test test = testService.get("1");
+        boolean isFullySetup = testService.isTestFullySetup(test);
+        assertFalse(isFullySetup);
+    }
+
+    @Test
+    public void getNextAvailableSortOrderByTestSection() {
+        org.openelisglobal.test.valueholder.Test test = testService.get("1");
+        int sortOrder = testService.getNextAvailableSortOrderByTestSection(test);
+        assertTrue(sortOrder > 0);
     }
 
 }
