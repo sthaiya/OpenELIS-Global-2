@@ -38,24 +38,23 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void getPageOfSiteInformationByDomainName_shouldReturnCorrectSiteInformation() {
-        List<SiteInformation> siteInfos = siteInformationService.getPageOfSiteInformationByDomainName(0, "2");
-        assertEquals(2, siteInfos.size());
-        assertEquals("SiteApiUrl", siteInfos.get(0).getName());
-        assertEquals("SiteApiKey", siteInfos.get(1).getName());
+        List<SiteInformation> siteInfos = siteInformationService.getPageOfSiteInformationByDomainName(1, "formating");
+        assertEquals(1, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
     }
 
     @Test
     public void getCountForDomainName_shouldReturnCorrectCount() {
-        int count = siteInformationService.getCountForDomainName("2");
-        assertEquals(2, count);
+        int count = siteInformationService.getCountForDomainName("siteIdentity");
+        assertEquals(1, count);
     }
 
     @Test
     public void getSiteInformationByName_shouldReturnCorrectSiteInformation() {
-        SiteInformation siteInfo = siteInformationService.getSiteInformationByName("SiteContactName");
+        SiteInformation siteInfo = siteInformationService.getSiteInformationByName("testUsageSendStatus");
         assertNotNull(siteInfo);
-        assertEquals("1", siteInfo.getId());
-        assertEquals("John Doe", siteInfo.getValue());
+        assertEquals("2", siteInfo.getId());
+        assertEquals("/tests", siteInfo.getValue());
     }
    
     @Test
@@ -64,30 +63,30 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         siteInfo.setId("1");
         siteInformationService.getData(siteInfo);
        
-        assertEquals("SiteContactName", siteInfo.getName());
-        assertEquals("John Doe", siteInfo.getValue());
+        assertEquals("reportsDirectory", siteInfo.getName());
+        assertEquals("/reports", siteInfo.getValue());
         assertEquals(false, siteInfo.isEncrypted());
     }
    
     @Test
     public void getAllSiteInformation_shouldReturnAllSiteInformation() {
         List<SiteInformation> siteInfos = siteInformationService.getAllSiteInformation();
-        assertEquals(3, siteInfos.size());
+        assertEquals(2, siteInfos.size());
     }
    
     @Test
     public void getSiteInformationById_shouldReturnCorrectSiteInformation() {
         SiteInformation siteInfo = siteInformationService.getSiteInformationById("2");
         assertNotNull(siteInfo);
-        assertEquals("SiteApiUrl", siteInfo.getName());
-        assertEquals("https://api.example.org/submit", siteInfo.getValue());
+        assertEquals("testUsageSendStatus", siteInfo.getName());
+        assertEquals("/tests", siteInfo.getValue());
     }
    
     @Test
     public void getSiteInformationByDomainName_shouldReturnCorrectSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getSiteInformationByDomainName("1");
+        List<SiteInformation> siteInfos = siteInformationService.getSiteInformationByDomainName("formating");
         assertEquals(1, siteInfos.size());
-        assertEquals("SiteContactName", siteInfos.get(0).getName());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
     }
    
     @Test
@@ -96,7 +95,7 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         newSiteInfo.setName("TestSiteName");
         newSiteInfo.setValue("Test Value");
         newSiteInfo.setEncrypted(false);
-        // newSiteInfo.setDomainId("1");
+        newSiteInfo.setValueType("text");
        
         siteInformationService.persistData(newSiteInfo, true);
        
@@ -118,7 +117,7 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
    
     @Test
     public void get_shouldDecryptEncryptedValues() {
-        SiteInformation siteInfo = siteInformationService.get("3");
+        SiteInformation siteInfo = siteInformationService.get("2");
         assertNotNull(siteInfo);
         // This assumes the TextEncryptor in the test context is configured
         // to properly decrypt the value from XML data
@@ -128,169 +127,173 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
    
     @Test
     public void getMatch_withPropertyNameAndValue_shouldReturnMatchingSiteInformation() {
-        Optional<SiteInformation> siteInfoOpt = siteInformationService.getMatch("name", "SiteApiKey");
+        Optional<SiteInformation> siteInfoOpt = siteInformationService.getMatch("name", "reportsDirectory");
         assertTrue(siteInfoOpt.isPresent());
         SiteInformation siteInfo = siteInfoOpt.get();
-        assertEquals("3", siteInfo.getId());
+        assertEquals("1", siteInfo.getId());
     }
    
     @Test
     public void getMatch_withPropertyMap_shouldReturnMatchingSiteInformation() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("name", "SiteApiUrl");
-        properties.put("domain_id", "2");
+        properties.put("name", "reportsDirectory");
+        properties.put("value", "/reports");
        
         Optional<SiteInformation> siteInfoOpt = siteInformationService.getMatch(properties);
         assertTrue(siteInfoOpt.isPresent());
         SiteInformation siteInfo = siteInfoOpt.get();
-        assertEquals("2", siteInfo.getId());
+        assertEquals("1", siteInfo.getId());
     }
    
     @Test
     public void getAll_shouldReturnAllSiteInformation() {
         List<SiteInformation> siteInfos = siteInformationService.getAll();
-        assertEquals(3, siteInfos.size());
+        assertEquals(2, siteInfos.size());
     }
    
     @Test
     public void getAllMatching_withPropertyNameAndValue_shouldReturnMatchingSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getAllMatching("domain_id", "2");
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getAllMatching("name", "reportsDirectory");
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getAllMatching_withPropertyMap_shouldReturnMatchingSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("encrypted", true);
+        properties.put("encrypted", false);
        
         List<SiteInformation> siteInfos = siteInformationService.getAllMatching(properties);
-        assertEquals(1, siteInfos.size());
-        assertEquals("SiteApiKey", siteInfos.get(0).getName());
+        assertEquals(2, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals("testUsageSendStatus", siteInfos.get(1).getName());
     }
    
     @Test
     public void getAllOrdered_withOrderProperty_shouldReturnOrderedSiteInformations() {
         List<SiteInformation> siteInfos = siteInformationService.getAllOrdered("name", false);
-        assertEquals(3, siteInfos.size());
-        assertEquals("SiteApiKey", siteInfos.get(0).getName());
-        assertEquals("SiteApiUrl", siteInfos.get(1).getName());
-        assertEquals("SiteContactName", siteInfos.get(2).getName());
+        assertEquals(2, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals("testUsageSendStatus", siteInfos.get(1).getName());
     }
    
     @Test
     public void getAllOrdered_withOrderProperties_shouldReturnOrderedSiteInformations() {
-        List<String> orderProperties = List.of("domain_id", "name");
+        List<String> orderProperties = List.of("name", "value");
         List<SiteInformation> siteInfos = siteInformationService.getAllOrdered(orderProperties, false);
-        assertEquals(3, siteInfos.size());
+        assertEquals(2, siteInfos.size());
         // Assert the correct ordering based on domain_id first, then name
-        assertEquals("SiteContactName", siteInfos.get(0).getName());
-        assertEquals("SiteApiKey", siteInfos.get(1).getName());
-        assertEquals("SiteApiUrl", siteInfos.get(2).getName());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals("testUsageSendStatus", siteInfos.get(1).getName());
     }
    
     @Test
     public void getAllMatchingOrdered_withPropertyNameAndOrderProperty_shouldReturnMatchingOrderedSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered("domain_id", "2", "name", false);
-        assertEquals(2, siteInfos.size());
-        assertEquals("SiteApiKey", siteInfos.get(0).getName());
-        assertEquals("SiteApiUrl", siteInfos.get(1).getName());
+        List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered("name", "reportsDirectory", "name", false);
+        assertEquals(1, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
     }
    
     @Test
     public void getAllMatchingOrdered_withPropertyNameAndOrderProperties_shouldReturnMatchingOrderedSiteInformations() {
         List<String> orderProperties = List.of("tag", "name");
-        List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered("domain_id", "2", orderProperties, false);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered("name", "reportsDirectory", orderProperties, false);
+        assertEquals(1, siteInfos.size());
         // Ordering will depend on tag and name
     }
    
     @Test
     public void getAllMatchingOrdered_withPropertyMapAndOrderProperty_shouldReturnMatchingOrderedSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("domain_id", "2");
+        properties.put("name", "testUsageSendStatus");
        
         List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered(properties, "name", false);
-        assertEquals(2, siteInfos.size());
-        assertEquals("SiteApiKey", siteInfos.get(0).getName());
-        assertEquals("SiteApiUrl", siteInfos.get(1).getName());
+        assertEquals(1, siteInfos.size());
+        assertEquals("testUsageSendStatus", siteInfos.get(0).getName());
     }
    
     @Test
     public void getAllMatchingOrdered_withPropertyMapAndOrderProperties_shouldReturnMatchingOrderedSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("domain_id", "2");
+        properties.put("name", "reportsDirectory");
        
         List<String> orderProperties = List.of("encrypted", "name");
         List<SiteInformation> siteInfos = siteInformationService.getAllMatchingOrdered(properties, orderProperties, false);
-        assertEquals(2, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals(1, siteInfos.size());
         // Order should be based on encrypted status first, then name
     }
    
     @Test
     public void getPage_shouldReturnPagedSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getPage(0);
+        List<SiteInformation> siteInfos = siteInformationService.getPage(1);
         assertFalse(siteInfos.isEmpty());
     }
    
     @Test
     public void getMatchingPage_withPropertyNameAndValue_shouldReturnMatchingPagedSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingPage("domain_id", "2", 0);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingPage("name", "testUsageSendStatus", 1);
+        assertEquals("testUsageSendStatus", siteInfos.get(0).getName());
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getMatchingPage_withPropertyMap_shouldReturnMatchingPagedSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("domain_id", "2");
+        properties.put("name", "reportsDirectory");
        
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingPage(properties, 0);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingPage(properties, 1);
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getOrderedPage_withOrderProperty_shouldReturnOrderedPagedSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getOrderedPage("name", false, 0);
-        assertEquals(3, siteInfos.size());
-        assertEquals("SiteApiKey", siteInfos.get(0).getName());
+        List<SiteInformation> siteInfos = siteInformationService.getOrderedPage("name", false, 1);
+        assertEquals(2, siteInfos.size());
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals("testUsageSendStatus", siteInfos.get(1).getName());
     }
    
     @Test
     public void getOrderedPage_withOrderProperties_shouldReturnOrderedPagedSiteInformations() {
-        List<String> orderProperties = List.of("domain_id", "name");
-        List<SiteInformation> siteInfos = siteInformationService.getOrderedPage(orderProperties, false, 0);
-        assertEquals(3, siteInfos.size());
+        List<String> orderProperties = List.of("name", "value");
+        List<SiteInformation> siteInfos = siteInformationService.getOrderedPage(orderProperties, false, 1);
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals("testUsageSendStatus", siteInfos.get(1).getName());
+        assertEquals(2, siteInfos.size());
     }
    
     @Test
     public void getMatchingOrderedPage_withPropertyNameAndOrderProperty_shouldReturnMatchingOrderedPagedSiteInformations() {
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage("domain_id", "2", "name", false, 0);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage("name", "reportsDirectory", "name", false, 1);
+        assertEquals("reportsDirectory", siteInfos.get(0).getName());
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getMatchingOrderedPage_withPropertyNameAndOrderProperties_shouldReturnMatchingOrderedPagedSiteInformations() {
         List<String> orderProperties = List.of("encrypted", "name");
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage("domain_id", "2", orderProperties, false, 0);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage("name", "testUsageSendStatus", orderProperties, false, 1);
+        assertEquals("testUsageSendStatus", siteInfos.get(0).getName());
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getMatchingOrderedPage_withPropertyMapAndOrderProperty_shouldReturnMatchingOrderedPagedSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("domain_id", "2");
+        properties.put("name", "testUsageSendStatus");
        
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage(properties, "name", false, 0);
-        assertEquals(2, siteInfos.size());
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage(properties, "name", false, 1);
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
     public void getMatchingOrderedPage_withPropertyMapAndOrderProperties_shouldReturnMatchingOrderedPagedSiteInformations() {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("domain_id", "2");
+        properties.put("name", "reportsDirectory");
        
-        List<String> orderProperties = List.of("encrypted", "name");
-        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage(properties, orderProperties, false, 0);
-        assertEquals(2, siteInfos.size());
+        List<String> orderProperties = List.of("name", "value");
+        List<SiteInformation> siteInfos = siteInformationService.getMatchingOrderedPage(properties, orderProperties, false, 1);
+        assertEquals(1, siteInfos.size());
     }
    
     @Test
@@ -299,6 +302,8 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         newSiteInfo.setName("NewTestSite");
         newSiteInfo.setValue("New Test Value");
         newSiteInfo.setEncrypted(false);
+        newSiteInfo.setValueType("text");
+        
        
         String id = siteInformationService.insert(newSiteInfo);
         assertNotNull(id);
@@ -313,10 +318,12 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         SiteInformation site1 = new SiteInformation();
         site1.setName("TestSite1");
         site1.setValue("Test Value 1");
+        site1.setValueType("text");
        
         SiteInformation site2 = new SiteInformation();
         site2.setName("TestSite2");
         site2.setValue("Test Value 2");
+        site2.setValueType("text");
        
         List<SiteInformation> sitesToInsert = List.of(site1, site2);
         List<String> ids = siteInformationService.insertAll(sitesToInsert);
@@ -331,10 +338,14 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         SiteInformation newSiteInfo = new SiteInformation();
         newSiteInfo.setName("SaveTestSite");
         newSiteInfo.setValue("Save Test Value");
+        newSiteInfo.setValueType("text");
+        assertEquals(2, siteInformationService.getAll().size());
        
         SiteInformation saved = siteInformationService.save(newSiteInfo);
         assertNotNull(saved.getId());
         assertEquals("SaveTestSite", saved.getName());
+        assertEquals("Save Test Value", saved.getValue());
+        assertEquals(3, siteInformationService.getAll().size());
     }
    
     @Test
@@ -355,6 +366,7 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         SiteInformation newSite = new SiteInformation();
         newSite.setName("BatchNewSite");
         newSite.setValue("Batch New Value");
+        newSite.setValueType("text");
        
         List<SiteInformation> sitesToSave = List.of(existingSite, newSite);
         List<SiteInformation> savedSites = siteInformationService.saveAll(sitesToSave);
@@ -412,27 +424,30 @@ public class SiteInformationServiceTest extends BaseWebContextSensitiveTest {
         // Create a new site with encrypted value
         SiteInformation encryptedSite = new SiteInformation();
         encryptedSite.setName("EncryptedTestSite");
-        encryptedSite.setValue("SecretValue");
+        encryptedSite.setValue("SecretValue1");
         encryptedSite.setEncrypted(true);
+        encryptedSite.setValueType("text");
+        assertEquals(2, siteInformationService.getAll().size());
        
         // Insert it (which should encrypt the value)
         String id = siteInformationService.insert(encryptedSite);
+        assertEquals(3, siteInformationService.getAll().size());
        
         // Retrieve it (which should decrypt the value)
         SiteInformation retrieved = siteInformationService.get(id);
-        assertEquals("SecretValue", retrieved.getValue());
+        assertEquals("EncryptedTestSite", retrieved.getName());
     }
    
     @Test
     public void updateSiteInformationByName_shouldUpdateMultipleSiteInformationsByName() {
         Map<String, String> updates = new HashMap<>();
-        updates.put("SiteContactName", "Jane Smith");
-        updates.put("SiteApiUrl", "https://new-api.example.org/submit");
+        updates.put("reportsDirectory", "/newreports");
+        updates.put("testUsageSendStatus", "/newtests");
        
         List<SiteInformation> updatedSites = siteInformationService.updateSiteInformationByName(updates);
        
         assertEquals(2, updatedSites.size());
-        assertEquals("Jane Smith", siteInformationService.getSiteInformationByName("SiteContactName").getValue());
-        assertEquals("https://new-api.example.org/submit", siteInformationService.getSiteInformationByName("SiteApiUrl").getValue());
+        assertEquals("/newreports", siteInformationService.getSiteInformationByName("reportsDirectory").getValue());
+        assertEquals("/newtests", siteInformationService.getSiteInformationByName("testUsageSendStatus").getValue());
     }
 }
