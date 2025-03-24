@@ -32,6 +32,7 @@ import {
   postToOpenElisServer,
   postToOpenElisServerJsonResponse,
 } from "../../utils/Utils.js";
+import CustomDatePicker from "../../common/CustomDatePicker.js";
 import AutoComplete from "../../common/AutoComplete.js";
 
 const breadcrumbs = [
@@ -548,16 +549,16 @@ function UserAddModify() {
     }));
   }
 
-  function handleExpirationDateChange(e) {
+  function handleExpirationDateChange(date) {
     setSaveButton(false);
     setValidation({ ...validation, expDate: true });
     setUserDataPost((prevUserDataPost) => ({
       ...prevUserDataPost,
-      expirationDate: e.target.value,
+      expirationDate: date,
     }));
     setUserDataShow((prevUserData) => ({
       ...prevUserData,
-      expirationDate: e.target.value,
+      expirationDate: date,
     }));
   }
 
@@ -1004,23 +1005,20 @@ function UserAddModify() {
                     </>
                   </Column>
                   <Column lg={8} md={4} sm={4}>
-                    <input
+                    <CustomDatePicker
                       id="password-expire-date"
                       className="defalut"
-                      type="date"
-                      placeholder={intl.formatMessage({
+                      labelText={intl.formatMessage({
                         id: "login.password.expired.date.placeholder",
                       })}
                       required={true}
-                      min={new Date().toJSON().slice(0, 10)}
-                      // invalid={errors.order && touched.order}
-                      // invalidText={errors.order}
+                      disallowPastDate={true}
                       value={
                         userDataShow && userDataShow.expirationDate
                           ? userDataShow.expirationDate
                           : ""
                       }
-                      onChange={(e) => handleExpirationDateChange(e)}
+                      onChange={(date) => handleExpirationDateChange(date)}
                     />
                   </Column>
                 </Grid>
@@ -1033,7 +1031,7 @@ function UserAddModify() {
                     </>
                   </Column>
                   <Column lg={8} md={4} sm={4}>
-                    <input
+                    <TextInput
                       id="login-timeout"
                       className="defalut"
                       type="number"
@@ -1041,6 +1039,7 @@ function UserAddModify() {
                         id: "login.timeout.placeholder",
                       })}
                       required={true}
+                      labelText=""
                       min={0}
                       // invalid={errors.order && touched.order}
                       // invalidText={errors.order}
