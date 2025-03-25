@@ -1,7 +1,6 @@
 package org.openelisglobal.sampleproject;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +25,27 @@ public class SampleProjectServiceTest extends BaseWebContextSensitiveTest {
 
         assertNotNull(sampleProject);
         assertEquals("1", sampleProject.getSample().getId());
+    }
+
+    @Test
+    public void getSampleProjectBySampleId_shouldReturnSingleSampleProject() {
+        SampleProject result = sampleProjectService.getSampleProjectBySampleId("1");
+        assertNotNull(result);
+        assertNotNull(result.getSample());
+        assertEquals("1", result.getSample().getId().toString());
+        assertNotNull(result.getProject());
+        assertEquals("1", result.getProject().getId().toString());
+    }
+
+    @Test
+    public void getData_shouldPopulateSampleProject() {
+        SampleProject emptyProject = new SampleProject();
+        emptyProject.setId("1");
+
+        sampleProjectService.getData(emptyProject);
+
+        assertNotNull(emptyProject.getProject());
+        assertEquals("1", emptyProject.getProject().getId().toString());
     }
 
 }
