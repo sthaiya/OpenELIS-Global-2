@@ -891,6 +891,7 @@ function UserAddModify() {
                     />
                   </Column>
                 </Grid>
+                <br />
                 <Grid fullWidth={true}>
                   <Column lg={8} md={4} sm={4}>
                     <>
@@ -931,7 +932,7 @@ function UserAddModify() {
                   </Column>
                 </Grid>
                 <br />
-                <br />
+
                 <Grid fullWidth={true}>
                   <Column lg={8} md={4} sm={4}>
                     <>
@@ -964,6 +965,7 @@ function UserAddModify() {
                     />
                   </Column>
                 </Grid>
+                <br />
                 <Grid fullWidth={true}>
                   <Column lg={8} md={4} sm={4}>
                     <>
@@ -1008,11 +1010,10 @@ function UserAddModify() {
                     <CustomDatePicker
                       id="password-expire-date"
                       className="defalut"
-                      labelText={intl.formatMessage({
-                        id: "login.password.expired.date.placeholder",
-                      })}
+                      labelText=""
                       required={true}
                       disallowPastDate={true}
+                      updateStateValue={true}
                       value={
                         userDataShow && userDataShow.expirationDate
                           ? userDataShow.expirationDate
