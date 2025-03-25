@@ -94,7 +94,7 @@ public class AppTestConfig implements WebMvcConfigurer {
     public TextEncryptor textEncryptor() {
         return mock(TextEncryptor.class);
     }
-  
+
     @Bean()
     @Profile("test")
     public PluginAnalyzerService pluginAnalyzerService() {
