@@ -23,7 +23,6 @@ import org.openelisglobal.externalconnections.service.ExternalConnectionService;
 import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
-import org.openelisglobal.observationhistory.service.ObservationHistoryService;
 import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.referral.service.ReferralResultService;
 import org.openelisglobal.referral.service.ReferralService;
@@ -73,7 +72,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
         "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer", "org.openelisglobal.testanalyte",
-        "org.openelisglobal.systemusersection" }, excludeFilters = {
+        "org.openelisglobal.observationhistory", "org.openelisglobal.systemusersection" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -157,12 +156,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public BasicAuthenticationDataService basicAuthenticationDataService() {
         return mock(BasicAuthenticationDataService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public ObservationHistoryService observationHistoryService() {
-        return mock(ObservationHistoryService.class);
     }
 
     @Bean()
