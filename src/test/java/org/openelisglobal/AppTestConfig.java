@@ -23,7 +23,6 @@ import org.openelisglobal.externalconnections.service.ExternalConnectionService;
 import org.openelisglobal.internationalization.MessageUtil;
 import org.openelisglobal.notification.service.AnalysisNotificationConfigService;
 import org.openelisglobal.notification.service.TestNotificationConfigService;
-import org.openelisglobal.observationhistory.service.ObservationHistoryService;
 import org.openelisglobal.organization.service.OrganizationTypeService;
 import org.openelisglobal.referral.service.ReferralResultService;
 import org.openelisglobal.referral.service.ReferralService;
@@ -32,7 +31,6 @@ import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
 import org.openelisglobal.siteinformation.service.SiteInformationService;
-import org.openelisglobal.testanalyte.service.TestAnalyteService;
 import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleService;
 import org.openelisglobal.typeofsample.service.TypeOfSampleTestService;
@@ -73,8 +71,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.scriptlet", "org.openelisglobal.localization", "org.openelisglobal.systemuser",
         "org.openelisglobal.systemmodule", "org.openelisglobal.testdictionary", "org.openelisglobal.dictionarycategory",
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
-        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer",
-        "org.openelisglobal.systemusersection" }, excludeFilters = {
+        "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer", "org.openelisglobal.testanalyte",
+        "org.openelisglobal.observationhistory", "org.openelisglobal.systemusersection" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -88,7 +86,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class AppTestConfig implements WebMvcConfigurer {
 
-    // mock Beans
     @Bean()
     @Profile("test")
     public PluginAnalyzerService pluginAnalyzerService() {
@@ -139,12 +136,6 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public TestAnalyteService testAnalyteService() {
-        return mock(TestAnalyteService.class);
-    }
-
-    @Bean()
-    @Profile("test")
     public ExternalConnectionService externalConnectService() {
         return mock(ExternalConnectionService.class);
     }
@@ -165,12 +156,6 @@ public class AppTestConfig implements WebMvcConfigurer {
     @Profile("test")
     public BasicAuthenticationDataService basicAuthenticationDataService() {
         return mock(BasicAuthenticationDataService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public ObservationHistoryService observationHistoryService() {
-        return mock(ObservationHistoryService.class);
     }
 
     @Bean()
