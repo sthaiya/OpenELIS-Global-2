@@ -89,13 +89,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class AppTestConfig implements WebMvcConfigurer {
 
-    // mock Beans
     @Bean
     @Profile("test")
     public TextEncryptor textEncryptor() {
         return mock(TextEncryptor.class);
     }
-
+  
     @Bean()
     @Profile("test")
     public PluginAnalyzerService pluginAnalyzerService() {
