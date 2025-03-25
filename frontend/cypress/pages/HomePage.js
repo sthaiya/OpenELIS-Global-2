@@ -23,7 +23,7 @@ class HomePage {
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results",
       resultValidationMenu: "#menu_resultvalidation",
-      reportsMenu: "#menu_reports",
+      reportsMenu: "#menu_reports_dropdown",
       pathologyMenu: "#menu_pathology",
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
@@ -57,8 +57,8 @@ class HomePage {
       resultValidationRoutine: "#menu_resultvalidation_routine",
       accessionValidation: "#menu_accession_validation",
       accessionValidationRange: "#menu_accession_validation_range",
-      reportsRoutineNav: "#menu_reports_routine_nav",
-      reportsStudyNav: "#menu_reports_study_nav",
+      reportsRoutineNav: "[data-cy='sidenav-button-menu_reports_routine']",
+      reportsStudyNav: "[data-cy='sidenav-button-menu_reports_study']",
     };
   }
 
@@ -266,19 +266,17 @@ class HomePage {
 
   // Navigate to the Routine Reports page
   goToRoutineReports() {
-    this.clickDropdownItem(
-      this.selectors.reportsMenu,
-      this.selectors.reportsRoutineNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.reportsMenu).click();
+    cy.get(this.selectors.reportsRoutineNav).click();
     return new RoutineReportPage();
   }
 
   // Navigate to the Study Reports page
   goToStudyReports() {
-    this.clickDropdownItem(
-      this.selectors.reportsMenu,
-      this.selectors.reportsStudyNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.reportsMenu).click({ force: true });
+    cy.get(this.selectors.reportsStudyNav).click();
     return new StudyReportPage();
   }
 
