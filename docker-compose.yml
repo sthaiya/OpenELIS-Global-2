@@ -38,7 +38,7 @@ services:
             
     oe.openelis.org:
         container_name: openelisglobal-webapp 
-        image: itechuw/openelis-global-2:develop   
+        image: itechuw/openelis-global-2:3.1.0.6   
         # platform: linux/amd64 
         depends_on:
             - database
@@ -69,7 +69,7 @@ services:
             
     fhir.openelis.org:
         container_name: external-fhir-api
-        image: itechuw/openelis-global-2-fhir:develop
+        image: itechuw/openelis-global-2-fhir:3.1.0.6 
         # platform: linux/amd64
         depends_on:
             - database
@@ -100,7 +100,7 @@ services:
 
          
     frontend.openelis.org:
-        image: itechuw/openelis-global-2-frontend:develop
+        image: itechuw/openelis-global-2-frontend:3.1.0.6 
         container_name: openelisglobal-front-end
         # platform: linux/amd64
         networks:
@@ -110,7 +110,7 @@ services:
         tty: true
 
     proxy:
-        image: itechuw/openelis-global-2-proxy:develop
+        image: itechuw/openelis-global-2-proxy:3.1.0.6 
         container_name: openelisglobal-proxy
         # platform: linux/amd64
         ports:
