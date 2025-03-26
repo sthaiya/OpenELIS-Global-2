@@ -41,7 +41,9 @@ see [OpenELIS-Docker setup](https://github.com/DIGI-UW/openelis-docker)
 
     docker-compose -f build.docker-compose.yml up -d --build
 
-#### Running OpenELIS Global2 using docker compose With locally compiled/built Artifacts (ie the War file and React code)
+#### Running OpenELIS Global2 with docker compose  For Development
+ Here Artifacts (ie the War file and React code) are  compiled/built on the local machine outside docker and just mounted into the docker compose setup.
+ This speeds up the development process 
 
 1.  Fork the
     [OpenELIS-Global Repository](https://github.com/DIGI-UW/OpenELIS-Global-2.git)
