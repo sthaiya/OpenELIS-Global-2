@@ -1,7 +1,12 @@
 package org.openelisglobal.sampleproject;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import jakarta.persistence.PersistenceException;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
@@ -46,6 +51,28 @@ public class SampleProjectServiceTest extends BaseWebContextSensitiveTest {
 
         assertNotNull(emptyProject.getProject());
         assertEquals("1", emptyProject.getProject().getId().toString());
+    }
+
+    @Test
+    public void getData_shouldHandleNonExistentId() {
+        SampleProject nonExistent = new SampleProject();
+        nonExistent.setId("999");
+
+        sampleProjectService.getData(nonExistent);
+
+        assertNull(nonExistent.getId());
+    }
+
+    @Test
+    public void getSampleProjectBySampleId_shouldThrowForNullInput() {
+
+        try {
+            sampleProjectService.getSampleProjectBySampleId(null);
+            fail("Expected exception not thrown");
+        } catch (Exception e) {
+
+            assertTrue(e instanceof PersistenceException || e instanceof IllegalArgumentException);
+        }
     }
 
 }
