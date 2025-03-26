@@ -26,8 +26,8 @@ and also follow our Guidelines will be Selected
     [Developer](https://docs.openelis-global.org/en/latest/dev_setup/)
     Instructions
 1.  Review project [ideas](./gsoc.md) & ask questions
-1.  Work on [Introductory Issues](https://github.com/orgs/DIGI-UW/projects/6)
-    to get Familiar with the Project
+1.  Work on [Introductory Issues](https://github.com/orgs/DIGI-UW/projects/6) to
+    get Familiar with the Project
 
 ## Proposal Template
 
