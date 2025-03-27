@@ -31,7 +31,7 @@ describe("Result By Unit", function () {
 
   it("should accept the sample, refer the sample, and save the result", function () {
     cy.fixture("result").then((res) => {
-      result.setResultValue(res.positiveResult);
+      result.setResultValue(res.resultNo);
       result.submitResults();
     });
   });
@@ -131,7 +131,7 @@ describe("Result By Order", function () {
 
   it("should accept the sample and save the result", function () {
     cy.fixture("result").then((res) => {
-      result.setResultValue(res.positiveResult);
+      result.setResultValue(res.resultNo);
     });
     result.submitResults();
   });
@@ -189,7 +189,7 @@ describe("Result By Referred Out Tests", function () {
 
   it("search Referrals By LabNumber and validate", function () {
     cy.fixture("Patient").then((order) => {
-      patientPage.enterPreviousLabNumber(order.labNo);
+      result.resultsByLabNumber(order.labNo);
     });
     result.clickReferralsByLabNumber();
   });
@@ -264,7 +264,7 @@ describe("Result By Test And Status", function () {
     });
     cy.fixture("result").then((res) => {
       cy.wait(1000);
-      result.setResultValue(res.positiveResult);
+      result.setResultValue(res.resultNo);
       result.submitResults();
     });
   });

@@ -356,6 +356,7 @@ describe("Study Reports", function () {
 
 describe("WHONET Report", function () {
   it("Navigation to WHONET Report", function () {
+    cy.reload();
     reportPage = homePage.goToWhonetReport();
   });
 

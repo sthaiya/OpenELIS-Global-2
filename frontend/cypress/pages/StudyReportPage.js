@@ -52,9 +52,9 @@ class StudyReportPage {
   }
 
   selectPatientStatusReport() {
-    cy.get('[data-cy="sidenav-button"]')
-      .contains("Patient Status Report")
-      .click({ force: true });
+    cy.get("#menu_reports_patients").click({
+      force: true,
+    });
   }
 
   selectARV() {
@@ -62,11 +62,11 @@ class StudyReportPage {
   }
 
   selectVersion1() {
-    cy.get("#menu_reports_arv_initial1").click();
+    cy.get("#menu_reports_arv_initial1_nav").click();
   }
 
   selectVersion2() {
-    cy.get("#menu_reports_arv_initial2").click();
+    cy.get("#menu_reports_arv_initial2_nav").click();
   }
   visitARVInitialVersion1() {
     //this.visitStudyReports();
@@ -90,7 +90,7 @@ class StudyReportPage {
   }
 
   selectFollowUpVersion1() {
-    cy.get("#menu_reports_arv_followup1").click();
+    cy.get("#menu_reports_arv_followup1_nav").click();
   }
 
   visitARVFollowUpVersion1() {
@@ -105,7 +105,7 @@ class StudyReportPage {
   }
 
   selectFollowUpVersion2() {
-    cy.get("#menu_reports_arv_followup2").click();
+    cy.get("#menu_reports_arv_followup2_nav").click();
   }
   visitARVFollowUpVersion2() {
     //this.visitStudyReports();
@@ -119,7 +119,7 @@ class StudyReportPage {
   }
 
   selectVersion3() {
-    cy.get("#menu_reports_arv_all").click();
+    cy.get("#menu_reports_arv_all_nav").click();
   }
   visitARVFollowUpVersion3() {
     //this.visitStudyReports();

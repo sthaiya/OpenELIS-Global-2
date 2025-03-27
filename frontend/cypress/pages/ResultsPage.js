@@ -93,6 +93,10 @@ class Result {
   clickReferralsByTestAndName() {
     cy.get("[data-cy='byUnitsAndTests']").should("be.visible").click();
   }
+
+  resultsByLabNumber(number) {
+    cy.get("#labNumberInput").type(number);
+  }
   clickReferralsByLabNumber() {
     cy.get("[data-cy='byLabNumber']").should("be.visible").click();
   }
