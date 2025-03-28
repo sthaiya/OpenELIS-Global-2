@@ -298,14 +298,13 @@ function UserManagement() {
           name="selectRowCheckbox"
           ariaLabel="selectRows"
           onSelect={() => {
-            const isActiveCell = row.cells.find(
-              (cell) => cell.id.endsWith(":active")
+            const isActiveCell = row.cells.find((cell) =>
+              cell.id.endsWith(":active"),
             );
 
             let isActiveValue = "";
             if (isActiveCell) {
               isActiveValue = isActiveCell.value;
-              console.log("isActiveValue:", isActiveValue);
             }
 
             setDeactivateButton(isActiveValue !== "Y");
