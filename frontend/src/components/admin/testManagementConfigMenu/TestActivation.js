@@ -294,99 +294,99 @@ function TestActivation() {
     // });
   };
 
-  // const handleInactiveTestListCheckboxChangeActiveTests = (
-  //   test,
-  //   sampleTypeId,
-  //   isChecked,
-  // ) => {
-  //   setChangedTestActivationData((prev) => {
-  //     let inactiveTestList = [...prev.inactiveTestList];
+  const handleInactiveTestListCheckboxChangeActiveTests = (
+    test,
+    sampleTypeId,
+    isChecked,
+  ) => {
+    setChangedTestActivationData((prev) => {
+      let inactiveTestList = [...prev.inactiveTestList];
 
-  //     inactiveTestList = inactiveTestList.map((sample) => {
-  //       if (sample.sampleType.id === sampleTypeId) {
-  //         let activeTests = [...sample.activeTests];
-  //         let inactiveTests = [...sample.inactiveTests];
+      inactiveTestList = inactiveTestList.map((sample) => {
+        if (sample.sampleType.id === sampleTypeId) {
+          let activeTests = [...sample.activeTests];
+          let inactiveTests = [...sample.inactiveTests];
 
-  //         const originalState = testActivationData.inactiveTestList.find(
-  //           (sample) => sample.sampleType.id === sampleTypeId,
-  //         );
+          const originalState = testActivationData.inactiveTestList.find(
+            (sample) => sample.sampleType.id === sampleTypeId,
+          );
 
-  //         if (
-  //           activeTests.some((t) => t.id === test.id) ||
-  //           inactiveTests.some((t) => t.id === test.id)
-  //         ) {
-  //           if (isChecked === false) {
-  //             activeTests = activeTests.filter((item) => item.id !== test.id);
-  //             if (!inactiveTests.some((item) => item.id === test.id)) {
-  //               const originalIndex = originalState.inactiveTests.findIndex(
-  //                 (t) => t.id === test.id,
-  //               );
-  //               if (originalIndex !== -1) {
-  //                 inactiveTests.splice(originalIndex, 0, test);
-  //               } else {
-  //                 inactiveTests.push(test);
-  //               }
-  //             }
-  //           } else {
-  //             inactiveTests = inactiveTests.filter(
-  //               (item) => item.id !== test.id,
-  //             );
-  //             if (!activeTests.some((item) => item.id === test.id)) {
-  //               const originalIndex = originalState.activeTests.findIndex(
-  //                 (t) => t.id === test.id,
-  //               );
-  //               if (originalIndex !== -1) {
-  //                 activeTests.splice(originalIndex, 0, test);
-  //               } else {
-  //                 activeTests.push(test);
-  //               }
-  //             }
-  //           }
-  //         }
+          if (
+            activeTests.some((t) => t.id === test.id) ||
+            inactiveTests.some((t) => t.id === test.id)
+          ) {
+            if (isChecked === false) {
+              activeTests = activeTests.filter((item) => item.id !== test.id);
+              if (!inactiveTests.some((item) => item.id === test.id)) {
+                const originalIndex = originalState.inactiveTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                if (originalIndex !== -1) {
+                  inactiveTests.splice(originalIndex, 0, test);
+                } else {
+                  inactiveTests.push(test);
+                }
+              }
+            } else {
+              inactiveTests = inactiveTests.filter(
+                (item) => item.id !== test.id,
+              );
+              if (!activeTests.some((item) => item.id === test.id)) {
+                const originalIndex = originalState.activeTests.findIndex(
+                  (t) => t.id === test.id,
+                );
+                if (originalIndex !== -1) {
+                  activeTests.splice(originalIndex, 0, test);
+                } else {
+                  activeTests.push(test);
+                }
+              }
+            }
+          }
 
-  //         return { ...sample, activeTests, inactiveTests };
-  //       }
-  //       return sample;
-  //     });
+          return { ...sample, activeTests, inactiveTests };
+        }
+        return sample;
+      });
 
-  //     return { ...prev, inactiveTestList };
-  //   });
+      return { ...prev, inactiveTestList };
+    });
 
-  //   setJsonChangeList((prev) => {
-  //     let activateTest = [...prev.activateTest];
-  //     let deactivateTest = [...prev.deactivateTest];
+    // setJsonChangeList((prev) => {
+    //   let activateTest = [...prev.activateTest];
+    //   let deactivateTest = [...prev.deactivateTest];
 
-  //     const originalState = testActivationData.inactiveTestList.find(
-  //       (sample) => sample.sampleType.id === sampleTypeId,
-  //     );
+    //   const originalState = testActivationData.inactiveTestList.find(
+    //     (sample) => sample.sampleType.id === sampleTypeId,
+    //   );
 
-  //     const isOriginallyInactive = originalState.inactiveTests.some(
-  //       (t) => t.id === test.id,
-  //     );
+    //   const isOriginallyInactive = originalState.inactiveTests.some(
+    //     (t) => t.id === test.id,
+    //   );
 
-  //     if (isChecked === false) {
-  //       if (!isOriginallyInactive) {
-  //         if (!deactivateTest.some((item) => item.id === test.id)) {
-  //           deactivateTest.push({ id: test.id });
-  //         }
-  //       } else {
-  //         activateTest = activateTest.filter((item) => item.id !== test.id);
-  //         deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
-  //       }
-  //     } else {
-  //       if (isOriginallyInactive) {
-  //         if (!activateTest.some((item) => item.id === test.id)) {
-  //           activateTest.push({ id: test.id });
-  //         }
-  //       } else {
-  //         activateTest = activateTest.filter((item) => item.id !== test.id);
-  //         deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
-  //       }
-  //     }
+    //   if (isChecked === false) {
+    //     if (!isOriginallyInactive) {
+    //       if (!deactivateTest.some((item) => item.id === test.id)) {
+    //         deactivateTest.push({ id: test.id });
+    //       }
+    //     } else {
+    //       activateTest = activateTest.filter((item) => item.id !== test.id);
+    //       deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+    //     }
+    //   } else {
+    //     if (isOriginallyInactive) {
+    //       if (!activateTest.some((item) => item.id === test.id)) {
+    //         activateTest.push({ id: test.id });
+    //       }
+    //     } else {
+    //       activateTest = activateTest.filter((item) => item.id !== test.id);
+    //       deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+    //     }
+    //   }
 
-  //     return { activateTest, deactivateTest };
-  //   });
-  // };
+    //   return { activateTest, deactivateTest };
+    // });
+  };
 
   const handleInactiveTestListCheckboxChangeInactiveTests = (
     test,
@@ -774,10 +774,17 @@ function TestActivation() {
           <br />
           <Grid fullWidth={true}>
             <Column lg={16} md={8} sm={4}>
-              <Heading>Inactive Sample Types</Heading>
-              {/* TODO : change this to formated message */}
+              <Section>
+                <Section>
+                  <Heading>Inactive Sample Types</Heading>
+                  {/* TODO : change this to formated message */}
+                </Section>
+              </Section>
             </Column>
           </Grid>
+          <br />
+          <hr />
+          <br />
           {changedTestActivationData?.inactiveTestList &&
           changedTestActivationData?.inactiveTestList?.length > 0 ? (
             <Grid fullWidth={true}>
