@@ -190,7 +190,7 @@ function ProgramManagement() {
         </Grid>
         <Form onSubmit={handleSubmit}>
           <Grid fullWidth={true}>
-            <Column lg={8} md={4}>
+            <Column lg={8} md={4} sm={2}>
               <Select
                 id="additionalQuestionsSelect"
                 labelText="Program"
