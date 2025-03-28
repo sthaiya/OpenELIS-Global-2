@@ -103,70 +103,81 @@ function TestActivation() {
 
       let movedSampleType = null;
 
-      activeTestList = activeTestList.map((sample) => {
-        if (sample.sampleType.id === sampleTypeId) {
-          let activeTests = [...sample.activeTests];
-          let inactiveTests = [...sample.inactiveTests];
+      activeTestList = activeTestList
+        .map((sample) => {
+          if (sample.sampleType.id === sampleTypeId) {
+            let activeTests = [...sample.activeTests];
+            let inactiveTests = [...sample.inactiveTests];
 
-          const originalState = testActivationData.activeTestList.find(
-            (sample) => sample.sampleType.id === sampleTypeId,
-          );
+            const originalState = testActivationData.activeTestList.find(
+              (sample) => sample.sampleType.id === sampleTypeId,
+            );
 
-          if (
-            activeTests.some((t) => t.id === test.id)
-            // || inactiveTests.some((t) => t.id === test.id)
-          ) {
-            if (isChecked === true) {
-              inactiveTests = inactiveTests.filter(
-                (item) => item.id !== test.id,
-              );
-              if (!activeTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.activeTests.findIndex(
-                  (t) => t.id === test.id,
+            if (activeTests.some((t) => t.id === test.id)) {
+              if (isChecked === true) {
+                inactiveTests = inactiveTests.filter(
+                  (item) => item.id !== test.id,
                 );
-                if (originalIndex !== -1) {
-                  activeTests.splice(originalIndex, 0, test);
-                } else {
+                if (!activeTests.some((item) => item.id === test.id)) {
+                  // const originalIndex = originalState.activeTests.findIndex(
+                  //   (t) => t.id === test.id,
+                  // );
+                  // if (originalIndex !== -1) {
+                  //   activeTests.splice(originalIndex, 0, test);
+                  // } else {
+                  //   activeTests.push(test);
+                  // }
                   activeTests.push(test);
                 }
-              }
-            } else {
-              activeTests = activeTests.filter((item) => item.id !== test.id);
-              if (!inactiveTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.inactiveTests.findIndex(
-                  (t) => t.id === test.id,
-                );
-                if (originalIndex !== -1) {
-                  inactiveTests.splice(originalIndex, 0, test);
-                } else {
+              } else {
+                activeTests = activeTests.filter((item) => item.id !== test.id);
+                if (!inactiveTests.some((item) => item.id === test.id)) {
+                  // const originalIndex = originalState.inactiveTests.findIndex(
+                  //   (t) => t.id === test.id,
+                  // );
+                  // if (originalIndex !== -1) {
+                  //   inactiveTests.splice(originalIndex, 0, test);
+                  // } else {
+                  //   inactiveTests.push(test);
+                  // }
                   inactiveTests.push(test);
                 }
               }
             }
-          }
 
-          if (activeTests.length === 0) {
-            movedSampleType = {
-              sampleType: sample.sampleType,
-              inactiveTests: [test],
-            };
-            return { ...sample, activeTests: [], inactiveTests: [] };
-          }
+            if (activeTests.length === 0) {
+              movedSampleType = {
+                sampleType: sample.sampleType,
+                activeTests: [],
+                inactiveTests: [...inactiveTests],
+              };
+              return null;
+            }
 
-          return { ...sample, activeTests, inactiveTests };
-        }
-        return sample;
-      });
+            return { ...sample, activeTests, inactiveTests };
+          }
+          return sample;
+        })
+        .filter(Boolean);
 
       if (movedSampleType) {
-        let updatedInactiveTestList = [...inactiveTestList];
-        let existingSample = updatedInactiveTestList.find(
+        let existingSample = inactiveTestList.find(
           (sample) => sample.sampleType.id === sampleTypeId,
         );
 
-        if (existingSample) {
-          existingSample.inactiveTests.push(...movedSampleType.inactiveTests);
-        } else {
+        let updatedInactiveTestList = inactiveTestList.map((sample) =>
+          sample.sampleType.id === sampleTypeId
+            ? {
+                ...sample,
+                inactiveTests: [
+                  ...sample.inactiveTests,
+                  ...movedSampleType.inactiveTests,
+                ],
+              }
+            : sample,
+        );
+
+        if (!existingSample) {
           updatedInactiveTestList.push(movedSampleType);
         }
 
@@ -229,10 +240,7 @@ function TestActivation() {
           let activeTests = [...sample.activeTests];
           let inactiveTests = [...sample.inactiveTests];
 
-          if (
-            // activeTests.some((t) => t.id === test.id) ||
-            inactiveTests.some((t) => t.id === test.id)
-          ) {
+          if (inactiveTests.some((t) => t.id === test.id)) {
             if (isChecked === true) {
               inactiveTests = inactiveTests.filter(
                 (item) => item.id !== test.id,
@@ -252,8 +260,6 @@ function TestActivation() {
         }
         return sample;
       });
-
-      console.log(changedTestActivationData.activeTestList);
 
       return { ...prev, activeTestList };
     });
@@ -318,28 +324,30 @@ function TestActivation() {
             if (isChecked === false) {
               activeTests = activeTests.filter((item) => item.id !== test.id);
               if (!inactiveTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.inactiveTests.findIndex(
-                  (t) => t.id === test.id,
-                );
-                if (originalIndex !== -1) {
-                  inactiveTests.splice(originalIndex, 0, test);
-                } else {
-                  inactiveTests.push(test);
-                }
+                // const originalIndex = originalState.inactiveTests.findIndex(
+                //   (t) => t.id === test.id,
+                // );
+                // if (originalIndex !== -1) {
+                //   inactiveTests.splice(originalIndex, 0, test);
+                // } else {
+                //   inactiveTests.push(test);
+                // }
+                inactiveTests.push(test);
               }
             } else {
               inactiveTests = inactiveTests.filter(
                 (item) => item.id !== test.id,
               );
               if (!activeTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.activeTests.findIndex(
-                  (t) => t.id === test.id,
-                );
-                if (originalIndex !== -1) {
-                  activeTests.splice(originalIndex, 0, test);
-                } else {
-                  activeTests.push(test);
-                }
+                // const originalIndex = originalState.activeTests.findIndex(
+                //   (t) => t.id === test.id,
+                // );
+                // if (originalIndex !== -1) {
+                //   activeTests.splice(originalIndex, 0, test);
+                // } else {
+                //   activeTests.push(test);
+                // }
+                activeTests.push(test);
               }
             }
           }
@@ -408,71 +416,47 @@ function TestActivation() {
             (sample) => sample.sampleType.id === sampleTypeId,
           );
 
-          // if (
-          //   // activeTests.some((t) => t.id === test.id) ||
-          //   inactiveTests.some((t) => t.id === test.id)
-          // ) {
-          //   if (isChecked === false) {
-          //     activeTests = activeTests.filter((item) => item.id !== test.id);
-          //     if (!inactiveTests.some((item) => item.id === test.id)) {
-          //       const originalIndex = originalState.inactiveTests.findIndex(
-          //         (t) => t.id === test.id,
-          //       );
-          //       if (originalIndex !== -1) {
-          //         inactiveTests.splice(originalIndex, 0, test);
-          //       } else {
-          //         inactiveTests.push(test);
-          //       }
-          //     }
-          //   } else {
-          //     inactiveTests = inactiveTests.filter(
-          //       (item) => item.id !== test.id,
-          //     );
-          //     if (!activeTests.some((item) => item.id === test.id)) {
-          //       const originalIndex = originalState.activeTests.findIndex(
-          //         (t) => t.id === test.id,
-          //       );
-          //       if (originalIndex !== -1) {
-          //         activeTests.splice(originalIndex, 0, test);
-          //       } else {
-          //         activeTests.push(test);
-          //       }
-          //     }
-          //   }
-          // }
-
           if (inactiveTests.some((t) => t.id === test.id)) {
             if (isChecked) {
               inactiveTests = inactiveTests.filter(
                 (item) => item.id !== test.id,
               );
               if (!activeTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.activeTests.findIndex(
-                  (t) => t.id === test.id,
-                );
-                if (originalIndex !== -1) {
-                  activeTests.splice(originalIndex, 0, test);
-                } else {
-                  activeTests.push(test);
-                }
+                // const originalIndex = originalState.activeTests.findIndex(
+                //   (t) => t.id === test.id,
+                // );
+                // if (originalIndex !== -1) {
+                //   activeTests.splice(originalIndex, 0, test);
+                // } else {
+                //   activeTests.push(test);
+                // }
+                activeTests.push(test);
+              }
+
+              if (activeTests.length > 0) {
+                updatedSample = {
+                  sampleType: sample.sampleType,
+                  activeTests,
+                  inactiveTests,
+                };
               }
             } else {
               activeTests = activeTests.filter((item) => item.id !== test.id);
               if (!inactiveTests.some((item) => item.id === test.id)) {
-                const originalIndex = originalState.inactiveTests.findIndex(
-                  (t) => t.id === test.id,
-                );
-                if (originalIndex !== -1) {
-                  inactiveTests.splice(originalIndex, 0, test);
-                } else {
-                  inactiveTests.push(test);
-                }
+                // const originalIndex = originalState.inactiveTests.findIndex(
+                //   (t) => t.id === test.id,
+                // );
+                // if (originalIndex !== -1) {
+                //   inactiveTests.splice(originalIndex, 0, test);
+                // } else {
+                //   inactiveTests.push(test);
+                // }
+                inactiveTests.push(test);
               }
             }
           }
 
-          updatedSample = { ...sample, activeTests, inactiveTests };
-          return updatedSample;
+          return { ...sample, activeTests, inactiveTests };
         }
         return sample;
       });
@@ -910,6 +894,13 @@ function TestActivation() {
           }}
         >
           jsonChangeList
+        </button>
+        <button
+          onClick={() => {
+            console.log(changedTestActivationData);
+          }}
+        >
+          changedTestActivationData
         </button>
       </div>
 
