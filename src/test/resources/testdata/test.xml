@@ -2,11 +2,11 @@
 <dataset>
 
     <localization id="1" description="Test Description 1"
-        english="Hello" french="Bonjour" />
+        english="TB" french="TB" />
     <localization id="2" description="Test Description 2"
-        english="Goodbye" french="Au revoir" />
+        english="Urinalysis" french="Urinalysis" />
     <localization id="3" description="Test Description 3"
-        english="Thank you" french="Merci" />
+        english="blood test" french="Merci" />
 
     <unit_of_measure id="1" name="mg/dL"
         description="Milligrams per deciliter" />
