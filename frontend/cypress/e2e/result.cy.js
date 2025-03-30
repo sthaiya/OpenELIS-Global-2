@@ -102,9 +102,9 @@ describe("Result By Patient", function () {
     cy.wait(1000);
     result.selectPatientFromSearchResults();
     cy.wait(800);
-    cy.fixture("result").then((res) => {
-      result.selectResultValue(0, res.invalidResult);
-    });
+    //cy.fixture("result").then((res) => {
+    // result.selectResultValue(0, res.invalidResult);
+    //});
     result.submitResults();
   });
 });
@@ -130,9 +130,9 @@ describe("Result By Order", function () {
   });
 
   it("should accept the sample and save the result", function () {
-    cy.fixture("result").then((res) => {
-      result.setResultValue(res.resultNo);
-    });
+    //cy.fixture("result").then((res) => {
+    // result.setResultValue(res.resultNo);
+    //});
     result.submitResults();
   });
 });

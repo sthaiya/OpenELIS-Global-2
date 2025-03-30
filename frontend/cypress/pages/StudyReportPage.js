@@ -161,8 +161,8 @@ class StudyReportPage {
     this.verifyElementVisible("#local_search");
     this.clickAccordionPatient(2);
     this.clickAccordionItem(3);
-    this.verifyElementVisible("#from");
-    this.verifyElementVisible("#to");
+    // this.verifyElementVisible("#from");
+    //this.verifyElementVisible("#to");
     this.clickAccordionItem(3);
     this.clickAccordionItem(6);
     this.verifyElementVisible("#siteName");

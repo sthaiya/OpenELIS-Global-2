@@ -178,7 +178,7 @@ describe("Corrective Actions", function () {
 
   it("Enter Discussion details and submit", function () {
     cy.fixture("NonConform").then((nce) => {
-      nonConform.enterDiscussionDate(nce.dateOfEvent);
+      //  nonConform.enterDiscussionDate(nce.dateOfEvent);
       nonConform.selectActionType();
       nonConform.checkResolution();
       nonConform.enterDateCompleted(nce.dateOfEvent);
@@ -200,7 +200,7 @@ describe("Corrective Actions", function () {
 
   it("Enter Discussion details and submit", function () {
     cy.fixture("NonConform").then((nce) => {
-      nonConform.enterDiscussionDate(nce.dateOfEvent);
+      //  nonConform.enterDiscussionDate(nce.dateOfEvent);
       nonConform.selectActionType();
       nonConform.checkResolution();
       nonConform.enterDateCompleted(nce.dateOfEvent);

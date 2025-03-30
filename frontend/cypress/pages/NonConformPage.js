@@ -131,7 +131,7 @@ class NonConform {
 
   clickRadioButtonNCE() {
     cy.get(
-      ".cds--data-table > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(2) > span:nth-child(1)",
+      "tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(1) > div:nth-child(1) > label:nth-child(2) > span:nth-child(1)",
     )
       //.first()
       .should("not.be.checked")
