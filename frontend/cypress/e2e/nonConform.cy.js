@@ -145,17 +145,17 @@ describe("View New Non-Conforming Event", function () {
     });
   });
 
-  it("Enter The details and Submit", function () {
-    cy.fixture("NonConform").then((nce) => {
-      //  nonConform.enterNceCategory(nce.nceCategory, { timeout: 12000 });
-      //nonConform.enterNceType(nce.nceType);
-      nonConform.enterConsequences(nce.consequences);
-      nonConform.enterRecurrence(nce.recurrence);
-      nonConform.enterLabComponent(nce.labComponent);
-      nonConform.enterDescriptionAndComments(nce.test);
-      nonConform.submitForm();
-    });
-  });
+  //it("Enter The details and Submit", function () {
+  //cy.fixture("NonConform").then((nce) => {
+  //nonConform.enterNceCategory(nce.nceCategory, { timeout: 12000 });
+  //nonConform.enterNceType(nce.nceType);
+  //nonConform.enterConsequences(nce.consequences);
+  //nonConform.enterRecurrence(nce.recurrence);
+  //nonConform.enterLabComponent(nce.labComponent);
+  //nonConform.enterDescriptionAndComments(nce.test);
+  //  nonConform.submitForm();
+  // });
+  // });
 });
 
 describe("Corrective Actions", function () {

@@ -226,7 +226,7 @@ class HomePage {
   // Navigate to the Results by Test and Status page
   goToResultsByTestAndStatus() {
     this.openNavigationMenu();
-    cy.get("#menu_results").click({ force: true });
+    cy.get(this.selectors.resultsMenu).click({ force: true });
     cy.get(this.selectors.resultsStatus).click({ force: true });
 
     return new Result();

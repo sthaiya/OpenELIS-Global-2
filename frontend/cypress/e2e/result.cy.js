@@ -219,6 +219,7 @@ describe("Result By Range Of Order", function () {
     cy.fixture("result").then((res) => {
       result.submitResults();
     });
+    cy.reload();
   });
 });
 
