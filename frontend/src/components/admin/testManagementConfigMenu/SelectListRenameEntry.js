@@ -20,7 +20,6 @@ import {
 } from "../../common/CustomNotification.js";
 import { FormattedMessage, injectIntl, useIntl } from "react-intl";
 import PageBreadCrumb from "../../common/PageBreadCrumb.js";
-import { TextWrap } from "@carbon/icons-react";
 
 let breadcrumbs = [
   { label: "home.label", link: "/" },
