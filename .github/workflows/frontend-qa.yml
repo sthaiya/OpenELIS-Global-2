@@ -1,4 +1,4 @@
-name: OpenELis Frontend QA framework workflow
+name: OpenELIS Frontend QA framework workflow
 on:
   push:
     branches: [develop]
@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -41,20 +41,27 @@ jobs:
 
   build-and-run-qa-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - name: Checkout OpenELIS-Global2
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          repository: ${{github.repository}}
           submodules: recursive
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+          google-chrome --version
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
         working-directory: frontend
 
       - name: Install React scripts
@@ -63,18 +70,18 @@ jobs:
 
       - name: Check Format
         run: npx prettier ./ --check
-        working-directory: frontend  
+        working-directory: frontend
 
       - name: Build OpenELIS Images and Run containers
-        run: docker compose -f build.docker-compose.yml up -d  --build --wait --wait-timeout 600
-   
-      - name: Run Frontend Qa Workflow
-        run: npx cypress run –headless
+        run: docker compose -f build.docker-compose.yml up -d --build --wait --wait-timeout 600
+
+      - name: Run Frontend QA Workflow
+        run: npx cypress run --browser chrome --headless
         working-directory: frontend
 
       - name: Dump docker logs on failure
         if: failure()
         uses: jwalton/gh-docker-logs@v2
         with:
-          # Only show last 100 lines of each
           tail: "100"
+          
