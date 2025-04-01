@@ -26,6 +26,7 @@ import ModifyOrder from "./components/modifyOrder/ModifyOrder";
 import RoutineReports from "./components/reports/Routine";
 import StudyReports from "./components/reports/Study";
 import StudyValidation from "./components/validation/Index";
+import AnalyserResultIndex from "./components/analyserResults/Index";
 import PathologyDashboard from "./components/pathology/PathologyDashboard";
 import CytologyDashboard from "./components/cytology/CytologyDashBoard";
 import CytologyCaseView from "./components/cytology/CytologyCaseView";
@@ -359,6 +360,7 @@ export default function App() {
                   component={() => (
                     <NonConformIndex form="NCECorrectiveAction" />
                   )}
+                  role="Reception"
                 />
 
                 <SecureRoute
@@ -530,6 +532,12 @@ export default function App() {
                   exact
                   component={() => <StudyValidation />}
                   role="Validation"
+                />
+                <SecureRoute
+                  path="/AnalyzerResults"
+                  exact
+                  component={() => <AnalyserResultIndex />}
+                  role="Results"
                 />
                 <Route path="*" component={() => <RedirectOldUI />} />
               </Switch>
