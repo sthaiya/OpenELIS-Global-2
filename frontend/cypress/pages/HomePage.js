@@ -210,7 +210,7 @@ class HomePage {
   // Navigate to the Results for Referred Out page
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu).click({ force: true });
+    cy.get(this.selectors.resultsMenu).click({ force: true });
     cy.get(this.selectors.resultsReferred).click({ force: true });
     return new Result();
   }
