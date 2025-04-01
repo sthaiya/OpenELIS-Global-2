@@ -1,12 +1,10 @@
 package org.openelisglobal.sampleproject;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import jakarta.persistence.PersistenceException;
+import java.sql.Date;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
@@ -73,6 +71,67 @@ public class SampleProjectServiceTest extends BaseWebContextSensitiveTest {
 
             assertTrue(e instanceof PersistenceException || e instanceof IllegalArgumentException);
         }
+    }
+
+    @Test
+    public void getSampleProjectBySampleId_shouldReturnNullForNonExistentSample() {
+        SampleProject sampleProject = sampleProjectService.getSampleProjectBySampleId("999");
+        assertNull(sampleProject);
+    }
+
+    @Test
+    public void updateSampleProject_shouldModifyExistingSampleProject() {
+        SampleProject existingProject = sampleProjectService.getSampleProjectBySampleId("1");
+        existingProject.setIsPermanent("N");
+        sampleProjectService.save(existingProject);
+
+        SampleProject updatedProject = sampleProjectService.getSampleProjectBySampleId("1");
+        assertEquals("N", updatedProject.getIsPermanent());
+    }
+
+    @Test
+    public void getByOrganizationProjectAndReceivedOnRange_shouldReturnEmptyListForInvalidRange() {
+        Date lowDate = Date.valueOf("2024-01-01");
+        Date highDate = Date.valueOf("2024-02-01");
+        List<SampleProject> projects = sampleProjectService.getByOrganizationProjectAndReceivedOnRange("1",
+                "Test Project", lowDate, highDate);
+        assertNotNull(projects);
+        assertTrue(projects.isEmpty());
+    }
+
+    @Test
+    public void getSampleProjectBySampleId_shouldReturnNullIfNotFound() {
+        SampleProject sampleProject = sampleProjectService.getSampleProjectBySampleId("999"); // Assuming "999" does not
+                                                                                              // exist.
+        assertNull(sampleProject);
+    }
+
+    @Test
+    public void getData_shouldSetIdToNullIfNoDataFound() {
+        SampleProject sampleProject = new SampleProject();
+        sampleProject.setId("999");
+
+        sampleProjectService.getData(sampleProject);
+        assertNull(sampleProject.getId());
+    }
+
+    @Test
+    public void updateSampleProject_shouldHandleNullValuesGracefully() {
+        SampleProject existingProject = sampleProjectService.getSampleProjectBySampleId("1");
+        existingProject.setIsPermanent(null);
+        sampleProjectService.save(existingProject);
+
+        SampleProject updatedProject = sampleProjectService.getSampleProjectBySampleId("1");
+        assertNull(updatedProject.getIsPermanent());
+    }
+
+    @Test
+    public void getSampleProjectBySampleId_shouldReturnEmptyForEmptyDatabase() {
+        SampleProject sampleProject = sampleProjectService.getSampleProjectBySampleId("1");
+
+        assertNotNull(sampleProject);
+        assertNull(sampleProject.getSampleId());
+        assertNull(sampleProject.getProjectId());
     }
 
 }
