@@ -48,12 +48,6 @@ jobs:
           repository: ${{github.repository}}
           submodules: recursive
 
-      - name: Install Chrome for Testing
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-          echo "Chrome version: $(google-chrome --version)"
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -72,15 +66,15 @@ jobs:
         working-directory: frontend  
 
       - name: Build OpenELIS Images and Run containers
-        run: docker compose -f build.docker-compose.yml up -d --build --wait --wait-timeout 600
+        run: docker compose -f build.docker-compose.yml up -d  --build --wait --wait-timeout 600
    
-      - name: Run Frontend Qa Workflow with Chrome
-        run: npx cypress run --browser chrome --headless
+      - name: Run Frontend Qa Workflow
+        run: npx cypress run –headless
         working-directory: frontend
 
       - name: Dump docker logs on failure
         if: failure()
         uses: jwalton/gh-docker-logs@v2
         with:
+          # Only show last 100 lines of each
           tail: "100"
-          
