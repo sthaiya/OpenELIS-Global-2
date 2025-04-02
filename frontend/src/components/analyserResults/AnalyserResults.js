@@ -134,7 +134,7 @@ const AnalyserResults = (props) => {
     if (status == 200) {
       message = intl.formatMessage({ id: "validation.save.success" });
       kind = NotificationKinds.success;
-      window.location.href = "/rest/AnalyzerResults?type=" + props.type;
+      window.location.href = "/AnalyzerResults?type=" + props.type;
     }
     addNotification({
       kind: kind,
@@ -246,7 +246,7 @@ const AnalyserResults = (props) => {
                 {({ field }) => (
                   <Checkbox
                     id={"resultList" + row.id + ".isAccepted"}
-                    name={"resultList[" + row.id + "].isAccepted"}
+                    name={"resultList[?(@.id == " + row.id + ")].isAccepted"}
                     labelText=""
                     value={true}
                     onChange={(e) => handleCheckBox(e, row.id)}
@@ -264,7 +264,7 @@ const AnalyserResults = (props) => {
               {({ field }) => (
                 <Checkbox
                   id={"resultList" + row.id + ".isRejected"}
-                  name={"resultList[" + row.id + "].isRejected"}
+                  name={"resultList[?(@.id == " + row.id + ")].isRejected"}
                   labelText=""
                   value={true}
                   onChange={(e) => handleCheckBox(e, row.id)}
@@ -281,7 +281,7 @@ const AnalyserResults = (props) => {
               {({ field }) => (
                 <Checkbox
                   id={"resultList" + row.id + ".isDeleted"}
-                  name={"resultList[" + row.id + "].isDeleted"}
+                  name={"resultList[?(@.id == " + row.id + ")].isDeleted"}
                   labelText=""
                   value={true}
                   onChange={(e) => handleCheckBox(e, row.id)}
