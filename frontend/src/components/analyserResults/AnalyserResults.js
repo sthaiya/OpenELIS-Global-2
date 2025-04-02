@@ -157,7 +157,7 @@ const AnalyserResults = (props) => {
     let form = props.results;
     var jp = require("jsonpath");
     jp.value(form, name, value);
-    props.setResults(form);
+   // props.setResults(form);
   };
 
   const handleDatePickerChange = (date, rowId) => {
@@ -306,7 +306,7 @@ const AnalyserResults = (props) => {
             <div className="note">
               <TextArea
                 id={"resultList" + row.id + ".note"}
-                name={"resultList[" + row.id + "].note"}
+                name={"resultList[?(@.id == " + row.id + ")].note"}
                 disabled={false}
                 type="text"
                 labelText=""
@@ -340,7 +340,7 @@ const AnalyserResults = (props) => {
                   <div className="result">
                     <TextInput
                       id={"resultList" + row.id + ".result"}
-                      name={"resultList[" + row.id + "].result"}
+                      name={"resultList[?(@.id == " + row.id + ")].result"}
                       disabled={false}
                       type="text"
                       value={row.result}
