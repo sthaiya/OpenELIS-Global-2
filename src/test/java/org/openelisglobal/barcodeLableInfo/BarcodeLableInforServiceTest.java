@@ -3,6 +3,7 @@ package org.openelisglobal.barcodeLableInfo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
@@ -40,6 +41,54 @@ public class BarcodeLableInforServiceTest extends BaseWebContextSensitiveTest {
         assertEquals(200, info3.getNumPrinted());
         assertEquals("Standard", info3.getType());
 
+    }
+
+    @Test
+    public void get_shouldReturnBarcodeLabelInfoGivenId() {
+        BarcodeLabelInfo barcode = barcodeLabelInfoService.get("1");
+        assertEquals(100, barcode.getNumPrinted());
+        assertEquals("Standard", barcode.getType());
+
+    }
+
+    @Test
+    public void getNext_shouldReturnNextBarcodeLabelInfo() {
+        BarcodeLabelInfo bLabelInfo = barcodeLabelInfoService.getNext("1");
+        assertEquals("2", bLabelInfo.getId());
+    }
+
+    @Test
+    public void getPrevious_shouldReturnPreviousItem() {
+        BarcodeLabelInfo bLabelInfo = barcodeLabelInfoService.getPrevious("2");
+        assertEquals("1", bLabelInfo.getId());
+    }
+
+    @Test
+    public void save_sholdSaveBarcodeLabelInfo() {
+        barcodeLabelInfoService.deleteAll(barcodeLabelInfoService.getAll());
+        BarcodeLabelInfo barcodeLabelInfo = new BarcodeLabelInfo();
+        barcodeLabelInfo.setNumPrinted(300);
+        barcodeLabelInfo.setCode("75");
+        barcodeLabelInfo.setType("Standard");
+        BarcodeLabelInfo barcodeLabelInfo2 = barcodeLabelInfoService.save(barcodeLabelInfo);
+        assertNotNull(barcodeLabelInfo2);
+        assertEquals(300, barcodeLabelInfo2.getNumPrinted());
+    }
+
+    @Test
+    public void getAll_sholdReturnAll() {
+        List<BarcodeLabelInfo> barcodes = barcodeLabelInfoService.getAll();
+        assertEquals(3, barcodes.size());
+
+    }
+
+    @Test
+    public void update_shouldUpdateBarcodeLabelInfo() {
+        BarcodeLabelInfo bLabelInfo = barcodeLabelInfoService.get("1");
+        bLabelInfo.setCode("15");
+        BarcodeLabelInfo barcodeLabelInfo2 = barcodeLabelInfoService.update(bLabelInfo);
+        assertEquals("1", barcodeLabelInfo2.getId());
+        assertEquals("15", barcodeLabelInfo2.getCode());
     }
 
 }
