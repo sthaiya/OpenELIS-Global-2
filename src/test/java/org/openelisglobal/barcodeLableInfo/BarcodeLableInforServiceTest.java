@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
@@ -236,6 +237,45 @@ public class BarcodeLableInforServiceTest extends BaseWebContextSensitiveTest {
     public void getCountMatching_shouldReturnCount() {
         int count = barcodeLabelInfoService.getCountMatching("type", "Standard");
         assertEquals(2, count);
+    }
+
+    @Test
+    public void getMatching_givenMaps() {
+        Map<String, Object> map = Map.of("type", "Standard");
+        List<BarcodeLabelInfo> barcodeLabelInfos = barcodeLabelInfoService.getAllMatching(map);
+        assertEquals(2, barcodeLabelInfos.size());
+        assertEquals("1", barcodeLabelInfos.get(0).getId());
+        assertEquals("3", barcodeLabelInfos.get(1).getId());
+    }
+
+    @Test
+    public void getAllMatchingOrdered_givenMaps() {
+        Map<String, Object> map = Map.of("type", "Standard");
+        List<BarcodeLabelInfo> barcodeLabelInfos = barcodeLabelInfoService.getAllMatchingOrdered(map, "id", true);
+        assertEquals(2, barcodeLabelInfos.size());
+        assertEquals("3", barcodeLabelInfos.get(0).getId());
+        assertEquals("1", barcodeLabelInfos.get(1).getId());
+    }
+
+    @Test
+    public void getAllMatchingOrderedPage_givenMaps() {
+        Map<String, Object> map = Map.of("type", "Standard");
+        List<BarcodeLabelInfo> barcodeLabelInfos = barcodeLabelInfoService.getMatchingOrderedPage(map, "id", true, 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(barcodeLabelInfos.size() <= expectedPages);
+    }
+
+    @Test
+    public void getAllOrdered_givenListOfProperties() {
+        List<String> properties = new ArrayList<>();
+        properties.add("id");
+        properties.add("type");
+        List<BarcodeLabelInfo> barcodeLabelInfos = barcodeLabelInfoService.getAllOrdered(properties, true);
+        assertEquals(3, barcodeLabelInfos.size());
+        assertEquals("3", barcodeLabelInfos.get(0).getId());
+        assertEquals("2", barcodeLabelInfos.get(1).getId());
+        assertEquals("1", barcodeLabelInfos.get(2).getId());
     }
 
 }
