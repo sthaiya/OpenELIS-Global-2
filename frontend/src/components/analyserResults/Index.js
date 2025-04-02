@@ -30,6 +30,7 @@ const Index = () => {
   const [totalApiPages, setTotalApiPages] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState("");
+  const [sampleGroup, setSampleGroup] = useState([]);
 
   useEffect(() => {
     let analyserType = new URLSearchParams(window.location.search).get("type");
@@ -50,6 +51,17 @@ const Index = () => {
       );
     }
   }, [url]);
+
+  const extractUniqueGroups = (data) => {
+    const seenGroups = new Set();
+    return data.filter((item) => {
+      if (!seenGroups.has(item.sampleGroupingNumber)) {
+        seenGroups.add(item.sampleGroupingNumber);
+        return true;
+      }
+      return false;
+    });
+  };
 
   const loadNextResultsPage = () => {
     setIsLoading(true);
@@ -91,6 +103,8 @@ const Index = () => {
           message: intl.formatMessage({ id: "validation.search.noresult" }),
         });
         setNotificationVisible(true);
+      } else {
+        setSampleGroup(extractUniqueGroups(data.resultList));
       }
     }
   };
@@ -155,6 +169,7 @@ const Index = () => {
           type={type}
           results={results}
           setResults={setResults}
+          sampleGroup={sampleGroup}
         />
       </div>
     </>

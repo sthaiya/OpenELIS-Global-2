@@ -37,7 +37,6 @@ const AnalyserResults = (props) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(100);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [results, setResults] = useState({ resultList: [] });
 
   useEffect(() => {
     componentMounted.current = true;
@@ -184,6 +183,10 @@ const AnalyserResults = (props) => {
     handleChange(e, rowId);
   };
 
+  const sampleGroupHasId = (id) => {
+    return props.sampleGroup.some((item) => item.id === id);
+  };
+
   const renderCell = (row, index, column, id) => {
     let formatLabNum = configurationProperties.AccessionFormat === "ALPHANUM";
     switch (column.id) {
@@ -241,18 +244,20 @@ const AnalyserResults = (props) => {
       case "save":
         return (
           <>
-            <div data-testid="Checkbox">
-              <Field name="isAccepted">
-                {({ field }) => (
-                  <Checkbox
-                    id={"resultList" + row.id + ".isAccepted"}
-                    name={"resultList[?(@.id == " + row.id + ")].isAccepted"}
-                    labelText=""
-                    value={true}
-                    onChange={(e) => handleCheckBox(e, row.id)}
-                  />
-                )}
-              </Field>
+            <div>
+              {sampleGroupHasId(row.id) && (
+                <Field name="isAccepted">
+                  {({ field }) => (
+                    <Checkbox
+                      id={"resultList" + row.id + ".isAccepted"}
+                      name={"resultList[?(@.id == " + row.id + ")].isAccepted"}
+                      labelText=""
+                      value={true}
+                      onChange={(e) => handleCheckBox(e, row.id)}
+                    />
+                  )}
+                </Field>
+              )}
             </div>
           </>
         );
@@ -260,34 +265,38 @@ const AnalyserResults = (props) => {
       case "retest":
         return (
           <>
-            <Field name="isRejected">
-              {({ field }) => (
-                <Checkbox
-                  id={"resultList" + row.id + ".isRejected"}
-                  name={"resultList[?(@.id == " + row.id + ")].isRejected"}
-                  labelText=""
-                  value={true}
-                  onChange={(e) => handleCheckBox(e, row.id)}
-                />
-              )}
-            </Field>
+            {sampleGroupHasId(row.id) && (
+              <Field name="isRejected">
+                {({ field }) => (
+                  <Checkbox
+                    id={"resultList" + row.id + ".isRejected"}
+                    name={"resultList[?(@.id == " + row.id + ")].isRejected"}
+                    labelText=""
+                    value={true}
+                    onChange={(e) => handleCheckBox(e, row.id)}
+                  />
+                )}
+              </Field>
+            )}
           </>
         );
 
       case "ignore":
         return (
           <>
-            <Field name="isDeleted">
-              {({ field }) => (
-                <Checkbox
-                  id={"resultList" + row.id + ".isDeleted"}
-                  name={"resultList[?(@.id == " + row.id + ")].isDeleted"}
-                  labelText=""
-                  value={true}
-                  onChange={(e) => handleCheckBox(e, row.id)}
-                />
-              )}
-            </Field>
+            {sampleGroupHasId(row.id) && (
+              <Field name="isDeleted">
+                {({ field }) => (
+                  <Checkbox
+                    id={"resultList" + row.id + ".isDeleted"}
+                    name={"resultList[?(@.id == " + row.id + ")].isDeleted"}
+                    labelText=""
+                    value={true}
+                    onChange={(e) => handleCheckBox(e, row.id)}
+                  />
+                )}
+              </Field>
+            )}
           </>
         );
 
