@@ -134,4 +134,22 @@ public class SampleProjectServiceTest extends BaseWebContextSensitiveTest {
         assertNull(sampleProject.getProjectId());
     }
 
+    @Test
+    public void getAllSampleProjects_shouldReturnNonEmptyList() {
+        List<SampleProject> projects = sampleProjectService.getAll();
+        assertNotNull(projects);
+        assertFalse(projects.isEmpty());
+    }
+
+    @Test
+    public void deleteSampleProject_shouldRemoveProject() {
+        SampleProject existingProject = sampleProjectService.getSampleProjectBySampleId("1");
+        assertNotNull(existingProject);
+
+        sampleProjectService.delete(existingProject);
+
+        SampleProject deletedProject = sampleProjectService.getSampleProjectBySampleId("1");
+        assertNull(deletedProject);
+    }
+
 }
