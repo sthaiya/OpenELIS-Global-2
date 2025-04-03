@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import AnalyserResults from "./AnalyserResults";
 import { AlertDialog } from "../common/CustomNotification";
 import { NotificationContext } from "../layout/Layout";
+import { NotificationKinds } from "../common/CustomNotification";
 import {
   Heading,
   Grid,
@@ -11,8 +12,7 @@ import {
   Button,
   Loading,
 } from "@carbon/react";
-import { injectIntl, FormattedMessage } from "react-intl";
-import { getFromOpenElisServer, postToOpenElisServer } from "../utils/Utils";
+import { getFromOpenElisServer } from "../utils/Utils";
 import { ArrowLeft, ArrowRight } from "@carbon/react/icons";
 import PageBreadCrumb from "../common/PageBreadCrumb";
 
@@ -168,7 +168,6 @@ const Index = () => {
         <AnalyserResults
           type={type}
           results={results}
-          setResults={setResults}
           sampleGroup={sampleGroup}
         />
       </div>

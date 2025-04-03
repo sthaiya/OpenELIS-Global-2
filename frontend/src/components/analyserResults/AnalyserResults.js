@@ -157,7 +157,6 @@ const AnalyserResults = (props) => {
     let form = props.results;
     var jp = require("jsonpath");
     jp.value(form, name, value);
-   // props.setResults(form);
   };
 
   const handleDatePickerChange = (date, rowId) => {
