@@ -537,7 +537,7 @@ export default function App() {
                   path="/AnalyzerResults"
                   exact
                   component={() => <AnalyserResultIndex />}
-                  role="Results"
+                  role="Analyser Import"
                 />
                 <Route path="*" component={() => <RedirectOldUI />} />
               </Switch>
