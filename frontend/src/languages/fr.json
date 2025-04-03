@@ -1361,6 +1361,7 @@
   "result.reject.warning": "Avertissement de rejet de résultat",
   "result.acceptasis.warning": "Avertissement d'acceptation en l'état",
   "validation.search.noresult": "Aucun résultat trouvé pour la validation",
+  "validation.search.noresult.analyser": "Aucun résultat trouvé à partir de :",
   "validation.save.success": "Validation enregistrée avec succès",
   "validation.save.error": "Erreur lors de l'enregistrement de la validation",
   "eorder.buttons": "Boutons de commande électronique",

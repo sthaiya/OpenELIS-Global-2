@@ -102,7 +102,9 @@ const Index = () => {
         addNotification({
           kind: NotificationKinds.warning,
           title: intl.formatMessage({ id: "notification.title" }),
-          message: intl.formatMessage({ id: "validation.search.noresult" }) + " for " +  type,
+          message:
+            intl.formatMessage({ id: "validation.search.noresult.analyser" }) +
+            type,
         });
         setNotificationVisible(true);
       } else {
