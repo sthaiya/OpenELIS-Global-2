@@ -12,6 +12,7 @@ import {
   Button,
   Loading,
 } from "@carbon/react";
+import { useIntl } from "react-intl";
 import { getFromOpenElisServer } from "../utils/Utils";
 import { ArrowLeft, ArrowRight } from "@carbon/react/icons";
 import PageBreadCrumb from "../common/PageBreadCrumb";
@@ -31,6 +32,7 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState("");
   const [sampleGroup, setSampleGroup] = useState([]);
+  const intl = useIntl();
 
   useEffect(() => {
     let analyserType = new URLSearchParams(window.location.search).get("type");
@@ -100,7 +102,7 @@ const Index = () => {
         addNotification({
           kind: NotificationKinds.warning,
           title: intl.formatMessage({ id: "notification.title" }),
-          message: intl.formatMessage({ id: "validation.search.noresult" }),
+          message: intl.formatMessage({ id: "validation.search.noresult" }) + " for " +  type,
         });
         setNotificationVisible(true);
       } else {
@@ -115,10 +117,7 @@ const Index = () => {
         <Column lg={16} md={8} sm={4}>
           <Section>
             <Section>
-              <Heading>
-                {/* <FormattedMessage id="sidenav.label.validation" /> */}
-                {type}
-              </Heading>
+              <Heading>{type}</Heading>
             </Section>
           </Section>
         </Column>
