@@ -80,8 +80,8 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector).click();
-    cy.get(itemSelector).click();
+    cy.get(dropdownSelector, { timeout: 15000 }).click({ force: true });
+    cy.get(itemSelector, { timeout: 15000 }).click({ force: true });
   }
 
   // Navigate to the Order Entry page
@@ -209,9 +209,10 @@ class HomePage {
 
   // Navigate to the Results for Referred Out page
   goToResultsForRefferedOut() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsReferred).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsReferred,
+    );
     return new Result();
   }
 
