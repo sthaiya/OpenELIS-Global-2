@@ -31,8 +31,7 @@ import org.openelisglobal.referral.service.ReferralSetService;
 import org.openelisglobal.reports.service.WHONetReportServiceImpl;
 import org.openelisglobal.requester.service.RequesterTypeService;
 import org.openelisglobal.sampleqaevent.service.SampleQaEventService;
-import org.openelisglobal.typeofsample.service.TypeOfSampleService;
-import org.openelisglobal.typeofsample.service.TypeOfSampleTestService;
+import org.openelisglobal.testresult.service.TestResultService;
 import org.springframework.beans.factory.UnsatisfiedDependencyException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -72,8 +71,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         "org.openelisglobal.observationhistorytype", "org.openelisglobal.statusofsample", "org.openelisglobal.test",
         "org.openelisglobal.analyzerimport", "org.openelisglobal.analyzer", "org.openelisglobal.testanalyte",
         "org.openelisglobal.observationhistory", "org.openelisglobal.systemusersection",
-        "org.openelisglobal.siteinformation", "org.openelisglobal.config", "org.openelisglobal.image",
-        "org.openelisglobal.testresult" }, excludeFilters = {
+        "org.openelisglobal.typeofsample", "org.openelisglobal.siteinformation", "org.openelisglobal.config",
+        "org.openelisglobal.image" }, excludeFilters = {
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.patient.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.organization.controller.*"),
                 @ComponentScan.Filter(type = FilterType.REGEX, pattern = "org.openelisglobal.sample.controller.*"),
@@ -222,14 +221,8 @@ public class AppTestConfig implements WebMvcConfigurer {
 
     @Bean()
     @Profile("test")
-    public TypeOfSampleTestService typeOfSampleTestService() {
-        return mock(TypeOfSampleTestService.class);
-    }
-
-    @Bean()
-    @Profile("test")
-    public TypeOfSampleService typeOfSample() {
-        return mock(TypeOfSampleService.class);
+    public TestResultService testResultService() {
+        return mock(TestResultService.class);
     }
 
     @Bean()
