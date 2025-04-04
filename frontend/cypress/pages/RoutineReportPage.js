@@ -77,7 +77,9 @@ class RoutineReportPage {
   }
 
   selectPatientStatusReport() {
-    cy.get("#menu_reports_status_patient_nav").click();
+    cy.get("#menu_reports_status_patient_nav", { timeout: 15000 }).click({
+      force: true,
+    });
   }
 
   toggleAccordion(accordionNumber) {

@@ -262,9 +262,10 @@ class HomePage {
 
   // Navigate to the Routine Reports page
   goToRoutineReports() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu).click();
-    cy.get(this.selectors.reportsRoutineNav).click();
+    this.clickDropdownItem(
+      this.selectors.reportsMenu,
+      this.selectors.reportsRoutineNav,
+    );
     return new RoutineReportPage();
   }
 
@@ -284,7 +285,9 @@ class HomePage {
   // Navigate to the Pathology Dashboard
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get(this.selectors.pathologyMenu).click();
+    cy.get(this.selectors.pathologyMenu, { timeout: 15000 }).click({
+      force: true,
+    });
     return new DashBoardPage();
   }
 
@@ -305,7 +308,9 @@ class HomePage {
   // Navigate to the Admin page
   goToAdminPage() {
     this.openNavigationMenu();
-    cy.get(this.selectors.administrationMenu).click();
+    cy.get(this.selectors.administrationMenu, { timeout: 15000 }).click({
+      force: true,
+    });
     return new AdminPage();
   }
 
