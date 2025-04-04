@@ -57,23 +57,29 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    cy.get(this.enterPreviousLabNo).type(value, { force: true });
+    cy.get(this.enterPreviousLabNo, { timeout: 15000 })
+      .should("be.visible")
+      .type(value);
   }
 
   enterAccessionNumber(value) {
-    cy.get(this.enterAccessionNo).type(value, { force: true });
+    cy.get(this.enterAccessionNo, { timeout: 15000 })
+      .should("be.visible")
+      .type(value);
   }
 
   startLabNumber(value) {
-    cy.get(this.startLabNo).type(value, { force: true });
+    cy.get(this.startLabNo, { timeout: 15000 })
+      .should("be.visible")
+      .type(value);
   }
 
   endLabNo(value) {
-    cy.get(this.endLabNo).type(value);
+    cy.get(this.endLabNo, { timeout: 15000 }).should("be.visible").type(value);
   }
 
   clickSearchPatientButton() {
-    cy.getElement("#local_search").click();
+    cy.getElement("#local_search").should("be.visible").click();
   }
 
   getExternalSearchButton() {

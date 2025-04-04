@@ -18,10 +18,12 @@ class HomePage {
     this.selectors = {
       menuButton: "[data-cy='menuButton']",
       sampleDropdown: "#menu_sample_dropdown",
+      sampleDropdownExt: "#menu_sample",
       patientDropdown: "#menu_patient_dropdown",
       workplanDropdown: "#menu_workplan_dropdown",
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
+      resultsMenuExt: "#menu_results",
       resultValidationMenu: "#menu_resultvalidation",
       reportsMenu: "#menu_reports_dropdown",
       pathologyMenu: "#menu_pathology",
@@ -87,7 +89,7 @@ class HomePage {
   // Navigate to the Order Entry page
   goToOrderPage() {
     this.clickDropdownItem(
-      this.selectors.sampleDropdown,
+      this.selectors.sampleDropdownExt,
       this.selectors.sampleAddNav,
     );
     return new OrderEntityPage();
@@ -204,7 +206,7 @@ class HomePage {
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
     this.clickDropdownItem(
-      this.selectors.resultsMenu,
+      this.selectors.resultsMenuExt,
       this.selectors.resultsPatient,
     );
     return new Result();
