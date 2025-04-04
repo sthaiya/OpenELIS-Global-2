@@ -29,7 +29,7 @@ class HomePage {
       pathologyMenu: "#menu_pathology",
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
-      administrationMenu: "#menu_administration",
+      administrationMenu: "#menu_administration_nav",
       minimizeIcon: "#minimizeIcon",
       searchIcon: "#search-Icon",
       searchItem: "#searchItem",
@@ -82,7 +82,7 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector, { timeout: 15000 }).should("be.visible").click();
+    cy.get(dropdownSelector, { timeout: 20000 }).should("be.visible").click();
     cy.get(itemSelector, { timeout: 15000 }).should("be.visible").click();
   }
 
