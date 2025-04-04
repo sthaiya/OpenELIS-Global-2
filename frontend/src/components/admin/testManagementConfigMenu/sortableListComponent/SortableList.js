@@ -22,7 +22,14 @@ const SortableTestList = ({ sampleType, tests, onSort }) => {
       sortOrder: `${index}`,
     }));
     setItems(updatedItems);
-    onSort(updatedItems);
+
+    const sortedSendout = updatedItems.map((item, index) => ({
+      id: Number(item.id),
+      activated: item.activated ?? false,
+      sortOrder: index,
+    }));
+
+    onSort(sortedSendout);
   };
 
   return (
@@ -50,7 +57,7 @@ const SortableTestList = ({ sampleType, tests, onSort }) => {
           }}
         >
           <Draggable aria-label="test-list-draggable" size={24} />
-          {test.name}
+          {test.value}
         </div>
       ))}
     </div>
@@ -59,7 +66,7 @@ const SortableTestList = ({ sampleType, tests, onSort }) => {
 
 export default SortableTestList;
 
-export const SortableSampleTypeList = ({ tests, onSort }) => {
+export const SortableSampleTypeList = ({ tests, testSendout, onSort }) => {
   const [items, setItems] = useState(tests);
 
   const handleDragStart = (e, index) => {
@@ -81,10 +88,20 @@ export const SortableSampleTypeList = ({ tests, onSort }) => {
     }));
 
     setItems(updatedItems);
-    onSort(updatedItems);
-  };
 
-  //sortOrder fix + activated test figure out!
+    const sortedSendout = updatedItems.map((item, index) => {
+      const original = testSendout.find(
+        (t) => Number(t.id) === Number(item.id),
+      );
+      return {
+        id: Number(item.id),
+        activated: original?.activated ?? false,
+        sortOrder: index,
+      };
+    });
+
+    onSort(sortedSendout);
+  };
 
   return (
     <div style={{ width: "300px", border: "1px solid #ccc", padding: "10px" }}>
@@ -111,7 +128,7 @@ export const SortableSampleTypeList = ({ tests, onSort }) => {
           }}
         >
           <Draggable aria-label="sample-type-list-draggable" size={24} />
-          {test.name}
+          {test.value}
         </div>
       ))}
     </div>
