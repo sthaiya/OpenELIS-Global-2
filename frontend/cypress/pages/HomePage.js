@@ -80,8 +80,8 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector, { timeout: 15000 }).click();
-    cy.get(itemSelector, { timeout: 15000 }).click();
+    cy.get(dropdownSelector, { timeout: 15000 }).should("be.visible").click();
+    cy.get(itemSelector, { timeout: 15000 }).should("be.visible").click();
   }
 
   // Navigate to the Order Entry page
@@ -185,25 +185,28 @@ class HomePage {
 
   // Navigate to the Results by Unit page
   goToResultsByUnit() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsLogbook).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsLogbook,
+    );
     return new Result();
   }
 
   // Navigate to the Results by Order page
   goToResultsByOrder() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsAccession).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsAccession,
+    );
     return new Result();
   }
 
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsPatient).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsPatient,
+    );
     return new Result();
   }
 
@@ -218,17 +221,19 @@ class HomePage {
 
   // Navigate to the Results by Range Order page
   goToResultsByRangeOrder() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsRange).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsRange,
+    );
     return new Result();
   }
 
   // Navigate to the Results by Test and Status page
   goToResultsByTestAndStatus() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu).click({ force: true });
-    cy.get(this.selectors.resultsStatus).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.resultsMenu,
+      this.selectors.resultsStatus,
+    );
 
     return new Result();
   }
@@ -271,15 +276,16 @@ class HomePage {
 
   // Navigate to the Study Reports page
   goToStudyReports() {
-    this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu).click({ force: true });
-    cy.get(this.selectors.reportsStudyNav).click({ force: true });
+    this.clickDropdownItem(
+      this.selectors.reportsMenu,
+      this.selectors.reportsStudyNav,
+    );
     return new StudyReportPage();
   }
 
   goToReports() {
     this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu).click({ force: true });
+    cy.get(this.selectors.reportsMenu, { timeout: 15000 }).click();
   }
 
   // Navigate to the Pathology Dashboard
@@ -308,9 +314,7 @@ class HomePage {
   // Navigate to the Admin page
   goToAdminPage() {
     this.openNavigationMenu();
-    cy.get(this.selectors.administrationMenu, { timeout: 15000 }).click({
-      force: true,
-    });
+    cy.get(this.selectors.administrationMenu, { timeout: 15000 }).click();
     return new AdminPage();
   }
 
