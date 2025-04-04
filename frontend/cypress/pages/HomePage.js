@@ -80,8 +80,8 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector, { timeout: 15000 }).click({ force: true });
-    cy.get(itemSelector, { timeout: 15000 }).click({ force: true });
+    cy.get(dropdownSelector, { timeout: 15000 }).click();
+    cy.get(itemSelector, { timeout: 15000 }).click();
   }
 
   // Navigate to the Order Entry page
