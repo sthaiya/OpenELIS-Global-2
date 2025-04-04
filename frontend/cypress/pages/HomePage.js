@@ -20,7 +20,7 @@ class HomePage {
       sampleDropdown: "#menu_sample_dropdown",
       sampleDropdownExt: "#menu_sample",
       patientDropdown: "#menu_patient_dropdown",
-      workplanDropdown: "#menu_workplan_dropdown",
+      workplanDropdown: "#menu_workplan",
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
       resultsMenuExt: "#menu_results",
@@ -89,7 +89,7 @@ class HomePage {
   // Navigate to the Order Entry page
   goToOrderPage() {
     this.clickDropdownItem(
-      this.selectors.sampleDropdownExt,
+      this.selectors.sampleDropdown,
       this.selectors.sampleAddNav,
     );
     return new OrderEntityPage();

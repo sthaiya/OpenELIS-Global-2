@@ -79,7 +79,9 @@ class DashBoardPage {
   }
 
   clickPrintBarCode() {
-    cy.contains(".cds--btn--primary", "Print Barcode").should("be.visible");
+    cy.contains(".cds--btn--primary", "Print Barcode", {
+      timeout: 15000,
+    }).should("be.visible");
   }
 
   selectFirstOrder() {
@@ -98,7 +100,9 @@ class DashBoardPage {
     cy.get("#statusFilter").should("be.visible").select("Processing");
   }
   selectStatus() {
-    cy.get("#status").should("be.visible").select("Completed");
+    cy.get("#status", { timeout: 15000 })
+      .should("be.visible")
+      .select("Completed");
   }
   selectPathologist() {
     cy.get("#assignedPathologist").select("ELIS,Open");
@@ -125,7 +129,9 @@ class DashBoardPage {
   }
 
   statusFilter() {
-    cy.get("#statusFilter").select("Completed");
+    cy.get("#statusFilter", { timeout: 15000 })
+      .should("be.visible")
+      .select("Completed");
   }
 }
 

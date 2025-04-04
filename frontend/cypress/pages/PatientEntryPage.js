@@ -58,24 +58,30 @@ class PatientEntryPage {
 
   enterPreviousLabNumber(value) {
     cy.get(this.enterPreviousLabNo, { timeout: 15000 })
-      .should("be.visible")
+      .should("not.have.css", "display", "none")
+      .and("be.visible")
       .type(value);
   }
 
   enterAccessionNumber(value) {
     cy.get(this.enterAccessionNo, { timeout: 15000 })
-      .should("be.visible")
+      .should("not.have.css", "display", "none")
+      .and("be.visible")
       .type(value);
   }
 
   startLabNumber(value) {
     cy.get(this.startLabNo, { timeout: 15000 })
-      .should("be.visible")
+      .should("not.have.css", "display", "none")
+      .and("be.visible")
       .type(value);
   }
 
   endLabNo(value) {
-    cy.get(this.endLabNo, { timeout: 15000 }).should("be.visible").type(value);
+    cy.get(this.endLabNo, { timeout: 15000 })
+      .should("not.have.css", "display", "none")
+      .and("be.visible")
+      .type(value);
   }
 
   clickSearchPatientButton() {
