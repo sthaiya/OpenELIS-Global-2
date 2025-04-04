@@ -1,4 +1,4 @@
-package org.openelisglobal.result;
+package org.openelisglobal.testResult;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,7 @@ import org.openelisglobal.testresult.service.TestResultService;
 import org.openelisglobal.testresult.valueholder.TestResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ResultServiceTest extends BaseWebContextSensitiveTest {
+public class TestResultServiceTest extends BaseWebContextSensitiveTest {
 
     @Autowired
     private TestService testService;
