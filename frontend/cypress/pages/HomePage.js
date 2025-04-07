@@ -24,7 +24,7 @@ class HomePage {
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
       resultsMenuExt: "#menu_results",
-      resultValidationMenu: "#menu_resultvalidation",
+      resultValidationMenu: "#menu_resultvalidation_dropdown",
       reportsMenu: "#menu_reports_dropdown",
       pathologyMenu: "#menu_pathology",
       immunochemMenu: "#menu_immunochem",
@@ -82,7 +82,7 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector, { timeout: 20000 }).should("be.visible").click();
+    cy.get(dropdownSelector, { timeout: 15000 }).should("be.visible").click();
     cy.get(itemSelector, { timeout: 15000 }).should("be.visible").click();
   }
 
@@ -293,9 +293,7 @@ class HomePage {
   // Navigate to the Pathology Dashboard
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get(this.selectors.pathologyMenu, { timeout: 15000 }).click({
-      force: true,
-    });
+    cy.get(this.selectors.pathologyMenu, { timeout: 15000 }).click();
     return new DashBoardPage();
   }
 

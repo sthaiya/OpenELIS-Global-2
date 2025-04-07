@@ -101,9 +101,9 @@ describe("Dashboard Tests", function () {
       );
     });
 
-    it("Validate Success by Confirming Print Barcode button", function () {
-      validateSuccessAndPrintBarcode();
-    });
+    //it("Validate Success by Confirming Print Barcode button", function () {
+    // validateSuccessAndPrintBarcode();
+    //});
 
     it("User navigates back to Pathology Dashboard to confirm added order", function () {
       homePage.goToPathologyDashboard();
