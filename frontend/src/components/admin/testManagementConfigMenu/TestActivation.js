@@ -41,7 +41,8 @@ import { FormattedMessage, injectIntl, useIntl } from "react-intl";
 import PageBreadCrumb from "../../common/PageBreadCrumb.js";
 import CustomCheckBox from "../../common/CustomCheckBox.js";
 import ActionPaginationButtonType from "../../common/ActionPaginationButtonType.js";
-import SortableTestList, {
+import {
+  SortableTestList,
   SortableSampleTypeList,
 } from "./sortableListComponent/SortableList.js";
 
@@ -82,6 +83,8 @@ function TestActivation() {
   const [testArrangementArray, setTestArrangementArray] = useState([]);
   const [sampleTypeArrangementActivate, setSampleTypeArrangementActivate] =
     useState(false);
+  const [sampleTypesWithIdValueSorting, setSampleTypesWithIdValueSorting] =
+    useState([]);
   const [
     sampleTypesWithIdValueActivatedSorting,
     setSampleTypesWithIdValueActivatedSorting,
@@ -225,10 +228,10 @@ function TestActivation() {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
-          if (
-            changedTestActivationData?.activeTestList[sampleTypeId]?.activeTests
-              ?.length === 0
-          ) {
+          const sample = changedTestActivationData?.activeTestList.find(
+            (s) => String(s.sampleType.id) === String(sampleTypeId),
+          );
+          if (sample?.activeTests?.length === 1) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
               handleActiveSampleOnChangeSetJsonChangeListRemove(sampleTypeId);
@@ -330,11 +333,14 @@ function TestActivation() {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
+          const sample = changedTestActivationData?.activeTestList.find(
+            (s) => String(s.sampleType.id) === String(sampleTypeId),
+          );
+          console.log(sample?.inactiveTests?.length > 0);
+          console.log(sample?.activeTests?.length === 1);
           if (
-            changedTestActivationData?.activeTestList[sampleTypeId]
-              ?.inactiveTests?.length > 0 &&
-            changedTestActivationData?.activeTestList[sampleTypeId]?.activeTests
-              ?.length === 0
+            sample?.inactiveTests?.length > 0 &&
+            sample?.activeTests?.length === 1
           ) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
@@ -428,12 +434,12 @@ function TestActivation() {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
-          if (
-            changedTestActivationData?.inactiveTestList[sampleTypeId]
-              ?.activeTests?.length > 0 &&
-            changedTestActivationData?.inactiveTestList[sampleTypeId]
-              ?.inactiveTests === 0
-          ) {
+          const sample = changedTestActivationData?.inactiveTestList.find(
+            (s) => String(s.sampleType.id) === String(sampleTypeId),
+          );
+          console.log(sample?.activeTests?.length > 0);
+          console.log(sample?.inactiveTests?.length === 1); // 0 or 1
+          if (sample?.activeTests?.length > 0 && sample?.inactiveTests === 0) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
               handleActiveSampleOnChangeSetJsonChangeListRemove(sampleTypeId);
@@ -459,6 +465,10 @@ function TestActivation() {
               (item) => item.id !== sampleTypeId,
             );
           }
+          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+          // deactivateSample = deactivateSample.filter(
+          //   (item) => item.id !== sampleTypeId,
+          // );
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -558,11 +568,14 @@ function TestActivation() {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
+          const sample = changedTestActivationData?.inactiveTestList.find(
+            (s) => String(s.sampleType.id) === String(sampleTypeId),
+          );
+          console.log(sample?.activeTests?.length > 0);
+          console.log(sample?.inactiveTests?.length === 1); // 0 or 1
           if (
-            changedTestActivationData?.activeTestList[sampleTypeId]
-              ?.activateTest?.length > 0 &&
-            changedTestActivationData?.inactiveTestList[sampleTypeId]
-              ?.inactiveTestList === 0
+            sample?.activateTest?.length > 0 &&
+            sample?.inactiveTestList === 0
           ) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
@@ -589,6 +602,10 @@ function TestActivation() {
               (item) => item.id !== sampleTypeId,
             );
           }
+          // deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
+          // deactivateSample = deactivateSample.filter(
+          //   (item) => item.id !== sampleTypeId,
+          // );
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
@@ -666,23 +683,30 @@ function TestActivation() {
     if (testActivationData) {
       let sortOrder = 0;
 
-      const sampleTypeMap = new Map();
+      const activeList = testActivationData.activeTestList || [];
+      const inactiveList = testActivationData.inactiveTestList || [];
 
-      testActivationData.activeTestList?.forEach((sample) => {
+      const activatedSamples = activeList.map((sample) => ({
+        id: Number(sample.sampleType.id),
+        value: sample.sampleType.value,
+        activated: false,
+        sortOrder: sortOrder++,
+      }));
+
+      setSampleTypesWithIdValueActivatedSorting(activatedSamples);
+
+      const allSampleTypeMap = new Map();
+
+      [...activeList, ...inactiveList].forEach((sample) => {
         const id = Number(sample.sampleType.id);
-        if (!sampleTypeMap.has(id)) {
-          sampleTypeMap.set(id, sample.sampleType);
+        if (!allSampleTypeMap.has(id)) {
+          allSampleTypeMap.set(id, sample.sampleType);
         }
       });
 
-      testActivationData.inactiveTestList?.forEach((sample) => {
-        const id = Number(sample.sampleType.id);
-        if (!sampleTypeMap.has(id)) {
-          sampleTypeMap.set(id, sample.sampleType);
-        }
-      });
+      sortOrder = 0;
 
-      const activateSample = Array.from(sampleTypeMap.values()).map(
+      const allSamples = Array.from(allSampleTypeMap.values()).map(
         (sampleType) => ({
           id: Number(sampleType.id),
           value: sampleType.value,
@@ -691,12 +715,12 @@ function TestActivation() {
         }),
       );
 
-      setSampleTypesWithIdValueActivatedSorting(activateSample);
+      setSampleTypesWithIdValueSorting(allSamples);
     }
   }, [testActivationData]);
 
   const handleActiveSampleOnChangeSetJsonChangeList = (sampleTypeId) => {
-    setSampleTypesWithIdValueActivatedSorting((prev) => {
+    setSampleTypesWithIdValueSorting((prev) => {
       const activateSample = prev.map((s) =>
         String(s.id) === String(sampleTypeId) ? { ...s, activated: true } : s,
       );
@@ -708,9 +732,41 @@ function TestActivation() {
 
       return activateSample;
     });
+    const sampleType = sampleTypesWithIdValueSorting.find(
+      (item) => String(item.id) === String(sampleTypeId),
+    );
+
+    if (!sampleType) window.location.reload();
+
+    const alreadyExists = sampleTypesWithIdValueActivatedSorting.some(
+      (item) => String(item.id) === String(sampleTypeId),
+    );
+
+    if (!alreadyExists) {
+      setSampleTypesWithIdValueActivatedSorting((prev) => [
+        ...prev,
+        {
+          id: sampleType?.id,
+          value: sampleType?.value,
+          activated: true,
+          sortOrder: sampleType?.sortOrder, // this may need sampleType?.sortOrder + 1 but right now working
+        },
+      ]);
+    } else {
+      setSampleTypesWithIdValueActivatedSorting((prev) => {
+        const activateSample = prev.map((s) =>
+          String(s.id) === String(sampleTypeId) ? { ...s, activated: true } : s,
+        );
+
+        return activateSample;
+      });
+    }
   };
 
   const handleActiveSampleOnChangeSetJsonChangeListRemove = (sampleTypeId) => {
+    // setSampleTypesWithIdValueSorting((prev) =>
+    //   prev.filter((s) => String(s.id) !== String(sampleTypeId)),
+    // );
     setSampleTypesWithIdValueActivatedSorting((prev) =>
       prev.filter((s) => String(s.id) !== String(sampleTypeId)),
     );
@@ -1080,6 +1136,13 @@ function TestActivation() {
         </button>
         <button
           onClick={() => {
+            console.log(sampleTypesWithIdValueSorting);
+          }}
+        >
+          sampleTypesWithIdValueSorting
+        </button>
+        <button
+          onClick={() => {
             console.log(sampleTypesWithIdValueActivatedSorting);
           }}
         >
@@ -1110,7 +1173,7 @@ function TestActivation() {
 
       <Modal
         open={isConfirmModalOpen}
-        size="lg"
+        size="md"
         modalHeading={<FormattedMessage id="label.test.order.confirm" />}
         primaryButtonText={<FormattedMessage id="column.name.accept" />}
         secondaryButtonText={<FormattedMessage id="back.action.button" />}
@@ -1126,6 +1189,13 @@ function TestActivation() {
         shouldSubmitOnEnter={true}
       >
         <Grid fullWidth={true}>
+          <button
+            onClick={() => {
+              console.log(jsonChangeList);
+            }}
+          >
+            jsonChangeList
+          </button>
           <Column lg={16} md={8} sm={4}>
             <div
               style={{

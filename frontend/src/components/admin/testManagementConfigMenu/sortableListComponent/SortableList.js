@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Draggable } from "@carbon/icons-react";
 
-const SortableTestList = ({ sampleType, tests, onSort }) => {
+export const SortableTestList = ({ sampleType, tests, onSort }) => {
   const [items, setItems] = useState(tests);
 
   const handleDragStart = (e, index) => {
@@ -19,7 +19,7 @@ const SortableTestList = ({ sampleType, tests, onSort }) => {
     newItems.splice(dropIndex, 0, draggedItem);
     const updatedItems = newItems.map((item, index) => ({
       ...item,
-      sortOrder: `${index}`,
+      sortOrder: index,
     }));
     setItems(updatedItems);
 
@@ -68,8 +68,6 @@ const SortableTestList = ({ sampleType, tests, onSort }) => {
   );
 };
 
-export default SortableTestList;
-
 export const SortableSampleTypeList = ({ tests, onSort }) => {
   const [items, setItems] = useState(tests);
 
@@ -96,7 +94,7 @@ export const SortableSampleTypeList = ({ tests, onSort }) => {
     const sortedSendout = updatedItems.map((item, index) => {
       return {
         id: Number(item.id),
-        activated: item.activated,
+        activated: item.activated ?? false,
         sortOrder: index,
       };
     });
