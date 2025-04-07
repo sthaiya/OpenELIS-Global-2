@@ -76,6 +76,7 @@ describe("Add requester details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
+    cy.reload();
   });
 });
 
