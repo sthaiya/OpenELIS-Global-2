@@ -314,7 +314,7 @@ function TestActivation() {
 
       if (isChecked === true) {
         if (!isOriginallyActive || isOriginallyActive === undefined) {
-          if (!activateTest.some((item) => item.id === test.id)) {
+          if (activateTest.some((item) => item.id === test.id)) {
             handleActiveTestsOnChangeSetJsonChangeList(test, sampleTypeId);
           }
           if (!activateSample.some((item) => item.id === sampleTypeId)) {
@@ -331,6 +331,7 @@ function TestActivation() {
       } else {
         if (isOriginallyActive) {
           if (!deactivateTest.some((item) => item.id === test.id)) {
+            handleActiveTestsOnChangeSetJsonChangeListRemove(test);
             deactivateTest.push({ id: test.id });
           }
           const sample = changedTestActivationData?.activeTestList.find(
@@ -772,69 +773,61 @@ function TestActivation() {
     );
   };
 
-  useEffect(() => {
-    if (testActivationData && sampleTypeIdToListMapTests?.length > 0) {
-      let sortOrder = 0;
-
-      let testArrangementArrayGroups = [];
-
-      const sampleTypeIds = new Set(
-        sampleTypeIdToListMapTests.map((item) => Number(item.id)),
-      );
-
-      const allTestLists = [
-        ...(testActivationData?.activeTestList || []).filter(
-          (st) => st?.sampleType?.id,
-        ),
-        ...(testActivationData?.inactiveTestList || []).filter(
-          (st) => st?.sampleType?.id,
-        ),
-      ];
-
-      allTestLists.forEach((sampleType) => {
-        const sampleTypeId = sampleType?.sampleType?.id;
-
-        if (sampleTypeIds.has(Number(sampleTypeId))) {
-          const allTests = [
-            ...(sampleType?.activeTests || []),
-            ...(sampleType?.inactiveTests || []),
-          ];
-
-          const testIdsObject = allTests.map((test) => ({
-            id: test.id,
-            activated: false,
-            sortOrder: sortOrder++,
-          }));
-
-          testArrangementArrayGroups.push(testIdsObject);
-        }
-      });
-
-      setTestArrangementArray(testArrangementArrayGroups);
-    }
-  }, [testActivationData, sampleTypeIdToListMapTests]);
-
   const handleActiveTestsOnChangeSetJsonChangeList = (test, sampleTypeId) => {
     const alreadyExists = sampleTypeIdToListMapTests.some(
       (item) => item.id === sampleTypeId,
     );
 
-    if (!alreadyExists) {
-      setSampleTypeIdToListMapTests((prev) => [...prev, { id: sampleTypeId }]);
+    // const alreadyExists = testArrangementArray.some((group) =>
+    //   group.some((t) => String(t.id) === String(test.id)),
+    // );
 
-      setTimeout(() => {
-        setTestArrangementArray((prev) =>
-          prev.map((arr) =>
-            arr.map((t) => {
-              const isSameId = String(t.id) === String(test.id);
-              if (isSameId) {
-                return { ...t, activated: true };
-              }
-              return t;
-            }),
-          ),
-        );
-      }, 0);
+    if (!alreadyExists) {
+      const newSampleTypeEntry = { id: sampleTypeId };
+      setSampleTypeIdToListMapTests((prev) => [...prev, newSampleTypeEntry]);
+
+      const allTestLists = [
+        ...(changedTestActivationData?.activeTestList || []),
+        ...(changedTestActivationData?.inactiveTestList || []),
+      ];
+
+      const foundSample = allTestLists.find(
+        (sample) => Number(sample?.sampleType?.id) === Number(sampleTypeId),
+      );
+
+      if (foundSample) {
+        const allTests = [
+          ...(foundSample.activeTests || []),
+          ...(foundSample.inactiveTests || []),
+        ];
+
+        let sortOrder = 0;
+
+        const testGroup = allTests.map((t) => ({
+          id: t.id,
+          activated: String(t.id) === String(test.id),
+          sortOrder: sortOrder++,
+        }));
+
+        setTestArrangementArray((prev) => [...prev, testGroup]);
+
+        setJsonChangeList((prev) => {
+          const newTests = testGroup.filter(
+            (t) => !prev.activateTest.some((existing) => existing.id === t.id),
+          );
+
+          const formatted = newTests.map((t) => ({
+            id: t.id,
+            activated: t.activated,
+            sortOrder: t.sortOrder,
+          }));
+
+          return {
+            ...prev,
+            activateTest: [...prev.activateTest, ...formatted],
+          };
+        });
+      }
     } else {
       setTestArrangementArray((prev) =>
         prev.map((arr) =>
@@ -847,7 +840,53 @@ function TestActivation() {
           }),
         ),
       );
+      setJsonChangeList((prev) => {
+        const flattened = testArrangementArray.flat();
+        const existing = flattened.find(
+          (t) => String(t.id) === String(test.id),
+        );
+        const alreadyIncluded = prev.activateTest?.some(
+          (t) => t.id === test.id,
+        );
+
+        if (!alreadyIncluded && existing) {
+          return {
+            ...prev,
+            activateTest: [
+              ...prev.activateTest,
+              {
+                id: existing.id,
+                activated: true,
+                sortOrder: existing.sortOrder,
+              },
+            ],
+          };
+        } else if (alreadyIncluded && existing) {
+          return {
+            ...prev,
+            activateTest: prev.activateTest.map((t) =>
+              t.id === test.id ? { ...t, activated: true } : t,
+            ),
+          };
+        }
+        return prev;
+      });
     }
+  };
+
+  const handleActiveTestsOnChangeSetJsonChangeListRemove = (test) => {
+    setJsonChangeList((prev) => ({
+      ...prev,
+      activateTest: prev.activateTest.filter((t) => t.id !== test.id),
+    }));
+
+    setTestArrangementArray((prev) =>
+      prev.map((group) =>
+        group.map((t) =>
+          String(t.id) === String(test.id) ? { ...t, activated: false } : t,
+        ),
+      ),
+    );
   };
 
   const getTestIdsWithName = (testsArray) => {
@@ -870,6 +909,30 @@ function TestActivation() {
     });
 
     return testIdsWithName;
+  };
+
+  const getSampleTypeValueWithId = (sampleTypeIdArray) => {
+    console.log(sampleTypeIdArray);
+    const sampleTypeValues = [];
+
+    // [{ id: 53 },{ id: 3 }] this will be the recived this now listen i will need to traverse througe the testActivateData.activeTestList[] and inactiveTestList[] both find the sampleType object of the id which recvied hence after computing i will retnur the sampleType.valuse in the form of array which can be futher mapped to the sortableList reusable component
+
+    const allSamples = [
+      ...(testActivationData?.activeTestList || []),
+      ...(testActivationData?.inactiveTestList || []),
+    ];
+
+    sampleTypeIdArray.forEach(({ id }) => {
+      const foundSample = allSamples.find(
+        (sample) => Number(sample?.sampleType?.id) === Number(id),
+      );
+
+      if (foundSample && foundSample.sampleType) {
+        sampleTypeValues.push(foundSample.sampleType);
+      }
+    });
+
+    return sampleTypeValues;
   };
 
   if (!isLoading) {
@@ -1205,11 +1268,17 @@ function TestActivation() {
               }}
             >
               {changedTestActivationData &&
+                sampleTypeIdToListMapTests &&
+                sampleTypeIdToListMapTests?.length > 0 &&
                 Array.isArray(testArrangementArray) &&
                 testArrangementArray.map((testsArray, index) => (
                   <SortableTestList
                     key={index}
-                    sampleType={`Sample Type ${index + 1}`}
+                    sampleType={
+                      getSampleTypeValueWithId([
+                        sampleTypeIdToListMapTests[index],
+                      ])[0]?.value
+                    }
                     tests={getTestIdsWithName(testsArray)}
                     onSort={(updatedTests) => {
                       setTestArrangementArray((prev) => {
@@ -1255,6 +1324,7 @@ function TestActivation() {
 
 export default injectIntl(TestActivation);
 
+// testArangmentArray should bet setted on change of all the sampleTypes || state call
 // fix post sendout
 // fix sortable Component to Activated : true
 // onThe post may be whole jsonChangeList.activateSample is not required when whole sample is deactivationg

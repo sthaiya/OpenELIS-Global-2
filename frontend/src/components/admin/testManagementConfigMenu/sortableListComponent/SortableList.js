@@ -102,6 +102,10 @@ export const SortableSampleTypeList = ({ tests, onSort }) => {
     onSort(sortedSendout);
   };
 
+  useEffect(() => {
+    setItems(tests);
+  }, [tests]);
+
   return (
     <div style={{ width: "300px", border: "1px solid #ccc", padding: "10px" }}>
       <h3
