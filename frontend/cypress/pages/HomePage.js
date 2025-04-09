@@ -17,14 +17,13 @@ class HomePage {
     // Centralized selectors
     this.selectors = {
       menuButton: "[data-cy='menuButton']",
-      sampleDropdown: "#menu_sample_dropdown",
-      sampleDropdownExt: "#menu_sample",
+      sampleDropdown:
+        "#menu_sample_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
       patientDropdown:
         "#menu_patient_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
       workplanDropdown: "#menu_workplan",
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
-      resultsMenuExt: "#menu_results",
       resultValidationMenu: "#menu_resultvalidation_dropdown",
       reportsMenu:
         "#menu_reports_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
@@ -100,7 +99,7 @@ class HomePage {
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
     this.clickDropdownItem(
-      this.selectors.sampleDropdownExt,
+      this.selectors.sampleDropdown,
       this.selectors.sampleBatchEntryNav,
     );
     return new BatchOrderEntry();
@@ -208,7 +207,7 @@ class HomePage {
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
     this.clickDropdownItem(
-      this.selectors.resultsMenuExt,
+      this.selectors.resultsMenu,
       this.selectors.resultsPatient,
     );
     return new Result();
