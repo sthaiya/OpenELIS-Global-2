@@ -98,7 +98,7 @@ class HomePage {
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
     this.clickDropdownItem(
-      this.selectors.sampleDropdown,
+      this.selectors.sampleDropdownExt,
       this.selectors.sampleBatchEntryNav,
     );
     return new BatchOrderEntry();
