@@ -64,7 +64,10 @@ class RoutineReportPage {
   }
 
   selectNCReportByUnit() {
-    cy.get("#menu_reports_nonconformity_section").should("be.visible").click();
+    cy.get("#menu_reports_nonconformity_section")
+      .scrollIntoView()
+      .should("be.visible")
+      .click();
   }
 
   selectNCReportByDate() {

@@ -81,7 +81,7 @@ describe("Result By Patient", function () {
   });
 
   it("should search patient By Lab Number and validate", function () {
-    cy.reload();
+    cy.wait(1000);
     cy.fixture("Patient").then((patient) => {
       patientPage.enterPreviousLabNumber(patient.labNo);
       patientPage.clickSearchPatientButton();

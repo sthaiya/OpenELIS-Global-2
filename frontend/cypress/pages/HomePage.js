@@ -21,7 +21,7 @@ class HomePage {
         "#menu_sample_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
       patientDropdown:
         "#menu_patient_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
-      workplanDropdown: "#menu_workplan",
+      workplanDropdown: "#menu_workplan_dropdown > li > button > div",
       nonconformityDropdown: "#menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
       resultValidationMenu: "#menu_resultvalidation_dropdown",
