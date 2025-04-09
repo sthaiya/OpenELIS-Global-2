@@ -61,7 +61,7 @@ class HomePage {
       resultValidationRoutine: "#menu_resultvalidation_routine",
       accessionValidation: "#menu_accession_validation",
       accessionValidationRange: "#menu_accession_validation_range",
-      reportsRoutineNav: "[data-cy='sidenav-button-menu_reports_routine']",
+      reportsRoutineNav: "#menu_reports_routine",
       reportsStudyNav: "[data-cy='sidenav-button-menu_reports_study']",
     };
   }
