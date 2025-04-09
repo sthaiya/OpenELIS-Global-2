@@ -78,10 +78,11 @@ describe("Result By Patient", function () {
         patient.inValidName,
       );
     });
+    cy.reload();
   });
 
   it("should search patient By Lab Number and validate", function () {
-    cy.reload();
+    cy.wait(10000);
     cy.fixture("Patient").then((patient) => {
       patientPage.enterPreviousLabNumber(patient.labNo);
       patientPage.clickSearchPatientButton();
@@ -121,7 +122,7 @@ describe("Result By Order", function () {
   });
 
   it("Should Search by Accession Number", function () {
-    cy.reload();
+    cy.wait(10000);
     cy.fixture("Patient").then((order) => {
       patientPage.enterAccessionNumber(order.labNo);
     });
@@ -188,6 +189,7 @@ describe("Result By Referred Out Tests", function () {
   });
 
   it("search Referrals By LabNumber and validate", function () {
+    cy.wait(10000);
     cy.fixture("Patient").then((order) => {
       result.resultsByLabNumber(order.labNo);
     });
@@ -208,7 +210,7 @@ describe("Result By Range Of Order", function () {
   });
 
   it("Should Enter Lab Number and perform Search", function () {
-    cy.reload();
+    cy.wait(10000);
     cy.fixture("Patient").then((order) => {
       patientPage.startLabNumber(order.labNo);
     });

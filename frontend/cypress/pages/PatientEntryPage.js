@@ -57,16 +57,12 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    // Get the element and verify its stable
-    cy.get(this.enterPreviousLabNo, { timeout: 20000 })
-      .should(($el) => {
-        expect($el).to.be.visible;
-        expect($el[0].isConnected).to.be.true; // Verify still in DOM
-      })
-      .then(($input) => {
-        // Use the specific element reference
-        cy.wrap($input).clear().type(value, { delay: 50 });
-      });
+    cy.get(this.enterPreviousLabNo, { timeout: 15000 })
+      .should("not.have.css", "display", "none")
+      .and("be.visible")
+      .as("previousLabInput");
+
+    cy.get("@previousLabInput").type(value);
   }
 
   enterAccessionNumber(value) {
