@@ -25,7 +25,7 @@ class HomePage {
       resultsMenu: "#menu_results_dropdown",
       resultsMenuExt: "#menu_results",
       resultValidationMenu: "#menu_resultvalidation_dropdown",
-      reportsMenu: "#menu_reports_dropdown",
+      reportsMenu: "#menu_reports",
       pathologyMenu: "#menu_pathology",
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
