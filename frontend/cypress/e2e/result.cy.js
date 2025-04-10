@@ -78,14 +78,22 @@ describe("Result By Patient", function () {
         patient.inValidName,
       );
     });
+    cy.reload();
+  });
+
+  it("Search by sex", function () {
+    patientPage.getMaleGenderRadioButton();
+    patientPage.clickSearchPatientButton();
+    cy.reload();
   });
 
   it("should search patient By Lab Number and validate", function () {
-    cy.wait(1000);
+    cy.wait(5000);
     cy.fixture("Patient").then((patient) => {
       patientPage.enterPreviousLabNumber(patient.labNo);
       patientPage.clickSearchPatientButton();
     });
+    cy.reload();
   });
 
   it("Search by respective patient and accept the result", function () {

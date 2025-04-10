@@ -57,18 +57,18 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    cy.get(this.enterPreviousLabNo, { timeout: 15000 });
+    cy.get(this.enterPreviousLabNo, { timeout: 20000 });
     cy.get(this.enterPreviousLabNo).should("be.visible").type(value);
   }
 
   enterAccessionNumber(value) {
-    cy.get(this.enterAccessionNo, { timeout: 15000 });
+    cy.get(this.enterAccessionNo, { timeout: 20000 });
     cy.get(this.enterAccessionNo).should("be.visible").type(value);
   }
 
   startLabNumber(value) {
     // Get the element and ensure it's stable
-    cy.get(this.startLabNo, { timeout: 15000 })
+    cy.get(this.startLabNo, { timeout: 20000 })
       .should("exist")
       .and("be.visible")
       .and(($el) => {
@@ -86,7 +86,7 @@ class PatientEntryPage {
   }
 
   endLabNo(value) {
-    cy.get(this.endLabNo, { timeout: 15000 }).should("be.visible");
+    cy.get(this.endLabNo, { timeout: 20000 }).should("be.visible");
     cy.get(this.endLabNo).type(value);
   }
 

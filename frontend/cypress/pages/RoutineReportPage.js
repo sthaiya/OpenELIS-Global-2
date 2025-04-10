@@ -92,7 +92,7 @@ class RoutineReportPage {
   }
 
   selectPatientStatusReport() {
-    cy.get("#menu_reports_status_patient_nav", { timeout: 15000 })
+    cy.get("#menu_reports_status_patient", { timeout: 15000 })
       .should("be.visible")
       .click();
   }
