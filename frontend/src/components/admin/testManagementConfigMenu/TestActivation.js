@@ -45,7 +45,6 @@ import {
   SortableTestList,
   SortableSampleTypeList,
 } from "./sortableListComponent/SortableList.js";
-import { value } from "jsonpath";
 
 let breadcrumbs = [
   { label: "home.label", link: "/" },
@@ -930,9 +929,20 @@ function TestActivation() {
   const getTestIdsWithName = (testsArray) => {
     const testIdsWithName = [];
 
-    const allActiveTests = changedTestActivationData?.activeTestList?.flatMap(
-      (sample) => sample.activeTests,
-    );
+    const allActiveTests = [
+      ...(changedTestActivationData?.activeTestList?.flatMap(
+        (sample) => sample.activeTests,
+      ) || []),
+      ...(changedTestActivationData?.activeTestList?.flatMap(
+        (sample) => sample.inactiveTests,
+      ) || []),
+      ...(changedTestActivationData?.inactiveTestList?.flatMap(
+        (sample) => sample.activeTests,
+      ) || []),
+      ...(changedTestActivationData?.inactiveTestList?.flatMap(
+        (sample) => sample.inactiveTests,
+      ) || []),
+    ];
 
     testsArray?.forEach((t) => {
       const match = allActiveTests?.find(
