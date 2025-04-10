@@ -55,11 +55,7 @@ let breadcrumbs = [
     link: "/MasterListsPage#testManagementConfigMenu",
   },
   {
-    label: "configuration.testUnit.manage",
-    link: "/MasterListsPage#TestSectionManagement",
-  },
-  {
-    label: "configuration.testUnit.create",
+    label: "label.testActivate",
     link: "/MasterListsPage#TestActivation",
   },
 ];
@@ -199,9 +195,8 @@ function TestActivation() {
       let deactivateSample = Array.isArray(prev.deactivateSample)
         ? [...prev.deactivateSample]
         : [];
-
-      const originalState = testActivationData.activeTestList.find(
-        (sample) => sample.sampleType.id === sampleTypeId,
+      const originalState = testActivationData?.activeTestList?.find(
+        (sample) => String(sample.sampleType.id) === String(sampleTypeId),
       );
 
       const isOriginallyActive = originalState?.activeTests?.some(
@@ -209,7 +204,7 @@ function TestActivation() {
       );
 
       if (isChecked === true) {
-        if (!isOriginallyActive || isOriginallyActive === undefined) {
+        if (!isOriginallyActive) {
           if (!activateTest.some((item) => item.id === test.id)) {
             handleActiveTestsOnChangeSetJsonChangeList(test, sampleTypeId);
           }
@@ -225,16 +220,17 @@ function TestActivation() {
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
       } else {
-        if (isOriginallyActive) {
+        if (isOriginallyActive || isOriginallyActive === undefined) {
           if (!deactivateTest.some((item) => item.id === test.id)) {
-            deactivateTest.push({ id: test.id });
+            deactivateTest.push({ id: Number(test.id) });
+            handleActiveTestsOnChangeSetJsonChangeListRemove(test);
           }
           const sample = changedTestActivationData?.activeTestList.find(
             (s) => String(s.sampleType.id) === String(sampleTypeId),
           );
           if (sample?.activeTests?.length === 1) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
-              deactivateSample.push({ id: sampleTypeId });
+              deactivateSample.push({ id: Number(sampleTypeId) });
               handleActiveSampleOnChangeSetJsonChangeListRemove(sampleTypeId);
             } else {
               deactivateSample = deactivateSample.filter(
@@ -306,7 +302,7 @@ function TestActivation() {
         : [];
 
       const originalState = testActivationData.activeTestList.find(
-        (sample) => sample.sampleType.id === sampleTypeId,
+        (sample) => String(sample.sampleType.id) === String(sampleTypeId),
       );
 
       const isOriginallyActive = originalState?.activeTests?.some(
@@ -314,33 +310,33 @@ function TestActivation() {
       );
 
       if (isChecked === true) {
-        if (!isOriginallyActive || isOriginallyActive === undefined) {
+        if (!isOriginallyActive) {
           if (activateTest.some((item) => item.id === test.id)) {
-            handleActiveTestsOnChangeSetJsonChangeList(test, sampleTypeId);
+            handleActiveTestsOnChangeSetJsonChangeListRemove(
+              test,
+              sampleTypeId,
+            );
           } else {
             handleActiveTestsOnChangeSetJsonChangeList(test, sampleTypeId);
           }
           if (!activateSample.some((item) => item.id === sampleTypeId)) {
             handleActiveSampleOnChangeSetJsonChangeList(sampleTypeId);
           }
-          // else {
-          //   activateSample = activateSample.filter(
-          //     (item) => item.id !== sampleTypeId,
-          //   );
-          // }
         } else {
           activateTest = activateTest.filter((item) => item.id !== test.id);
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
       } else {
-        if (isOriginallyActive) {
+        if (isOriginallyActive || isOriginallyActive === undefined) {
           if (!deactivateTest.some((item) => item.id === test.id)) {
+            deactivateTest.push({ id: Number(test.id) });
             handleActiveTestsOnChangeSetJsonChangeListRemove(test);
-            deactivateTest.push({ id: test.id });
           }
           const sample = changedTestActivationData?.activeTestList.find(
             (s) => String(s.sampleType.id) === String(sampleTypeId),
           );
+          console.log(sample?.inactiveTests?.length);
+          console.log(sample?.activeTests?.length);
           console.log(sample?.inactiveTests?.length > 0);
           console.log(sample?.activeTests?.length === 1);
           if (
@@ -348,7 +344,7 @@ function TestActivation() {
             sample?.activeTests?.length === 1
           ) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
-              deactivateSample.push({ id: sampleTypeId });
+              deactivateSample.push({ id: Number(sampleTypeId) });
               handleActiveSampleOnChangeSetJsonChangeListRemove(sampleTypeId);
             } else {
               deactivateSample = deactivateSample.filter(
@@ -427,7 +423,7 @@ function TestActivation() {
         : [];
 
       const originalState = testActivationData.inactiveTestList.find(
-        (sample) => sample.sampleType.id === sampleTypeId,
+        (sample) => String(sample.sampleType.id) === String(sampleTypeId),
       );
 
       const isOriginallyInactive = originalState?.inactiveTests?.some(
@@ -435,7 +431,7 @@ function TestActivation() {
       );
 
       if (isChecked === false) {
-        if (!isOriginallyInactive || isOriginallyInactive === undefined) {
+        if (!isOriginallyInactive) {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
@@ -444,7 +440,7 @@ function TestActivation() {
           );
           console.log(sample?.activeTests?.length > 0);
           console.log(sample?.inactiveTests?.length === 1); // 0 or 1
-          if (sample?.activeTests?.length > 0 && sample?.inactiveTests === 0) {
+          if (sample?.activeTests?.length > 0 && sample?.inactiveTests === 1) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
               handleActiveSampleOnChangeSetJsonChangeListRemove(sampleTypeId);
@@ -459,7 +455,7 @@ function TestActivation() {
           deactivateTest = deactivateTest.filter((item) => item.id !== test.id);
         }
       } else {
-        if (isOriginallyInactive) {
+        if (isOriginallyInactive || isOriginallyInactive === undefined) {
           if (!activateTest.some((item) => item.id === test.id)) {
             handleActiveTestsOnChangeSetJsonChangeList(test, sampleTypeId);
           }
@@ -561,7 +557,7 @@ function TestActivation() {
         : [];
 
       const originalState = testActivationData.inactiveTestList.find(
-        (sample) => sample.sampleType.id === sampleTypeId,
+        (sample) => String(sample.sampleType.id) === String(sampleTypeId),
       );
 
       const isOriginallyInactive = originalState?.inactiveTests?.some(
@@ -569,7 +565,7 @@ function TestActivation() {
       );
 
       if (isChecked === false) {
-        if (!isOriginallyInactive || isOriginallyInactive === undefined) {
+        if (!isOriginallyInactive) {
           if (!deactivateTest.some((item) => item.id === test.id)) {
             deactivateTest.push({ id: test.id });
           }
@@ -580,7 +576,7 @@ function TestActivation() {
           console.log(sample?.inactiveTests?.length === 1); // 0 or 1
           if (
             sample?.activateTest?.length > 0 &&
-            sample?.inactiveTestList === 0
+            sample?.inactiveTest?.length === 1
           ) {
             if (!deactivateSample.some((item) => item.id === sampleTypeId)) {
               deactivateSample.push({ id: sampleTypeId });
@@ -784,6 +780,14 @@ function TestActivation() {
     // setSampleTypesWithIdValueSorting((prev) =>
     //   prev.filter((s) => String(s.id) !== String(sampleTypeId)),
     // );
+
+    setJsonChangeList((prev) => ({
+      ...prev,
+      activateSample: prev.activateSample.filter(
+        (s) => String(s.id) !== String(sampleTypeId),
+      ),
+    }));
+
     setSampleTypesWithIdValueActivatedSorting((prev) =>
       prev.filter((s) => String(s.id) !== String(sampleTypeId)),
     );
@@ -911,7 +915,7 @@ function TestActivation() {
   const handleActiveTestsOnChangeSetJsonChangeListRemove = (test) => {
     setJsonChangeList((prev) => ({
       ...prev,
-      activateTest: prev.activateTest.filter((t) => t.id !== test.id),
+      activateTest: prev.activateTest.filter((t) => t.id !== Number(test.id)),
     }));
 
     setTestArrangementArray((prev) =>
@@ -1209,62 +1213,6 @@ function TestActivation() {
             </Column>
           </Grid>
         </div>
-        <button
-          onClick={() => {
-            console.log(jsonChangeList);
-          }}
-        >
-          jsonChangeList
-        </button>
-        <button
-          onClick={() => {
-            console.log(changedTestActivationData);
-          }}
-        >
-          changedTestActivationData
-        </button>
-        <button
-          onClick={() => {
-            console.log(sampleTypeIdToListMapTests);
-          }}
-        >
-          sampleTypeIdToListMapTests
-        </button>
-        <button
-          onClick={() => {
-            console.log(sampleTypesWithIdValueSorting);
-          }}
-        >
-          sampleTypesWithIdValueSorting
-        </button>
-        <button
-          onClick={() => {
-            console.log(sampleTypesWithIdValueActivatedSorting);
-          }}
-        >
-          sampleTypesWithIdValueActivatedSorting
-        </button>
-        <button
-          onClick={() => {
-            console.log(testArrangementArray);
-          }}
-        >
-          testArrangementArray
-        </button>
-        <button
-          onClick={() => {
-            handleActiveTestsOnChangeSetJsonChangeList({ id: 53 }, 3);
-          }}
-        >
-          handleActiveTestsOnChangeSetJsonChangeList
-        </button>
-        <button
-          onClick={() => {
-            handleActiveSampleOnChangeSetJsonChangeList(3);
-          }}
-        >
-          handleActiveSampleOnChangeSetJsonChangeList
-        </button>
       </div>
 
       <Modal
@@ -1299,13 +1247,6 @@ function TestActivation() {
         </Grid>
         <br />
         <Grid fullWidth={true}>
-          <button
-            onClick={() => {
-              console.log(jsonChangeList);
-            }}
-          >
-            jsonChangeList
-          </button>
           <Column lg={16} md={8} sm={4}>
             <div
               style={{
