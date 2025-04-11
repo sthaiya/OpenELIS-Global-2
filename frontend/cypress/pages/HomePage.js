@@ -23,8 +23,10 @@ class HomePage {
         "#menu_patient_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
       workplanDropdown: "#menu_workplan_dropdown > li > button > div",
       nonconformityDropdown: "#menu_nonconformity_dropdown",
-      resultsMenu: "#menu_results_dropdown",
-      resultValidationMenu: "#menu_resultvalidation_dropdown",
+      resultsMenu:
+        "#menu_results_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
+      resultValidationMenu:
+        "#menu_resultvalidation_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
       reportsMenu: "#menu_reports > #menu_reports_dropdown",
       pathologyMenu:
         "#menu_pathology_nav > span:nth-child(1) > span:nth-child(1) ",
