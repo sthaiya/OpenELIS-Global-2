@@ -57,24 +57,24 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    cy.get(this.enterPreviousLabNo, { timeout: 20000 })
+    cy.get(this.enterPreviousLabNo)
       .invoke("css", "display", "block")
       .should("be.visible")
-      .type(value);
+      .type(value, { force: true });
   }
 
   enterAccessionNumber(value) {
-    cy.get(this.enterAccessionNo, { timeout: 20000 })
+    cy.get(this.enterAccessionNo)
       .invoke("css", "display", "block")
       .should("be.visible")
-      .type(value);
+      .type(value, { force: true });
   }
 
   startLabNumber(value) {
-    cy.get(this.startLabNo, { timeout: 20000 })
+    cy.get(this.startLabNo)
       .invoke("css", "display", "block")
       .should("be.visible")
-      .type(value);
+      .type(value, { force: true });
   }
 
   endLabNo(value) {
