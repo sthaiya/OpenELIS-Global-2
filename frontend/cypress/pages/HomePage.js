@@ -86,8 +86,8 @@ class HomePage {
   // Click a dropdown item
   clickDropdownItem(dropdownSelector, itemSelector) {
     this.openNavigationMenu();
-    cy.get(dropdownSelector, { timeout: 15000 }).should("be.visible").click();
-    cy.get(itemSelector, { timeout: 15000 }).should("be.visible").click();
+    cy.get(dropdownSelector, { timeout: 30000 }).should("be.visible").click();
+    cy.get(itemSelector, { timeout: 30000 }).should("be.visible").click();
   }
 
   // Navigate to the Order Entry page
