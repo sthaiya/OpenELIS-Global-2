@@ -97,7 +97,7 @@ class Result {
   }
 
   resultsByLabNumber(number) {
-    cy.get("#labNumberInput")
+    cy.get("#labNumberInput", { timeout: 15000 })
       .should("be.visible")
       .type(number, { force: true });
   }

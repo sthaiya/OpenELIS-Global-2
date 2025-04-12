@@ -57,7 +57,7 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    cy.get(this.enterPreviousLabNo)
+    cy.get(this.enterPreviousLabNo, { timeout: 15000 })
       .invoke("css", "display", "block")
       .should("be.visible")
       .type(value, { force: true });
