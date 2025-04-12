@@ -26,7 +26,7 @@ class HomePage {
       resultsMenu:
         "#menu_results_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
       resultValidationMenu:
-        "#menu_resultvalidation_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
+        "#menu_resultvalidation > #menu_resultvalidation_dropdown",
       reportsMenu: "#menu_reports > #menu_reports_dropdown",
       pathologyMenu:
         "#menu_pathology_nav > span:nth-child(1) > span:nth-child(1) ",

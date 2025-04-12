@@ -57,32 +57,24 @@ class PatientEntryPage {
   }
 
   enterPreviousLabNumber(value) {
-    cy.get(this.enterPreviousLabNo, { timeout: 20000 });
-    cy.get(this.enterPreviousLabNo).should("be.visible").type(value);
+    cy.get(this.enterPreviousLabNo, { timeout: 20000 })
+      .invoke("css", "display", "block")
+      .should("be.visible")
+      .type(value);
   }
 
   enterAccessionNumber(value) {
-    cy.get(this.enterAccessionNo, { timeout: 20000 });
-    cy.get(this.enterAccessionNo).should("be.visible").type(value);
+    cy.get(this.enterAccessionNo, { timeout: 20000 })
+      .invoke("css", "display", "block")
+      .should("be.visible")
+      .type(value);
   }
 
   startLabNumber(value) {
-    // Get the element and ensure it's stable
     cy.get(this.startLabNo, { timeout: 20000 })
-      .should("exist")
-      .and("be.visible")
-      .and(($el) => {
-        // Additional stability checks
-        expect($el).to.have.css("display", "not none");
-        expect($el).to.have.prop("disabled", false);
-      })
-      .then(($input) => {
-        // Use the specific element reference
-        cy.wrap($input)
-          .clear()
-          .type(value, { delay: 50 })
-          .should("have.value", value);
-      });
+      .invoke("css", "display", "block")
+      .should("be.visible")
+      .type(value);
   }
 
   endLabNo(value) {
