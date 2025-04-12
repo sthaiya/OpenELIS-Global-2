@@ -144,7 +144,6 @@ function TestActivation() {
                 activeTests: [],
                 inactiveTests: [...inactiveTests],
               };
-              setSampleTypeArrangementActivate(true);
               return null;
             }
 
@@ -933,9 +932,9 @@ function TestActivation() {
       ...(changedTestActivationData?.activeTestList?.flatMap(
         (sample) => sample.activeTests,
       ) || []),
-      ...(changedTestActivationData?.activeTestList?.flatMap(
-        (sample) => sample.inactiveTests,
-      ) || []),
+      // ...(changedTestActivationData?.activeTestList?.flatMap(
+      //   (sample) => sample.inactiveTests,
+      // ) || []),
       ...(changedTestActivationData?.inactiveTestList?.flatMap(
         (sample) => sample.activeTests,
       ) || []),
@@ -952,6 +951,7 @@ function TestActivation() {
         testIdsWithName.push({
           id: match.id,
           value: match.value,
+          activated: t.activated === true,
         });
       }
     });
