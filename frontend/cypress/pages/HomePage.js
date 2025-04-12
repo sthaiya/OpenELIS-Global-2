@@ -33,7 +33,7 @@ class HomePage {
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
       administrationMenu:
-        "#menu_administration_nav > span:nth-child(1) > span:nth-child(1)",
+        "#menu_administration > li:nth-child(1) > #menu_administration_nav",
       minimizeIcon: "#minimizeIcon",
       searchIcon: "#search-Icon",
       searchItem: "#searchItem",
