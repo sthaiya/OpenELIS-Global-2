@@ -221,19 +221,26 @@ class HomePage {
 
   // Navigate to the Results for Referred Out page
   goToResultsForRefferedOut() {
-    this.clickDropdownItem(
-      this.selectors.resultsMenu,
-      this.selectors.resultsReferred,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.resultsReferred, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new Result();
   }
 
   // Navigate to the Results by Range Order page
   goToResultsByRangeOrder() {
-    this.clickDropdownItem(
-      this.selectors.resultsMenu,
-      this.selectors.resultsRange,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.resultsRange, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new Result();
   }
 
