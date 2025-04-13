@@ -32,8 +32,7 @@ class HomePage {
         "#menu_pathology_nav > span:nth-child(1) > span:nth-child(1) ",
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
-      administrationMenu:
-        "#menu_administration > li:nth-child(1) > #menu_administration_nav",
+      administrationMenu: "#menu_administration",
       minimizeIcon: "#minimizeIcon",
       searchIcon: "#search-Icon",
       searchItem: "#searchItem",
