@@ -107,6 +107,26 @@ function EditAdditionalOrderEntryQuestions({
       }); // Trigger field change
     };
 
+    const handleQuestionDelete = (e) =>{
+      e.preventDefault();
+      const itemIndex = additionalOrderEntryQuestionsJsonFormat.item.findIndex(
+        (i) => i.linkId === item.linkId,
+      );
+      if (itemIndex !== -1) {
+        additionalOrderEntryQuestionsJsonFormat.item.splice(itemIndex, 1); // Remove the item from the JSON format
+      }
+      handleFieldChange({
+        target: {
+          name: "additionalOrderEntryQuestions",
+          value: JSON.stringify(
+            additionalOrderEntryQuestionsJsonFormat,
+            null,
+            4,
+          ),
+        },
+      }); // Trigger field change
+    }
+
     const deleteOptionHandler = (index) => (e) => {
       e.preventDefault();
       const updatedOptions = options.filter((_, i) => i !== index);
@@ -354,7 +374,7 @@ function EditAdditionalOrderEntryQuestions({
           <Button onClick={handleQuestionSave}>
             <Save />
           </Button>
-          <Button>
+          <Button onClick={handleQuestionDelete}>
             <TrashCan />
           </Button>
         </Column>
