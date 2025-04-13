@@ -203,19 +203,25 @@ class HomePage {
 
   // Navigate to the Results by Order page
   goToResultsByOrder() {
-    this.clickDropdownItem(
-      this.selectors.resultsMenu,
-      this.selectors.resultsAccession,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.resultsAccession, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new Result();
   }
 
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
-    this.clickDropdownItem(
-      this.selectors.resultsMenu,
-      this.selectors.resultsPatient,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.resultsPatient, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new Result();
   }
 
@@ -246,10 +252,13 @@ class HomePage {
 
   // Navigate to the Results by Test and Status page
   goToResultsByTestAndStatus() {
-    this.clickDropdownItem(
-      this.selectors.resultsMenu,
-      this.selectors.resultsStatus,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.resultsStatus, { timeout: 20000 })
+      .should("be.visible")
+      .click();
 
     return new Result();
   }
@@ -293,19 +302,25 @@ class HomePage {
 
   // Navigate to the Routine Reports page
   goToRoutineReports() {
-    this.clickDropdownItem(
-      this.selectors.reportsMenu,
-      this.selectors.reportsRoutineNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.reportsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.reportsRoutineNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new RoutineReportPage();
   }
 
   // Navigate to the Study Reports page
   goToStudyReports() {
-    this.clickDropdownItem(
-      this.selectors.reportsMenu,
-      this.selectors.reportsStudyNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.reportsMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.reportsStudyNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new StudyReportPage();
   }
 
