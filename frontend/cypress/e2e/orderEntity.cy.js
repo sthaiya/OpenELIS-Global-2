@@ -32,7 +32,7 @@ describe("Add requester and organization details first", function () {
   });
 
   it("User navigates to Organization Management", function () {
-    orderEntityPage = adminPage.goToOrganizationManagementPage;
+    orderEntityPage = adminPage.goToOrganizationManagement();
   });
 
   it("Adds organization details", function () {
