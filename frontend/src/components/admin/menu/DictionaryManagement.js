@@ -472,6 +472,78 @@ function DictionaryManagement() {
                 >
                   <FormattedMessage id="admin.page.configuration.formEntryConfigMenu.button.modify" />
                 </Button>
+                <Modal
+                  open={open}
+                  size="sm"
+                  onRequestClose={() => setOpen(false)}
+                  modalHeading={editMode ? "Add Dictionary" : "Edit Dictionary"}
+                  primaryButtonText={editMode ? "Add" : "Update"}
+                  secondaryButtonText="Cancel"
+                  onRequestSubmit={
+                    editMode ? handleSubmitModal : handleUpdateModal
+                  }
+                >
+                  <TextInput
+                    data-modal-primary-focus
+                    id="dictNumber"
+                    labelText="Dictionary Number"
+                    disabled
+                    onChange={(e) => setDictionaryNumber(e.target.value)}
+                    style={{
+                      marginBottom: "1rem",
+                    }}
+                  />
+                  <Dropdown
+                    id="description"
+                    label=""
+                    type="default"
+                    items={categoryDescription}
+                    titleText="Dictionary Category"
+                    itemToString={(item) => (item ? item.description : "")}
+                    onChange={({ selectedItem }) => {
+                      setCategory(selectedItem);
+                    }}
+                    selectedItem={category}
+                    size="md"
+                    style={{
+                      marginBottom: "1rem",
+                    }}
+                  />
+                  <TextInput
+                    id="dictEntry"
+                    labelText="Dictionary Entry"
+                    value={dictionaryEntry}
+                    onChange={(e) => setDictionaryEntry(e.target.value)}
+                    style={{
+                      marginBottom: "1rem",
+                    }}
+                  />
+                  <Dropdown
+                    id="isActive"
+                    type="default"
+                    label=""
+                    items={yesOrNo}
+                    titleText="Is Active"
+                    itemToString={(item) => (item ? item.id : "")}
+                    onChange={({ selectedItem }) => {
+                      setIsActive(selectedItem);
+                    }}
+                    selectedItem={isActive}
+                    size="md"
+                    style={{
+                      marginBottom: "1rem",
+                    }}
+                  />
+                  <TextInput
+                    id="localAbbrev"
+                    labelText="Local Abbreviation"
+                    value={localAbbreviation}
+                    onChange={(e) => setLocalAbbreviation(e.target.value)}
+                    style={{
+                      marginBottom: "1rem",
+                    }}
+                  />
+                </Modal>
                 <Button
                   style={{ width: isMobile ? "100%" : "auto" }}
                   disabled={modifyButton || deactivateButton}
