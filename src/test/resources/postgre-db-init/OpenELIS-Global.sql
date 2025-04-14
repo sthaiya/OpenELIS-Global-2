@@ -15896,7 +15896,7 @@ COPY clinlims.site_information (id, name, lastupdated, description, value, encry
 81	Program	2020-01-22 21:46:11.060406-08	Is a program part of an order	true	f	10	boolean	instructions.sample.entry.program	0	\N	\N	\N	siteInfo.Program	\N
 85	supportPatientNationality	2020-01-22 21:46:35.916872-08	Should the nationality of the patient be specified	true	f	15	boolean	siteInfo.instruction.patient.nationality	0	\N	\N	\N	siteInfo.patient.nationality	\N
 86	restrictFreeTextRefSiteEntry	2020-01-22 21:46:35.930856-08	Users cannot enter new referring sites through sample entry	false	f	10	boolean	instructions.sample.entry.limit.ref.site	0	\N	\N	\N	siteInfo.restrictFreeTextRefSiteEntry	\N
-84	headerLeftImage	2020-01-22 21:46:35.829492-08	Image for the left side of report header	1	f	12	logoUpload	siteInfo.instruction.labLogo.left	0	\N	\N	\N	siteInfo.lab.logo.left	\N
+84	headerLeftImage	2020-01-22 21:46:35.829492-08	Image for the left side of report header		f	12	logoUpload	siteInfo.instruction.labLogo.left	0	\N	\N	\N	siteInfo.lab.logo.left	\N
 93	Subject number required	2020-01-22 21:46:36.103525-08	Is a subject number required for patient	false	f	15	boolean	instruction.patient.subNumber.required	0	\N	\N	\N	site.info.patient.subjectNumber.required	\N
 94	sample id required	2020-01-22 21:46:36.103525-08	Is an requester sample id required	true	f	14	boolean	instruction.nonConformity.sample.id	0	\N	\N	\N	site.info.nonConformity.sample.id	\N
 92	Patient ID required	2020-01-22 21:46:36.103525-08	Is an id required for the patient	false	f	15	boolean	instruction.patient.id.required	0	\N	\N	\N	site.info.patient.id.required	\N
@@ -16149,7 +16149,7 @@ SELECT pg_catalog.setval('clinlims.source_of_sample_seq', 1, false);
 -- Data for Name: state_code; Type: TABLE DATA; Schema: clinlims; Owner: clinlims
 --
 
-COPY clinlims.state_code (id, code, description, lastupdated) FROM stdin;
+/*COPY clinlims.state_code (id, code, description, lastupdated) FROM stdin;
 17	MB	Manitoba	2006-08-11 14:14:02
 18	NB	New Brunswick	2006-08-11 14:14:02
 19	NL	Newfoundland and Labrador	2006-08-11 14:14:02
@@ -16216,7 +16216,7 @@ COPY clinlims.state_code (id, code, description, lastupdated) FROM stdin;
 80	WY	WYOMING             	2006-08-11 14:14:02
 85	CF	Confusion	2006-08-30 15:49:37
 82	AB	new test update	2006-08-11 14:14:02
-\.
+\. */
 
 
 --
