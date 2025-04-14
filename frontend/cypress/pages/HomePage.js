@@ -17,20 +17,16 @@ class HomePage {
     // Centralized selectors
     this.selectors = {
       menuButton: "[data-cy='menuButton']",
-      sampleDropdown:
-        "#menu_sample_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
-      patientDropdown:
-        "#menu_patient_dropdown > li:nth-child(1) > button:nth-child(1) > span:nth-child(1)",
-      workplanDropdown: "#menu_workplan_dropdown > li > button > div",
+      sampleDropdown: "#menu_sample_dropdown",
+      patientDropdown: "#menu_patient_dropdown",
+      workplanDropdown: "#menu_workplan_dropdown",
       nonconformityDropdown:
         "#menu_nonconformity > #menu_nonconformity_dropdown",
-      resultsMenu:
-        "#menu_results_dropdown > li:nth-child(1) > button:nth-child(1) > div:nth-child(2)",
+      resultsMenu: "#menu_results_dropdown",
       resultValidationMenu:
         "#menu_resultvalidation > #menu_resultvalidation_dropdown",
       reportsMenu: "#menu_reports > #menu_reports_dropdown",
-      pathologyMenu:
-        "#menu_pathology_nav > span:nth-child(1) > span:nth-child(1) ",
+      pathologyMenu: "#menu_pathology_nav",
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
       administrationMenu: "#menu_administration",
