@@ -107,7 +107,7 @@ function EditAdditionalOrderEntryQuestions({
       }); // Trigger field change
     };
 
-    const handleQuestionDelete = (e) =>{
+    const handleQuestionDelete = (e) => {
       e.preventDefault();
       const itemIndex = additionalOrderEntryQuestionsJsonFormat.item.findIndex(
         (i) => i.linkId === item.linkId,
@@ -125,7 +125,7 @@ function EditAdditionalOrderEntryQuestions({
           ),
         },
       }); // Trigger field change
-    }
+    };
 
     const deleteOptionHandler = (index) => (e) => {
       e.preventDefault();
