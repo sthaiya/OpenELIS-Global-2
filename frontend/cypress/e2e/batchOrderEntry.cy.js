@@ -3,6 +3,7 @@ import LoginPage from "../pages/LoginPage";
 let homePage = null;
 let loginPage = null;
 let batchOrder = null;
+let orgMgmnt = null;
 
 const navigateToBatchOrderEntryPage = () => {
   homePage = loginPage.goToHomePage();
@@ -16,6 +17,16 @@ before(() => {
 before("login", () => {
   loginPage = new LoginPage();
   loginPage.visit();
+});
+describe("Add site", function () {
+  it("Adds organization details", function () {
+    orgMgmnt.clickAddOrganization();
+    orgMgmnt.addOrgName();
+    orgMgmnt.addPrefix();
+    orgMgmnt.addParentOrg();
+    orgMgmnt.checkReferringClinic();
+    orgMgmnt.saveOrganization();
+  });
 });
 
 describe("Batch Order Entry On Demand and Serum form type", function () {
