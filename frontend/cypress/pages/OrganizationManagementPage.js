@@ -6,7 +6,15 @@ class OrganizationManagementPage {
   }
 
   addOrgName() {
-    cy.get("#org-name").should("be.visible").type("279 - CAMES MAN");
+    cy.get("#org-name").should("be.visible").type("CAMES MAN");
+  }
+
+  addPrefix() {
+    cy.get("#org-prefix").should("be.visible").type("279");
+  }
+
+  checkReferringClinic() {
+    cy.contains(".cds--data-table", "referring clinic").click();
   }
 
   addParentOrg() {

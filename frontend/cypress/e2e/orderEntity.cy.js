@@ -38,7 +38,9 @@ describe("Add requester and organization details first", function () {
   it("Adds organization details", function () {
     orgMgmnt.clickAddOrganization();
     orgMgmnt.addOrgName();
+    orgMgmnt.addPrefix();
     orgMgmnt.addParentOrg();
+    orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
   });
 });
