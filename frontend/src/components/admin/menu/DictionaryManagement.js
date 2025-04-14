@@ -589,12 +589,10 @@ function DictionaryManagement() {
                       padding: "0.5rem",
                     }}
                     hasIconOnly
+                    iconDescription="previous"
                     disabled={parseInt(fromRecordCount) <= 1}
                     onClick={handlePreviousPage}
                     renderIcon={ArrowLeft}
-                    iconDescription={intl.formatMessage({
-                      id: "organization.previous",
-                    })}
                   />
                   <Button
                     style={{
@@ -603,14 +601,12 @@ function DictionaryManagement() {
                       padding: "0.5rem",
                     }}
                     hasIconOnly
+                    iconDescription="next"
                     renderIcon={ArrowRight}
                     onClick={handleNextPage}
                     disabled={
                       parseInt(toRecordCount) >= parseInt(totalRecordCount)
                     }
-                    iconDescription={intl.formatMessage({
-                      id: "organization.next",
-                    })}
                   />
                 </div>
               </div>
@@ -630,8 +626,13 @@ function DictionaryManagement() {
                   id: "search.by.dictionary.entry",
                 })}
                 onChange={handlePanelSearchChange}
-                value={panelSearchTerm || ""}
-              />
+                value={(() => {
+                  if (panelSearchTerm) {
+                    return panelSearchTerm;
+                  }
+                  return "";
+                })()}
+              ></Search>
             </Section>
           </Column>
         </Grid>
