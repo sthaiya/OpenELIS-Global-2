@@ -39,9 +39,9 @@ describe("Add requester and organization details first", function () {
     orgMgmnt.clickAddOrganization();
     orgMgmnt.addOrgName();
     orgMgmnt.addPrefix();
-    orgMgmnt.addParentOrg();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
+    cy.reload();
   });
 });
 
@@ -108,7 +108,6 @@ describe("Order Entity", function () {
   });
 
   it("should Enter or select site name", function () {
-    cy.scrollTo("top");
     cy.wait(1000);
     cy.fixture("Order").then((order) => {
       orderEntityPage.enterSiteName(order.siteName);

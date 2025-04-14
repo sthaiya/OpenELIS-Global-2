@@ -23,8 +23,7 @@ class HomePage {
       nonconformityDropdown:
         "#menu_nonconformity > #menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
-      resultValidationMenu:
-        "#menu_resultvalidation > #menu_resultvalidation_dropdown",
+      resultValidationMenu: "#menu_resultvalidation",
       reportsMenu: "#menu_reports > #menu_reports_dropdown",
       pathologyMenu: "#menu_pathology_nav",
       immunochemMenu: "#menu_immunochem",
