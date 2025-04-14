@@ -564,7 +564,9 @@ function DictionaryManagement() {
                 style={{
                   display: "flex",
                   flexDirection: isMobile ? "column" : "row",
-                  gap: "5px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: isMobile ? "0.75rem" : "0.5rem",
                 }}
               >
                 <h4
