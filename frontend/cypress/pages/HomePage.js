@@ -19,7 +19,7 @@ class HomePage {
       menuButton: "[data-cy='menuButton']",
       sampleDropdown: "#menu_sample_dropdown",
       patientDropdown: "#menu_patient_dropdown",
-      workplanDropdown: "#menu_workplan_dropdown",
+      workplanDropdown: "#menu_workplan > #menu_workplan_dropdown",
       nonconformityDropdown:
         "#menu_nonconformity > #menu_nonconformity_dropdown",
       resultsMenu: "#menu_results_dropdown",
@@ -122,73 +122,105 @@ class HomePage {
 
   // Navigate to the Modify Order page
   goToModifyOrderPage() {
-    this.clickDropdownItem(
-      this.selectors.sampleDropdown,
-      this.selectors.sampleEditNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.sampleEditNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new ModifyOrderPage();
   }
 
   // Navigate to the Work Plan by Test page
   goToWorkPlanPlanByTest() {
-    this.clickDropdownItem(
-      this.selectors.workplanDropdown,
-      this.selectors.workplanTestNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.workplanTestNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Panel page
   goToWorkPlanPlanByPanel() {
-    this.clickDropdownItem(
-      this.selectors.workplanDropdown,
-      this.selectors.workplanPanelNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.workplanPanelNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Unit page
   goToWorkPlanPlanByUnit() {
-    this.clickDropdownItem(
-      this.selectors.workplanDropdown,
-      this.selectors.workplanBenchNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.workplanBenchNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new WorkPlan();
   }
 
   // Navigate to the Work Plan by Priority page
   goToWorkPlanPlanByPriority() {
-    this.clickDropdownItem(
-      this.selectors.workplanDropdown,
-      this.selectors.workplanPriorityNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.workplanPriorityNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new WorkPlan();
   }
 
   // Navigate to the Non-Conforming Report page
   goToReportNCE() {
-    this.clickDropdownItem(
-      this.selectors.nonconformityDropdown,
-      this.selectors.nonConformingReportNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.nonConformingReportNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new NonConform();
   }
 
   // Navigate to the View Non-Conforming Events page
   goToViewNCE() {
-    this.clickDropdownItem(
-      this.selectors.nonconformityDropdown,
-      this.selectors.nonConformingViewNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.nonConformingViewNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new NonConform();
   }
 
   // Navigate to the Corrective Actions page
   goToCorrectiveActions() {
-    this.clickDropdownItem(
-      this.selectors.nonconformityDropdown,
-      this.selectors.nonConformingCorrectiveActionsNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.nonConformingCorrectiveActionsNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new NonConform();
   }
 
