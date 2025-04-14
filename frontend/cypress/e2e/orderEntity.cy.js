@@ -1,5 +1,6 @@
 import LoginPage from "../pages/LoginPage";
 import ProviderManagementPage from "../pages/ProviderManagementPage";
+import OrganizationManagementPage from "../pages/OrganizationManagementPage";
 import AdminPage from "../pages/AdminPage";
 
 let homePage = null;
@@ -8,13 +9,14 @@ let adminPage = new AdminPage();
 let orderEntityPage = null;
 let patientEntryPage = null;
 let providerManagementPage = new ProviderManagementPage();
+let orgMgmnt = new OrganizationManagementPage();
 
 before("login", () => {
   loginPage = new LoginPage();
   loginPage.visit();
 });
 
-describe("Add requester details first", function () {
+describe("Add requester and organization details first", function () {
   it("Navidates to admin", function () {
     homePage = loginPage.goToHomePage();
     orderEntityPage = homePage.goToAdminPage();
@@ -27,6 +29,17 @@ describe("Add requester details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
+  });
+
+  it("User navigates to Organization Management", function () {
+    orderEntityPage = adminPage.goToOrganizationManagementPage;
+  });
+
+  it("Adds organization details", function () {
+    orgMgmnt.clickAddOrganization();
+    orgMgmnt.addOrgName();
+    orgMgmnt.addParentOrg();
+    orgMgmnt.saveOrganization();
   });
 });
 
