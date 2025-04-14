@@ -447,12 +447,16 @@ function DictionaryManagement() {
                 flexWrap: "wrap",
               }}
             >
-              <div
+              <Column
+                lg={16}
+                md={8}
+                sm={4}
                 style={{
                   display: "flex",
                   gap: isMobile ? "0.75rem" : "0.5rem",
                   flexDirection: isMobile ? "column" : "row",
                   width: isMobile ? "100%" : "auto",
+                  margin: "0",
                 }}
               >
                 <Button
@@ -552,16 +556,15 @@ function DictionaryManagement() {
                 >
                   <FormattedMessage id="admin.page.configuration.formEntryConfigMenu.button.deactivate" />
                 </Button>
-              </div>
-              <div
+              </Column>
+              <Column
+                lg={16}
+                md={8}
+                sm={4}
                 style={{
                   display: "flex",
-                  justifyContent: isMobile ? "space-between" : "center",
-                  gap: isMobile ? "0.5rem" : "1rem",
-                  padding: isMobile ? "0.5rem 0" : "1rem 0",
-                  flexWrap: "wrap",
-                  width: isMobile ? "100%" : "auto",
                   flexDirection: isMobile ? "column" : "row",
+                  gap: "5px",
                 }}
               >
                 <h4
@@ -609,7 +612,7 @@ function DictionaryManagement() {
                     }
                   />
                 </div>
-              </div>
+              </Column>
             </Form>
           </Section>
         </Column>
