@@ -88,19 +88,26 @@ class HomePage {
 
   // Navigate to the Order Entry page
   goToOrderPage() {
-    this.clickDropdownItem(
-      this.selectors.sampleDropdown,
-      this.selectors.sampleAddNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
     return new OrderEntityPage();
   }
 
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
-    this.clickDropdownItem(
-      this.selectors.sampleDropdown,
-      this.selectors.sampleBatchEntryNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.sampleBatchEntryNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new BatchOrderEntry();
   }
 
