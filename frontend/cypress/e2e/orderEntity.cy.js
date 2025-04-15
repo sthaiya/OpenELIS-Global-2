@@ -16,7 +16,7 @@ before("login", () => {
   loginPage.visit();
 });
 
-describe("Add requester details first", function () {
+describe("Add requester and site details first", function () {
   it("Navidates to admin", function () {
     homePage = loginPage.goToHomePage();
     orderEntityPage = homePage.goToAdminPage();
@@ -29,6 +29,20 @@ describe("Add requester details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
+  });
+  it("Navidate to organisation Management", function () {
+    homePage = loginPage.goToHomePage();
+    orderEntityPage = homePage.goToAdminPage();
+    orderEntityPage = adminPage.goToOrganizationManagement();
+  });
+
+  it("Add organisation/site details", function () {
+    orgMgmnt.clickAddOrganization();
+    orgMgmnt.addOrgName();
+    orgMgmnt.addPrefix();
+    orgMgmnt.addParentOrg();
+    orgMgmnt.checkReferringClinic();
+    orgMgmnt.saveOrganization();
   });
 });
 
@@ -76,21 +90,12 @@ describe("Order Entity", function () {
     orderEntityPage.clickNextButton();
   });
 
-  it("Should do a validation check for labNo and then click generate Lab Order Number and store it in a fixture", function () {
+  it("Validation check for labNo and then click generate Lab Order Number link", function () {
     cy.fixture("Order").then((order) => {
       orderEntityPage.validateAcessionNumber(order.invalidLabNo);
     });
 
     orderEntityPage.generateLabOrderNumber();
-
-    cy.get("#labNo").then(($input) => {
-      const generatedOrderNumber = $input.val();
-
-      cy.fixture("Order").then((order) => {
-        order.labNo = generatedOrderNumber;
-        cy.writeFile("cypress/fixtures/EnteredOrder.json", order);
-      });
-    });
     cy.wait(1000);
   });
 

@@ -28,6 +28,7 @@ class HomePage {
       immunochemMenu: "#menu_immunochem",
       cytologyMenu: "#menu_cytology",
       administrationMenu: "#menu_administration_nav",
+      adminMenu: "span#menu_administration",
       minimizeIcon: "#minimizeIcon",
       searchIcon: "#search-Icon",
       searchItem: "#searchItem",
@@ -384,6 +385,12 @@ class HomePage {
   }
 
   // Navigate to the Admin page
+  goToAdminPageProgram() {
+    this.openNavigationMenu();
+    cy.get(this.selectors.adminMenu, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+  }
   goToAdminPage() {
     this.openNavigationMenu();
     cy.get(this.selectors.administrationMenu, { timeout: 30000 })

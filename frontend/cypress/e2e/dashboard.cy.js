@@ -82,13 +82,11 @@ describe("Add requester and Organization details first", function () {
   });
 });
 
-// Main test suite
 describe("Dashboard Tests", function () {
   before("Navigate to homepage", () => {
     homePage = loginPage.goToHomePage();
   });
 
-  // Pathology Dashboard Tests
   describe("Pathology Dashboard", function () {
     before("Navigate to Pathology Dashboard", function () {
       dashboard = homePage.goToPathologyDashboard();

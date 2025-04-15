@@ -132,7 +132,7 @@ class RoutineReportPage {
   }
 
   selectDropdown(selector, value) {
-    cy.get(selector).select(value, { force: true });
+    cy.get(selector, { timeout: 20000 }).select(value);
   }
 
   typeInDatePicker(selector, date) {

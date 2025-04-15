@@ -49,6 +49,7 @@ class OrderEntityPage {
   }
   enterSiteName(siteName) {
     cy.get("input#siteName").clear().type(siteName);
+    cy.contains(".suggestion-active", siteName).click();
   }
   enterRequesterLastAndFirstName(
     fullName,
