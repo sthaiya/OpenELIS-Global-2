@@ -11,7 +11,7 @@ before(() => {
   loginPage.visit();
 
   homePage = loginPage.goToHomePage();
-  adminPage = homePage.goToAdminPage();
+  adminPage = homePage.goToAdminPageProgram();
 });
 
 beforeEach(() => {

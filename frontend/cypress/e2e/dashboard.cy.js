@@ -65,7 +65,7 @@ const validateOrderStatus = (dashboardType) => {
   dashboard.statusFilter();
 };
 
-describe("Add requester and Organization details first", function () {
+describe("Add requester and site details first", function () {
   it("Navidates to admin", function () {
     loginAndNavigateToHome();
     dashboard = homePage.goToAdminPage();
@@ -78,6 +78,19 @@ describe("Add requester and Organization details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
+  });
+
+  it("Navigate to site/organization Management", function () {
+    batchOrder = adminPage.goToOrganizationManagement();
+  });
+
+  it("Add site/organization details", function () {
+    orgMgmnt.clickAddOrganization();
+    orgMgmnt.addOrgName();
+    orgMgmnt.addPrefix();
+    orgMgmnt.addParentOrg();
+    orgMgmnt.checkReferringClinic();
+    orgMgmnt.saveOrganization();
     cy.reload();
   });
 });

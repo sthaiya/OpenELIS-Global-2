@@ -43,16 +43,17 @@ describe("Add requester and site details first", function () {
     orgMgmnt.addParentOrg();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
+    cy.reload();
   });
 });
 
 describe("Order Entity", function () {
-  it("User Visits Home Page and goes to Order entity Page ", function () {
+  it("Navigate to Home Page then to Order entity Page ", function () {
     homePage = loginPage.goToHomePage();
     orderEntityPage = homePage.goToOrderPage();
   });
 
-  it("Should search patient in the search box", function () {
+  it("Search patient in the search box", function () {
     patientEntryPage = orderEntityPage.getPatientPage();
     cy.wait(1000);
     cy.fixture("Patient").then((patient) => {
@@ -73,13 +74,13 @@ describe("Order Entity", function () {
     orderEntityPage.clickNextButton();
   });
 
-  it("User goes to program selection", function () {
+  it("Navigate to program selection", function () {
     orderEntityPage.selectCytology();
     cy.wait(200);
     orderEntityPage.clickNextButton();
   });
 
-  it("User should select sample type option", function () {
+  it("Select sample type", function () {
     cy.fixture("Order").then((order) => {
       order.samples.forEach((sample) => {
         orderEntityPage.selectSampleTypeOption(sample.sampleType);
@@ -90,7 +91,7 @@ describe("Order Entity", function () {
     orderEntityPage.clickNextButton();
   });
 
-  it("Validation check for labNo and then click generate Lab Order Number link", function () {
+  it("Validate labNo, then click generate Lab Order Number link", function () {
     cy.fixture("Order").then((order) => {
       orderEntityPage.validateAcessionNumber(order.invalidLabNo);
     });
@@ -99,14 +100,14 @@ describe("Order Entity", function () {
     cy.wait(1000);
   });
 
-  it("should Enter or select site name", function () {
+  it("Enter or select site name", function () {
     cy.wait(1000);
     cy.fixture("Order").then((order) => {
       orderEntityPage.enterSiteName(order.siteName);
     });
   });
 
-  it("should enter requester first and last name's", function () {
+  it("Enter requester first and last names", function () {
     cy.fixture("Order").then((order) => {
       orderEntityPage.enterRequesterLastAndFirstName(
         order.requester.fullName,
