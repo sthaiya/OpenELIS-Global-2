@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.openelisglobal.BaseWebContextSensitiveTest;
@@ -73,6 +74,143 @@ public class QaEventServiceTest extends BaseWebContextSensitiveTest {
         int expectedPages = Integer
                 .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
         assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getAllMachingQaEvents_shouldReturnAllMatchingQaEvents() throws Exception {
+        List<QaEvent> events = qaEventService.getAllMatching("isBillable", "Y");
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+    }
+
+    @Test
+    public void getAllMatching_givenMapping_shouldReturnAllMatchingQaEvents() throws Exception {
+        Map<String, Object> mapping = Map.of("isBillable", "Y");
+        List<QaEvent> events = qaEventService.getAllMatching(mapping);
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+    }
+
+    @Test
+    public void getAllMatchingOrdered_givenMapping_shouldReturnAllMatchingOrderedQaEvents() throws Exception {
+        Map<String, Object> mapping = Map.of("isBillable", "Y");
+        List<QaEvent> events = qaEventService.getAllMatchingOrdered(mapping, "id", true);
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+    }
+
+    @Test
+    public void getAllMatchingOrdered_shouldReturnAllMatchingOrdered() {
+        List<QaEvent> events = qaEventService.getAllMatchingOrdered("isBillable", "Y", "id", true);
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+    }
+
+    @Test
+    public void getAllMatchingOrderedGivenLIst_shouldReturnAllMatchingOrderedQaEvents() {
+        List<String> list = List.of("id");
+        List<QaEvent> events = qaEventService.getAllMatchingOrdered("isBillable", "Y", list, true);
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+
+    }
+
+    @Test
+    public void getAllMatchingOrderedGivenLIstAndMapping_shouldReturnAllMatchingOrderedQaEvents() {
+        Map<String, Object> mapping = Map.of("isBillable", "Y");
+        List<String> list = List.of("id");
+        List<QaEvent> events = qaEventService.getAllMatchingOrdered(mapping, list, true);
+        assertNotNull(events);
+        assertEquals(1, events.size());
+        assertEquals("1", events.get(0).getId());
+    }
+
+    @Test
+    public void getOrdered_shouldReturnOrdered() {
+        List<QaEvent> events = qaEventService.getAllOrdered("id", false);
+        assertNotNull(events);
+        assertEquals(2, events.size());
+        assertEquals("1", events.get(0).getId());
+        assertEquals("2", events.get(1).getId());
+    }
+
+    @Test
+    public void getOrderedGivenLIst_shouldReturnOrdered() {
+        List<String> list = List.of("id");
+        List<QaEvent> events = qaEventService.getAllOrdered(list, false);
+        assertNotNull(events);
+        assertEquals(2, events.size());
+        assertEquals("1", events.get(0).getId());
+        assertEquals("2", events.get(1).getId());
+    }
+
+    @Test
+    public void getAllMatchingPage_shouldReturnAllMatchingPage() {
+        List<QaEvent> events = qaEventService.getMatchingPage("isBillable", "Y", 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getAllMatchingPageGivenMapping_shouldReturnAllMatchingPage() {
+        Map<String, Object> mapping = Map.of("isBillable", "Y");
+        List<QaEvent> events = qaEventService.getMatchingPage(mapping, 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getAllMatchingPageOrdered_shouldReturnAllMatchingPageOrdered() {
+        List<QaEvent> events = qaEventService.getMatchingOrderedPage("isBillable", "Y", "id", true, 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getAllOrderedPage_shouldReturnAllOrderedPage() {
+        List<QaEvent> events = qaEventService.getOrderedPage("id", false, 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getAllOrderedPageGivenLIst_shouldReturnAllOrderedPage() {
+        List<String> list = List.of("id");
+        List<QaEvent> events = qaEventService.getOrderedPage(list, false, 1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getPage_shouldReturnPageOfQaEvents() {
+        List<QaEvent> events = qaEventService.getPage(1);
+        int expectedPages = Integer
+                .parseInt(ConfigurationProperties.getInstance().getPropertyValue("page.defaultPageSize"));
+        assertTrue(expectedPages >= events.size());
+    }
+
+    @Test
+    public void getNext_shouldReturnNextQaEvent() throws Exception {
+        QaEvent qaEvent = qaEventService.getNext("1");
+        assertNotNull(qaEvent);
+        assertEquals("2", qaEvent.getId());
+    }
+
+    @Test
+    public void getPrevious_shouldReturnPreviousQaEvent() throws Exception {
+        QaEvent qaEvent = qaEventService.getPrevious("2");
+        assertNotNull(qaEvent);
+        assertEquals("1", qaEvent.getId());
     }
 
 }
