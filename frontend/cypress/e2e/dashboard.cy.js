@@ -81,7 +81,7 @@ describe("Add requester and site details first", function () {
   });
 
   it("Navigate to site/organization Management", function () {
-    batchOrder = adminPage.goToOrganizationManagement();
+    dashboard = adminPage.goToOrganizationManagement();
   });
 
   it("Add site/organization details", function () {

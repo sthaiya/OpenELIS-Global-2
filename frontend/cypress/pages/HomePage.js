@@ -20,7 +20,7 @@ class HomePage {
       sampleDropdown: "span#menu_sample",
       patientDropdown: "span#menu_patient",
       workplanDropdown: "#menu_workplan",
-      nonconformityDropdown: "#menu_nonconformity",
+      nonconformityDropdown: "span#menu_nonconformity",
       resultsMenu: "#menu_results_dropdown",
       resultValidationMenu: "#menu_resultvalidation",
       reportsMenu: "#menu_reports",
@@ -112,10 +112,14 @@ class HomePage {
 
   // Navigate to the Patient Entry page
   goToPatientEntry() {
-    this.clickDropdownItem(
-      this.selectors.patientDropdown,
-      this.selectors.patientAddOrEditNav,
-    );
+    this.openNavigationMenu();
+    cy.get(this.selectors.patientDropdown, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.patientAddOrEditNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+
     return new PatientEntryPage();
   }
 
@@ -189,10 +193,10 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.nonConformingReportNav, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
 
     return new NonConform();
   }
@@ -202,10 +206,10 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.nonConformingViewNav, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
 
     return new NonConform();
   }

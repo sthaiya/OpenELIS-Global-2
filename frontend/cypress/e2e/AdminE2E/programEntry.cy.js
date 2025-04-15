@@ -1,9 +1,10 @@
 import LoginPage from "../../pages/LoginPage";
+import ProgramEntryPage from "../../pages/ProgramEntryPage";
 
 let loginPage = null;
 let homePage = null;
 let adminPage = null;
-let programEntry = null;
+let programEntryPage = new ProgramEntryPage();
 
 // Test data: programs and their associated tests
 const programs = [
@@ -27,8 +28,8 @@ const navigateToProgramEntry = () => {
   loginPage.visit();
   homePage = loginPage.goToHomePage();
   adminPage = homePage.goToAdminPageProgram();
-  programEntry = adminPage.goToProgramEntry();
-  programEntry.verifyPageLoads();
+  programEntryPage = adminPage.goToProgramEntry();
+  programEntryPage.verifyPageLoads();
 };
 before(() => {
   navigateToProgramEntry();
@@ -42,11 +43,11 @@ afterEach(() => {
 describe("Selects various Programs", () => {
   programs.forEach((program) => {
     it(`Selects program: ${program.name}`, () => {
-      programEntry.selectProgram(program.name);
+      programEntryPage.selectProgram(program.name);
       if (program.test) {
-        programEntry.selectTest(program.test);
+        programEntryPage.selectTest(program.test);
       }
-      programEntry.submitProgram();
+      programEntryPage.submitProgram();
     });
   });
 });
