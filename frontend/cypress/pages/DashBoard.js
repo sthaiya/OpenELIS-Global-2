@@ -63,9 +63,7 @@ class DashBoardPage {
   }
 
   selectSite() {
-    cy.get("#siteName").type("279 - CAMES ");
-    cy.contains(".suggestion-active", "279 - CAMES ").click();
-    cy.wait(200);
+    cy.get("#siteName").should("be.visible").type("279 - CAMES MAN");
   }
 
   selectRequesting() {

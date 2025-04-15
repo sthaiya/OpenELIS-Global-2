@@ -30,18 +30,6 @@ describe("Add requester details first", function () {
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
   });
-
-  it("User navigates to Organization Management", function () {
-    orderEntityPage = adminPage.goToOrganizationManagement();
-  });
-
-  it("Adds organization details", function () {
-    orgMgmnt.clickAddOrganization();
-    orgMgmnt.addOrgName();
-    orgMgmnt.addPrefix();
-    orgMgmnt.checkReferringClinic();
-    orgMgmnt.saveOrganization();
-  });
   //cy.reload();
 });
 

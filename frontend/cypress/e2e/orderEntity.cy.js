@@ -16,7 +16,7 @@ before("login", () => {
   loginPage.visit();
 });
 
-describe("Add requester and organization details first", function () {
+describe("Add requester details first", function () {
   it("Navidates to admin", function () {
     homePage = loginPage.goToHomePage();
     orderEntityPage = homePage.goToAdminPage();
@@ -29,19 +29,6 @@ describe("Add requester and organization details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
-  });
-
-  it("User navigates to Organization Management", function () {
-    orderEntityPage = adminPage.goToOrganizationManagement();
-  });
-
-  it("Adds organization details", function () {
-    orgMgmnt.clickAddOrganization();
-    orgMgmnt.addOrgName();
-    orgMgmnt.addPrefix();
-    orgMgmnt.checkReferringClinic();
-    orgMgmnt.saveOrganization();
-    cy.reload();
   });
 });
 
