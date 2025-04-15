@@ -1,12 +1,14 @@
 import LoginPage from "../pages/LoginPage";
 import OrderEntityPage from "../pages/OrderEntityPage";
 import ProviderManagementPage from "../pages/ProviderManagementPage";
+import AdminPage from "../pages/AdminPage";
 
 let homePage = null;
 let loginPage = null;
 let workplan = null;
 let orderEntityPage = new OrderEntityPage();
 let providerManagementPage = new ProviderManagementPage();
+let adminPage = new AdminPage();
 
 before("login", () => {
   loginPage = new LoginPage();
