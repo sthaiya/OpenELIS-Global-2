@@ -61,7 +61,7 @@ class BatchOrderEntry {
 
   enterSiteName(siteName) {
     cy.get("#siteName").should("be.visible").type(siteName);
-    // cy.get(".suggestion-active").should("be.visible").click();
+    cy.get(".suggestion-active").should("be.visible").click();
   }
 
   typeLabNumber(labNumber) {

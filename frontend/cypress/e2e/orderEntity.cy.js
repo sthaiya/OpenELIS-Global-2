@@ -39,6 +39,7 @@ describe("Add requester and site details first", function () {
   it("Add organisation/site details", function () {
     orgMgmnt.clickAddOrganization();
     orgMgmnt.addOrgName();
+    orgMgmnt.activateOrganization();
     orgMgmnt.addPrefix();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();

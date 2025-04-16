@@ -9,6 +9,10 @@ class OrganizationManagementPage {
     cy.get("#org-name").should("be.visible").type("CAMES MAN");
   }
 
+  activateOrganization() {
+    cy.get("#is-active").clear().type("Y");
+  }
+
   addPrefix() {
     cy.get("#org-prefix").should("be.visible").type("279");
   }

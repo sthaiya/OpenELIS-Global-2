@@ -33,6 +33,7 @@ describe("Add site", function () {
     orgMgmnt.clickAddOrganization();
     orgMgmnt.addOrgName();
     orgMgmnt.addPrefix();
+    orgMgmnt.activateOrganization();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
   });
