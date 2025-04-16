@@ -21,7 +21,7 @@ class HomePage {
       patientDropdown: "span#menu_patient",
       workplanDropdown: "#menu_workplan",
       nonconformityDropdown: "span#menu_nonconformity",
-      resultsMenu: "#menu_results_dropdown",
+      resultsMenu: "span#menu_results",
       resultValidationMenu: "#menu_resultvalidation",
       reportsMenu: "#menu_reports",
       pathologyMenu: "#menu_pathology",
@@ -45,8 +45,8 @@ class HomePage {
       workplanPanelNav: "#menu_workplan_panel_nav",
       workplanBenchNav: "#menu_workplan_bench_nav",
       workplanPriorityNav: "#menu_workplan_priority_nav",
-      nonConformingReportNav: "#menu_non_conforming_report_nav",
-      nonConformingViewNav: "#menu_non_conforming_view_nav",
+      nonConformingReportNav: "span#menu_non_conforming_report",
+      nonConformingViewNav: "span#menu_non_conforming_view",
       nonConformingCorrectiveActionsNav:
         "#menu_non_conforming_corrective_actions_nav",
       resultsLogbook: "#menu_results_logbook_nav",
@@ -193,10 +193,10 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
     cy.get(this.selectors.nonConformingReportNav, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
 
     return new NonConform();
   }
