@@ -46,7 +46,7 @@ class HomePage {
       workplanBenchNav: "#menu_workplan_bench_nav",
       workplanPriorityNav: "#menu_workplan_priority_nav",
       nonConformingReportNav: "span#menu_non_conforming_report",
-      nonConformingViewNav: "span#menu_non_conforming_view",
+      nonConformingViewNav: "[data-cy='menu_non_conforming_view']",
       nonConformingCorrectiveActionsNav:
         "#menu_non_conforming_corrective_actions_nav",
       resultsLogbook: "#menu_results_logbook_nav",
