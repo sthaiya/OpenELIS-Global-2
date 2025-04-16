@@ -42,7 +42,12 @@ describe("Add requester and site details first", function () {
     orgMgmnt.addPrefix();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
-    cy.reload();
+  });
+
+  it("Validates the added site/organization", function () {
+    orderEntityPage = adminPage.goToOrganizationManagement();
+    orgMgmnt.searchOrganzation();
+    orgMgmnt.confirmOrganization();
   });
 });
 

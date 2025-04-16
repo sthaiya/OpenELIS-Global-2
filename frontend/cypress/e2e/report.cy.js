@@ -188,7 +188,10 @@ describe("Routine Reports", function () {
       ".cds--date-picker-input__wrapper > #endDate",
       "02/02/2023",
     );
-    reportPage.selectDropdown("#locationcode", "CEDRES");
+    reportPage.selectDropdown(
+      ".cds--select-input_wrapper > #locationcode",
+      "CEDRES",
+    );
     reportPage.validateButtonVisible(":nth-child(4) > .cds--btn");
   });
 

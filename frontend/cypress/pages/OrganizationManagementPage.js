@@ -24,6 +24,16 @@ class OrganizationManagementPage {
   saveOrganization() {
     cy.get("#saveButton").should("be.visible").click();
   }
+
+  searchOrganzation() {
+    cy.get("#org-name-search-bar").should("be.visible").type("CAMES MAN");
+  }
+
+  confirmOrganization() {
+    cy.contains(".cds--data-table > tbody:nth-child(2)", "CAMES MAN").should(
+      "be.visible",
+    );
+  }
 }
 
 export default OrganizationManagementPage;
