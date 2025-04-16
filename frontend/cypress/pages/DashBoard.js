@@ -61,7 +61,6 @@ class DashBoardPage {
   generateLabNo() {
     cy.get("[data-cy='generate-labNumber']").click();
   }
-
   selectSite() {
     cy.get("#siteName").should("be.visible").type("279 - CAMES MAN");
     //cy.contains(".suggestion-active", "279 - CAMES MAN").click();
