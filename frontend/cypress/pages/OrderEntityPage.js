@@ -49,7 +49,9 @@ class OrderEntityPage {
   }
   enterSiteName(siteName) {
     cy.get("input#siteName").clear().type(siteName);
-    cy.contains(".suggestion-active", siteName).click();
+    cy.contains(".suggestion-active", siteName, { timeout: 15000 })
+      .should("be.visible")
+      .click();
   }
   enterRequesterLastAndFirstName(
     fullName,
