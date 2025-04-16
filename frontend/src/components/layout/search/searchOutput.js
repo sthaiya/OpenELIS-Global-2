@@ -16,7 +16,7 @@ const SearchOutput = ({ patientData, className = "patientHead" }) => {
                   className="patientHead"
                   onClick={() => openPatientResults(patient.patientID)}
                 >
-                  <Column lg={4} md={2} sm={2}>
+                  <Column lg={2} md={2}>
                     <div role="img">
                       <Avatar
                         alt="Patient avatar"
@@ -32,7 +32,7 @@ const SearchOutput = ({ patientData, className = "patientHead" }) => {
                       />
                     </div>
                   </Column>
-                  <Column lg={10} md={5} sm={2}>
+                  <Column lg={14} md={6} sm={3}>
                     <div className="tags">
                       {`${patient.lastName} ${patient.firstName}`}
                       <Tag size="sm" type="blue">
