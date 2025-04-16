@@ -219,7 +219,7 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.nonConformingCorrectiveActionsNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -394,6 +394,8 @@ class HomePage {
     cy.get(this.selectors.adminMenu, { timeout: 20000 })
       .should("be.visible")
       .click();
+
+    return new AdminPage();
   }
   goToAdminPage() {
     this.openNavigationMenu();

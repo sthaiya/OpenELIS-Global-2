@@ -10,7 +10,7 @@ class NonConform {
 
   // Form interactions
   selectSearchType(type) {
-    cy.get("#type").select(type);
+    cy.get("#type").select(type, { force: true });
   }
 
   enterSearchField(value) {

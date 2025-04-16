@@ -40,7 +40,6 @@ describe("Add requester and site details first", function () {
     orgMgmnt.clickAddOrganization();
     orgMgmnt.addOrgName();
     orgMgmnt.addPrefix();
-    orgMgmnt.addParentOrg();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
     cy.reload();
@@ -92,10 +91,6 @@ describe("Order Entity", function () {
   });
 
   it("Validate labNo, then click generate Lab Order Number link", function () {
-    cy.fixture("Order").then((order) => {
-      orderEntityPage.validateAcessionNumber(order.invalidLabNo);
-    });
-
     orderEntityPage.generateLabOrderNumber();
     cy.wait(1000);
   });

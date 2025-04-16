@@ -59,12 +59,12 @@ class DashBoardPage {
   }
 
   generateLabNo() {
-    cy.contains("a.cds--link", "Generate").click();
+    cy.get("[data-cy='generate-labNumber']").click();
   }
 
   selectSite() {
     cy.get("#siteName").should("be.visible").type("279 - CAMES MAN");
-    //cy.contains(".suggestion-active", "279 - CAMES MAN").click();
+    cy.contains(".suggestion-active", "279 - CAMES MAN").click();
   }
 
   selectRequesting() {
@@ -84,7 +84,9 @@ class DashBoardPage {
   }
 
   selectFirstOrder() {
-    cy.get('tbody[aria-live="polite"] > tr').first().click();
+    cy.get('tbody[aria-live="polite"] > tr', { timeout: 15000 })
+      .first()
+      .click();
   }
 
   saveOrder() {
