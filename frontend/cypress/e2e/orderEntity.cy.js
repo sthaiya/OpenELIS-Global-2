@@ -90,12 +90,11 @@ describe("Order Entity", function () {
     orderEntityPage.clickNextButton();
   });
 
-  it("Validate labNo, then click generate Lab Order Number link", function () {
+  it("Generate Lab Order Number", function () {
     orderEntityPage.generateLabOrderNumber();
-    cy.wait(1000);
   });
 
-  it("Enter or select site name", function () {
+  it("Select site name", function () {
     cy.wait(1000);
     cy.fixture("Order").then((order) => {
       orderEntityPage.enterSiteName(order.siteName);

@@ -45,4 +45,14 @@ describe("Lab Number Management", function () {
       labNumMgtPage.clickSubmitButton();
     });
   });
+
+  //Back to default type
+  it("Navigate back to legacy lab number type", function () {
+    cy.get("@labNMData").then((labNumberManagementData) => {
+      labNumMgtPage.selectLabNumber(
+        labNumberManagementData.legacyLabNumberType,
+      );
+      labNumMgtPage.clickSubmitButton();
+    });
+  });
 });
