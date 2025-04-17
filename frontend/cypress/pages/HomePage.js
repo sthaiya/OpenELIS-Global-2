@@ -91,7 +91,7 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
       .should("be.visible")
       .click();
