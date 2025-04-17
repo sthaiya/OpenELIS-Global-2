@@ -135,6 +135,12 @@ class RoutineReportPage {
     cy.get(selector, { timeout: 20000 }).select(value, { force: true });
   }
 
+  selectDropdownExt() {
+    cy.get(".cds--select-input_wrapper > #locationcode")
+      .should("be.visible")
+      .select("CEDRES");
+  }
+
   typeInDatePicker(selector, date) {
     cy.get(selector).type(date);
   }
