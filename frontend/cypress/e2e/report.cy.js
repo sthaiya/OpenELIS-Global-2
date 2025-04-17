@@ -179,16 +179,16 @@ describe("Routine Reports", function () {
     reportPage.navigateToManagementReports();
     reportPage.selectReferredOutTestReport();
     reportPage.validatePageHeader("External Referrals Report");
+    reportPage.selectDropdownExt();
     reportPage.typeInDatePicker(
       ".cds--date-picker-input__wrapper > #startDate",
       "01/02/2023",
     );
 
-    //reportPage.typeInDatePicker(
-    //".cds--date-picker-input__wrapper > #endDate",
-    //"02/02/2023",
-    //);
-    reportPage.selectDropdownExt();
+    reportPage.typeInDatePicker(
+      ".cds--date-picker-input__wrapper > #endDate",
+      "02/02/2023",
+    );
     reportPage.validateButtonVisible(":nth-child(4) > .cds--btn");
   });
 
