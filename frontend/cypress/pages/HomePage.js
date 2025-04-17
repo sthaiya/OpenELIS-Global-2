@@ -89,9 +89,9 @@ class HomePage {
   // Navigate to the Order Entry page
   goToOrderPage() {
     this.openNavigationMenu();
-    cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
+    cy.get(this.selectors.sampleDropdown)
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -243,7 +243,7 @@ class HomePage {
   // Navigate to the Results by Order page
   goToResultsByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenuExt, { timeout: 20000 })
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
       .should("be.visible")
       .click();
     cy.get(this.selectors.resultsAccession, { timeout: 20000 })
@@ -255,7 +255,7 @@ class HomePage {
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenuExt, { timeout: 20000 })
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
       .should("be.visible")
       .click();
     cy.get(this.selectors.resultsPatient, { timeout: 20000 })
