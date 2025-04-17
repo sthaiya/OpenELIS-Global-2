@@ -35,7 +35,7 @@ class OrganizationManagementPage {
   }
 
   confirmOrganization() {
-    cy.contains(".cds--data-table > tbody:nth-child(2)", "CAMESMAN").should(
+    cy.contains(".cds--data-table > tbody:nth-child(2)", "CAMES MAN").should(
       "be.visible",
     );
   }
