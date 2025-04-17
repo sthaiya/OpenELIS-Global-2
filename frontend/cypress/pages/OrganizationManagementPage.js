@@ -18,11 +18,12 @@ class OrganizationManagementPage {
   }
 
   checkReferringClinic() {
-    cy.contains(".cds--data-table", "referring clinic").click();
+    cy.get('[id="5:select"]').check({ force: true });
+    //cy.contains(".cds--data-table", "referring clinic").click();
   }
 
   addParentOrg() {
-    cy.get("#parentOrgName").should("be.visible").type("MULAGO");
+    cy.get("#parentOrgName").should("be.visible").type("CAMESM AN");
   }
 
   saveOrganization() {
@@ -30,11 +31,11 @@ class OrganizationManagementPage {
   }
 
   searchOrganzation() {
-    cy.get("#org-name-search-bar").should("be.visible").type("CAMES MAN");
+    cy.get("#org-name-search-bar").should("be.visible").type("CAMESMAN");
   }
 
   confirmOrganization() {
-    cy.contains(".cds--data-table > tbody:nth-child(2)", "CAMES MAN").should(
+    cy.contains(".cds--data-table > tbody:nth-child(2)", "CAMESMAN").should(
       "be.visible",
     );
   }

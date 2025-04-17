@@ -41,6 +41,7 @@ describe("Add requester and site details first", function () {
     orgMgmnt.addOrgName();
     orgMgmnt.activateOrganization();
     orgMgmnt.addPrefix();
+    orgMgmnt.addParentOrg();
     orgMgmnt.checkReferringClinic();
     orgMgmnt.saveOrganization();
   });
