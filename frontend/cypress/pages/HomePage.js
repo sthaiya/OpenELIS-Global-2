@@ -371,7 +371,9 @@ class HomePage {
   // Navigate to the Pathology Dashboard
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get(this.selectors.pathologyMenu, { timeout: 15000 }).click();
+    cy.get(this.selectors.pathologyMenu)
+      .should("be.visible")
+      .click({ force: true });
     return new DashBoardPage();
   }
 

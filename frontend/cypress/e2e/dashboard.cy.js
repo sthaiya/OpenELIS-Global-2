@@ -68,7 +68,7 @@ const validateOrderStatus = (dashboardType) => {
 describe("Add requester and site details first", function () {
   it("Navidates to admin", function () {
     loginAndNavigateToHome();
-    dashboard = homePage.goToAdminPage();
+    dashboard = homePage.goToAdminPageProgram();
     dashboard = adminPage.goToProviderManagementPage();
   });
 

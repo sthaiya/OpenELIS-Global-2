@@ -179,7 +179,7 @@ describe("Routine Reports", function () {
     reportPage.navigateToManagementReports();
     reportPage.selectReferredOutTestReport();
     reportPage.validatePageHeader("External Referrals Report");
-    reportPage.selectDropdownExt();
+    //reportPage.selectDropdownExt();
     reportPage.typeInDatePicker(
       ".cds--date-picker-input__wrapper > #startDate",
       "01/02/2023",
