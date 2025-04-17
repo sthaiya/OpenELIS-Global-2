@@ -207,10 +207,10 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
     cy.get(this.selectors.nonConformingViewNav, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
 
     return new NonConform();
   }
@@ -220,10 +220,10 @@ class HomePage {
     this.openNavigationMenu();
     cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
     cy.get(this.selectors.nonConformingCorrectiveActionsNav)
       .should("be.visible")
-      .click({ force: true });
+      .click();
 
     return new NonConform();
   }
