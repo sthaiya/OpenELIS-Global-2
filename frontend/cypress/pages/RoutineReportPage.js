@@ -136,7 +136,8 @@ class RoutineReportPage {
   }
 
   selectDropdownExt() {
-    cy.get("#locationcode").should("be.visible").select("CEDRES");
+    cy.get(".cds--select-input").should("be.visible");
+    cy.contains(".cds--select-option").select("CEDRES");
   }
 
   typeInDatePicker(selector, date) {
