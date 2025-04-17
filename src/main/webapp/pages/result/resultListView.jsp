@@ -767,7 +767,7 @@ function /*void*/ handleEnterEvent(  ){
 				<c:out value="${form.paging.totalPages}" />
 		<%-- 	</c:if> --%>
 			<div class='textcontent' style="float: right">
-				<span style="visibility: visible" id="searchNotFound"><em><%=MessageUtil.getMessage("search.term.notFound")%></em></span>
+				<span style="visibility: hidden" id="searchNotFound"><em><%=MessageUtil.getMessage("search.term.notFound")%></em></span>
 				<%=MessageUtil.getContextualMessage("result.sample.id")%>
 				: &nbsp; <input type="text" id="labnoSearch"
 					placeholder='<spring:message code="sample.search.scanner.instructions"/>'

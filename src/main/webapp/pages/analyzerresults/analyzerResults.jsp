@@ -230,7 +230,7 @@ function onLISSuccess(xhr) {
 	<c:out value="${form.paging.currentPage}"/> of
 	<c:out value="${form.paging.totalPages}"/>
 	<div class='textcontent' style="float: right" >
-	<span style="visibility: visible" id="searchNotFound"><em><%= MessageUtil.getMessage("search.term.notFound") %></em></span>
+	<span style="visibility: hidden" id="searchNotFound"><em><%= MessageUtil.getMessage("search.term.notFound") %></em></span>
 	<%=MessageUtil.getContextualMessage("result.sample.id")%> : &nbsp;
 	<input type="text"
 	       id="labnoSearch"
