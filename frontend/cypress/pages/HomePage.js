@@ -18,6 +18,7 @@ class HomePage {
     this.selectors = {
       menuButton: "[data-cy='menuButton']",
       sampleDropdown: "span#menu_sample",
+      sampleDropdownExt: "span#menu_sample_dropdown",
       patientDropdown: "span#menu_patient",
       workplanDropdown: "#menu_workplan",
       nonconformityDropdown: "span#menu_nonconformity",
@@ -87,11 +88,22 @@ class HomePage {
   }
 
   // Navigate to the Order Entry page
+  goToOrderPageExt() {
+    this.openNavigationMenu();
+    cy.get(this.selectors.sampleDropdownExt, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
+      .should("be.visible")
+      .click();
+    return new OrderEntityPage();
+  }
+
   goToOrderPage() {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
       .should("be.visible")
-      .click({ force: true });
+      .click();
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
       .should("be.visible")
       .click();
