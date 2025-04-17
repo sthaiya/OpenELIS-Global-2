@@ -46,9 +46,9 @@ class HomePage {
       workplanBenchNav: "#menu_workplan_bench_nav",
       workplanPriorityNav: "#menu_workplan_priority_nav",
       nonConformingReportNav: "span#menu_non_conforming_report",
-      nonConformingViewNav: "[data-cy='menu_non_conforming_view']",
+      nonConformingViewNav: "#menu_non_conforming_view_nav",
       nonConformingCorrectiveActionsNav:
-        "#menu_non_conforming_corrective_actions_nav",
+        "span#menu_non_conforming_corrective_actions",
       resultsLogbook: "#menu_results_logbook_nav",
       resultsAccession: "#menu_results_accession_nav",
       resultsPatient: "#menu_results_patient_nav",

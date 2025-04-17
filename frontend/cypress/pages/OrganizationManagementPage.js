@@ -31,7 +31,7 @@ class OrganizationManagementPage {
   }
 
   searchOrganzation() {
-    cy.get("#org-name-search-bar").should("be.visible").type("CAMESMAN");
+    cy.get("#org-name-search-bar").should("be.visible").type("CAMES MAN");
   }
 
   confirmOrganization() {
