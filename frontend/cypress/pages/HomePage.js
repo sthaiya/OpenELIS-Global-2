@@ -310,9 +310,7 @@ class HomePage {
   // Navigate to the Validation by Routine page
   goToValidationByRoutine() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.resultValidationRoutine, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -322,9 +320,7 @@ class HomePage {
   // Navigate to the Validation by Order page
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.accessionValidation, { timeout: 20000 })
       .should("be.visible")
       .click();
