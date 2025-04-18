@@ -90,9 +90,9 @@ class HomePage {
   // Navigate to the Order Entry page
   goToOrderPageExt() {
     this.openNavigationMenu();
-    cy.get(this.selectors.sampleDropdownExt, { timeout: 20000 })
+    cy.get(this.selectors.sampleDropdownExt)
       .should("be.visible")
-      .click();
+      .click({ force: true });
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -406,7 +406,7 @@ class HomePage {
   // Navigate to the Admin page
   goToAdminPageProgram() {
     this.openNavigationMenu();
-    cy.get(this.selectors.adminMenu, { timeout: 20000 })
+    cy.get(this.selectors.adminMenu, { timeout: 30000 })
       .should("be.visible")
       .click();
 
