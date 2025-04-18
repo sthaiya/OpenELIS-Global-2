@@ -91,6 +91,7 @@ class HomePage {
   goToOrderPageExt() {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdownExt)
+      .trigger("mouseover")
       .should("be.visible")
       .click({ force: true });
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
