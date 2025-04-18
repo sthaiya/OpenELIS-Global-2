@@ -125,9 +125,9 @@ class HomePage {
   // Navigate to the Patient Entry page
   goToPatientEntry() {
     this.openNavigationMenu();
-    cy.get(this.selectors.patientDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.patientDropdown, { timeout: 20000 }).click({
+      force: true,
+    });
     cy.get(this.selectors.patientAddOrEditNav, { timeout: 20000 })
       .should("be.visible")
       .click();

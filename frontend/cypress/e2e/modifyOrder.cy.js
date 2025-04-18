@@ -20,7 +20,7 @@ before("login", () => {
 describe("Add requester details first", function () {
   it("Navidates to admin", function () {
     homePage = loginPage.goToHomePage();
-    modifyOrderPage = homePage.goToAdminPage();
+    modifyOrderPage = homePage.goToAdminPageProgram();
     modifyOrderPage = adminPage.goToProviderManagementPage();
   });
 
