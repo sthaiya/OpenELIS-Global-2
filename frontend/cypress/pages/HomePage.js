@@ -383,7 +383,7 @@ class HomePage {
   goToPathologyDashboard() {
     this.openNavigationMenu();
     //cy.get(this.selectors.pathologyMenu, { timeout: 15000 })
-    cy.get("#menu_pathology_nav", {timeout:15000})  
+    cy.get("#menu_pathology_nav", { timeout: 15000 })
       .should("be.visible")
       .click();
     return new DashBoardPage();
