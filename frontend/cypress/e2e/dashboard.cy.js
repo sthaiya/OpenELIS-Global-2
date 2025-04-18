@@ -36,9 +36,9 @@ const addNewOrder = (dashboardType, testType, sampleType, panelType) => {
   dashboard.generateLabNo();
   dashboard.selectSite();
   dashboard.selectRequesting();
-  cy.wait(200);
+  cy.wait(1000);
   dashboard.submitButton();
-  cy.wait(3000);
+  cy.wait(8000);
 };
 
 // Helper function to validate success and print barcode
@@ -121,7 +121,7 @@ describe("Dashboard Tests", function () {
     //});
 
     it("User navigates back to Pathology Dashboard to confirm added order", function () {
-      homePage.goToPathologyDashboard();
+      dashboard = homePage.goToPathologyDashboard();
     });
 
     it("Change The Status of Order and saves it", function () {

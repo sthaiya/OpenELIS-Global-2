@@ -2,7 +2,7 @@ class DashBoardPage {
   constructor() {}
 
   searchPatientByFName() {
-    cy.get("#firstName").type("John");
+    cy.get("#firstName", { timeout: 15000 }).should("be.visible").type("John");
   }
   searchPatient() {
     cy.get("#local_search").click();

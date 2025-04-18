@@ -92,7 +92,9 @@ class HomePage {
   goToOrderPageExt() {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdownExt).click({ force: true });
-    cy.get(this.selectors.sampleAddNavExt).click({ force: true });
+    cy.get(this.selectors.sampleAddNav, { timeout: 20000 }).click({
+      force: true,
+    });
     return new OrderEntityPage();
   }
 
@@ -380,9 +382,10 @@ class HomePage {
   // Navigate to the Pathology Dashboard
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get(this.selectors.pathologyMenu)
+    //cy.get(this.selectors.pathologyMenu, { timeout: 15000 })
+    cy.get("#menu_pathology_nav", {timeout:15000})  
       .should("be.visible")
-      .click({ force: true });
+      .click();
     return new DashBoardPage();
   }
 
