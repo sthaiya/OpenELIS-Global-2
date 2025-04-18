@@ -90,10 +90,7 @@ class HomePage {
   // Navigate to the Order Entry page
   goToOrderPageExt() {
     this.openNavigationMenu();
-    cy.get(this.selectors.sampleDropdownExt)
-      .trigger("mouseover")
-      .should("be.visible")
-      .click({ force: true });
+    cy.get(this.selectors.sampleDropdownExt).click({ force: true });
     cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
       .should("be.visible")
       .click();
