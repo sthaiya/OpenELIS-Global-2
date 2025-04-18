@@ -424,6 +424,9 @@ button {
 
 .cds--side-nav__link-text {
   width: 100%;
+  overflow: visible !important;
+  min-width: 40px !important;
+  display: inline-flex !important;
 }
 
 .custom-sidenav-button {
