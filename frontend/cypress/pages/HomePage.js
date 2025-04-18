@@ -40,6 +40,7 @@ class HomePage {
       helpIcon: "#user-Help",
       maximizeIcon: "#maximizeIcon",
       sampleAddNav: "#menu_sample_add_nav",
+      sampleAddNavExt: "span#menu_sample_add",
       sampleBatchEntryNav: "#menu_sample_batch_entry_nav",
       sampleEditNav: "#menu_sample_edit_nav",
       patientAddOrEditNav: "#menu_patient_add_or_edit_nav",
@@ -91,9 +92,7 @@ class HomePage {
   goToOrderPageExt() {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdownExt).click({ force: true });
-    cy.get(this.selectors.sampleAddNav, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.sampleAddNavExt).click({ force: true });
     return new OrderEntityPage();
   }
 
