@@ -197,9 +197,7 @@ class HomePage {
   // Navigate to the Non-Conforming Report page
   goToReportNCE() {
     this.openNavigationMenu();
-    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.nonConformingReportNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -210,9 +208,7 @@ class HomePage {
   // Navigate to the View Non-Conforming Events page
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.nonConformingViewNav, { timeout: 20000 })
       .should("be.visible")
       .click();
