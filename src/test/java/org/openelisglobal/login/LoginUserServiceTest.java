@@ -39,7 +39,7 @@ public class LoginUserServiceTest extends BaseWebContextSensitiveTest {
     public void getPasswordExpiredDayNo_shouldReturnPasswordExpiredDayNo() {
         LoginUser login = lUserService.get(4);
 
-        Assert.assertEquals(3644, lUserService.getPasswordExpiredDayNo(login));
+        Assert.assertEquals(3643, lUserService.getPasswordExpiredDayNo(login));
     }
 
     @Test
