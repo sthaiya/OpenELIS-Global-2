@@ -160,9 +160,7 @@ class HomePage {
   // Navigate to the Work Plan by Panel page
   goToWorkPlanPlanByPanel() {
     this.openNavigationMenu();
-    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.workplanPanelNav, { timeout: 20000 })
       .should("be.visible")
       .click();
