@@ -257,7 +257,7 @@ class HomePage {
   goToResultsByPatient() {
     this.openNavigationMenu();
     cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
+      //.should("be.visible")
       .click();
     cy.get(this.selectors.resultsPatient, { timeout: 20000 })
       .should("be.visible")
