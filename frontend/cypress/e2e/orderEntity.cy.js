@@ -19,7 +19,7 @@ before("login", () => {
 describe("Add requester and site details first", function () {
   it("Navidates to admin", function () {
     homePage = loginPage.goToHomePage();
-    orderEntityPage = homePage.goToAdminPage();
+    orderEntityPage = homePage.goToAdminPageProgram();
     orderEntityPage = adminPage.goToProviderManagementPage();
   });
 
@@ -29,10 +29,10 @@ describe("Add requester and site details first", function () {
     providerManagementPage.enterProviderFirstName();
     providerManagementPage.clickActiveDropdown();
     providerManagementPage.addProvider();
+    cy.reload();
   });
+
   it("Navidate to organisation Management", function () {
-    homePage = loginPage.goToHomePage();
-    orderEntityPage = homePage.goToAdminPage();
     orderEntityPage = adminPage.goToOrganizationManagement();
   });
 
