@@ -20,7 +20,7 @@ class HomePage {
       sampleDropdown: "span#menu_sample",
       sampleDropdownExt: "span#menu_sample_dropdown",
       patientDropdown: "span#menu_patient",
-      workplanDropdown: "#menu_workplan",
+      workplanDropdown: "span#menu_workplan",
       nonconformityDropdown: "span#menu_nonconformity",
       nonconformityDropdownExt: "span#menu_nonconformity_dropdown",
       resultsMenu: "span#menu_results",
@@ -113,7 +113,7 @@ class HomePage {
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
     this.openNavigationMenu();
-    cy.get(this.selectors.sampleDropdown, { timeout: 20000 }).click();
+    cy.get(this.selectors.sampleDropdown).click({ force: true });
     cy.get(this.selectors.sampleBatchEntryNav, { timeout: 20000 })
       .should("be.visible")
       .click();
