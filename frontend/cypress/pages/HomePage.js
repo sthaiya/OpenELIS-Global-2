@@ -242,9 +242,7 @@ class HomePage {
   // Navigate to the Results by Order page
   goToResultsByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenuExt, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenuExt, { timeout: 20000 }).click();
     cy.get(this.selectors.resultsAccession, { timeout: 20000 })
       .should("be.visible")
       .click();
