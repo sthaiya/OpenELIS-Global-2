@@ -112,9 +112,7 @@ class HomePage {
   // Navigate to the Batch Order Entry page
   goToBatchOrderEntry() {
     this.openNavigationMenu();
-    cy.get(this.selectors.sampleDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.sampleDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.sampleBatchEntryNav, { timeout: 20000 })
       .should("be.visible")
       .click();
