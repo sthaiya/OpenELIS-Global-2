@@ -22,6 +22,7 @@ class HomePage {
       patientDropdown: "span#menu_patient",
       workplanDropdown: "#menu_workplan",
       nonconformityDropdown: "span#menu_nonconformity",
+      nonconformityDropdownExt: "span#menu_nonconformity_dropdown",
       resultsMenu: "span#menu_results",
       resultsMenuExt: "span#menu_results_dropdown",
       resultValidationMenu: "#menu_resultvalidation",
@@ -195,7 +196,7 @@ class HomePage {
   // Navigate to the Non-Conforming Report page
   goToReportNCE() {
     this.openNavigationMenu();
-    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 }).click();
+    cy.get(this.selectors.nonconformityDropdownExt, { timeout: 20000 }).click();
     cy.get(this.selectors.nonConformingReportNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -206,7 +207,7 @@ class HomePage {
   // Navigate to the View Non-Conforming Events page
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 }).click();
+    cy.get(this.selectors.nonconformityDropdownExt, { timeout: 20000 }).click();
     cy.get(this.selectors.nonConformingViewNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -252,9 +253,7 @@ class HomePage {
   // Navigate to the Results by Patient page
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      //.should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.resultsPatient, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -264,9 +263,7 @@ class HomePage {
   // Navigate to the Results for Referred Out page
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.resultsReferred, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -280,9 +277,7 @@ class HomePage {
     cy.get(this.selectors.resultsMenu, { timeout: 20000 })
       .should("be.visible")
       .click();
-    cy.get(this.selectors.resultsRange, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsRange, { timeout: 20000 }).click();
     return new Result();
   }
 
@@ -388,9 +383,7 @@ class HomePage {
   // Navigate to the Admin page
   goToAdminPageProgram() {
     this.openNavigationMenu();
-    cy.get(this.selectors.adminMenu, { timeout: 30000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.adminMenu, { timeout: 30000 }).click();
 
     return new AdminPage();
   }
