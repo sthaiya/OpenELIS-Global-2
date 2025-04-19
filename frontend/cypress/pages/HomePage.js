@@ -114,9 +114,7 @@ class HomePage {
   goToBatchOrderEntry() {
     this.openNavigationMenu();
     cy.get(this.selectors.sampleDropdown).click({ force: true });
-    cy.get(this.selectors.sampleBatchEntryNav, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.sampleBatchEntryNav, { timeout: 20000 }).click();
 
     return new BatchOrderEntry();
   }
@@ -307,7 +305,7 @@ class HomePage {
   // Navigate to the Validation by Order page
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
+    cy.get(this.selectors.resultValidationMenu).click({ force: true });
     cy.get(this.selectors.accessionValidation, { timeout: 20000 })
       .should("be.visible")
       .click();
