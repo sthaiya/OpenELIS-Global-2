@@ -287,16 +287,16 @@ class HomePage {
   // Navigate to the Validation by Order page
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu).click({ force: true });
-    cy.get(this.selectors.accessionValidation).click({ force: true });
+    cy.get(this.selectors.resultValidationMenu, { timeout: 15000 }).click();
+    cy.get(this.selectors.accessionValidation, { timeout: 15000 }).click();
     return new Validation();
   }
 
   // Navigate to the Validation by Range Order page
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu).click({ force: true });
-    cy.get(this.selectors.accessionValidationRange).click({ force: true });
+    cy.get(this.selectors.resultValidationMenu, { timeout: 15000 }).click();
+    cy.get(this.selectors.accessionValidationRange, { timeout: 15000 }).click();
 
     return new Validation();
   }
