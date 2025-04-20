@@ -227,9 +227,7 @@ class HomePage {
   // Navigate to the Results by Unit page
   goToResultsByUnit() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.resultsLogbook, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -276,12 +274,8 @@ class HomePage {
   // Navigate to the Results by Test and Status page
   goToResultsByTestAndStatus() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
-    cy.get(this.selectors.resultsStatus, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
+    cy.get(this.selectors.resultsStatus, { timeout: 20000 }).click();
 
     return new Result();
   }

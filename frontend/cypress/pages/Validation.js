@@ -15,9 +15,14 @@ class Validation {
   }
 
   enterLabNumberAndSearch(labNo) {
-    cy.get("#accessionNumber").type(labNo, { force: true });
+    cy.get(".cds--text-input__field-wrapper > #accessionNumber", {
+      timeout: 15000,
+    }).type(labNo);
+    cy.get(".cds--text-input__field-wrapper > #accessionNumber").should(
+      "contain.text",
+      labNo,
+    );
     cy.get("[data-testid='Search-btn']").click();
-    cy.get("#accessionNumber").should("contain.text", labNo);
   }
 
   saveResults() {
