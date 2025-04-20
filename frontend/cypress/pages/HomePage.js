@@ -371,7 +371,7 @@ class HomePage {
   // Navigate to the Admin page
   goToAdminPageProgram() {
     this.openNavigationMenu();
-    cy.get(this.selectors.adminMenu).click({ force: true });
+    cy.get(this.selectors.adminMenu, { timeout: 30000 }).click();
 
     return new AdminPage();
   }
