@@ -15,7 +15,7 @@ class Validation {
   }
 
   enterLabNumberAndSearch(labNo) {
-    cy.get('input[placeholder="Enter Lab No"]', { timeout: 15000 }).type(labNo);
+    cy.get("#accessionNumber", { timeout: 15000 }).type(labNo);
     cy.get("[data-testid='Search-btn']").click();
     cy.get("#accessionNumber").should("contain.text", labNo);
   }
