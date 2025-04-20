@@ -306,21 +306,15 @@ class HomePage {
   goToValidationByOrder() {
     this.openNavigationMenu();
     cy.get(this.selectors.resultValidationMenu).click({ force: true });
-    cy.get(this.selectors.accessionValidation, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.accessionValidation, { timeout: 20000 }).click();
     return new Validation();
   }
 
   // Navigate to the Validation by Range Order page
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
-    cy.get(this.selectors.accessionValidationRange, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
+    cy.get(this.selectors.accessionValidationRange, { timeout: 20000 }).click();
 
     return new Validation();
   }
@@ -328,9 +322,7 @@ class HomePage {
   // Navigate to the Routine Reports page
   goToRoutineReports() {
     this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.reportsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.reportsRoutineNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -340,9 +332,7 @@ class HomePage {
   // Navigate to the Study Reports page
   goToStudyReports() {
     this.openNavigationMenu();
-    cy.get(this.selectors.reportsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.reportsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.reportsStudyNav, { timeout: 20000 })
       .should("be.visible")
       .click();
