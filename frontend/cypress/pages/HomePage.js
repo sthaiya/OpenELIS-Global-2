@@ -289,7 +289,7 @@ class HomePage {
     this.openNavigationMenu();
     //cy.get(this.selectors.resultValidationMenu).click({ force: true });
     cy.contains("span", "Validation").click();
-    cy.contains("span", "By Order").click();
+    cy.get("#menu_accession_validation").click();
     return new Validation();
   }
 
