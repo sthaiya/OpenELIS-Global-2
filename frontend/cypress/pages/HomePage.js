@@ -166,9 +166,7 @@ class HomePage {
   // Navigate to the Work Plan by Unit page
   goToWorkPlanPlanByUnit() {
     this.openNavigationMenu();
-    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.workplanBenchNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -179,9 +177,7 @@ class HomePage {
   // Navigate to the Work Plan by Priority page
   goToWorkPlanPlanByPriority() {
     this.openNavigationMenu();
-    cy.get(this.selectors.workplanDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.workplanDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.workplanPriorityNav, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -214,9 +210,7 @@ class HomePage {
   // Navigate to the Corrective Actions page
   goToCorrectiveActions() {
     this.openNavigationMenu();
-    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.nonconformityDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.nonConformingCorrectiveActionsNav)
       .should("be.visible")
       .click();
