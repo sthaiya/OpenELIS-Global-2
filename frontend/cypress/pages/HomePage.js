@@ -122,7 +122,7 @@ class HomePage {
   // Navigate to the Patient Entry page
   goToPatientEntry() {
     this.openNavigationMenu();
-    cy.get(this.selectors.patientDropdown).click({ force: true });
+    cy.get(this.selectors.patientDropdown, { timeout: 20000 }).click();
     cy.get(this.selectors.patientAddOrEditNav, { timeout: 20000 }).click();
 
     return new PatientEntryPage();
@@ -260,9 +260,7 @@ class HomePage {
   goToResultsForRefferedOut() {
     this.openNavigationMenu();
     cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
-    cy.get(this.selectors.resultsReferred, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsReferred, { timeout: 20000 }).click();
 
     return new Result();
   }
@@ -270,9 +268,7 @@ class HomePage {
   // Navigate to the Results by Range Order page
   goToResultsByRangeOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
     cy.get(this.selectors.resultsRange, { timeout: 20000 }).click();
     return new Result();
   }
