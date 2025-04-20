@@ -306,15 +306,15 @@ class HomePage {
   goToValidationByOrder() {
     this.openNavigationMenu();
     cy.get(this.selectors.resultValidationMenu).click({ force: true });
-    cy.get(this.selectors.accessionValidation, { timeout: 20000 }).click();
+    cy.get(this.selectors.accessionValidation).click({ force: true });
     return new Validation();
   }
 
   // Navigate to the Validation by Range Order page
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
-    cy.get(this.selectors.accessionValidationRange, { timeout: 20000 }).click();
+    cy.get(this.selectors.resultValidationMenu).click({ force: true });
+    cy.get(this.selectors.accessionValidationRange).click({ force: true });
 
     return new Validation();
   }
