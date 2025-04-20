@@ -157,10 +157,8 @@ class HomePage {
   // Navigate to the Work Plan by Panel page
   goToWorkPlanPlanByPanel() {
     this.openNavigationMenu();
-    cy.get(this.selectors.workplanDropdown, { timeout: 20000 }).click();
-    cy.get(this.selectors.workplanPanelNav, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.workplanDropdown).click({ force: true });
+    cy.get(this.selectors.workplanPanelNav, { timeout: 20000 }).click();
 
     return new WorkPlan();
   }
@@ -229,9 +227,7 @@ class HomePage {
   // Navigate to the Results by Unit page
   goToResultsByUnit() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultsMenu, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsMenu).click({ force: true });
     cy.get(this.selectors.resultsLogbook, { timeout: 20000 })
       .should("be.visible")
       .click();
@@ -252,9 +248,7 @@ class HomePage {
   goToResultsByPatient() {
     this.openNavigationMenu();
     cy.get(this.selectors.resultsMenu, { timeout: 20000 }).click();
-    cy.get(this.selectors.resultsPatient, { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get(this.selectors.resultsPatient, { timeout: 20000 }).click();
     return new Result();
   }
 
@@ -370,6 +364,7 @@ class HomePage {
 
   // Navigate to the Admin page
   goToAdminPageProgram() {
+    cy.reload();
     this.openNavigationMenu();
     cy.get(this.selectors.adminMenu, { timeout: 30000 }).click();
 

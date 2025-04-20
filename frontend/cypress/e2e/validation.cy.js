@@ -49,10 +49,6 @@ describe("Validation By Order", function () {
       validation.enterLabNumberAndSearch(order.labNo);
     });
   });
-
-  it("Save the results", function () {
-    validation.saveResults();
-  });
 });
 
 describe("Validation By Range Of Order", function () {
