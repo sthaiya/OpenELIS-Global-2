@@ -279,23 +279,26 @@ class HomePage {
     this.openNavigationMenu();
     //cy.get(this.selectors.resultValidationMenu, { timeout: 20000 }).click();
     cy.contains("span", "Validation").click();
-    cy.get(this.selectors.resultValidationRoutine, { timeout: 20000 }).click();
+    cy.contains("span", "Routine").click();
+
     return new Validation();
   }
 
   // Navigate to the Validation by Order page
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu).click({ force: true });
-    cy.get(this.selectors.accessionValidation, { timeout: 15000 }).click();
+    //cy.get(this.selectors.resultValidationMenu).click({ force: true });
+    cy.contains("span", "Validation").click();
+    cy.contains("span", "By Order").click();
     return new Validation();
   }
 
   // Navigate to the Validation by Range Order page
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.get(this.selectors.resultValidationMenu, { timeout: 15000 }).click();
-    cy.get(this.selectors.accessionValidationRange, { timeout: 15000 }).click();
+    //cy.get(this.selectors.resultValidationMenu, { timeout: 15000 }).click();
+    cy.contains("span", "Validation").click();
+    cy.contains("span", "By Range of Order Numbers").click();
 
     return new Validation();
   }
