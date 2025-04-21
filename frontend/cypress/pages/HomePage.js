@@ -107,7 +107,7 @@ class HomePage {
 
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown", { timeout: 20000 }).click();
+    cy.get("#menu_nonconformity", { timeout: 20000 }).click();
     cy.get("#menu_non_conforming_view", { timeout: 20000 }).click();
     return new NonConform();
   }
@@ -211,21 +211,19 @@ class HomePage {
   // Dashboard related functions
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-item-sidenav-label-pathology']", {
-      timeout: 15000,
-    }).click();
+    cy.get("#menu_pathology", { timeout: 15000 }).click();
     return new DashBoardPage();
   }
 
   goToImmunoChemistryDashboard() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-item-sidenav-label-immunochem']").click();
+    cy.get("#menu_immunochem", { timeout: 15000 }).click();
     return new DashBoardPage();
   }
 
   goToCytologyDashboard() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-item-sidenav-label-cytology']").click();
+    cy.get("#menu_cytology", { timeout: 15000 }).click();
     return new DashBoardPage();
   }
 
