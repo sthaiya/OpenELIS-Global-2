@@ -47,7 +47,9 @@ class HomePage {
   goToBatchOrderEntry() {
     this.openNavigationMenu();
     //cy.get("span#menu_sample").click();
-    cy.contains("span", "Order", { timeout: 15000 }).click();
+    cy.contains("[data-cy='menu-parent-menu_sample']", {
+      timeout: 15000,
+    }).click();
     cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
     return new BatchOrderEntry();
   }
@@ -126,7 +128,7 @@ class HomePage {
   // Results related functions
   goToResultsByUnit() {
     this.openNavigationMenu();
-    cy.get("#menu_results", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
     cy.get("#menu_results_logbook_nav", { timeout: 20000 }).click();
     return new Result();
   }
@@ -171,21 +173,27 @@ class HomePage {
   // Validation related functions
   goToValidationByRoutine() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
+      timeout: 15000,
+    }).click();
     cy.contains("span", "Routine", { timeout: 15000 }).click();
     return new Validation();
   }
 
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
+      timeout: 15000,
+    }).click();
     cy.get("#menu_accession_validation").click();
     return new Validation();
   }
 
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation", { timeout: 15000 }).click();
+    cy.contains("[data-cy='menu-parent-menu_resultvalidation']", {
+      timeout: 15000,
+    }).click();
     cy.contains("span", "By Range of Order Numbers").click();
     return new Validation();
   }
