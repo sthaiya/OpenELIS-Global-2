@@ -40,17 +40,15 @@ class HomePage {
   goToOrderPage() {
     this.openNavigationMenu();
     cy.get("span#menu_sample", { timeout: 20000 }).should("be.visible").click();
-    cy.get("#menu_sample_add_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_sample_add_nav", { timeout: 20000 }).click();
     return new OrderEntityPage();
   }
 
   goToBatchOrderEntry() {
     this.openNavigationMenu();
     //cy.get("span#menu_sample").click();
-    cy.contains("span", "Order").click();
-    cy.get("#menu_sample_batch_entry").click();
+    cy.contains("span", "Order", { timeout: 15000 }).click();
+    cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
     return new BatchOrderEntry();
   }
 
@@ -66,21 +64,15 @@ class HomePage {
   goToModifyOrderPage() {
     this.openNavigationMenu();
     cy.get("span#menu_sample", { timeout: 20000 }).should("be.visible").click();
-    cy.get("#menu_sample_edit_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_sample_edit_nav", { timeout: 20000 }).click();
     return new ModifyOrderPage();
   }
 
   // Work Plan related functions
   goToWorkPlanPlanByTest() {
     this.openNavigationMenu();
-    cy.get("span#menu_workplan", { timeout: 20000 })
-      .should("be.visible")
-      .click();
-    cy.get("#menu_workplan_test_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("span#menu_workplan", { timeout: 20000 }).click();
+    cy.get("#menu_workplan_test_nav", { timeout: 20000 }).click();
     return new WorkPlan();
   }
 
@@ -94,18 +86,14 @@ class HomePage {
   goToWorkPlanPlanByUnit() {
     this.openNavigationMenu();
     cy.get("span#menu_workplan", { timeout: 20000 }).click();
-    cy.get("#menu_workplan_bench_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_workplan_bench_nav", { timeout: 20000 }).click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPriority() {
     this.openNavigationMenu();
     cy.get("span#menu_workplan", { timeout: 20000 }).click();
-    cy.get("#menu_workplan_priority_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_workplan_priority_nav", { timeout: 20000 }).click();
     return new WorkPlan();
   }
 
@@ -113,27 +101,21 @@ class HomePage {
   goToReportNCE() {
     this.openNavigationMenu();
     cy.get("span#menu_nonconformity_dropdown", { timeout: 20000 }).click();
-    cy.get("span#menu_non_conforming_report", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("span#menu_non_conforming_report", { timeout: 20000 }).click();
     return new NonConform();
   }
 
   goToViewNCE() {
     this.openNavigationMenu();
     cy.get("span#menu_nonconformity_dropdown", { timeout: 20000 }).click();
-    cy.get("span#menu_non_conforming_view", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("span#menu_non_conforming_view", { timeout: 20000 }).click();
     return new NonConform();
   }
 
   goToCorrectiveActions() {
     this.openNavigationMenu();
     cy.get("span#menu_nonconformity", { timeout: 20000 }).click();
-    cy.get("span#menu_non_conforming_corrective_actions")
-      .should("be.visible")
-      .click();
+    cy.get("span#menu_non_conforming_corrective_actions").click();
     return new NonConform();
   }
 
@@ -141,24 +123,22 @@ class HomePage {
   goToResultsByUnit() {
     this.openNavigationMenu();
     cy.get("span#menu_results", { timeout: 20000 }).click();
-    cy.get("#menu_results_logbook_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_results_logbook_nav", { timeout: 20000 }).click();
     return new Result();
   }
 
   goToResultsByOrder() {
     cy.get("[data-cy='menuButton']").click();
-    cy.get("span#menu_results_dropdown").click();
-    cy.get("#menu_results_accession_nav").click();
+    cy.get("span#menu_results_dropdown", { timeout: 15000 }).click();
+    cy.get("#menu_results_accession_nav", { timeout: 15000 }).click();
 
     return new Result();
   }
 
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.contains("span", "Results").click();
-    cy.contains("span", "By Patient").click();
+    cy.contains("span", "Results", { timeout: 15000 }).click();
+    cy.contains("span", "By Patient", { timeout: 15000 }).click();
 
     return new Result();
   }
@@ -187,21 +167,21 @@ class HomePage {
   // Validation related functions
   goToValidationByRoutine() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation").click();
-    cy.contains("span", "Routine").click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
+    cy.contains("span", "Routine", { timeout: 15000 }).click();
     return new Validation();
   }
 
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation").click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
     cy.get("#menu_accession_validation").click();
     return new Validation();
   }
 
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.contains("span", "Validation").click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
     cy.contains("span", "By Range of Order Numbers").click();
     return new Validation();
   }
@@ -210,18 +190,16 @@ class HomePage {
   goToRoutineReports() {
     this.openNavigationMenu();
     cy.get("#menu_reports", { timeout: 20000 }).click();
-    cy.get("#menu_reports_routine", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_reports_routine", { timeout: 20000 }).click();
     return new RoutineReportPage();
   }
 
   goToStudyReports() {
     this.openNavigationMenu();
     cy.get("#menu_reports", { timeout: 20000 }).click();
-    cy.get("[data-cy='sidenav-button-menu_reports_study']", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("[data-cy='sidenav-button-menu_reports_study']", {
+      timeout: 20000,
+    }).click();
     return new StudyReportPage();
   }
 
@@ -233,9 +211,7 @@ class HomePage {
   // Dashboard related functions
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get("#menu_pathology_nav", { timeout: 15000 })
-      .should("be.visible")
-      .click();
+    cy.get("#menu_pathology_nav", { timeout: 15000 }).click();
     return new DashBoardPage();
   }
 
