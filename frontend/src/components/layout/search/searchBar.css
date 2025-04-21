@@ -36,6 +36,12 @@
   cursor: pointer;
 }
 
+.patient-name-search {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 @media (max-width: 1400px) {
   .main {
     position: absolute;
