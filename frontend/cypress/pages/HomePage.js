@@ -133,7 +133,7 @@ class HomePage {
 
   goToResultsByOrder() {
     cy.get("[data-cy='menuButton']").click();
-    cy.get("#menu_results_dropdown", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
     cy.get("#menu_results_accession_nav", { timeout: 15000 }).click();
 
     return new Result();
@@ -141,7 +141,7 @@ class HomePage {
 
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.contains("span", "Results", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
     cy.contains("span", "By Patient", { timeout: 15000 }).click();
 
     return new Result();
