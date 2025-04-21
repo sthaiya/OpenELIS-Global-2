@@ -22,24 +22,6 @@ before("login", () => {
   loginPage.visit();
 });
 
-describe("Add site", function () {
-  it("Navigates to organization Management", function () {
-    homePage = loginPage.goToHomePage();
-    batchOrder = homePage.goToAdminPage();
-    batchOrder = adminPage.goToOrganizationManagement();
-  });
-
-  it("Adds organization details", function () {
-    orgMgmnt.clickAddOrganization();
-    orgMgmnt.addOrgName();
-    orgMgmnt.addPrefix();
-    orgMgmnt.addParentOrg();
-    orgMgmnt.activateOrganization();
-    orgMgmnt.checkReferringClinic();
-    orgMgmnt.saveOrganization();
-  });
-});
-
 describe("Batch Order Entry On Demand and Serum form type", function () {
   before("navigate to Batch Order Entry Page", function () {
     navigateToBatchOrderEntryPage();

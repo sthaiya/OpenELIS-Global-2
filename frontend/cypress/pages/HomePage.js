@@ -48,7 +48,8 @@ class HomePage {
 
   goToBatchOrderEntry() {
     this.openNavigationMenu();
-    cy.get("span#menu_sample").click();
+    //cy.get("span#menu_sample").click();
+    cy.contains("span", "Order").click();
     cy.get("#menu_sample_batch_entry").click();
     return new BatchOrderEntry();
   }
