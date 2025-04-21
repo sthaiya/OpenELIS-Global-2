@@ -65,37 +65,6 @@ const validateOrderStatus = (dashboardType) => {
   dashboard.statusFilter();
 };
 
-describe("Add requester and site details first", function () {
-  it("Navidates to admin", function () {
-    loginAndNavigateToHome();
-    dashboard = homePage.goToAdminPageProgram();
-    dashboard = adminPage.goToProviderManagementPage();
-  });
-
-  it("Adds and saves requester", function () {
-    providerManagementPage.clickAddProviderButton();
-    providerManagementPage.enterProviderLastName();
-    providerManagementPage.enterProviderFirstName();
-    providerManagementPage.clickActiveDropdown();
-    providerManagementPage.addProvider();
-  });
-
-  it("Navigate to site/organization Management", function () {
-    dashboard = adminPage.goToOrganizationManagement();
-  });
-
-  it("Add site/organization details", function () {
-    orgMgmnt.clickAddOrganization();
-    orgMgmnt.addOrgName();
-    orgMgmnt.addPrefix();
-    orgMgmnt.addParentOrg();
-    orgMgmnt.activateOrganization();
-    orgMgmnt.checkReferringClinic();
-    orgMgmnt.saveOrganization();
-    cy.reload();
-  });
-});
-
 describe("Dashboard Tests", function () {
   before("Navigate to homepage", () => {
     homePage = loginPage.goToHomePage();

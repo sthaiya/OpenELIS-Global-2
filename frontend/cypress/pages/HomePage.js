@@ -211,13 +211,15 @@ class HomePage {
   // Dashboard related functions
   goToPathologyDashboard() {
     this.openNavigationMenu();
-    cy.get("#menu_pathology_nav", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-item-sidenav-label-pathology']", {
+      timeout: 15000,
+    }).click();
     return new DashBoardPage();
   }
 
   goToImmunoChemistryDashboard() {
     this.openNavigationMenu();
-    cy.get("#menu_immunochem").click();
+    cy.get("[data-cy='menu-item-sidenav-label-immunochem']").click();
     return new DashBoardPage();
   }
 
