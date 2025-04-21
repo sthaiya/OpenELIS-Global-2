@@ -230,13 +230,17 @@ class HomePage {
   // Admin related functions
   goToAdminPageProgram() {
     this.openNavigationMenu();
-    cy.get("#menu_administration", { timeout: 30000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-administration']", {
+      timeout: 30000,
+    }).click();
     return new AdminPage();
   }
 
   goToAdminPage() {
     this.openNavigationMenu();
-    cy.get("#menu_administration_nav", { timeout: 30000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-administration']", {
+      timeout: 30000,
+    }).click();
     return new AdminPage();
   }
 

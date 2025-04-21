@@ -399,7 +399,10 @@ function OEHeader(props) {
   const renderSideNavMenuItemLabel = (menuItem, level) => {
     const fontPercent = 100 - 5 * (level - 1) + "%";
     return (
-      <span style={{ fontSize: fontPercent }}>
+      <span
+        style={{ fontSize: fontPercent }}
+        data-cy={`menu-item-${menuItem.menu.displayKey.replace(/\./g, "-")}`}
+      >
         <FormattedMessage id={menuItem.menu.displayKey} />
       </span>
     );
