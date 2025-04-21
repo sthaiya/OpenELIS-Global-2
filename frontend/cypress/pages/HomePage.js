@@ -48,8 +48,8 @@ class HomePage {
 
   goToBatchOrderEntry() {
     this.openNavigationMenu();
-    cy.get("span#menu_sample").click({ force: true });
-    cy.get("#menu_sample_batch_entry_nav", { timeout: 20000 }).click();
+    cy.get("span#menu_sample").click();
+    cy.get("#menu_sample_batch_entry").click();
     return new BatchOrderEntry();
   }
 

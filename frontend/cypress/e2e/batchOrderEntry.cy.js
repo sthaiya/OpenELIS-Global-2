@@ -25,7 +25,7 @@ before("login", () => {
 describe("Add site", function () {
   it("Navigates to organization Management", function () {
     homePage = loginPage.goToHomePage();
-    batchOrder = homePage.goToAdminPageProgram();
+    batchOrder = homePage.goToAdminPage();
     batchOrder = adminPage.goToOrganizationManagement();
   });
 
