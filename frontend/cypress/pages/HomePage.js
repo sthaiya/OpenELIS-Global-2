@@ -148,20 +148,18 @@ class HomePage {
   }
 
   goToResultsByOrder() {
-    this.openNavigationMenu();
-    cy.get("span#menu_results_dropdown", { timeout: 20000 }).click();
-    cy.get("#menu_results_accession_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.get("[data-cy='menuButton']").click();
+    cy.get("span#menu_results_dropdown").click();
+    cy.get("#menu_results_accession_nav").click();
+
     return new Result();
   }
 
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.get("span#menu_results", { timeout: 20000 }).click();
-    cy.get("#menu_results_patient_nav", { timeout: 20000 })
-      .should("be.visible")
-      .click();
+    cy.contains("span", "Results").click();
+    cy.contains("span", "By Patient").click();
+
     return new Result();
   }
 
