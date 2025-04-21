@@ -225,7 +225,7 @@ class HomePage {
 
   goToCytologyDashboard() {
     this.openNavigationMenu();
-    cy.get("#menu_cytology").click();
+    cy.get("[data-cy='menu-item-sidenav-label-cytology']").click();
     return new DashBoardPage();
   }
 

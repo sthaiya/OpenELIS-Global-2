@@ -67,7 +67,7 @@ const validateOrderStatus = (dashboardType) => {
 
 describe("Dashboard Tests", function () {
   before("Navigate to homepage", () => {
-    homePage = loginPage.goToHomePage();
+    loginAndNavigateToHome();
   });
 
   describe("Pathology Dashboard", function () {
