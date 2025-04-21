@@ -47,9 +47,7 @@ class HomePage {
   goToBatchOrderEntry() {
     this.openNavigationMenu();
     //cy.get("span#menu_sample").click();
-    cy.contains("[data-cy='menu-parent-menu_sample']", {
-      timeout: 15000,
-    }).click();
+    cy.get("[data-cy='menu-parent-menu_sample']", { timeout: 15000 }).click();
     cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
     return new BatchOrderEntry();
   }
@@ -135,7 +133,9 @@ class HomePage {
 
   goToResultsByOrder() {
     cy.get("[data-cy='menuButton']").click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click({
+      force: true,
+    });
     cy.get("#menu_results_accession_nav", { timeout: 15000 }).click();
 
     return new Result();
@@ -143,7 +143,7 @@ class HomePage {
 
   goToResultsByPatient() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.contains("span", "Results", { timeout: 15000 }).click();
     cy.contains("span", "By Patient", { timeout: 15000 }).click();
 
     return new Result();
@@ -173,27 +173,21 @@ class HomePage {
   // Validation related functions
   goToValidationByRoutine() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    }).click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
     cy.contains("span", "Routine", { timeout: 15000 }).click();
     return new Validation();
   }
 
   goToValidationByOrder() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    }).click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
     cy.get("#menu_accession_validation").click();
     return new Validation();
   }
 
   goToValidationByRangeOrder() {
     this.openNavigationMenu();
-    cy.contains("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    }).click();
+    cy.contains("span", "Validation", { timeout: 15000 }).click();
     cy.contains("span", "By Range of Order Numbers").click();
     return new Validation();
   }
