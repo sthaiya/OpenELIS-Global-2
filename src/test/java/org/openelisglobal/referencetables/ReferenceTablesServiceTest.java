@@ -100,7 +100,7 @@ public class ReferenceTablesServiceTest extends BaseWebContextSensitiveTest {
 
     @Test
     public void getPageOfReferenceTables_shouldReturnSubset() throws Exception {
-        List<ReferenceTables> page = referenceTablesService.getPageOfReferenceTables(1); // ✅ not 0
+        List<ReferenceTables> page = referenceTablesService.getPageOfReferenceTables(1);
         assertNotNull(page);
         assertFalse(page.isEmpty());
     }
