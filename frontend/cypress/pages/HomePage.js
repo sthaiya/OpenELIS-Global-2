@@ -46,7 +46,6 @@ class HomePage {
 
   goToBatchOrderEntry() {
     this.openNavigationMenu();
-    //cy.get("span#menu_sample").click();
     cy.get("[data-cy='menu-parent-menu_sample']", { timeout: 15000 }).click();
     cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
     return new BatchOrderEntry();
@@ -244,9 +243,8 @@ class HomePage {
 
   goToAdminPage() {
     this.openNavigationMenu();
-    cy.get("[data-cy='menu-item-banner-menu-administration']", {
-      timeout: 30000,
-    }).click();
+    cy.get("#menu_administration_nav", { timeout: 30000 }).click();
+
     return new AdminPage();
   }
 
