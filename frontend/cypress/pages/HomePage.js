@@ -100,14 +100,18 @@ class HomePage {
   // Non-Conforming related functions
   goToReportNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity_dropdown", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
+      timeout: 20000,
+    }).click();
     cy.get("#menu_non_conforming_report", { timeout: 20000 }).click();
     return new NonConform();
   }
 
   goToViewNCE() {
     this.openNavigationMenu();
-    cy.get("#menu_nonconformity", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
+      timeout: 20000,
+    }).click();
     cy.get("#menu_non_conforming_view", { timeout: 20000 }).click();
     return new NonConform();
   }

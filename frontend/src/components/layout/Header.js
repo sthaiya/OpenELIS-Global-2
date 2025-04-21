@@ -186,7 +186,11 @@ function OEHeader(props) {
     if (menuItem.menu.isActive) {
       if (level === 0 && menuItem.childMenus.length > 0) {
         return (
-          <span id={menuItem.menu.elementId} key={path}>
+          <span
+            id={menuItem.menu.elementId}
+            key={path}
+            data-cy={`menu-parent-${menuItem.menu.elementId}`}
+          >
             <span
               id={menuItem.menu.elementId + "_dropdown"}
               onClick={(e) => {
