@@ -70,29 +70,37 @@ class HomePage {
   // Work Plan related functions
   goToWorkPlanPlanByTest() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_workplan", { timeout: 20000 }).click();
-    cy.get("#menu_workplan_test_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-workplan-test']", {
+      timeout: 20000,
+    }).click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPanel() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_workplan").click({ force: true });
-    cy.get("#menu_workplan_panel_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']").click({ force: true });
+    cy.get("[data-cy='menu-item-banner-menu-workplan-panel']", {
+      timeout: 20000,
+    }).click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_workplan", { timeout: 20000 }).click();
-    cy.get("#menu_workplan_bench_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-workplan-bench']", {
+      timeout: 20000,
+    }).click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPriority() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_workplan", { timeout: 20000 }).click();
-    cy.get("#menu_workplan_priority_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-workplan-priority']", {
+      timeout: 20000,
+    }).click();
     return new WorkPlan();
   }
 
@@ -117,7 +125,9 @@ class HomePage {
 
   goToCorrectiveActions() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_nonconformity", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
+      timeout: 20000,
+    }).click();
     cy.get("#menu_non_conforming_corrective_actions").click();
     return new NonConform();
   }
@@ -126,46 +136,56 @@ class HomePage {
   goToResultsByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
-    cy.get("#menu_results_logbook_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-results-logbook']", {
+      timeout: 20000,
+    }).click();
     return new Result();
   }
 
   goToResultsByOrder() {
-    cy.get("[data-cy='menuButton']").click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click({
-      force: true,
-    });
-    cy.get("#menu_results_accession_nav", { timeout: 15000 }).click();
+    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-results-accession']", {
+      timeout: 15000,
+    }).click();
 
     return new Result();
   }
 
   goToResultsByPatient() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results", { timeout: 15000 }).click();
-    cy.contains("span", "By Patient", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-results-patient']", {
+      timeout: 15000,
+    }).click();
 
     return new Result();
   }
 
   goToResultsForRefferedOut() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 20000 }).click();
-    cy.get("#menu_results_referred_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-referredOut']", {
+      timeout: 20000,
+    }).click();
     return new Result();
   }
 
   goToResultsByRangeOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 20000 }).click();
-    cy.get("#menu_results_range_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-menu-results-range']", {
+      timeout: 20000,
+    }).click();
     return new Result();
   }
 
   goToResultsByTestAndStatus() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 20000 }).click();
-    cy.get("#menu_results_status_nav", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-item-banner-menu-results-status']", {
+      timeout: 20000,
+    }).click();
     return new Result();
   }
 
@@ -186,8 +206,10 @@ class HomePage {
 
   goToValidationByRangeOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Validation", { timeout: 15000 }).click();
-    cy.contains("span", "By Range of Order Numbers").click();
+    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
+      timeout: 15000,
+    }).click();
+    cy.get("[data-cy='menu-item-menu-accession-validation-range']").click();
     return new Validation();
   }
 
