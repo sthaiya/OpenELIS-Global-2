@@ -71,36 +71,28 @@ class HomePage {
   goToWorkPlanPlanByTest() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-workplan-test']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-test']").contains("By Test Type").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPanel() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']").click({ force: true });
-    cy.get("[data-cy='menu-item-banner-menu-workplan-panel']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']").click();
+    cy.get("[data-cy='menu-panel']").contains("By Panel").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-workplan-bench']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-bench']").contains("By Unit").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPriority() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-workplan-priority']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-priority']").contains("By Priority").click();
     return new WorkPlan();
   }
 
@@ -257,7 +249,7 @@ class HomePage {
   // Admin related functions
   goToAdminPageProgram() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-administration']", {
+    cy.get("[data-cy='menu-administration']", {
       timeout: 30000,
     }).click();
     return new AdminPage();
@@ -265,7 +257,7 @@ class HomePage {
 
   goToAdminPage() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-administration']", {
+    cy.get("[data-cy='menu-administration']", {
       timeout: 30000,
     }).click();
     return new AdminPage();

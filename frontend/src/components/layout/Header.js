@@ -405,7 +405,8 @@ function OEHeader(props) {
     return (
       <span
         style={{ fontSize: fontPercent }}
-        data-cy={`menu-item-${menuItem.menu.displayKey.replace(/\./g, "-")}`}
+        data-cy={`menu-${menuItem.menu.displayKey.split(".").pop()}`}
+        //data-cy={`menu-item-${menuItem.menu.displayKey.replace(/\./g, "-")}`}
       >
         <FormattedMessage id={menuItem.menu.displayKey} />
       </span>
