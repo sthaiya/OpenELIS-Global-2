@@ -128,28 +128,22 @@ class HomePage {
   goToResultsByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-results-logbook']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-logbook']").click();
     return new Result();
   }
 
   goToResultsByOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-results-accession']", {
-      timeout: 15000,
-    }).click();
+    cy.get("[data-cy='menu-accession']").click();
 
     return new Result();
   }
 
   goToResultsByPatient() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-results-patient']", {
-      timeout: 15000,
-    }).click();
+    cy.get("#menu_results_dropdown", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-patient']").click();
 
     return new Result();
   }
@@ -157,27 +151,21 @@ class HomePage {
   goToResultsForRefferedOut() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-referredOut']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-referredOut']").click();
     return new Result();
   }
 
   goToResultsByRangeOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-menu-results-range']", {
-      timeout: 20000,
-    }).click();
+    cy.get("#menu_results_dropdown", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-range']").click();
     return new Result();
   }
 
   goToResultsByTestAndStatus() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_results']", { timeout: 20000 }).click();
-    cy.get("[data-cy='menu-item-banner-menu-results-status']", {
-      timeout: 20000,
-    }).click();
+    cy.get("[data-cy='menu-status']").click();
     return new Result();
   }
 
@@ -201,7 +189,7 @@ class HomePage {
     cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
       timeout: 15000,
     }).click();
-    cy.get("[data-cy='menu-item-menu-accession-validation-range']").click();
+    cy.get("[data-cy='menu-range']").click();
     return new Validation();
   }
 
