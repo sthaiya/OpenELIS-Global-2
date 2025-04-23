@@ -471,6 +471,8 @@ button {
 .top-level-menu-item {
   display: block !important;
   min-width: 50px !important;
+  position: relative;
+  z-index: 1000 !important;
 }
 
 .top-level-menu-item > a {

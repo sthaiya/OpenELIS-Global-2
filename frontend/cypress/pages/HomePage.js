@@ -134,7 +134,9 @@ class HomePage {
 
   goToResultsByOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-accession']").contains("By Order").click();
 
     return new Result();
@@ -142,7 +144,9 @@ class HomePage {
 
   goToResultsByPatient() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-patient']").contains("By Patient").click();
 
     return new Result();
@@ -251,7 +255,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-administration']", {
       timeout: 30000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     return new AdminPage();
   }
 
@@ -259,7 +265,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-administration']", {
       timeout: 30000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     return new AdminPage();
   }
 
