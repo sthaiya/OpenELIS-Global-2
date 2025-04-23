@@ -577,7 +577,8 @@ public class OrganizationRestController extends BaseController {
     }
 
     public static void handleSelfReferencingParentOrg(Organization childOrg) {
-        if (childOrg.getOrganization() != null && childOrg.getOrganization().getId().equals(childOrg.getId())) {
+        if (childOrg != null && childOrg.getOrganization() != null
+                && childOrg.getOrganization().getId().equals(childOrg.getId())) {
             Organization newParent = new Organization();
             newParent.setOrganizationName(childOrg.getOrganizationName());
             newParent.setId(childOrg.getId());
