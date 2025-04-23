@@ -252,7 +252,9 @@ class HomePage {
   // Dashboard related functions
   goToPathologyDashboard() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-pathology']").contains("Pathology").click();
+    cy.get("[data-cy='menu-pathology']", { timeout: 30000 })
+      .contains("Pathology")
+      .click();
     return new DashBoardPage();
   }
 
@@ -266,7 +268,9 @@ class HomePage {
 
   goToCytologyDashboard() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-cytology']").contains("Cytology").click();
+    cy.get("[data-cy='menu-cytology']", { timeout: 30000 })
+      .contains("Cytology")
+      .click();
     return new DashBoardPage();
   }
 

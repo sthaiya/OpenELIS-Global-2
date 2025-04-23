@@ -406,6 +406,7 @@ function OEHeader(props) {
     const fontPercent = 100 - 5 * (level - 1) + "%";
     return (
       <span
+        className="top-level-menu-item "
         style={{ fontSize: fontPercent }}
         data-cy={`menu-${menuItem.menu.displayKey.split(".").pop()}`}
         //data-cy={`menu-item-${menuItem.menu.displayKey.replace(/\./g, "-")}`}
