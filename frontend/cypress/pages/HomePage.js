@@ -127,7 +127,7 @@ class HomePage {
   // Results related functions
   goToResultsByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results").click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
     cy.get("[data-cy='menu-logbook']").contains("By Unit").click();
     return new Result();
   }
@@ -142,7 +142,7 @@ class HomePage {
 
   goToResultsByPatient() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results").click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
     cy.get("[data-cy='menu-patient']").contains("By Patient").click();
 
     return new Result();
