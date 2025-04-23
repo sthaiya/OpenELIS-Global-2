@@ -472,7 +472,7 @@ button {
   display: block !important;
   min-width: 50px !important;
   position: relative;
-  z-index: 1000 !important;
+  z-index: 2 !important;
 }
 
 .top-level-menu-item > a {

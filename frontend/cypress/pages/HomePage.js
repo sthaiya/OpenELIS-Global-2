@@ -46,7 +46,7 @@ class HomePage {
 
   goToBatchOrderEntry() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Order").click();
+    cy.get("[data-cy='menu-parent-menu_sample']").should("exist").click();
     cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
     return new BatchOrderEntry();
   }
@@ -70,28 +70,34 @@ class HomePage {
   // Work Plan related functions
   goToWorkPlanPlanByTest() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-test']").contains("By Test Type").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPanel() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']").click();
+    cy.get("[data-cy='menu-parent-menu_workplan']").should("exist").click();
     cy.get("[data-cy='menu-panel']").contains("By Panel").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-bench']").contains("By Unit").click();
     return new WorkPlan();
   }
 
   goToWorkPlanPlanByPriority() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 }).click();
+    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-priority']").contains("By Priority").click();
     return new WorkPlan();
   }
@@ -101,7 +107,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_nonconformity']", {
       timeout: 20000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.get("#menu_non_conforming_report", { timeout: 20000 }).click();
     return new NonConform();
   }
@@ -110,7 +118,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_nonconformity']", {
       timeout: 20000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.get("#menu_non_conforming_view", { timeout: 20000 }).click();
     return new NonConform();
   }
@@ -119,7 +129,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_nonconformity']", {
       timeout: 20000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.get("#menu_non_conforming_corrective_actions").click();
     return new NonConform();
   }
@@ -127,7 +139,9 @@ class HomePage {
   // Results related functions
   goToResultsByUnit() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-logbook']").contains("By Unit").click();
     return new Result();
   }
@@ -182,7 +196,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
       timeout: 15000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.contains("span", "Routine", { timeout: 15000 }).click();
     return new Validation();
   }
@@ -191,7 +207,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
       timeout: 15000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.get("#menu_accession_validation").click();
     return new Validation();
   }
@@ -200,7 +218,9 @@ class HomePage {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
       timeout: 15000,
-    }).click();
+    })
+      .should("exist")
+      .click();
     cy.get("[data-cy='menu-range']")
       .contains("By Range of Order Numbers")
       .click();
