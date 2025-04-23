@@ -228,19 +228,21 @@ class HomePage {
   // Dashboard related functions
   goToPathologyDashboard() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_pathology", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-pathology']").contains("Pathology").click();
     return new DashBoardPage();
   }
 
   goToImmunoChemistryDashboard() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_immunochem", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-immunochem']")
+      .contains("Immunohistochemistry")
+      .click();
     return new DashBoardPage();
   }
 
   goToCytologyDashboard() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_cytology", { timeout: 15000 }).click();
+    cy.get("[data-cy='menu-cytology']").contains("Cytology").click();
     return new DashBoardPage();
   }
 
