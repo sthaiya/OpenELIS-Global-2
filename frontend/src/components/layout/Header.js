@@ -187,11 +187,13 @@ function OEHeader(props) {
       if (level === 0 && menuItem.childMenus.length > 0) {
         return (
           <span
+            className="top-level-menu-item"
             id={menuItem.menu.elementId}
             key={path}
             data-cy={`menu-parent-${menuItem.menu.elementId}`}
           >
             <span
+              className="top-level-menu-item"
               id={menuItem.menu.elementId + "_dropdown"}
               onClick={(e) => {
                 setMenuItemExpanded(e, menuItem, path);
