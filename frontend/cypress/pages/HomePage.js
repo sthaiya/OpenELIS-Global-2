@@ -168,14 +168,14 @@ class HomePage {
 
   goToResultsForRefferedOut() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results").click();
+    cy.get("#menu_results", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-referredOut']").contains("Referred Out").click();
     return new Result();
   }
 
   goToResultsByRangeOrder() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results").click();
+    cy.get("#menu_results", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-range']")
       .contains("By Range of Order numbers")
       .click();
@@ -184,7 +184,7 @@ class HomePage {
 
   goToResultsByTestAndStatus() {
     cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.contains("span", "Results").click();
+    cy.get("#menu_results", { timeout: 30000 }).click();
     cy.get("[data-cy='menu-status']")
       .contains("By Test, Date or Status")
       .click();
