@@ -86,6 +86,7 @@ class LoginPage {
         this.signIn();
       }
     });
+    cy.wait(5000);
     return new HomePage();
   }
 }
