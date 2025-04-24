@@ -1,4 +1,4 @@
-name: OpenELIS Frontend QA framework workflow
+name: OpenELis Frontend QA framework workflow
 
 on:
   push:
@@ -80,7 +80,7 @@ jobs:
         run: npx cypress run --browser chrome --headless
         working-directory: frontend
 
-      # in case of failure, uncomment this action, switch on cypress video for debugging
+      # In case of failure, uncomment this action and turn video: false to true in cypress.config.js
       # - name: Upload Cypress videos on failure
       #   if: failure()
       #   uses: actions/upload-artifact@v4
