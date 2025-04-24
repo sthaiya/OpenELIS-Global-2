@@ -92,5 +92,6 @@ jobs:
         if: failure()
         uses: jwalton/gh-docker-logs@v2
         with:
+        # Only show last 100 lines of each
           tail: "100"
           
