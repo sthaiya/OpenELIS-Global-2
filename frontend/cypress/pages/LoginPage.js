@@ -16,26 +16,6 @@ class LoginPage {
     return cy.get("#password");
   }
 
-  waitForSideNavMenuToLoad(retries) {
-    if (retries === 0) {
-      throw new Error(
-        "Element span#menu_results not found after multiple reloads",
-      );
-    }
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("body", { timeout: 20000 }).then(($body) => {
-      if ($body.find("span#menu_results").length) {
-        cy.log("✅ Found: span#menu_results");
-        cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-      } else {
-        cy.log("🔄 Not found, reloading...");
-        cy.reload();
-        cy.wait(2000);
-        this.waitForSideNavMenuToLoad(retries - 1);
-      }
-    });
-  }
-
   enterUsername(value) {
     this.getUsernameElement().should("be.visible");
     this.getUsernameElement().type(value);
@@ -106,7 +86,7 @@ class LoginPage {
         this.signIn();
       }
     });
-    this.waitForSideNavMenuToLoad(3);
+    cy.wait(5000);
     return new HomePage();
   }
 }
