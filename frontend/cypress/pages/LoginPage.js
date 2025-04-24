@@ -31,7 +31,7 @@ class LoginPage {
         cy.log("🔄 Not found, reloading...");
         cy.reload();
         cy.wait(2000);
-        waitForMenuResults(retries - 1);
+        this.waitForSideNavMenuToLoad(retries - 1);
       }
     });
   }
