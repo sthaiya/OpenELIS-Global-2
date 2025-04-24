@@ -1,4 +1,4 @@
-name: OpenELis Frontend QA framework workflow
+name: OpenELIS Frontend QA framework workflow
 
 on:
   push:
