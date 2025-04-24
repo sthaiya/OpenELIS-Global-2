@@ -1,366 +1,196 @@
-import LoginPage from "./LoginPage";
-import PatientEntryPage from "./PatientEntryPage";
-import OrderEntityPage from "./OrderEntityPage";
-import ModifyOrderPage from "./ModifyOrderPage";
-import WorkPlan from "./WorkPlan";
-import NonConform from "./NonConformPage";
-import Result from "./ResultsPage";
-import Validation from "./Validation";
-import BatchOrderEntry from "./BatchOrderEntryPage";
-import RoutineReportPage from "./RoutineReportPage";
-import StudyReportPage from "./StudyReportPage";
-import DashBoardPage from "./DashBoard";
-import AdminPage from "./AdminPage";
+import LoginPage from "../pages/LoginPage";
+import AdminPage from "../pages/AdminPage";
+import ProviderManagementPage from "../pages/ProviderManagementPage";
+import OrganizationManagementPage from "../pages/OrganizationManagementPage";
 
-class HomePage {
-  constructor() {
-    // Removed centralized selectors
-  }
+let homePage = null;
+let loginPage = null;
+let dashboard = null;
+let providerManagementPage = new ProviderManagementPage();
+let orgMgmnt = new OrganizationManagementPage();
+let adminPage = new AdminPage();
 
-  visit() {
-    cy.visit("/");
-  }
+// Helper function to log in and navigate to the homepage
+const loginAndNavigateToHome = () => {
+  loginPage = new LoginPage();
+  loginPage.visit();
+  homePage = loginPage.goToHomePage();
+};
 
-  goToSign() {
-    return new LoginPage();
-  }
+// Helper function to add a new order
+const addNewOrder = (dashboardType, testType, sampleType, panelType) => {
+  homePage.goToOrderPageExt();
+  dashboard.searchPatientByFName();
+  dashboard.searchPatient();
+  cy.wait(200);
+  dashboard.checkPatientRadio();
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard[`select${testType}`](); // Dynamically call the appropriate select function
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard[`select${sampleType}`](); // Dynamically call the appropriate sample function
+  dashboard[`check${panelType}`](); // Dynamically call the appropriate panel function
+  dashboard.clickNext();
+  cy.wait(200);
+  dashboard.generateLabNo();
+  dashboard.selectSite();
+  dashboard.selectRequesting();
+  cy.wait(1000);
+  dashboard.submitButton();
+  cy.wait(8000);
+};
 
-  openNavigationMenu() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-  }
+// Helper function to validate success and print barcode
+const validateSuccessAndPrintBarcode = () => {
+  dashboard.clickPrintBarCode();
+  cy.wait(200);
+};
 
-  // Order Entry related functions
-  goToOrderPageExt() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_sample_dropdown").click({ force: true });
-    cy.get("#menu_sample_add_nav", { timeout: 20000 }).click({ force: true });
-    return new OrderEntityPage();
-  }
+// Helper function to change order status and save
+const changeOrderStatusAndSave = (dashboardType) => {
+  dashboard.selectFirstOrder();
+  cy.wait(500);
+  dashboard.selectStatus();
+  dashboard.selectTechnician();
+  dashboard.selectPathologist();
+  dashboard.checkReadyForRelease();
+  dashboard.saveOrder();
+  cy.wait(200);
+};
 
-  goToOrderPage() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_sample", { timeout: 20000 }).should("be.visible").click();
-    cy.get("#menu_sample_add_nav", { timeout: 20000 }).click();
-    return new OrderEntityPage();
-  }
+// Helper function to validate order status
+const validateOrderStatus = (dashboardType) => {
+  dashboard = homePage[`goTo${dashboardType}Dashboard`]();
+  dashboard.statusFilter();
+};
 
-  goToBatchOrderEntry() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_sample']").should("exist").click();
-    cy.get("#menu_sample_batch_entry", { timeout: 15000 }).click();
-    return new BatchOrderEntry();
-  }
+describe("Add requester and site details first", function () {
+  it("Navidates to admin", function () {
+    loginAndNavigateToHome();
+    dashboard = homePage.goToAdminPageProgram();
+    dashboard = adminPage.goToProviderManagementPage();
+  });
 
-  // Patient Entry related functions
-  goToPatientEntry() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_patient", { timeout: 20000 }).click();
-    cy.get("#menu_patient_add_or_edit_nav", { timeout: 20000 }).click();
-    return new PatientEntryPage();
-  }
+  it("Adds and saves requester", function () {
+    providerManagementPage.clickAddProviderButton();
+    providerManagementPage.enterProviderLastName();
+    providerManagementPage.enterProviderFirstName();
+    providerManagementPage.clickActiveDropdown();
+    providerManagementPage.addProvider();
+  });
 
-  // Modify Order related functions
-  goToModifyOrderPage() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_sample", { timeout: 20000 }).should("be.visible").click();
-    cy.get("#menu_sample_edit_nav", { timeout: 20000 }).click();
-    return new ModifyOrderPage();
-  }
+  it("Navigate to site/organization Management", function () {
+    dashboard = adminPage.goToOrganizationManagement();
+  });
 
-  // Work Plan related functions
-  goToWorkPlanPlanByTest() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-test']").contains("By Test Type").click();
-    return new WorkPlan();
-  }
+  it("Add site/organization details", function () {
+    orgMgmnt.clickAddOrganization();
+    orgMgmnt.addOrgName();
+    orgMgmnt.addPrefix();
+    orgMgmnt.addParentOrg();
+    orgMgmnt.activateOrganization();
+    orgMgmnt.checkReferringClinic();
+    orgMgmnt.saveOrganization();
+    cy.reload();
+  });
+});
 
-  goToWorkPlanPlanByPanel() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']").should("exist").click();
-    cy.get("[data-cy='menu-panel']").contains("By Panel").click();
-    return new WorkPlan();
-  }
+describe("Dashboard Tests", function () {
+  before("Navigate to homepage", () => {
+    homePage = loginPage.goToHomePage();
+  });
 
-  goToWorkPlanPlanByUnit() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-bench']").contains("By Unit").click();
-    return new WorkPlan();
-  }
+  describe("Pathology Dashboard", function () {
+    before("Navigate to Pathology Dashboard", function () {
+      dashboard = homePage.goToPathologyDashboard();
+      cy.wait(500);
+    });
 
-  goToWorkPlanPlanByPriority() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_workplan']", { timeout: 20000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-priority']").contains("By Priority").click();
-    return new WorkPlan();
-  }
+    it("User adds a new Pathology order", function () {
+      addNewOrder(
+        "Pathology",
+        "Histopathology",
+        "PathologySample",
+        "PathologyPanel",
+      );
+    });
 
-  // Non-Conforming related functions
-  goToReportNCE() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
-      timeout: 20000,
-    })
-      .should("exist")
-      .click();
-    cy.get("#menu_non_conforming_report", { timeout: 20000 }).click();
-    return new NonConform();
-  }
+    //it("Validate Success by Confirming Print Barcode button", function () {
+    // validateSuccessAndPrintBarcode();
+    //});
 
-  goToViewNCE() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
-      timeout: 20000,
-    })
-      .should("exist")
-      .click();
-    cy.get("#menu_non_conforming_view", { timeout: 20000 }).click();
-    return new NonConform();
-  }
+    it("User navigates back to Pathology Dashboard to confirm added order", function () {
+      dashboard = homePage.goToPathologyDashboard();
+    });
 
-  goToCorrectiveActions() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_nonconformity']", {
-      timeout: 20000,
-    })
-      .should("exist")
-      .click();
-    cy.get("#menu_non_conforming_corrective_actions").click();
-    return new NonConform();
-  }
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("Pathology");
+    });
 
-  // Results related functions
-  goToResultsByUnit() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-logbook']").contains("By Unit").click();
-    return new Result();
-  }
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("Pathology");
+    });
+  });
 
-  goToResultsByOrder() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-accession']").contains("By Order").click();
+  // ImmunoChemistry Dashboard Tests
+  describe("ImmunoChemistry Dashboard", function () {
+    before("Navigate to ImmunoChemistry Dashboard", function () {
+      dashboard = homePage.goToImmunoChemistryDashboard();
+      cy.wait(500);
+    });
 
-    return new Result();
-  }
+    it("User adds a new ImmunoChemistry order", function () {
+      addNewOrder(
+        "ImmunoChemistry",
+        "ImmunoChem",
+        "ImmunoChemSample",
+        "ImmunoChemTest",
+      );
+    });
 
-  goToResultsByPatient() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_results']", { timeout: 15000 })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-patient']").contains("By Patient").click();
+    it("Validate Success by Confirming Print Barcode button", function () {
+      validateSuccessAndPrintBarcode();
+    });
 
-    return new Result();
-  }
+    it("User navigates back to ImmunoChemistry Dashboard to confirm added order", function () {
+      homePage.goToImmunoChemistryDashboard();
+    });
 
-  goToResultsForRefferedOut() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-referredOut']").contains("Referred Out").click();
-    return new Result();
-  }
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("ImmunoChemistry");
+    });
 
-  goToResultsByRangeOrder() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-range']")
-      .contains("By Range of Order numbers")
-      .click();
-    return new Result();
-  }
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("ImmunoChemistry");
+    });
+  });
 
-  goToResultsByTestAndStatus() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_results", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-status']")
-      .contains("By Test, Date or Status")
-      .click();
-    return new Result();
-  }
+  // Cytology Dashboard Tests
+  describe("Cytology Dashboard", function () {
+    before("Navigate to Cytology Dashboard", function () {
+      dashboard = homePage.goToCytologyDashboard();
+      cy.wait(500);
+    });
 
-  // Validation related functions
-  goToValidationByRoutine() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    })
-      .should("exist")
-      .click();
-    cy.contains("span", "Routine", { timeout: 15000 }).click();
-    return new Validation();
-  }
+    it("User adds a new Cytology order", function () {
+      addNewOrder("Cytology", "Cytology", "FluidSample", "CovidPanel");
+    });
 
-  goToValidationByOrder() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    })
-      .should("exist")
-      .click();
-    cy.get("#menu_accession_validation").click();
-    return new Validation();
-  }
+    it("Validate Success by Confirming Print Barcode button", function () {
+      validateSuccessAndPrintBarcode();
+    });
 
-  goToValidationByRangeOrder() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-parent-menu_resultvalidation']", {
-      timeout: 15000,
-    })
-      .should("exist")
-      .click();
-    cy.get("[data-cy='menu-range']")
-      .contains("By Range of Order Numbers")
-      .click();
-    return new Validation();
-  }
+    it("User navigates back to Cytology Dashboard to confirm added order", function () {
+      homePage.goToCytologyDashboard();
+    });
 
-  // Reports related functions
-  goToRoutineReports() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_reports", { timeout: 20000 }).click();
-    cy.get("#menu_reports_routine", { timeout: 20000 }).click();
-    return new RoutineReportPage();
-  }
+    it("Change The Status of Order and saves it", function () {
+      changeOrderStatusAndSave("Cytology");
+    });
 
-  goToStudyReports() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_reports", { timeout: 20000 }).click();
-    cy.get("[data-cy='sidenav-button-menu_reports_study']", {
-      timeout: 20000,
-    }).click();
-    return new StudyReportPage();
-  }
-
-  goToReports() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("#menu_reports", { timeout: 15000 }).click();
-  }
-
-  // Dashboard related functions
-  goToPathologyDashboard() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-pathology']", { timeout: 30000 })
-      .contains("Pathology")
-      .click();
-    return new DashBoardPage();
-  }
-
-  goToImmunoChemistryDashboard() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-immunochem']")
-      .contains("Immunohistochemistry")
-      .click();
-    return new DashBoardPage();
-  }
-
-  goToCytologyDashboard() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-cytology']", { timeout: 30000 })
-      .contains("Cytology")
-      .click();
-    return new DashBoardPage();
-  }
-
-  // Admin related functions
-  goToAdminPageProgram() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-administration']", {
-      timeout: 30000,
-    })
-      .should("exist")
-      .click();
-    return new AdminPage();
-  }
-
-  goToAdminPage() {
-    cy.get("[data-cy='menuButton']", { timeout: 30000 }).click();
-    cy.get("[data-cy='menu-administration']", {
-      timeout: 30000,
-    })
-      .should("exist")
-      .click();
-    return new AdminPage();
-  }
-
-  // UI interaction functions
-  afterAll() {
-    cy.get("#minimizeIcon").should("be.visible").click();
-  }
-
-  searchBar() {
-    cy.get("#search-Icon").click();
-    cy.get("#searchItem").type("Smith");
-    cy.get("#patientSearch").click();
-    cy.get("#search-Icon").click();
-  }
-
-  clickNotifications() {
-    cy.get("#notification-Icon").click();
-    cy.get("#notification-Icon").click();
-  }
-
-  clickUserIcon() {
-    cy.get("#user-Icon").click();
-    cy.get("#user-Icon").click();
-  }
-
-  clickHelpIcon() {
-    cy.get("#user-Help").click();
-    cy.get("#user-Help").click();
-  }
-
-  selectInProgress() {
-    cy.get("#maximizeIcon").click();
-  }
-
-  selectReadyforValidation() {
-    cy.contains("a.cds--link", "Ready For Validation").click();
-  }
-
-  selectOrdersCompletedToday() {
-    cy.contains("a.cds--link", "Orders Completed Today").click();
-  }
-
-  selectPartiallyCompletedToday() {
-    cy.contains("a.cds--link", "Partially Completed Today").click();
-  }
-
-  selectOrdersEnteredByUsers() {
-    cy.contains("a.cds--link", "Orders Entered By Users").click();
-  }
-
-  selectOrdersRejected() {
-    cy.contains("a.cds--link", "Orders Rejected").click();
-  }
-
-  selectUnPrintedResults() {
-    cy.contains("a.cds--link", "UnPrinted Results").click();
-  }
-
-  selectElectronicOrders() {
-    cy.contains("a.cds--link", "Electronic Orders").click();
-  }
-
-  selectAverageTurnAroundTime() {
-    cy.contains("a.cds--link", "Average Turn Around time").click();
-  }
-
-  selectDelayedTurnAround() {
-    cy.contains("a.cds--link", "Delayed Turn Around").click();
-  }
-}
-
-export default HomePage;
+    it("Validate the Status of Order", function () {
+      validateOrderStatus("Cytology");
+    });
+  });
+});

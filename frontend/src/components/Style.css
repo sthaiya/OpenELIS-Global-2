@@ -468,12 +468,6 @@ button {
 .reduced-padding-nav-menu-item > a.cds--side-nav__link {
   padding-left: 1rem !important;
 }
-.top-level-menu-item {
-  display: block !important;
-  min-width: 50px !important;
-  position: relative;
-  z-index: 2 !important;
-}
 
 .top-level-menu-item > a {
   pointer-events: auto !important;

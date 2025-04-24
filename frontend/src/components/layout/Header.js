@@ -186,14 +186,8 @@ function OEHeader(props) {
     if (menuItem.menu.isActive) {
       if (level === 0 && menuItem.childMenus.length > 0) {
         return (
-          <span
-            className="top-level-menu-item"
-            id={menuItem.menu.elementId}
-            key={path}
-            data-cy={`menu-parent-${menuItem.menu.elementId}`}
-          >
+          <span id={menuItem.menu.elementId} key={path}>
             <span
-              className="top-level-menu-item"
               id={menuItem.menu.elementId + "_dropdown"}
               onClick={(e) => {
                 setMenuItemExpanded(e, menuItem, path);
@@ -405,12 +399,7 @@ function OEHeader(props) {
   const renderSideNavMenuItemLabel = (menuItem, level) => {
     const fontPercent = 100 - 5 * (level - 1) + "%";
     return (
-      <span
-        className="top-level-menu-item"
-        style={{ fontSize: fontPercent }}
-        data-cy={`menu-${menuItem.menu.displayKey.split(".").pop()}`}
-        //data-cy={`menu-item-${menuItem.menu.displayKey.replace(/\./g, "-")}`}
-      >
+      <span style={{ fontSize: fontPercent }}>
         <FormattedMessage id={menuItem.menu.displayKey} />
       </span>
     );
