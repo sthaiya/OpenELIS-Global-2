@@ -263,11 +263,29 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Determine Docker tag
+        id: determine-tag
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TAG="${GITHUB_REF##*/}"
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF##*/}"
+          else
+            # fallback: use branch or SHA
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
+            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+          fi
+          echo "TAG=${TAG}" >> $GITHUB_ENV
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKER_NAME }}
+          tags: |
+            type=raw,value=${{ env.TAG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -306,11 +324,29 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Determine Docker tag
+        id: determine-tag
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TAG="${GITHUB_REF##*/}"
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF##*/}"
+          else
+            # fallback: use branch or SHA
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
+            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+          fi
+          echo "TAG=${TAG}" >> $GITHUB_ENV    
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKER_NAME }}-frontend
+          tags: |
+            type=raw,value=${{ env.TAG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -349,11 +385,29 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Determine Docker tag
+        id: determine-tag
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TAG="${GITHUB_REF##*/}"
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF##*/}"
+          else
+            # fallback: use branch or SHA
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
+            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+          fi
+          echo "TAG=${TAG}" >> $GITHUB_ENV    
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKER_NAME }}-proxy
+          tags: |
+            type=raw,value=${{ env.TAG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -390,12 +444,30 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+     
+      - name: Determine Docker tag
+        id: determine-tag
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
+          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
+            TAG="${GITHUB_REF##*/}"
+          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            TAG="${GITHUB_REF##*/}"
+          else
+            # fallback: use branch or SHA
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
+            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+          fi
+          echo "TAG=${TAG}" >> $GITHUB_ENV     
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.DOCKER_NAME }}-fhir
+          tags: |
+            type=raw,value=${{ env.TAG }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
