@@ -1,10 +1,21 @@
 name: Build OpenELIS-Global-2 Installer
 on:
-  release:
-    types: [published] 
+  # release:
+  #   types: [published] 
+  workflow_run:
+    workflows: ["OpenELIS Frontend QA framework workflow"]  
+    types:
+      - completed
     
 jobs:
+  run-condition :
+     if: ${{ github.repository == 'DIGI-UW/OpenELIS-Global-2' && github.event.workflow_run.conclusion == 'success' && github.event_name == 'release' && github.event.action == 'published' }}
+     runs-on: ubuntu-latest
+     steps:
+      - run: echo "📦 Building Intaller"
+
   build-installer-and-upload-installer:
+    needs: [run-condition]
     runs-on: ubuntu-latest
     steps:
 

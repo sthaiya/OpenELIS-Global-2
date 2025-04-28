@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Publish Docker Images & Run E2E QA on Images
+name: Publish Docker Images
 
 on:
   # push:
@@ -12,7 +12,7 @@ on:
   #   types: [published]
   # workflow_dispatch:
   workflow_run:
-    workflows: ["OpenELis Frontend QA framework workflow"]  
+    workflows: ["OpenELIS Frontend QA framework workflow"]  
     types:
       - completed
       
