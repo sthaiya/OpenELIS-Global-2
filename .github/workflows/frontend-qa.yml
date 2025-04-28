@@ -1,13 +1,10 @@
 name: OpenELIS Frontend QA framework workflow
 
 on:
-  push:
-    branches: [develop]
   pull_request:
     branches: [develop]
   workflow_dispatch:
-  release:
-    types: [published]
+  workflow_call: 
 
 env:
   DOCKER_NAME: ${{ vars.DOCKERHUB_USERNAME }}/${{ github.event.repository.name }}-frontend
