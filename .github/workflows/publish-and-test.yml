@@ -267,15 +267,13 @@ jobs:
         id: determine-tag
         run: |
           echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            TAG="${GITHUB_REF##*/}"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # If the ref is a tag, use the tag name
             TAG="${GITHUB_REF##*/}"
           else
-            # fallback: use branch or SHA
+            # If the ref is a branch, use the branch name
             BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
-            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+            TAG="${BRANCH_NAME}"
           fi
           echo "TAG=${TAG}" >> $GITHUB_ENV
 
@@ -328,17 +326,15 @@ jobs:
         id: determine-tag
         run: |
           echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            TAG="${GITHUB_REF##*/}"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # If the ref is a tag, use the tag name
             TAG="${GITHUB_REF##*/}"
           else
-            # fallback: use branch or SHA
+            # If the ref is a branch, use the branch name
             BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
-            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+            TAG="${BRANCH_NAME}"
           fi
-          echo "TAG=${TAG}" >> $GITHUB_ENV    
+          echo "TAG=${TAG}" >> $GITHUB_ENV  
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -389,17 +385,15 @@ jobs:
         id: determine-tag
         run: |
           echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            TAG="${GITHUB_REF##*/}"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # If the ref is a tag, use the tag name
             TAG="${GITHUB_REF##*/}"
           else
-            # fallback: use branch or SHA
+            # If the ref is a branch, use the branch name
             BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
-            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+            TAG="${BRANCH_NAME}"
           fi
-          echo "TAG=${TAG}" >> $GITHUB_ENV    
+          echo "TAG=${TAG}" >> $GITHUB_ENV
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -449,17 +443,15 @@ jobs:
         id: determine-tag
         run: |
           echo "GITHUB_REF: $GITHUB_REF"
-          echo "GITHUB_EVENT_NAME: $GITHUB_EVENT_NAME"
-          if [[ "${GITHUB_EVENT_NAME}" == "release" ]]; then
-            TAG="${GITHUB_REF##*/}"
-          elif [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+            # If the ref is a tag, use the tag name
             TAG="${GITHUB_REF##*/}"
           else
-            # fallback: use branch or SHA
+            # If the ref is a branch, use the branch name
             BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | tr '/' '-')
-            TAG="${BRANCH_NAME}-${GITHUB_SHA::8}"
+            TAG="${BRANCH_NAME}"
           fi
-          echo "TAG=${TAG}" >> $GITHUB_ENV     
+          echo "TAG=${TAG}" >> $GITHUB_ENV
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
