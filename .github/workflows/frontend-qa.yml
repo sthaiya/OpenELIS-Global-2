@@ -80,9 +80,18 @@ jobs:
         run: npx cypress run --browser chrome --headless
         working-directory: frontend
 
+      # In case of failure, uncomment this action and turn video: false to true in cypress.config.js
+      # - name: Upload Cypress videos on failure
+      #   if: failure()
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: cypress-videos
+      #     path: frontend/cypress/videos/*.mp4
+
       - name: Dump docker logs on failure
         if: failure()
         uses: jwalton/gh-docker-logs@v2
         with:
-          # Only show last 100 lines of each
+        # Only show last 100 lines of each
           tail: "100"
+          
