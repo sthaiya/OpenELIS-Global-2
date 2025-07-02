@@ -1,11 +1,11 @@
 package org.openelisglobal.sample.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.validator.GenericValidator;
 import org.openelisglobal.analysis.service.AnalysisService;
 import org.openelisglobal.analysis.valueholder.Analysis;
@@ -158,12 +158,12 @@ public class SampleEditServiceImpl implements SampleEditService {
             existingSampleHuman.setProviderId(orderArtifacts.getProvider().getId());
         }
         sampleHumanService.update(existingSampleHuman);
-        
+
 
         for (SampleItem sampleItem : updateSampleItemList) {
             sampleItemService.update(sampleItem);
         }
-        
+
         for (Analysis analysis : rejectAnalysisList) {
             analysisService.update(analysis);
         }
@@ -199,15 +199,15 @@ public class SampleEditServiceImpl implements SampleEditService {
          * paymentObservation.setPatientId(patient.getId());
          * observationDAO.insertOrUpdateData(paymentObservation); }
          */
-        
-        
+
+
         // Check if to reject sample
         Sample thisSample = sampleService.getSampleByAccessionNumber(form.getAccessionNumber());
-        
+
         Set<Integer> excludedAnalysisStatus = new HashSet<>();
         excludedAnalysisStatus.add(Integer.parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.SampleRejected)));
         excludedAnalysisStatus.add(Integer.parseInt(SpringContext.getBean(IStatusService.class).getStatusID(AnalysisStatus.Canceled)));
-        
+
         List<Analysis> allSampleAnalyses = analysisService.getAnalysesBySampleIdExcludedByStatusId(thisSample.getId(), excludedAnalysisStatus);
     	for (Analysis analysis : allSampleAnalyses) {
     		SampleItem sampleItem = analysis.getSampleItem();
@@ -359,7 +359,7 @@ public class SampleEditServiceImpl implements SampleEditService {
                     } else {
                         collectionTime += " " + (GenericValidator.isBlankOrNull(editItem.getCollectionTime()) ? "00:00" : editItem.getCollectionTime());
                         sampleItem.setCollectionDate(DateUtil.convertStringDateToTimestamp(collectionTime));
-                    }   
+                    }
                     if (editItem.isRejected()) {
                     	sampleItem.setRejected(true);
                     	sampleItem.setRejectReasonId(editItem.getRejectReasonId());
@@ -503,12 +503,11 @@ public class SampleEditServiceImpl implements SampleEditService {
 
         return removeAnalysisList;
     }
-    
 
     private List<Analysis> createRejectList(List<SampleEditItem> tests, String sysUserId) {
         List<Analysis> rejectAnalysisList = new ArrayList<>();
 
-        for (SampleEditItem sampleEditItem : tests) {           
+        for (SampleEditItem sampleEditItem : tests) {
             if (sampleEditItem.isRejected()) {
             	Analysis analysis = analysisService.get(sampleEditItem.getAnalysisId());
                 analysis.setSysUserId(sysUserId);

@@ -277,6 +277,7 @@ export const NCECorrectiveAction = () => {
                       value: e.target.value,
                     })
                   }
+                  data-cy="fieldName"
                   id={`field.name`}
                 />
               </Column>
@@ -761,7 +762,7 @@ export const NCECorrectiveAction = () => {
                       id={"dateCompleted"}
                       labelText=""
                       autofillDate={true}
-                      value={data[`dateCompleted`] ?? undefined}
+                      value={log[`dateCompleted`] ?? undefined}
                       onChange={(e) => {}}
                       disabled
                       style={{ marginTop: "5px" }}

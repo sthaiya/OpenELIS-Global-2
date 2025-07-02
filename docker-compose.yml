@@ -38,7 +38,7 @@ services:
             
     oe.openelis.org:
         container_name: openelisglobal-webapp 
-        image: itechuw/openelis-global-2:3.1.0.6   
+        image: itechuw/openelis-global-2:3.2.0.1
         # platform: linux/amd64 
         depends_on:
             - database
@@ -61,6 +61,8 @@ services:
             - ./volume/plugins/:/var/lib/openelis-global/plugins
             - ./volume/tomcat/oe_server.xml:/usr/local/tomcat/conf/server.xml
             -  lucene_index-vol:/var/lib/lucene_index
+            - ./volume/test-map/test-loinc-map.csv:/var/lib/openelis-global/plugin-test-mappings/test-loinc-map.csv
+            - ./volume/properties/SystemConfiguration.properties:/var/lib/openelis-global/properties/SystemConfiguration.properties
             #Runing OpenELIS with the locally compiled war file
             #- ./target/OpenELIS-Global.war:/usr/local/tomcat/webapps/OpenELIS-Global.war
         secrets:
@@ -69,7 +71,7 @@ services:
             
     fhir.openelis.org:
         container_name: external-fhir-api
-        image: itechuw/openelis-global-2-fhir:3.1.0.6 
+        image: itechuw/openelis-global-2-fhir:3.2.0.1
         # platform: linux/amd64
         depends_on:
             - database
@@ -100,7 +102,7 @@ services:
 
          
     frontend.openelis.org:
-        image: itechuw/openelis-global-2-frontend:3.1.0.6 
+        image: itechuw/openelis-global-2-frontend:3.2.0.1
         container_name: openelisglobal-front-end
         # platform: linux/amd64
         networks:
@@ -110,7 +112,7 @@ services:
         tty: true
 
     proxy:
-        image: itechuw/openelis-global-2-proxy:3.1.0.6 
+        image: itechuw/openelis-global-2-proxy:3.2.0.1
         container_name: openelisglobal-proxy
         # platform: linux/amd64
         ports:

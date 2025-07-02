@@ -1,6 +1,10 @@
 package org.openelisglobal.reports.controller.rest;
 
-import com.lowagie.text.DocumentException;
+import com.itextpdf.text.DocumentException;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,16 +18,12 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
+import java.util.LinkedHashMap;
+import jakarta.validation.Valid;
 import net.sf.jasperreports.engine.JRException;
 import org.apache.commons.lang3.StringUtils;
 import org.openelisglobal.analysis.service.AnalysisService;
@@ -163,7 +163,7 @@ public class ReportRestController extends BaseRestController {
     @GetMapping(value = "report/unprinted-results", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResultDisplayForm showUnprintedResults(HttpServletRequest request,
-        @ModelAttribute("form") @Valid ResultRequestForm form, BindingResult result) {
+                                                  @ModelAttribute("form") @Valid ResultRequestForm form, BindingResult result) {
 
         ResultDisplayForm respForm = new ResultDisplayForm();
         Timestamp tsStartDate;
