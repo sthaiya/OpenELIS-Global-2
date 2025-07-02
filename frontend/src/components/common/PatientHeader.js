@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Column, Section, Tag } from "@carbon/react";
 import { FormattedMessage } from "react-intl";
 import Avatar from "react-avatar";
-import GeoPattern from "geopattern";
 
 const PatientHeader = (props) => {
   const {
@@ -23,7 +22,6 @@ const PatientHeader = (props) => {
     isOrderPage = false,
     className = "patient-header",
   } = props;
-  const patternUrl = GeoPattern.generate(id).toDataUri();
   return (
     <Grid fullWidth={true}>
       <Column lg={16} md={8} sm={4}>
@@ -32,7 +30,7 @@ const PatientHeader = (props) => {
             {id ? (
               <div className={className}>
                 <Grid>
-                  <Column lg={4} md={2} sm={2}>
+                  <Column lg={4} md={2} sm={1}>
                     <div
                       className={
                         referringFacility ? "patientAvatar2" : "patientAvatar"
@@ -49,13 +47,13 @@ const PatientHeader = (props) => {
                         size={referringFacility ? "150" : "120"}
                         textSizeRatio={2}
                         style={{
-                          backgroundImage: `url(${patternUrl})`,
+                          backgroundImage: `url('/images/patient-background.svg')`,
                           backgroundRepeat: "round",
                         }}
                       />
                     </div>
                   </Column>
-                  <Column lg={10} md={5} sm={2}>
+                  <Column lg={10} md={5} sm={3}>
                     <div className="patient-name">
                       {patientName ? patientName : lastName + " " + firstName}
                     </div>
@@ -137,7 +135,7 @@ const PatientHeader = (props) => {
             ) : (
               <div className={className}>
                 <Grid>
-                  <Column lg={4} md={2} sm={2}>
+                  <Column lg={4} md={2} sm={1}>
                     <Avatar
                       alt={"Patient avatar"}
                       color="rgba(0,0,0,0)"
@@ -146,7 +144,7 @@ const PatientHeader = (props) => {
                       size={referringFacility ? "150" : "120"}
                       textSizeRatio={2}
                       style={{
-                        backgroundImage: `url(${patternUrl})`,
+                        backgroundImage: `url('/images/patient-background.svg')`,
                         backgroundRepeat: "round",
                       }}
                     />

@@ -1,7 +1,7 @@
 # OpenELIS Global 2
 
 This is the OpenELIS rewrite onto Java Spring, and with all new technology and
-features. Please see our [website](http://www.openelis-global.org/) for more
+features. Please vist our [website](http://www.openelis-global.org/) for more
 information.
 
 You can find more information on how to set up OpenELIS at our
@@ -9,48 +9,63 @@ You can find more information on how to set up OpenELIS at our
 
 ### CI Status
 
-[![Maven Build Status](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/ci.yml/badge.svg)](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/ci.yml)
+[![Maven Build Status](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/ci.yml/badge.svg)](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/ci.yml)
+![Coverage](https://raw.githubusercontent.com/DIGI-UW/OpenELIS-Global-2/refs/heads/gh-pages/badges/jacoco.svg)
 
-[![Publish OpenELIS WebApp Docker Image Status](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/publish-and-test.yml/badge.svg)](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/publish-and-test.yml)
+[![Publish OpenELIS WebApp Docker Image Status](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/publish-and-test.yml/badge.svg)](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/publish-and-test.yml)
 
-[![End to End QA Tests Status](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/frontend-qa.yml/badge.svg)](https://github.com/I-TECH-UW/OpenELIS-Global-2/actions/workflows/frontend-qa.yml)
+[![End to End QA Tests Status](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/frontend-qa.yml/badge.svg)](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/frontend-qa.yml)
 
-### For Implementers who Just want to run OpenELIS without Making any Code Changes
+[![End to End QA Tests Status](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/build-installer.yml/badge.svg)](https://github.com/DIGI-UW/OpenELIS-Global-2/actions/workflows/build-installer.yml)
 
-see [OpenELIS-Docker setup](https://github.com/I-TECH-UW/openelis-docker)
+### For Offline Installation Using the OpenELIS Global2 Installer
 
-### Running OpenELIS in Docker For Devlopers with Intention of Making code Changes
+Download the OpenELIS Global Installer for each Release from the
+[Release Assets](https://github.com/DIGI-UW/OpenELIS-Global-2/releases)
 
-#### Running docker compose With pre-released docker images
+see full
+[installtion instructions](https://docs.openelis-global.org/en/latest/install/)
+for Offline Installation
+
+### For running OpenELIS Global2 in Docker with default Settings out of the Box
+
+see [OpenELIS-Docker setup](https://github.com/DIGI-UW/openelis-docker)
+
+### For Running OpenELIS Global2 from Source Code
+
+#### Running OpenELIS Global2 using docker compose With published docker images on dockerhub
 
     docker-compose up -d
 
-#### Running docker compose with docker images built directly from the source code
+#### Running OpenELIS Global2 using docker compose with docker images built directly from the source code
 
     docker-compose -f build.docker-compose.yml up -d --build
 
-#### Running docker compose With locally compiled/built Artifacts (ie the War file and React code) For Developers
+#### Running OpenELIS Global2 using docker compose With locally compiled/built Artifacts (ie the War file and React code)
 
 1.  Fork the
-    [OpenELIS-Global Repository](https://github.com/I-TECH-UW/OpenELIS-Global-2.git)
+    [OpenELIS-Global Repository](https://github.com/DIGI-UW/OpenELIS-Global-2.git)
     and clone the forked repo. The `username` below is the `username` of your
     Github profile.
 
          git clone https://github.com/username/OpenELIS-Global-2.git
 
-2.  innitialize and build sub modules
+1.  innitialize and build sub modules
 
         cd OpenELIS-Global-2
         git submodule update --init --recursive
         cd dataexport
         mvn clean install -DskipTests
 
-3.  Build the War file
+1.  Navigate to the repository directory:
 
-          cd ..
+         cd OpenELIS-Global-2
+
+1.  Build the War file
+
           mvn clean install -DskipTests
 
-4.  Start the containers to mount the locally compiled artifacts
+1.  Start the containers to mount the locally compiled artifacts
 
         docker-compose -f dev.docker-compose.yml up -d
 
@@ -68,7 +83,7 @@ see [OpenELIS-Docker setup](https://github.com/I-TECH-UW/openelis-docker)
 
         docker-compose -f dev.docker-compose.yml up -d  --no-deps --force-recreate oe.openelis.org
 
-#### The Instaces can be accesed at
+#### The Instances can be accessed at
 
 | Instance     |                   URL                   | credentials (user : password) |
 | ------------ | :-------------------------------------: | ----------------------------: |
@@ -95,3 +110,13 @@ accessing any of these links, simply follow these steps:
     to properly format the Java code
 
         mvn spotless:apply
+
+### Pull request guidelines
+
+Please follow the [pull request tips](PULL_REQUEST_TIPS.md) in order to make
+life easy for the code reviewers by having a well defined and clean pull
+request.
+
+### code of conduct
+
+Please see our [Contributor Code of Conduct](./CODE_OF_CONDUCT.md)

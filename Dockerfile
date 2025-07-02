@@ -32,6 +32,9 @@ RUN --mount=type=cache,target=/root/.m2,sharing=locked \
 RUN --mount=type=cache,target=/root/.m2,sharing=locked \
     mvn clean install -DskipTests
 
+##
+# Build the Project
+#  
 WORKDIR /build
 
 COPY ./pom.xml /build/pom.xml

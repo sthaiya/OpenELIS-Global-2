@@ -53,6 +53,7 @@ const ModifyOrder = () => {
   const [orderFormValues, setOrderFormValues] = useState(ModifyOrderFormValues);
   const [samples, setSamples] = useState([sampleObject]);
   const [errors, setErrors] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     componentMounted.current = true;
@@ -65,7 +66,7 @@ const ModifyOrder = () => {
     accessionNumber = accessionNumber ? accessionNumber : "";
     patientId = patientId ? patientId : "";
     getFromOpenElisServer(
-      "/rest/sample-edit?patientId=" +
+      "/rest/SampleEdit?patientId=" +
         patientId +
         "&accessionNumber=" +
         accessionNumber,
@@ -110,6 +111,7 @@ const ModifyOrder = () => {
   };
 
   const handlePost = (status) => {
+    setIsSubmitting(false);
     if (status === 200) {
       showAlertMessage(
         <FormattedMessage id="save.order.success.msg" />,
@@ -124,6 +126,10 @@ const ModifyOrder = () => {
   };
   const handleSubmitOrderForm = (e) => {
     e.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     setPage(page + 1);
     orderFormValues.sampleOrderItems.modified = true;
     //remove display Lists rom the form
@@ -137,7 +143,7 @@ const ModifyOrder = () => {
     orderFormValues.sampleOrderItems.testLocationCodeList = [];
     console.log(JSON.stringify(orderFormValues));
     postToOpenElisServer(
-      "/rest/sample-edit",
+      "/rest/SampleEdit",
       JSON.stringify(orderFormValues),
       handlePost,
     );
@@ -337,7 +343,9 @@ const ModifyOrder = () => {
                     kind="primary"
                     className="forwardButton"
                     onClick={handleSubmitOrderForm}
-                    disabled={errors?.errors?.length > 0 ? true : false}
+                    disabled={
+                      isSubmitting || errors?.errors?.length > 0 ? true : false
+                    }
                   >
                     <FormattedMessage id="label.button.submit" />
                   </Button>

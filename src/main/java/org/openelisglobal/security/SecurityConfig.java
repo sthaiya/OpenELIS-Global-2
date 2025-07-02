@@ -48,6 +48,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -88,7 +89,7 @@ public class SecurityConfig {
     // TODO should we move these to the properties files?
     // pages that have special security constraints
     public static final String[] OPEN_PAGES = { "/pluginServlet/**", "/ChangePasswordLogin",
-            "/UpdateLoginChangePassword", "/health/**", "/rest/open-configuration-properties" };
+            "/UpdateLoginChangePassword", "/health/**", "/rest/open-configuration-properties", "/docs/UserManual" };
     public static final String[] LOGIN_PAGES = { "/LoginPage", "/ValidateLogin", "/session" };
 
     public static final String[] AUTH_OPEN_PAGES = { "/Home", "/Dashboard", "/Logout", "/MasterListsPage",
@@ -150,6 +151,8 @@ public class SecurityConfig {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
+            http.securityContext(securityContext -> securityContext.requireExplicitSave(false));
             CharacterEncodingFilter filter = new CharacterEncodingFilter();
             filter.setEncoding("UTF-8");
             filter.setForceEncoding(true);
@@ -270,7 +273,8 @@ public class SecurityConfig {
                     .createDefaultAssertionValidator();
             authenticationProvider.setAssertionValidator(validator);
             http.requestMatcher(new SamlRequestedMatcher()).authorizeRequests().anyRequest().authenticated().and()
-                    .saml2Logout().and().saml2Login().authenticationManager(new ProviderManager(authenticationProvider))
+                    .saml2Logout().logoutUrl("/Logout").and().saml2Login()
+                    .authenticationManager(new ProviderManager(authenticationProvider))
                     .failureHandler(customAuthenticationFailureHandler())
                     .successHandler(customAuthenticationSuccessHandler())
                     .relyingPartyRegistrationRepository(relyingPartyRegistrationRepository());
