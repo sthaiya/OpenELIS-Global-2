@@ -67,6 +67,8 @@ public interface SampleDAO extends BaseDAO<Sample, String> {
 
     String getLargestAccessionNumberWithPrefix(String prefix);
 
+    String getLargestAccessionNumberWithSuffix(String suffix);
+
     String getLargestAccessionNumberMatchingPattern(String startingWith, int size) throws LIMSRuntimeException;
 
     List<Sample> getSamplesWithPendingQaEventsByService(String serviceId) throws LIMSRuntimeException;

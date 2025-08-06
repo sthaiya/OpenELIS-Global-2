@@ -549,6 +549,25 @@ public class SampleDAOImpl extends BaseDAOImpl<Sample, String> implements Sample
 
     @Override
     @Transactional(readOnly = true)
+    public String getLargestAccessionNumberWithSuffix(String suffix) throws LIMSRuntimeException {
+        String greatestAccessionNumber = null;
+
+        try {
+            String sql = "select max(s.accessionNumber) from Sample s where s.accessionNumber like :suffix";
+            Query<String> query = entityManager.unwrap(Session.class).createQuery(sql, String.class);
+            query.setParameter("suffix", "%" + suffix);
+            greatestAccessionNumber = query.uniqueResult();
+        } catch (RuntimeException e) {
+            LogEvent.logError(e);
+            throw new LIMSRuntimeException(
+                    "Exception occurred in SampleNumberDAOImpl.getLargestAccessionNumberWithSuffix", e);
+        }
+
+        return greatestAccessionNumber;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public String getLargestAccessionNumberMatchingPattern(String startingWith, int accessionSize)
             throws LIMSRuntimeException {
         String greatestAccessionNumber = null;

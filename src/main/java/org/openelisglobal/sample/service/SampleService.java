@@ -29,6 +29,8 @@ public interface SampleService extends BaseObjectService<Sample, String> {
 
     String getLargestAccessionNumberWithPrefix(String prefix);
 
+    String getLargestAccessionNumberWithSuffix(String suffix);
+
     String getLargestAccessionNumberMatchingPattern(String startingWith, int size);
 
     List<Sample> getSamplesWithPendingQaEventsByService(String serviceId);

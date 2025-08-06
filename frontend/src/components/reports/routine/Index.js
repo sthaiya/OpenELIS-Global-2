@@ -85,6 +85,13 @@ export const RoutineReports = (props) => {
         />
       )}
 
+      {type === "patient" && report === "periodReportByDate" && (
+        <ReportByDate
+          report={"periodReportByDate"}
+          id={"header.label.study.ciexport"}
+        />
+      )}
+
       {type === "patient" && report === "resultDispatch" && (
         <ResultDispatchReport
           report={"resultDispatch"}

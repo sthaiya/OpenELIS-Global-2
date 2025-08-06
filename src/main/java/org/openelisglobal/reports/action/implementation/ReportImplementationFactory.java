@@ -145,6 +145,8 @@ public class ReportImplementationFactory {
                 return new StatisticsReport();
             } else if (report.equals("sampleRejectionReport")) {
                 return new CSVSampleRejectionReport();
+            } else if (report.equals("periodReportByDate")) {
+                return new ExportPeriodByDateReport();
             }
         }
 
@@ -293,6 +295,8 @@ public class ReportImplementationFactory {
                 return new DualInSituHybridizationReport();
             } else if (report.equals("BreastCancerHormoneReceptorReport")) {
                 return new BreastCancerHormoneReceptorReport();
+            } else if (report.equals("periodReportByDate")) {
+                return new ExportPeriodByDateReport();
             }
         }
 

@@ -434,6 +434,12 @@ public class SampleServiceImpl extends AuditableBaseObjectServiceImpl<Sample, St
 
     @Override
     @Transactional(readOnly = true)
+    public String getLargestAccessionNumberWithSuffix(String suffix) {
+        return getBaseObjectDAO().getLargestAccessionNumberWithSuffix(suffix);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public String getLargestAccessionNumberMatchingPattern(String startingWith, int size) {
         return getBaseObjectDAO().getLargestAccessionNumberMatchingPattern(startingWith, size);
     }

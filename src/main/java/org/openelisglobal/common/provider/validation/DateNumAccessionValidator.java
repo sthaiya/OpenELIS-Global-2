@@ -34,7 +34,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     protected SampleService sampleService = SpringContext.getBean(SampleService.class);
 
     private static final boolean NEED_PROGRAM_CODE = false;
-    private static final String DATE_PATTERN = "yyMMdd";
+    private static final String DATE_PATTERN = "ddMMyy";
     private static Set<String> REQUESTED_NUMBERS = new HashSet<>();
     private String incrementStartingValue = "001"; // this value will be changed by the calling validator factory 
     private int acccessionLength = 10;
@@ -43,7 +43,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     
     public DateNumAccessionValidator(int length) {
         this.incrementLength = length;
-        incrementFormat = "%0" + String.valueOf(length) + "d";
+        incrementFormat = "%0" + length + "d";
         incrementStartingValue = String.format(incrementFormat, 1);
         acccessionLength = length + 6;
     }
@@ -65,7 +65,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
             return ValidationResults.LENGTH_FAIL;
 
         if (checkDate) {
-            if (!DateUtil.getCurrentDateAsText(DATE_PATTERN).equals(accessionNumber.substring(0, 6)))
+            if (!DateUtil.getCurrentDateAsText(DATE_PATTERN).equals(accessionNumber.substring(3, 9)))
                 return ValidationResults.FORMAT_FAIL;
         }
 
@@ -90,15 +90,15 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     }
     
     /**
-     * Returns an accession number of format; YYMMDD### e.g. 230405001
+     * Returns an accession number of format; ###DDMMYY e.g. 001050824
      */
     @Override
-    public String getNextAvailableAccessionNumber(String prefix, boolean reserve) {
-        prefix = DateUtil.getCurrentDateAsText(DATE_PATTERN);
+    public String getNextAvailableAccessionNumber(String suffix, boolean reserve) {
+        suffix = DateUtil.getCurrentDateAsText(DATE_PATTERN);
         String nextAccessionNumber;
-        String curLargestAccessionNumber = sampleService.getLargestAccessionNumberWithPrefix(prefix);
+        String curLargestAccessionNumber = sampleService.getLargestAccessionNumberWithSuffix(suffix);
         if (curLargestAccessionNumber == null) {
-            if (!REQUESTED_NUMBERS.isEmpty() && !REQUESTED_NUMBERS.iterator().next().substring(0, 6).equals(prefix)) REQUESTED_NUMBERS.clear();
+            if (!REQUESTED_NUMBERS.isEmpty() && !REQUESTED_NUMBERS.iterator().next().substring(3, 9).equals(suffix)) REQUESTED_NUMBERS.clear();
             nextAccessionNumber = REQUESTED_NUMBERS.isEmpty() ? createFirstAccessionNumber() : REQUESTED_NUMBERS.iterator().next();
         } else
             nextAccessionNumber = incrementAccessionNumber(curLargestAccessionNumber);
@@ -153,7 +153,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     }
 
     @Override
-    public String getPrefix() {
+    public String getPrefix() { // Actually this return getSuffix. Didi not want to add that method
         return DateUtil.getCurrentDateAsText(DATE_PATTERN);
     }
 
@@ -163,11 +163,11 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     }
     
     private String createFirstAccessionNumber() {
-        return getPrefix() + incrementStartingValue;
+        return incrementStartingValue + getPrefix();
     }
     
     private String getFormatPattern() {
-        return DATE_PATTERN + "XXX";
+        return "XXX" + DATE_PATTERN;
     }
 
     private String getFormatExample() {
@@ -175,7 +175,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     }
     
     public String incrementAccessionNumber(String currentHighAccessionNumber) {
-        int nextSeq = Integer.parseInt(currentHighAccessionNumber.substring(currentHighAccessionNumber.length()- incrementLength)) + 1;
+        int nextSeq = Integer.parseInt(currentHighAccessionNumber.substring(0,3)) + 1;
         
         StringBuilder strMaxAccessionNumber = new StringBuilder();
         strMaxAccessionNumber.append("9".repeat(incrementLength));
@@ -183,6 +183,6 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
         if (nextSeq > Integer.parseInt(strMaxAccessionNumber.toString()))
             throw new IllegalArgumentException("AccessionNumber has no next value");
         
-        return currentHighAccessionNumber.substring(0, acccessionLength - incrementLength) + String.format(incrementFormat, nextSeq);
+        return String.format(incrementFormat, nextSeq) + currentHighAccessionNumber.substring(0, acccessionLength - incrementLength);
     }
 }
