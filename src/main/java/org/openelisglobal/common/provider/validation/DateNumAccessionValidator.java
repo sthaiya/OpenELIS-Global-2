@@ -90,7 +90,7 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
     }
     
     /**
-     * Returns an accession number of format; ###DDMMYY e.g. 001050824
+     * Returns an accession number of format; ###DDMMYY e.g. 001050825
      */
     @Override
     public String getNextAvailableAccessionNumber(String suffix, boolean reserve) {
@@ -183,6 +183,6 @@ public class DateNumAccessionValidator implements IAccessionNumberGenerator {
         if (nextSeq > Integer.parseInt(strMaxAccessionNumber.toString()))
             throw new IllegalArgumentException("AccessionNumber has no next value");
         
-        return String.format(incrementFormat, nextSeq) + currentHighAccessionNumber.substring(0, acccessionLength - incrementLength);
+        return String.format(incrementFormat, nextSeq) + currentHighAccessionNumber.substring(incrementLength);
     }
 }
